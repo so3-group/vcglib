@@ -106,6 +106,7 @@ template <class MESH> class AdvancingFront {
 
       for(int i = 0; i < interval; i++) {
         if(!front.size() && !SeedFace()) return;
+        MoveFrontToBestEdge();
         AddFace();
         if(call)
         {
@@ -125,6 +126,13 @@ protected:
   // This function must find a vertex to be added to edge 'e'.
   // return -1 in case of failure
   virtual int Place(FrontEdge &e, ResultIterator &touch) = 0;
+
+  // Update the front so that the best edge to add a face to is at the head of
+  // the front. The default implementation does nothing, meaning that faces are
+  // added to edges in whatever order they appear in the front.
+  virtual void MoveFrontToBestEdge()
+  {
+  }
 
   //create the FrontEdge loops from seed faces
   void CreateLoops()
