@@ -130,9 +130,13 @@ protected:
   // Update the front so that the best edge to add a face to is at the head of
   // the front. The default implementation does nothing, meaning that faces are
   // added to edges in whatever order they appear in the front.
-  virtual void MoveFrontToBestEdge()
-  {
-  }
+  virtual void MoveFrontToBestEdge() {}
+
+  // Called after a new face is added, so that an added vertex can be updated.
+  virtual void OnFaceAdded(
+      __attribute__((unused)) int v0,
+      __attribute__((unused)) int v1,
+      __attribute__((unused)) int v2) {};
 
   //create the FrontEdge loops from seed faces
   void CreateLoops()
@@ -386,6 +390,7 @@ protected:
         (*fi).V(j)->VFi() = j;
       }
     }
+    OnFaceAdded(v0, v1, v2);
   }
 
   void AddVertex(VertexType &vertex) {
