@@ -108,8 +108,8 @@ public:
   template <class ScalarInterpType>
   inline void lerp(const Color4 &c0, const Color4 &c1, const ScalarInterpType x)
   {
-      assert(x>=0);
-      assert(x<=1);
+      vcg_assert(x>=0);
+      vcg_assert(x<=1);
 
       (*this)[0]=(T)(c1.V()[0]*x + c0.V()[0]*(1.0f-x));
       (*this)[1]=(T)(c1.V()[1]*x + c0.V()[1]*(1.0f-x));
@@ -120,7 +120,7 @@ public:
   template <class ScalarInterpType>
   inline void lerp(const Color4 &c0, const Color4 &c1, const Color4 &c2, const Point3<ScalarInterpType> &ip)
   {
-    assert(fabs(ip[0]+ip[1]+ip[2]-1)<0.00001);
+    vcg_assert(fabs(ip[0]+ip[1]+ip[2]-1)<0.00001);
 
     (*this)[0]=(T)(c0[0]*ip[0] + c1[0]*ip[1]+ c2[0]*ip[2]);
     (*this)[1]=(T)(c0[1]*ip[0] + c1[1]*ip[1]+ c2[1]*ip[2]);
@@ -199,7 +199,7 @@ public:
         case 3: r=p; g=q; b=v; break;
         case 4: r=t; g=p; b=v; break;
         case 5: r=v; g=p; b=q; break;
-        default: r=0;g=0;b=0; assert(0);break;
+        default: r=0;g=0;b=0; vcg_assert(0);break;
       }
       (*this)[0]=(unsigned char)(255*r);
       (*this)[1]=(unsigned char)(255*g);

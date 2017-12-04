@@ -106,7 +106,7 @@ bool TsaiMethods::createDataSet(std::list<TsaiCorrelation>* corr,vcg::Shot<doubl
     if(count>=MAX_POINTS) break;
 
   }//all corrs
-        assert(count==corr->size());
+        vcg_assert(count==corr->size());
         cd.point_count = count;
         //qDebug("all points: %i",cd.point_count);
         if(count>0 && count<MAX_POINTS && count>10) my_ret_val = true;

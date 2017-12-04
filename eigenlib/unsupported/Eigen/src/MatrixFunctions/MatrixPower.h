@@ -71,7 +71,7 @@ class MatrixPowerAtomic
 template<typename MatrixType>
 MatrixPowerAtomic<MatrixType>::MatrixPowerAtomic(const MatrixType& T, RealScalar p) :
   m_A(T), m_p(p)
-{ eigen_assert(T.rows() == T.cols()); }
+{ eigen_vcg_assert(T.rows() == T.cols()); }
 
 template<typename MatrixType>
 void MatrixPowerAtomic<MatrixType>::compute(MatrixType& res) const
@@ -152,7 +152,7 @@ void MatrixPowerAtomic<MatrixType>::computeBig(MatrixType& res) const
    * [ 0  0 ]     [  0         0      ]
    */
   for (Index i=0; i < m_A.cols(); ++i)
-    eigen_assert(m_A(i,i) != RealScalar(0));
+    eigen_vcg_assert(m_A(i,i) != RealScalar(0));
 
   while (true) {
     IminusT = MatrixType::Identity(m_A.rows(), m_A.cols()) - T;
@@ -294,7 +294,7 @@ class MatrixPower
      * (or destroyed) before evaluation.
      */
     explicit MatrixPower(const MatrixType& A) : m_A(A), m_conditionNumber(0)
-    { eigen_assert(A.rows() == A.cols()); }
+    { eigen_vcg_assert(A.rows() == A.cols()); }
 
     /**
      * \brief Returns the matrix power.
@@ -415,7 +415,7 @@ template<typename ResultType>
 void MatrixPower<MatrixType>::computeFracPower(ResultType& res, RealScalar p)
 {
   if (p) {
-    eigen_assert(m_conditionNumber);
+    eigen_vcg_assert(m_conditionNumber);
     MatrixPowerAtomic<ComplexMatrix>(m_T, p).compute(m_fT);
     revertSchur(m_tmp, m_fT, m_U);
     res = m_tmp * res;

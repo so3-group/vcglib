@@ -56,8 +56,8 @@ private:
               const int y,
               ObjType *elem)
     {
-        assert((x>=0)&&(x<(int)data.size()));
-        assert((y>=0)&&(y<(int)data[x].size()));
+        vcg_assert((x>=0)&&(x<(int)data.size()));
+        vcg_assert((y>=0)&&(y<(int)data[x].size()));
         data[x][y].push_back(elem);
     }
 

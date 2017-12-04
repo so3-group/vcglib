@@ -58,7 +58,7 @@ First commit...
 #ifndef __VCGLIB_POINT2
 #define __VCGLIB_POINT2
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/math/base.h>
 
 namespace vcg {
@@ -99,22 +99,22 @@ public:
 	}
 	inline ScalarType & V( const int i )
 	{
-		assert(i>=0 && i<2);
+		vcg_assert(i>=0 && i<2);
 		return _v[i];
 	}
 	inline const ScalarType & V( const int i ) const
 	{
-		assert(i>=0 && i<2);
+		vcg_assert(i>=0 && i<2);
 		return _v[i];
 	}
 	inline const ScalarType & operator [] ( const int i ) const
 	{
-		assert(i>=0 && i<2);
+		vcg_assert(i>=0 && i<2);
 		return _v[i];
 	}
 	inline ScalarType & operator [] ( const int i )
 	{
-		assert(i>=0 && i<2);
+		vcg_assert(i>=0 && i<2);
 		return _v[i];
 	}
 //@}

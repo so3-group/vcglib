@@ -59,7 +59,7 @@ void bdcsvd(const MatrixType& a = MatrixType(), bool pickrandom = true)
 
 // verify assert
 template<typename MatrixType> 
-void bdcsvd_verify_assert(const MatrixType& m)
+void bdcsvd_verify_vcg_assert(const MatrixType& m)
 {
   svd_verify_assert< MatrixType, BDCSVD< MatrixType > >(m);
 }// end template bdcsvd_verify_assert
@@ -162,10 +162,10 @@ void test_bdcsvd()
 
 
   // non regression tests
-  CALL_SUBTEST_3(( bdcsvd_verify_assert(Matrix3f()) ));
-  CALL_SUBTEST_4(( bdcsvd_verify_assert(Matrix4d()) ));
-  CALL_SUBTEST_7(( bdcsvd_verify_assert(MatrixXf(10,12)) ));
-  CALL_SUBTEST_8(( bdcsvd_verify_assert(MatrixXcd(7,5)) ));
+  CALL_SUBTEST_3(( bdcsvd_verify_vcg_assert(Matrix3f()) ));
+  CALL_SUBTEST_4(( bdcsvd_verify_vcg_assert(Matrix4d()) ));
+  CALL_SUBTEST_7(( bdcsvd_verify_vcg_assert(MatrixXf(10,12)) ));
+  CALL_SUBTEST_8(( bdcsvd_verify_vcg_assert(MatrixXcd(7,5)) ));
 
   // SUBTESTS 1 and 2 on specifics matrix
   for(int i = 0; i < g_repeat; i++) {

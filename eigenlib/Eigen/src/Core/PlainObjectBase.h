@@ -234,7 +234,7 @@ class PlainObjectBase : public internal::dense_xpr_base<Derived>::type
       */
     EIGEN_STRONG_INLINE void resize(Index nbRows, Index nbCols)
     {
-      eigen_assert(   EIGEN_IMPLIES(RowsAtCompileTime!=Dynamic,nbRows==RowsAtCompileTime)
+      eigen_vcg_assert(   EIGEN_IMPLIES(RowsAtCompileTime!=Dynamic,nbRows==RowsAtCompileTime)
                    && EIGEN_IMPLIES(ColsAtCompileTime!=Dynamic,nbCols==ColsAtCompileTime)
                    && EIGEN_IMPLIES(RowsAtCompileTime==Dynamic && MaxRowsAtCompileTime!=Dynamic,nbRows<=MaxRowsAtCompileTime)
                    && EIGEN_IMPLIES(ColsAtCompileTime==Dynamic && MaxColsAtCompileTime!=Dynamic,nbCols<=MaxColsAtCompileTime)
@@ -265,7 +265,7 @@ class PlainObjectBase : public internal::dense_xpr_base<Derived>::type
     inline void resize(Index size)
     {
       EIGEN_STATIC_ASSERT_VECTOR_ONLY(PlainObjectBase)
-      eigen_assert(((SizeAtCompileTime == Dynamic && (MaxSizeAtCompileTime==Dynamic || size<=MaxSizeAtCompileTime)) || SizeAtCompileTime == size) && size>=0);
+      eigen_vcg_assert(((SizeAtCompileTime == Dynamic && (MaxSizeAtCompileTime==Dynamic || size<=MaxSizeAtCompileTime)) || SizeAtCompileTime == size) && size>=0);
       #ifdef EIGEN_INITIALIZE_COEFFS
         bool size_changed = size != this->size();
       #endif
@@ -319,12 +319,12 @@ class PlainObjectBase : public internal::dense_xpr_base<Derived>::type
       const Index othersize = other.rows()*other.cols();
       if(RowsAtCompileTime == 1)
       {
-        eigen_assert(other.rows() == 1 || other.cols() == 1);
+        eigen_vcg_assert(other.rows() == 1 || other.cols() == 1);
         resize(1, othersize);
       }
       else if(ColsAtCompileTime == 1)
       {
-        eigen_assert(other.rows() == 1 || other.cols() == 1);
+        eigen_vcg_assert(other.rows() == 1 || other.cols() == 1);
         resize(othersize, 1);
       }
       else resize(other.rows(), other.cols());
@@ -431,7 +431,7 @@ class PlainObjectBase : public internal::dense_xpr_base<Derived>::type
     // FIXME is it still needed ?
     /** \internal */
     PlainObjectBase(internal::constructor_without_unaligned_array_assert)
-      : m_storage(internal::constructor_without_unaligned_array_assert())
+      : m_storage(internal::constructor_without_unaligned_array_vcg_assert())
     {
 //       _check_template_params(); EIGEN_INITIALIZE_COEFFS_IF_THAT_OPTION_IS_ENABLED
     }
@@ -569,7 +569,7 @@ class PlainObjectBase : public internal::dense_xpr_base<Derived>::type
     EIGEN_STRONG_INLINE void _resize_to_match(const EigenBase<OtherDerived>& other)
     {
       #ifdef EIGEN_NO_AUTOMATIC_RESIZING
-      eigen_assert((this->size()==0 || (IsVectorAtCompileTime ? (this->size() == other.size())
+      eigen_vcg_assert((this->size()==0 || (IsVectorAtCompileTime ? (this->size() == other.size())
                  : (rows() == other.rows() && cols() == other.cols())))
         && "Size mismatch. Automatic resizing is disabled because EIGEN_NO_AUTOMATIC_RESIZING is defined");
       EIGEN_ONLY_USED_FOR_DEBUG(other);

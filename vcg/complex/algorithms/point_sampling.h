@@ -157,8 +157,8 @@ public:
     sampleVec.push_back(&p);
   }
   // This sampler should be used only for getting vertex pointers. Meaningless in other case.
-  void AddFace(const FaceType &, const CoordType &)   { assert(0); }
-  void AddTextureSample(const FaceType &, const CoordType &, const Point2i &, float ) { assert(0); }
+  void AddFace(const FaceType &, const CoordType &)   { vcg_assert(0); }
+  void AddTextureSample(const FaceType &, const CoordType &, const Point2i &, float ) { vcg_assert(0); }
 }; // end class TrivialSampler
 
 
@@ -397,7 +397,7 @@ public:
   // and retrieve the closest point on the source mesh.
   void AddVert(VertexType &p)
   {
-    assert(m);
+    vcg_assert(m);
     // the results
     CoordType       closestPt,      normf, bestq, ip;
     ScalarType dist = dist_upper_bound;
@@ -516,7 +516,7 @@ static double LnFac(int n) {
 
    if (n < FAK_LEN) {
       if (n <= 1) {
-         if (n < 0) assert(0);//("Parameter negative in LnFac function");
+         if (n < 0) vcg_assert(0);//("Parameter negative in LnFac function");
          return 0;
       }
       if (!initialized) {              // first time. Must initialize table
@@ -701,7 +701,7 @@ static void	FillAndShuffleFacePointerVector(MeshType & m, std::vector<FacePointe
     for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
         if(!(*fi).IsD())	faceVec.push_back(&*fi);
 
-    assert((int)faceVec.size()==m.fn);
+    vcg_assert((int)faceVec.size()==m.fn);
 
     unsigned int (*p_myrandom)(unsigned int) = RandomInt;
     std::random_shuffle(faceVec.begin(),faceVec.end(), p_myrandom);
@@ -711,7 +711,7 @@ static void	FillAndShuffleVertexPointerVector(MeshType & m, std::vector<VertexPo
     for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
                 if(!(*vi).IsD())	vertVec.push_back(&*vi);
 
-    assert((int)vertVec.size()==m.vn);
+    vcg_assert((int)vertVec.size()==m.vn);
 
     unsigned int (*p_myrandom)(unsigned int) = RandomInt;
     std::random_shuffle(vertVec.begin(),vertVec.end(), p_myrandom);
@@ -819,7 +819,7 @@ static void EdgeMeshUniform(MeshType &m, VertexSampler &ps, float radius, bool c
 			do
 			{
 				ep.NextE();
-				assert(ep.E()->IsV());
+				vcg_assert(ep.E()->IsV());
 				ScalarType edgeLen = Distance(ep.V()->cP(), ep.VFlip()->cP());
 				ScalarType d0      = curLen;
 				ScalarType d1      = d0 + edgeLen;
@@ -1064,7 +1064,7 @@ static void EdgeMontecarlo(MeshType & m, VertexSampler &ps, int sampleNum, bool 
   std::vector< SimpleEdge > Edges;
   UpdateTopology<MeshType>::FillUniqueEdgeVector(m,Edges,sampleAllEdges);
 
-  assert(!Edges.empty());
+  vcg_assert(!Edges.empty());
 
   typedef  std::pair<ScalarType, SimpleEdge*> IntervalType;
   std::vector< IntervalType > intervals (Edges.size()+1);
@@ -1086,8 +1086,8 @@ static void EdgeMontecarlo(MeshType & m, VertexSampler &ps, int sampleNum, bool 
     // lower_bound returns the furthermost iterator i in [first, last) such that, for every iterator j in [first, i), *j < value.
     // E.g. An iterator pointing to the first element "not less than" val, or end() if every element is less than val.
     typename std::vector<IntervalType>::iterator it = lower_bound(intervals.begin(),intervals.end(),std::make_pair(val,(SimpleEdge*)(0)) );
-    assert(it != intervals.end() && it != intervals.begin());
-    assert( ( (*(it-1)).first < val ) && ((*(it)).first >= val) );
+    vcg_assert(it != intervals.end() && it != intervals.begin());
+    vcg_assert( ( (*(it-1)).first < val ) && ((*(it)).first >= val) );
     SimpleEdge * ep=(*it).second;
     ps.AddFace( *(ep->f), ep->EdgeBarycentricToFaceBarycentric(RandomDouble01()) );
   }
@@ -1120,10 +1120,10 @@ static void Montecarlo(MeshType & m, VertexSampler &ps,int sampleNum)
             // lower_bound returns the furthermost iterator i in [first, last) such that, for every iterator j in [first, i), *j < value.
             // E.g. An iterator pointing to the first element "not less than" val, or end() if every element is less than val.
             typename std::vector<IntervalType>::iterator it = lower_bound(intervals.begin(),intervals.end(),std::make_pair(val,FacePointer(0)) );
-            assert(it != intervals.end());
-            assert(it != intervals.begin());
-            assert( (*(it-1)).first <val );
-            assert( (*(it)).first >= val);
+            vcg_assert(it != intervals.end());
+            vcg_assert(it != intervals.begin());
+            vcg_assert( (*(it-1)).first <val );
+            vcg_assert( (*(it)).first >= val);
             ps.AddFace( *(*it).second, RandomBarycentric() );
         }
 }
@@ -1194,8 +1194,8 @@ static int SingleFaceSubdivision(int sampleNum, const CoordType & v0, const Coor
 
     int s0 = sampleNum /2;
     int s1 = sampleNum-s0;
-    assert(s0>0);
-    assert(s1>0);
+    vcg_assert(s0>0);
+    vcg_assert(s1>0);
 
     ScalarType w0 = ScalarType(s1)/ScalarType(sampleNum);
     ScalarType w1 = 1.0-w0;
@@ -1285,8 +1285,8 @@ static int SingleFaceSubdivisionOld(int sampleNum, const CoordType & v0, const C
 
     int s0 = sampleNum /2;
     int s1 = sampleNum-s0;
-    assert(s0>0);
-    assert(s1>0);
+    vcg_assert(s0>0);
+    vcg_assert(s1>0);
 
     ScalarType w0 = ScalarType(s1)/ScalarType(sampleNum);
     ScalarType w1 = 1.0-w0;
@@ -1769,7 +1769,7 @@ static void InitSpatialHashTable(MeshType &montecarloMesh, MontecarloSHT &montec
   {
     // inflating
     BoxType bb=montecarloMesh.bbox;
-    assert(!bb.IsNull());
+    vcg_assert(!bb.IsNull());
     bb.Offset(cellsize);
 
     int sizeX = std::max(1,int(bb.DimX() / cellsize));

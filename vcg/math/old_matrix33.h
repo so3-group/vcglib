@@ -141,7 +141,7 @@ public:
 											Point3<Scalar> &bp, Point3<Scalar> &bx)
 	{
 		setZero();
-		assert(P.size()==X.size());
+		vcg_assert(P.size()==X.size());
 		bx.setZero();
 		bp.setZero();
 		Matrix33<Scalar> tmp;
@@ -167,7 +167,7 @@ public:
 								Point3<Scalar> &bx)
 	{
 		setZero();
-		assert(P.size()==X.size());
+		vcg_assert(P.size()==X.size());
 		bx.SetZero();
 		bp.SetZero();
 		Matrix33<Scalar> tmp;

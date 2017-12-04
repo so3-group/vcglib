@@ -29,7 +29,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/space/color4.h>
 #include <wrap/callback.h>
 #include <wrap/io_trimesh/io_mask.h>

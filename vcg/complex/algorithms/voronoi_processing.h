@@ -168,7 +168,7 @@ static void ComputePerVertexSources(MeshType &m, std::vector<VertexType *> &seed
   tri::Allocator<MeshType>::DeletePerFaceAttribute(m,"sources"); // delete any conflicting handle regardless of the type...
   tri::Allocator<MeshType>::template AddPerFaceAttribute<VertexPointer> (m,"sources");
 
-  assert(tri::Allocator<MeshType>::IsValidHandle(m,vertexSources));
+  vcg_assert(tri::Allocator<MeshType>::IsValidHandle(m,vertexSources));
 
   tri::Geodesic<MeshType>::Compute(m,seedVec,df,std::numeric_limits<ScalarType>::max(),0,&vertexSources);
 }
@@ -176,7 +176,7 @@ static void ComputePerVertexSources(MeshType &m, std::vector<VertexType *> &seed
 static void VoronoiColoring(MeshType &m, bool frontierFlag=true)
 {
   PerVertexPointerHandle sources =  tri::Allocator<MeshType>:: template GetPerVertexAttribute<VertexPointer> (m,"sources");
-  assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
+  vcg_assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
 
   if(frontierFlag)
   {
@@ -273,7 +273,7 @@ static void FaceAssociateRegion(MeshType &m)
 static int FaceSelectAssociateRegion(MeshType &m, VertexPointer vp)
 {
   PerFacePointerHandle sources =  tri::Allocator<MeshType>:: template FindPerFaceAttribute<VertexPointer> (m,"sources");
-  assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
+  vcg_assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
   tri::UpdateSelection<MeshType>::Clear(m);
   int selCnt=0;
   for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
@@ -295,7 +295,7 @@ static int FaceSelectAssociateRegion(MeshType &m, VertexPointer vp)
 static int FaceSelectRegion(MeshType &m, VertexPointer vp)
 {
   PerVertexPointerHandle sources =  tri::Allocator<MeshType>:: template GetPerVertexAttribute<VertexPointer> (m,"sources");
-  assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
+  vcg_assert(tri::Allocator<MeshType>::IsValidHandle(m,sources));
   tri::UpdateSelection<MeshType>::Clear(m);
   int selCnt=0;
   for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
@@ -338,7 +338,7 @@ static void GetAreaAndFrontier(MeshType &m, PerVertexPointerHandle &sources,
     VertexPointer s0 = sources[(*fi).V(0)];
     VertexPointer s1 = sources[(*fi).V(1)];
     VertexPointer s2 = sources[(*fi).V(2)];
-    assert(s0 && s1 && s2);
+    vcg_assert(s0 && s1 && s2);
     if((s0 != s1) || (s0 != s2) )
     {
       for(int i=0;i<3;++i)
@@ -377,7 +377,7 @@ static void GetFaceCornerVec(MeshType &m, PerVertexPointerHandle &sources,
     VertexPointer s0 = sources[(*fi).V(0)];
     VertexPointer s1 = sources[(*fi).V(1)];
     VertexPointer s2 = sources[(*fi).V(2)];
-    assert(s0 && s1 && s2);
+    vcg_assert(s0 && s1 && s2);
     if(s1!=s2 && s0!=s1 && s0!=s2) {
         cornerVec.push_back(&*fi);
       }
@@ -402,15 +402,15 @@ static bool isBorderCorner(FaceType *f, typename MeshType::template PerVertexAtt
 // Given two supposedly adjacent border corner faces it finds the source common to them;
 static VertexPointer CommonSourceBetweenBorderCorner(FacePointer f0, FacePointer f1,  typename MeshType::template PerVertexAttributeHandle<VertexPointer> &sources)
 {
-  assert(isBorderCorner(f0,sources));
-  assert(isBorderCorner(f1,sources));
+  vcg_assert(isBorderCorner(f0,sources));
+  vcg_assert(isBorderCorner(f1,sources));
   int b0 =-1,b1=-1;
   for(int i=0;i<3;++i)
   {
     if(face::IsBorder(*f0,i)) b0=i;
     if(face::IsBorder(*f1,i)) b1=i;
   }
-  assert(b0!=-1 && b1!=-1);
+  vcg_assert(b0!=-1 && b1!=-1);
 
   if( (sources[f0->V0(b0)] == sources[f1->V0(b1)]) || (sources[f0->V0(b0)] == sources[f1->V1(b1)]) )
     return sources[f0->V0(b0)];
@@ -418,7 +418,7 @@ static VertexPointer CommonSourceBetweenBorderCorner(FacePointer f0, FacePointer
   if( (sources[f0->V1(b0)] == sources[f1->V0(b1)]) || (sources[f0->V1(b0)] == sources[f1->V1(b1)]) )
     return sources[f0->V1(b0)];
 
-  assert(0);
+  vcg_assert(0);
   return 0;
 }
 
@@ -548,7 +548,7 @@ static void ConvertVoronoiDiagramToMesh(MeshType &m,
   {
     size_t e0 = tri::Index(outMesh,EdgeVec[i].v[0]);
     size_t e1 = tri::Index(outMesh,EdgeVec[i].v[1]);
-    assert(e0<outPoly.vert.size());
+    vcg_assert(e0<outPoly.vert.size());
     tri::Allocator<MeshType>::AddEdge(outPoly,&(outPoly.vert[e0]),&(outPoly.vert[e1]));
   }
 
@@ -586,10 +586,10 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
   // Consistency Checks
   for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
   {
-    assert(sources[vi] != 0);  // all vertices mush have a source must be seeds.
+    vcg_assert(sources[vi] != 0);  // all vertices mush have a source must be seeds.
     int ind=tri::Index(m,sources[vi]);
-    assert((ind>=0) && (ind<m.vn)); // the source must be a vertex of the mesh
-    assert(seedMap[sources[vi]]!=-1); // the source must be one of the seedVec
+    vcg_assert((ind>=0) && (ind<m.vn)); // the source must be a vertex of the mesh
+    vcg_assert(seedMap[sources[vi]]!=-1); // the source must be one of the seedVec
   }
 
   std::vector<FacePointer> innerCornerVec,   // Faces adjacent to three different regions
@@ -633,9 +633,9 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
     {
       VertexPointer v0 = sources[innerCornerVec[i]->V0(j)];
       VertexPointer v1 = sources[innerCornerVec[i]->V1(j)];
-      assert(seedMap[v0]>=0);assert(seedMap[v1]>=0);
+      vcg_assert(seedMap[v0]>=0);vcg_assert(seedMap[v1]>=0);
 
-      if(v1<v0) std::swap(v0,v1); assert(v1!=v0);
+      if(v1<v0) std::swap(v0,v1); vcg_assert(v1!=v0);
 
       if(VoronoiEdge[std::make_pair(v0,v1)] == 0)
         VoronoiEdge[std::make_pair(v0,v1)] = innerCornerVec[i];
@@ -658,7 +658,7 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
     VertexPointer s0 = sources[borderCornerVec[i]->V(0)]; // All bordercorner faces have only two different regions
     VertexPointer s1 = sources[borderCornerVec[i]->V(1)];
     if(s1==s0)    s1 = sources[borderCornerVec[i]->V(2)];
-    if(s1<s0) std::swap(s0,s1); assert(s1!=s0);
+    if(s1<s0) std::swap(s0,s1); vcg_assert(s1!=s0);
 
     FacePointer innerCorner = VoronoiEdge[std::make_pair(s0,s1)] ;
     if(innerCorner)
@@ -689,7 +689,7 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
           }
       }
     if(AllFaceVisited) break;
-    assert(pos.IsBorder());
+    vcg_assert(pos.IsBorder());
     startPos=pos;
     bool foundBorderSeed=false;
     FacePointer curBorderCorner = pos.F();
@@ -699,7 +699,7 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
       pos.NextB();
       if(sources[pos.V()]==pos.V())
         foundBorderSeed=true;
-      assert(isBorderCorner(curBorderCorner,sources));
+      vcg_assert(isBorderCorner(curBorderCorner,sources));
       if(isBorderCorner(pos.F(),sources))
         if(pos.F() != curBorderCorner)
         {
@@ -723,7 +723,7 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
   bool oriented,orientable;
   tri::UpdateTopology<MeshType>::FaceFace(outMesh);
   tri::Clean<MeshType>::OrientCoherentlyMesh(outMesh,oriented,orientable);
-//  assert(orientable);
+//  vcg_assert(orientable);
   // check that the normal of the input mesh are consistent with the result
   tri::UpdateNormal<MeshType>::PerVertexNormalizedPerFaceNormalized(outMesh);
   tri::UpdateNormal<MeshType>::PerVertexNormalizedPerFaceNormalized(m);
@@ -814,7 +814,7 @@ static void ConvertVoronoiDiagramToMeshOld(MeshType &m,
   {
     size_t e0 = tri::Index(outMesh,EdgeVec[i].v[0]);
     size_t e1 = tri::Index(outMesh,EdgeVec[i].v[1]);
-    assert(e0<outPoly.vert.size());
+    vcg_assert(e0<outPoly.vert.size());
     tri::Allocator<MeshType>::AddEdge(outPoly,&(outPoly.vert[e0]),&(outPoly.vert[e1]));
   }
 }
@@ -848,7 +848,7 @@ static void BuildVoronoiEdgeVec(MeshType &m, std::vector<VoronoiEdge> &edgeVec)
     {
       VertexPointer v0 = sources[cornerVec[i]->V0(j)];
       VertexPointer v1 = sources[cornerVec[i]->V1(j)];
-      assert(v0!=v1);
+      vcg_assert(v0!=v1);
       if(v0>v1) std::swap(v1,v0);
       std::pair<VertexPointer,VertexPointer> adjRegion = std::make_pair(v0,v1);
       if(EdgeMap[adjRegion].first==0)
@@ -862,7 +862,7 @@ static void BuildVoronoiEdgeVec(MeshType &m, std::vector<VoronoiEdge> &edgeVec)
     VertexPointer v0 = sources[borderCornerVec[i]->V(0)];
     VertexPointer v1 = sources[borderCornerVec[i]->V(1)];
     if(v0==v1) v1 = sources[borderCornerVec[i]->V(2)];
-    assert(v0!=v1);
+    vcg_assert(v0!=v1);
     if(v0>v1) std::swap(v1,v0);
     std::pair<VertexPointer,VertexPointer> adjRegion = std::make_pair(v0,v1);
     if(EdgeMap[adjRegion].first==0)
@@ -876,7 +876,7 @@ static void BuildVoronoiEdgeVec(MeshType &m, std::vector<VoronoiEdge> &edgeVec)
   {
     if((*mi).second.first && (*mi).second.second)
     {
-      assert((*mi).first.first && (*mi).first.second);
+      vcg_assert((*mi).first.first && (*mi).first.second);
     edgeVec.push_back(VoronoiEdge());
     edgeVec.back().r0 = (*mi).first.first;
     edgeVec.back().r1 = (*mi).first.second;
@@ -899,7 +899,7 @@ static void BuildBiasedSeedVec(MeshType &m,
   {
     for(size_t i=0;i<frontierVec.size();++i)
       biasedFrontierVec.push_back(VertDist(frontierVec[i],0));
-    assert(biasedFrontierVec.size() == frontierVec.size());
+    vcg_assert(biasedFrontierVec.size() == frontierVec.size());
     return;
   }
 
@@ -949,7 +949,7 @@ static void BuildBiasedSeedVec(MeshType &m,
         if(s0>s1) std::swap(s0,s1);
         VoronoiEdge *ve = SeedPairToEdgeMap[std::make_pair(s0,s1)];
         if(!ve) printf("v %i %i \n",(int)tri::Index(m,s0),(int)tri::Index(m,s1));
-        assert(ve);
+        vcg_assert(ve);
         float el = ve->Len();
         weight[(*fi).V0(i)] += (regionPerymeter[s0]+biasSum)/(el+biasSum) ;
         weight[(*fi).V1(i)] += (regionPerymeter[s1]+biasSum)/(el+biasSum) ;
@@ -1002,7 +1002,7 @@ struct QuadricSumDistance
   void AddPoint(CoordType p)
   {
     a+=1;
-    assert(c>=0);
+    vcg_assert(c>=0);
     c+=p*p;
     b[0]+= -2.0f*p[0];
     b[1]+= -2.0f*p[1];
@@ -1012,7 +1012,7 @@ struct QuadricSumDistance
   ScalarType Eval(CoordType p) const
   {
     ScalarType d = a*(p*p) + b*p + c;
-    assert(d>=0);
+    vcg_assert(d>=0);
     return d;
   }
 
@@ -1050,7 +1050,7 @@ static bool QuadricRelax(MeshType &m, std::vector<VertexType *> &seedVec,
   std::vector<QuadricSumDistance> dVec(m.vert.size(),dz);
   for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
   {
-    assert(sources[vi]!=0);
+    vcg_assert(sources[vi]!=0);
     int seedIndex = tri::Index(m,sources[vi]);
     // When constraining seeds movement we move selected seeds only onto other selected vertices
     if(vpp.constrainSelectedSeed)
@@ -1067,7 +1067,7 @@ static bool QuadricRelax(MeshType &m, std::vector<VertexType *> &seedVec,
   std::vector< std::pair<float,VertexPointer> > seedMaximaVec(m.vert.size(),zz);
   for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
   {
-    assert(sources[vi]!=0);
+    vcg_assert(sources[vi]!=0);
     int seedIndex = tri::Index(m,sources[vi]);
     ScalarType val = dVec[seedIndex].Eval(vi->P());
     vi->Q()=val;
@@ -1138,7 +1138,7 @@ static bool GeodesicRelax(MeshType &m, std::vector<VertexType *> &seedVec, std::
   std::vector< std::pair<float,VertexPointer> > seedMaximaVec(m.vert.size(),zz);
   for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
   {
-    assert(sources[vi]!=0);
+    vcg_assert(sources[vi]!=0);
     int seedIndex = tri::Index(m,sources[vi]);
 
     if(!vpp.constrainSelectedSeed || !sources[vi]->IsS() || vi->IsS())
@@ -1224,7 +1224,7 @@ static int RestrictedVoronoiRelaxing(MeshType &m, std::vector<CoordType> &seedPo
       area[fi->V(i)]+=a3;
   }
 
-  assert(m.vn > (int)seedPosVec.size()*20);
+  vcg_assert(m.vn > (int)seedPosVec.size()*20);
   int i;
   ScalarType perturb = m.bbox.Diag()*vpp.seedPerturbationAmount;
   for(i=0;i<relaxStep;++i)
@@ -1287,7 +1287,7 @@ static int VoronoiRelaxing(MeshType &m, std::vector<VertexType *> &seedVec,
   tri::RequireVFAdjacency(m);
   tri::RequireCompactness(m);
   for(VertexIterator vi=m.vert.begin();vi!=m.vert.end();++vi)
-    assert(vi->VFp() && "Require mesh without unreferenced vertexes\n");
+    vcg_assert(vi->VFp() && "Require mesh without unreferenced vertexes\n");
   std::vector<VertexType *> selectedVec;
   if(vpp.relaxOnlyConstrainedFlag)
   {
@@ -1319,7 +1319,7 @@ static int VoronoiRelaxing(MeshType &m, std::vector<VertexType *> &seedVec,
     std::vector<VertexPointer> frontierVec;
 
     GetAreaAndFrontier(m, sources,  regionArea, frontierVec);
-    assert(frontierVec.size()>0);
+    vcg_assert(frontierVec.size()>0);
 
     if(vpp.colorStrategy == VoronoiProcessingParameter::RegionArea) VoronoiAreaColoring(m, seedVec, regionArea);
 
@@ -1334,7 +1334,7 @@ static int VoronoiRelaxing(MeshType &m, std::vector<VertexType *> &seedVec,
     else
       changed = QuadricRelax(m,seedVec,frontierVec, newSeedVec, df,vpp);
 
-    //assert(newSeedVec.size() == seedVec.size());
+    //vcg_assert(newSeedVec.size() == seedVec.size());
     PruneSeedByRegionArea(newSeedVec,regionArea,vpp);
 
     for(size_t i=0;i<frontierVec.size();++i)
@@ -1510,7 +1510,7 @@ static bool CheckVoronoiTopology(MeshType& m,std::vector<VertexType *> &seedVec)
     int vi0 = seedMap[sources[m.face[i].V(0)]];
     int vi1 = seedMap[sources[m.face[i].V(1)]];
     int vi2 = seedMap[sources[m.face[i].V(2)]];
-    assert(vi0>=0 && vi1>=0 && vi2>=0);
+    vcg_assert(vi0>=0 && vi1>=0 && vi2>=0);
     tri::Allocator<MeshType>::AddFace(*regionVec[vi0], m.face[i].cP(0),m.face[i].cP(1),m.face[i].cP(2));
 
     if(vi1 != vi0)
@@ -1578,7 +1578,7 @@ static void BuildSeedMap(MeshType &m, std::vector<VertexType *> &seedVec,  std::
   for(size_t i=0;i<seedVec.size();++i)
     seedMap[seedVec[i]]=i;
   for(size_t i=0;i<seedVec.size();++i)
-    assert(tri::Index(m,seedVec[i])>=0 && tri::Index(m,seedVec[i])<size_t(m.vn));
+    vcg_assert(tri::Index(m,seedVec[i])>=0 && tri::Index(m,seedVec[i])<size_t(m.vn));
 }
 
 /// \brief Build a mesh of the Delaunay triangulation induced by the given seeds
@@ -1755,7 +1755,7 @@ static void RelaxRefineTriangulationSpring(MeshType &m, MeshType &delaMesh, int 
           CoordType closest;
           float dist;
           tri::GetClosestFaceBase(m,ug,delaMesh.vert[i].cP(), maxDist,dist,closest);
-          assert(dist!=maxDist);
+          vcg_assert(dist!=maxDist);
           if(Distance(closest,delaMesh.vert[i].P()) > avgLenVec[i]*convergenceThr) changed = true;
           delaMesh.vert[i].P()=closest;
         }
@@ -1796,7 +1796,7 @@ static void RelaxRefineTriangulationLaplacian(MeshType &m, MeshType &delaMesh, i
         delaMesh.vert[i].SetS();
         CoordType closest;
         tri::GetClosestFaceBase(m,ug,delaMesh.vert[i].cP(), maxDist,dist,closest);
-        assert(dist!=maxDist);
+        vcg_assert(dist!=maxDist);
         delaMesh.vert[i].P()= (delaMesh.vert[i].P()+closest)/2.0f;
       }
       tri::Smooth<MeshType>::VertexCoordLaplacianBlend(delaMesh,1,0.2f,true);

@@ -109,7 +109,7 @@ public :
 	 */
 	static ScalarType Real(unsigned l, int m, ScalarType theta, ScalarType phi)
 	{
-		assert((int)-l <= m && m <= (int)l && theta >= 0.0 && theta <= (ScalarType)M_PI && phi >= 0.0 && phi <= (ScalarType)(2.0 * M_PI));
+		vcg_assert((int)-l <= m && m <= (int)l && theta >= 0.0 && theta <= (ScalarType)M_PI && phi >= 0.0 && phi <= (ScalarType)(2.0 * M_PI));
 
 		if (m > 0) return SQRT_TWO * complex_spherical_harmonic_re(l, m, theta, phi);
 

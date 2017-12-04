@@ -100,7 +100,7 @@ static void VertexCoordLaplacianAngleWeighted(MeshType &m, int step, ScalarType 
             a[0]=AngleN(-e0,e2);
             a[1]=AngleN(-e1,e0);
             a[2]=AngleN(-e2,e1);
-            //assert(fabs(M_PI -a[0] -a[1] -a[2])<0.0000001);
+            //vcg_assert(fabs(M_PI -a[0] -a[1] -a[2])<0.0000001);
 
             for(int j=0;j<3;++j){
                         CoordType dir= (mp-(*fi).V(j)->P()).Normalize();
@@ -1218,7 +1218,7 @@ static void VertexCoordPasoDoble(MeshType &m, int NormalSmoothStep, typename Mes
   lpzv.np=CoordType(0,0,0);
   PDFaceInfo lpzf(CoordType(0,0,0));
 
-  assert(HasPerVertexVFAdjacency(m) && HasPerFaceVFAdjacency(m));
+  vcg_assert(HasPerVertexVFAdjacency(m) && HasPerFaceVFAdjacency(m));
   SimpleTempData< typename MeshType::VertContainer, PDVertInfo> TDV(m.vert,lpzv);
   SimpleTempData< typename MeshType::FaceContainer, PDFaceInfo> TDF(m.face,lpzf);
 
@@ -1282,7 +1282,7 @@ static void VertexCoordLaplacianReproject(MeshType& m, GRID& grid, MeshTypeTri& 
 template<class GRID, class MeshTypeTri>
 static void VertexCoordLaplacianReproject(MeshType& m, GRID& grid, MeshTypeTri& gridmesh, typename MeshType::VertexType* vp)
 {
-    assert(MeshType::HEdgeType::HasHVAdjacency());
+    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
 
     // compute barycenter
     typedef std::vector<VertexPointer> VertexSet;
@@ -1310,7 +1310,7 @@ static void VertexCoordLaplacianReproject(MeshType& m, GRID& grid, MeshTypeTri& 
         {
             vector<VertexPointer> vertices = HalfEdgeTopology<MeshType>::getVertices(faces2[i]);
 
-            assert(vertices.size() == 4);
+            vcg_assert(vertices.size() == 4);
 
             avgn += vcg::Normal<typename MeshType::CoordType>(vertices[0]->cP(), vertices[1]->cP(), vertices[2]->cP());
             avgn += vcg::Normal<typename MeshType::CoordType>(vertices[2]->cP(), vertices[3]->cP(), vertices[0]->cP());

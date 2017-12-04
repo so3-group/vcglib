@@ -65,7 +65,7 @@ void GLArea::initializeGL()
 	glEnable(GL_DEPTH_TEST);
 
     GLenum err = glGetError();
-    assert(err == GL_NO_ERROR);
+    vcg_assert(err == GL_NO_ERROR);
     doneCurrent();
 }
 
@@ -118,7 +118,7 @@ void GLArea::paintGL ()
 	glPopAttrib();
     
 	GLenum err = glGetError();
-	assert(err == GL_NO_ERROR);
+	vcg_assert(err == GL_NO_ERROR);
 }
 
 void GLArea::keyReleaseEvent (QKeyEvent * e)

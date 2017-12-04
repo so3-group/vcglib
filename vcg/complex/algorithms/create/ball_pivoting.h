@@ -71,7 +71,7 @@ template <class MESH> class BallPivoting: public AdvancingFront<MESH> {
 
     baricenter /= this->mesh.vn;
 
-        assert(this->mesh.vn > 3);
+        vcg_assert(this->mesh.vn > 3);
     if(radius == 0) // radius ==0 means that an auto guess should be attempted.
       radius = sqrt((this->mesh.bbox.Diag()*this->mesh.bbox.Diag())/this->mesh.vn);
 
@@ -229,7 +229,7 @@ template <class MESH> class BallPivoting: public AdvancingFront<MESH> {
     Point3x center;
 
     if(!FindSphere(v0, v1, v2, center)) {
-//      assert(0);
+//      vcg_assert(0);
       return -1;
     }
 
@@ -262,8 +262,8 @@ template <class MESH> class BallPivoting: public AdvancingFront<MESH> {
       if(Distance(middle,v->cP()) > r + radius) continue;
 
       // this should always be true IsB => IsV , IsV => IsU
-      if(v->IsB()) assert(v->IsV());
-      if(v->IsV()) assert(v->IsUserBit(usedBit));
+      if(v->IsB()) vcg_assert(v->IsV());
+      if(v->IsV()) vcg_assert(v->IsUserBit(usedBit));
 
 
       if(v->IsUserBit(usedBit) && !(v->IsB())) continue;
@@ -308,12 +308,12 @@ template <class MESH> class BallPivoting: public AdvancingFront<MESH> {
       return -1;
     }
     if(!candidate->IsB()) {
-      assert((candidate->P() - v0).Norm() > min_edge);
-      assert((candidate->P() - v1).Norm() > min_edge);
+      vcg_assert((candidate->P() - v0).Norm() > min_edge);
+      vcg_assert((candidate->P() - v1).Norm() > min_edge);
     }
 
     int candidateIndex = tri::Index(this->mesh,candidate);
-    assert(candidateIndex != edge.v0 && candidateIndex != edge.v1);
+    vcg_assert(candidateIndex != edge.v0 && candidateIndex != edge.v1);
 
     Point3x newnormal = ((candidate->P() - v0)^(v1 - v0)).Normalize();
     if(normal.dot(newnormal) < max_angle || this->nb[candidateIndex] >= 2) {

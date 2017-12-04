@@ -127,7 +127,7 @@ class Quadric
 
     static Quadric fit(std::vector<CoordType> VV)
     {
-        assert(VV.size() >= 5);
+        vcg_assert(VV.size() >= 5);
         Eigen::MatrixXf A(VV.size(),5);
         Eigen::MatrixXf b(VV.size(),1);
         Eigen::MatrixXf sol(VV.size(),1);
@@ -166,7 +166,7 @@ class Quadric
       VertexTypeP vp = vfi.F()->V(i);
 
       CoordType x = (project(&*vi,vp) - vi->P()).Normalize();
-      //assert(fabs(x * vi->N()) < 0.1);
+      //vcg_assert(fabs(x * vi->N()) < 0.1);
 
       std::vector<CoordType> res(3);
 
@@ -370,7 +370,7 @@ class Quadric
 
         static QuadricLocal fit(std::vector<CoordType> &VV, bool svdRes, bool detCheck)
         {
-            assert(VV.size() >= 5);
+            vcg_assert(VV.size() >= 5);
             Eigen::MatrixXd A(VV.size(),5);
             Eigen::MatrixXd b(VV.size(),1);
             Eigen::MatrixXd sol(5,1);
@@ -509,7 +509,7 @@ class Quadric
 
     CoordType x = (projectLocal (v, vp, ppn) - v->P()).Normalize();
 
-    assert(fabs(x * ppn) < 0.1);
+    vcg_assert(fabs(x * ppn) < 0.1);
 
     *ref = std::vector<CoordType>(3);
 

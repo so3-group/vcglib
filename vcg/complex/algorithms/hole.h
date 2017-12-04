@@ -82,7 +82,7 @@ public:
     case 0 : return e0.v->P();
     case 1 : return e1.v->P();
     case 2 : return e0.VFlip()->P();
-    default: assert(0);
+    default: vcg_assert(0);
     }
     return e0.v->P();
   }
@@ -93,7 +93,7 @@ public:
   TrivialEar(const PosType & ep)
   {
     e0=ep;
-    assert(e0.IsBorder());
+    vcg_assert(e0.IsBorder());
     e1=e0;
     e1.NextB();
     n=TriangleNormal<TrivialEar>(*this);
@@ -169,7 +169,7 @@ public:
   {
     PosType pp = e1;
     VertexPointer otherV =  e0.VFlip();
-    assert(pp.IsBorder());
+    vcg_assert(pp.IsBorder());
     do
     {
       pp.FlipE();
@@ -244,26 +244,26 @@ public:
     else if(ep.v==en.v)
     {
       //printf("Ear Non manif A\n");
-      assert(ep.v->IsUserBit(NonManifoldBit()));
+      vcg_assert(ep.v->IsUserBit(NonManifoldBit()));
       ep.v->ClearUserBit(NonManifoldBit());
       PosType	enold=en;
       en.NextB();
       face::FFAttachManifold(f,2,enold.f,enold.z);
       np0=ep;
-      assert(!np0.v->IsUserBit(NonManifoldBit()));      
+      vcg_assert(!np0.v->IsUserBit(NonManifoldBit()));      
       np1.SetNull();
     }
     // Third Special Case (B): Non Manifold on e1
     else if(ep.VFlip()==e1.v)
     {
-      assert(e1.v->IsUserBit(NonManifoldBit()));
+      vcg_assert(e1.v->IsUserBit(NonManifoldBit()));
       e1.v->ClearUserBit(NonManifoldBit());
       //printf("Ear Non manif B\n");
       PosType	epold=ep;
       ep.FlipV(); ep.NextB(); ep.FlipV();
       face::FFAttachManifold(f,2,epold.f,epold.z);
       np0=ep;  // assign the two new
-      assert(!np0.v->IsUserBit(NonManifoldBit()));            
+      vcg_assert(!np0.v->IsUserBit(NonManifoldBit()));            
       np1.SetNull();  // pos that denote the ears
     }
     else // Standard Case.
@@ -378,7 +378,7 @@ public:
         {
           int e0,e1;
           bool ret=face::FindSharedEdge(f,*it,e0,e1);
-          assert(ret);
+          vcg_assert(ret);
           if(!face::IsBorder(**it,e1))
             return false;
         }
@@ -474,8 +474,8 @@ template<class EAR>
                             std::vector<FacePointer *> &facePointersToBeUpdated)
     {
       
-      assert(tri::IsValidPointer(m,p.f));
-      assert(p.IsBorder());
+      vcg_assert(tri::IsValidPointer(m,p.f));
+      vcg_assert(p.IsBorder());
       int holeSize = EAR::InitNonManifoldBitOnHoleBoundary(p);
       FaceIterator f = tri::Allocator<MESH>::AddFaces(m, holeSize-2, facePointersToBeUpdated);
 
@@ -487,7 +487,7 @@ template<class EAR>
            EarHeap.push( appEar );
         //printf("Adding ear %s ",app.Dump());
         fp.NextB();
-        assert(fp.IsBorder());
+        vcg_assert(fp.IsBorder());
       }while(fp!=p);
 
       // Main Ear closing Loop
@@ -503,11 +503,11 @@ template<class EAR>
           if(BestEar.Close(ep0,ep1,&*f))
           {
             if(!ep0.IsNull()){
-              assert(!ep0.v->IsUserBit(EAR::NonManifoldBit()));
+              vcg_assert(!ep0.v->IsUserBit(EAR::NonManifoldBit()));
               EarHeap.push(EAR(ep0));
             }
             if(!ep1.IsNull()){
-              assert(!ep1.v->IsUserBit(EAR::NonManifoldBit()));
+              vcg_assert(!ep1.v->IsUserBit(EAR::NonManifoldBit()));
               EarHeap.push(EAR(ep1));
             }
             --holeSize;
@@ -638,7 +638,7 @@ template<class EAR>
                                         ++holesize;
                                         sp.NextB();
                                         sp.f->SetV();
-                                        assert(sp.IsBorder());
+                                        vcg_assert(sp.IsBorder());
                                     }while(sp != fp);
 
                                     //ho recuperato l'inofrmazione su tutto il buco
@@ -693,7 +693,7 @@ template<class EAR>
             PosType app = pi;
             PosType appF = pi;
             PosType tmp;
-            assert(pi.IsBorder());
+            vcg_assert(pi.IsBorder());
             appF.NextB();
             appF.FlipV();
             do
@@ -904,7 +904,7 @@ template<class EAR>
     //take vertex around the hole
     do
     {
-      assert(fp.IsBorder());
+      vcg_assert(fp.IsBorder());
       ret.push_back(fp);
       fp.NextB();
     }while(sp != fp);

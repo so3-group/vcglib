@@ -156,7 +156,7 @@ static void MarkFaceF(FaceType *f){
 template <bool verse>
 static bool RotateEdge(FaceType& f, int w0a, MeshType &m, Pos *affected=NULL){
   FaceType *fa = &f;
-  assert(! fa->IsF(w0a) );
+  vcg_assert(! fa->IsF(w0a) );
 
   VertexType *v0, *v1;
   v0= fa->V0(w0a);
@@ -203,7 +203,7 @@ static bool RotateEdge(FaceType& f, int w0a, MeshType &m, Pos *affected=NULL){
 static int FauxIndex(const FaceType* f){
   if (f->IsF(0)) return 0;
   if (f->IsF(1)) return 1;
-  assert(f->IsF(2));
+  vcg_assert(f->IsF(2));
   return 2;
 }
 
@@ -228,7 +228,7 @@ static void FlipDiag(FaceType &f){
 // if that vertex is rotated
 static ScalarType EdgeLenghtVariationIfVertexRotated(const FaceType &f, int w0)
 {
-  assert(!f.IsD());
+  vcg_assert(!f.IsD());
 
   ScalarType
     before=0, // sum of quad edges (originating from v)
@@ -253,7 +253,7 @@ static ScalarType EdgeLenghtVariationIfVertexRotated(const FaceType &f, int w0)
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
     guard++;
-    assert(guard<100);
+    vcg_assert(guard<100);
   } while (pf != &f);
   assert (na == n);
   return (after-before);
@@ -264,7 +264,7 @@ static ScalarType EdgeLenghtVariationIfVertexRotated(const FaceType &f, int w0)
 // if that vertex is rotated
 static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
 {
-  assert(!f.IsD());
+  vcg_assert(!f.IsD());
 
   ScalarType
     before=0, // sum of quad quality around v
@@ -294,10 +294,10 @@ static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
     guard++;
-    assert(guard<100);
+    vcg_assert(guard<100);
   } while (pf != &f);
 
-  assert(s.size()%2==0);
+  vcg_assert(s.size()%2==0);
   int N = s.size();
   for (int i=0; i<N; i+=2) {
     int h = (i+N-1)%N;
@@ -323,7 +323,7 @@ static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
     pi = pf->cFFi( pi );
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
-    assert(guard++<100);
+    vcg_assert(guard++<100);
   } while (pf != &f);
 */
 
@@ -332,7 +332,7 @@ static ScalarType QuadQualityVariationIfVertexRotated(const FaceType &f, int w0)
 // (currently, we should iff it is shortened)
 static bool TestVertexRotation(const FaceType &f, int w0)
 {
-  assert(!f.IsD());
+  vcg_assert(!f.IsD());
 
 #if (LENGTH_CRITERION)
   // rotate vertex IFF this way edges become shorter:
@@ -411,10 +411,10 @@ static bool RotateVertex(FaceType &f, int w0, MeshType &/*m*/, Pos *affected=NUL
 
 // flips the faux edge of a quad
 static void FlipEdge(FaceType &f, int k, MeshType &m){
-  assert(!f.IsF(k));
+  vcg_assert(!f.IsF(k));
   FaceType* fa = &f;
   FaceType* fb = f.FFp(k);
-  assert(fa!=fb); // else, rotating a border edge
+  vcg_assert(fa!=fb); // else, rotating a border edge
 
   // backup prev other-quads-halves
   FaceType* fa2 = fa->FFp( FauxIndex(fa) );
@@ -509,7 +509,7 @@ static void RemoveDoublet(FaceType &f, int wedge, MeshType& m, Pos* affected=NUL
     if (f.V(0)==v) wedge = 0;
     else if (f.V(1)==v) wedge = 1;
     else {
-      assert(f.V(2)==v);
+      vcg_assert(f.V(2)==v);
       wedge = 2;
     }
   }
@@ -555,8 +555,8 @@ static void RemoveSinglet(FaceType &f, int wedge, MeshType& m, Pos* affected=NUL
   fd->FFp(wd) = fc;
   fd->FFi(wd) = wc;
   // faux status of survivors: unchanged
-  assert( ! ( fc->IsF( wc) ) );
-  assert( ! ( fd->IsF( wd) ) );
+  vcg_assert( ! ( fc->IsF( wc) ) );
+  vcg_assert( ! ( fd->IsF( wd) ) );
 
   Allocator<MeshType>::DeleteFace( m,*fa );
   Allocator<MeshType>::DeleteFace( m,*fb );
@@ -617,7 +617,7 @@ static bool IsDoubletFF(const FaceType& f, int wedge){
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
     guard++;
-    assert(guard<100);
+    vcg_assert(guard<100);
   } while (pf != &f);
   return (res == 2);
 }
@@ -654,7 +654,7 @@ static bool IsSingletFF(const FaceType& f, int wedge){
     pi = (pi+1)%3; // FaceType::Next( pf->FFi( pi ) );
     pf = t;
     guard++;
-    assert(guard<100);
+    vcg_assert(guard<100);
   } while (pf != &f);
   return (res == 1);
 }
@@ -667,7 +667,7 @@ static bool IsSinglet(const FaceType& f, int wedge){
 static bool CollapseEdgeDirect(FaceType &f, int w0, MeshType& m){
   FaceType * f0 = &f;
 
-  assert( !f0->IsF(w0) );
+  vcg_assert( !f0->IsF(w0) );
 
   VertexType *v0, *v1;
   v0 = f0->V0(w0);
@@ -679,10 +679,10 @@ static bool CollapseEdgeDirect(FaceType &f, int w0, MeshType& m){
   if      (f0->V(0) == v0) w0 = 0;
   else if (f0->V(1) == v0) w0 = 1;
   else if (f0->V(2) == v0) w0 = 2;
-  else assert(0);
+  else vcg_assert(0);
 
-  assert( f0->V1(w0) == v1 );
-  assert( f0->IsF(w0) );
+  vcg_assert( f0->V1(w0) == v1 );
+  vcg_assert( f0->IsF(w0) );
 
   return CollapseDiag(*f0,PosOnDiag(*f0,false), m);
 }
@@ -690,7 +690,7 @@ static bool CollapseEdgeDirect(FaceType &f, int w0, MeshType& m){
 // collapses an edge. Optional output pos can be iterated around to find affected faces
 static bool CollapseEdge(FaceType &f, int w0, MeshType& m, Pos *affected=NULL){
   FaceTypeP f0 = &f;
-  assert(!f0->IsF(w0)); // don't use this method to collapse diag.
+  vcg_assert(!f0->IsF(w0)); // don't use this method to collapse diag.
 
   if (IsDoubletOrSinglet(f,w0)) return false; //{ RemoveDoubletOrSinglet(f,w0,m, affected); return true;}
   if (IsDoubletOrSinglet(f,(w0+1)%3)) return false; //{ RemoveDoubletOrSinglet(f,(w0+1)%3,m, affected); return true;}
@@ -704,7 +704,7 @@ static bool CollapseEdge(FaceType &f, int w0, MeshType& m, Pos *affected=NULL){
   FaceTypeP f1 = f0->FFp(w0);
   int w1 = f0->FFi(w0);
 
-  assert(f0!=f1); // can't collapse border edges!
+  vcg_assert(f0!=f1); // can't collapse border edges!
 
   // choose: rotate around V0 or around V1?
   if (
@@ -740,7 +740,7 @@ public:
     if (pos.mode==Pos::NOTHING) {over = true; return; }
     start = pos; //FPos(pos.F(), pos.E());
     if (start.F()->IsD()) { over = true; return;}
-    assert(!start.F()->IsD());
+    vcg_assert(!start.F()->IsD());
     if (pos.mode==Pos::AROUND) {
       if (start.F()->IsF((start.E()+2)%3))
       {
@@ -872,14 +872,14 @@ static bool CollapseDiag(FaceType &f, ScalarType interpol, MeshType& m, Pos* aff
   Allocator<MeshType>::DeleteFace(m,*fa);
   Allocator<MeshType>::DeleteFace(m,*fb);
 
-  //assert(val == GetValency(vb));
+  //vcg_assert(val == GetValency(vb));
 
 
   DecreaseValencyNoSingletTest(vb, val, m);
   // note: don't directly kill vb. In non-twomanifold, it could still be referecned
   // but: don't hunt for doublets either.
 
-  assert(GetValency(vb)!=1 || vb->IsB());
+  vcg_assert(GetValency(vb)!=1 || vb->IsB());
   // if this asserts, you are in trouble.
   // It means  that the vertex that was supposed to die is still attached
   // somewhere else (non-twomanifold)
@@ -925,7 +925,7 @@ typedef enum { VALENCY_FLAGS = 24 } ___; // this bit and the 4 successive one ar
 
 static void SetValency(VertexType *v, int n){
   //v->Q() = n;
-  assert(n>=0 && n<=255);
+  vcg_assert(n>=0 && n<=255);
   v->Flags()&= ~(255<<VALENCY_FLAGS);
   v->Flags()|= n<<VALENCY_FLAGS;
 }
@@ -1034,7 +1034,7 @@ Currently an edge is rotated iff it is shortened by that rotations
 static int TestEdgeRotation(const FaceType &f, int w0, ScalarType *gain=NULL)
 {
   const FaceType *fa = &f;
-  assert(! fa->IsF(w0) );
+  vcg_assert(! fa->IsF(w0) );
   ScalarType q0,q1,q2;
   CoordType v0,v1,v2,v3,v4,v5;
   int w1 = (w0+1)%3;

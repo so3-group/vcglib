@@ -56,7 +56,7 @@ XMLInteriorNode::XMLInteriorNode(XMLTag* tag)
 
 XMLNode* XMLInteriorNode::son(int ii)
 {
-	assert((ii > 0) && (ii < _sons.size()));
+	vcg_assert((ii > 0) && (ii < _sons.size()));
 	return _sons[ii];
 }
 

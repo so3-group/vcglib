@@ -296,33 +296,33 @@ public:
 
     /// Assegna l'n-simo vettore colonna
     void SetColumn(const int n, S* v){
-        assert( (n>=0) && (n<3) );
+        vcg_assert( (n>=0) && (n<3) );
         a[n]=v[0]; a[n+3]=v[1]; a[n+6]=v[2];
     };
 
     /// Assegna l'n-simo vettore riga
     void SetRow(const int n, S* v){
-        assert( (n>=0) && (n<3) );
+        vcg_assert( (n>=0) && (n<3) );
         int m=n*3;
         a[m]=v[0]; a[m+1]=v[1]; a[m+2]=v[2];
     };
 
     /// Assegna l'n-simo vettore colonna
     void SetColumn(const int n, const Point3<S> v){
-        assert( (n>=0) && (n<3) );
+        vcg_assert( (n>=0) && (n<3) );
         a[n]=v[0]; a[n+3]=v[1]; a[n+6]=v[2];
     };
 
     /// Assegna l'n-simo vettore riga
     void SetRow(const int n, const Point3<S> v){
-        assert( (n>=0) && (n<3) );
+        vcg_assert( (n>=0) && (n<3) );
         int m=n*3;
         a[m]=v[0]; a[m+1]=v[1]; a[m+2]=v[2];
     };
 
     /// Restituisce l'n-simo vettore colonna
     Point3<S> GetColumn(const int n) const {
-        assert( (n>=0) && (n<3) );
+        vcg_assert( (n>=0) && (n<3) );
         Point3<S> t;
         t[0]=a[n]; t[1]=a[n+3]; t[2]=a[n+6];
         return t;
@@ -330,7 +330,7 @@ public:
 
     /// Restituisce l'n-simo vettore riga
     Point3<S> GetRow(const int n) const {
-        assert( (n>=0) && (n<3) );
+        vcg_assert( (n>=0) && (n<3) );
         Point3<S> t;
         int m=n*3;
         t[0]=a[m]; t[1]=a[m+1]; t[2]=a[m+2];
@@ -380,7 +380,7 @@ It compute the  covariance matrix of a set of 3d points. Returns the barycenter
 */
 template <class STLPOINTCONTAINER >
 void Covariance(const STLPOINTCONTAINER &points, Point3<S> &bp) {
-    assert(!points.empty());
+    vcg_assert(!points.empty());
     typedef typename  STLPOINTCONTAINER::const_iterator PointIte;
     // first cycle: compute the barycenter
     bp.SetZero();
@@ -413,7 +413,7 @@ void CrossCovariance(const STLPOINTCONTAINER &P, const STLPOINTCONTAINER &X,
                                          Point3<S> &bp, Point3<S> &bx)
 {
     SetZero();
-    assert(P.size()==X.size());
+    vcg_assert(P.size()==X.size());
     bx.SetZero();
     bp.SetZero();
     Matrix33<S> tmp;
@@ -439,7 +439,7 @@ void WeightedCrossCovariance(const STLREALCONTAINER &  weights,
                              Point3<S> &bx)
 {
     SetZero();
-    assert(P.size()==X.size());
+    vcg_assert(P.size()==X.size());
     bx.SetZero();
     bp.SetZero();
     Matrix33<S> tmp;

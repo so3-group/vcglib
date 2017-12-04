@@ -25,7 +25,7 @@
 
 #include <vector>
 #include <algorithm>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <string>
 #include <limits>
 #include <vcg/math/base.h>
@@ -104,8 +104,8 @@ public:
 
   ScalarType Percentile(ScalarType perc)
   {
-    assert(!vec.empty());
-    assert(perc>=0 && perc<=1);
+    vcg_assert(!vec.empty());
+    vcg_assert(perc>=0 && perc<=1);
     DirtyCheck();
     int index = vec.size() *perc -1;
 
@@ -284,12 +284,12 @@ int Histogram<ScalarType>::BinIndex(ScalarType val)
   // E.g. An iterator pointing to the first element "not less than" val, or end() if every element is less than val.
   typename std::vector<ScalarType>::iterator it = lower_bound(R.begin(),R.end(),val);
 
-  assert(it!=R.begin());
-  assert(it!=R.end());
-  assert((*it)>=val);
+  vcg_assert(it!=R.begin());
+  vcg_assert(it!=R.end());
+  vcg_assert((*it)>=val);
 
   int pos = it-R.begin();
-  assert(pos >=1);
+  vcg_assert(pos >=1);
   pos -= 1;
   assert (R[pos] < val);
   assert (         val <= R[pos+1] );
@@ -311,7 +311,7 @@ void Histogram<ScalarType>::Add(ScalarType v, ScalarType increment)
   int pos=BinIndex(v);
   if(v<minElem) minElem=v;
   if(v>maxElem) maxElem=v;
-  assert((pos>=0)&&(pos<=n+1));
+  vcg_assert((pos>=0)&&(pos<=n+1));
   H[pos]+=increment;
   cnt+=increment;
   sum+=v*increment;
@@ -384,14 +384,14 @@ ScalarType Histogram<ScalarType>::Percentile(ScalarType frac) const
     return 0;
 
   // check percentile range
-  assert(frac >= 0 && frac <= 1);
+  vcg_assert(frac >= 0 && frac <= 1);
 
   ScalarType sum=0,partsum=0;
   size_t i;
 
   // useless summation just to be sure
   for(i=0;i<H.size();i++) sum+=H[i];
-  assert(sum==cnt);
+  vcg_assert(sum==cnt);
 
   sum*=frac;
   for(i=0; i<H.size(); i++)
@@ -400,7 +400,7 @@ ScalarType Histogram<ScalarType>::Percentile(ScalarType frac) const
     if(partsum>=sum) break;
   }
 
-  assert(i<H.size());
+  vcg_assert(i<H.size());
 
   return R[i+1];
 }

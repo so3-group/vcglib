@@ -722,7 +722,7 @@ Transform<Scalar,Dim>::inverse(TransformTraits traits) const
     }
     else
     {
-      ei_assert("invalid traits value in Transform::inverse()");
+      ei_vcg_assert("invalid traits value in Transform::inverse()");
     }
     // translation and remaining parts
     res.template corner<Dim,1>(TopRight) = - res.template corner<Dim,Dim>(TopLeft) * translation();

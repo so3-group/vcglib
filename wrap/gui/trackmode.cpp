@@ -213,7 +213,7 @@ void CylinderMode::Draw(Trackball * tb){
 void PathMode::Init(const std::vector < Point3f > &pts)
 {
   unsigned int npts = int(pts.size());
-  assert(npts >= 2);
+  vcg_assert(npts >= 2);
   points.reserve(npts);
   for(unsigned int i=0;i<npts;i++){
     points.push_back(pts[i]);
@@ -271,7 +271,7 @@ Point3f PathMode::SetStartNear(Point3f point)
     float segment_norm= Distance(p0,p1) / path_length;
     p0_state+=segment_norm;
   }
-  assert( nearest_state >= 0.0 );
+  vcg_assert( nearest_state >= 0.0 );
   if(nearest_state > 1.0){
     nearest_state=1.0;
     nearest_point=( wrap ? points[0] : points[npts-1] );
@@ -282,8 +282,8 @@ Point3f PathMode::SetStartNear(Point3f point)
 
 void PathMode::GetPoints(float state, Point3f & point, Point3f & prev_point, Point3f & next_point)
 {
-  assert(state >= 0.0f);
-  assert(state <= 1.0f);
+  vcg_assert(state >= 0.0f);
+  vcg_assert(state <= 1.0f);
   float remaining_norm=state;
   Point3f p0(0,0,0),p1(0,0,0);
   unsigned int npts = int(points.size());
@@ -468,7 +468,7 @@ void AreaMode::Init(const std::vector < Point3f > &pts)
 {
   unsigned int npts = int(pts.size());
 
-  assert(npts >= 3);
+  vcg_assert(npts >= 3);
   //get the plane
   Point3f p0=pts[0];
   unsigned int onethird=(unsigned int)floor(npts/3.0);
@@ -486,7 +486,7 @@ void AreaMode::Init(const std::vector < Point3f > &pts)
         break;
      }
   }
-  assert(pts_not_in_line);
+  vcg_assert(pts_not_in_line);
   float ncx,ncy,ncz;
   ncx=fabs(plane.Direction()[0]);
   ncy=fabs(plane.Direction()[1]);

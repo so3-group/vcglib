@@ -158,7 +158,7 @@ public:
   
   bool AddSingleMesh(const char* meshName, const Matrix44f &tr= Matrix44f::Identity(), float meshWeight=1)
   {
-    assert(WV.size()==meshnames.size() && TrV.size() == WV.size());
+    vcg_assert(WV.size()==meshnames.size() && TrV.size() == WV.size());
     TrV.push_back(tr);
     meshnames.push_back(meshName);
     WV.push_back(meshWeight);

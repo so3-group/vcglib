@@ -268,7 +268,7 @@ public:
                 }
                 for( x.F() = (*vi).VFp(), x.I() = (*vi).VFi(); x.F()!=0; ++x )
                 {
-                  assert(x.F()->V(x.I())==&(*vi));
+                  vcg_assert(x.F()->V(x.I())==&(*vi));
                   if((x.V0()<x.V1()) && x.V1()->IsRW() && !x.V1()->IsV()){
                         x.V1()->SetV();
                         h_ret.push_back(HeapElem(new MYTYPE(VertexPair(x.V0(),x.V1()),TriEdgeCollapse< TriMeshType,VertexPair,MYTYPE>::GlobalMark(),_pp )));
@@ -289,7 +289,7 @@ public:
                         UnMarkAll(m);
                         for( x.F() = (*vi).VFp(), x.I() = (*vi).VFi(); x.F()!=0; ++ x)
                         {
-                            assert(x.F()->V(x.I())==&(*vi));
+                            vcg_assert(x.F()->V(x.I())==&(*vi));
                             if(x.V()->IsRW() && x.V1()->IsRW() && !IsMarked(m,x.F()->V1(x.I()))){
                     h_ret.push_back( HeapElem( new MYTYPE( VertexPair (x.V(),x.V1()),TriEdgeCollapse< TriMeshType,VertexPair,MYTYPE>::GlobalMark(),_pp)));
                                         }
@@ -375,7 +375,7 @@ public:
 
     double QuadErr = pp->ScaleFactor*qq.Apply(Point3d::Construct(v[1]->P()));
     
-    assert(!math::IsNAN(QuadErr));
+    vcg_assert(!math::IsNAN(QuadErr));
     // All collapses involving triangles with quality larger than <QualityThr> have no penalty;
     if(MinQual>pp->QualityThr) MinQual=pp->QualityThr;
     

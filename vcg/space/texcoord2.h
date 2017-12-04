@@ -62,8 +62,8 @@ public:
   inline const PointType &P() const { return _t[0]; }
   inline PointType &P() { return _t[0]; }
 
-  inline const PointType &P(const int i) const { assert(i>0 && i<NMAX); return _t[i]; }
-  inline PointType &P(const int i) { assert(i>0 && i<NMAX); return _t[i]; }
+  inline const PointType &P(const int i) const { vcg_assert(i>0 && i<NMAX); return _t[i]; }
+  inline PointType &P(const int i) { vcg_assert(i>0 && i<NMAX); return _t[i]; }
 
   /// Return a  reference to the u texture coordinate of the vertex
   inline T       & U() { return _t[0][0]; }
@@ -73,18 +73,18 @@ public:
     inline const T & U() const { return _t[0][0]; }
     /// Return a const reference to the v texture coordinate of the vertex
     inline const T & V() const { return _t[0][1]; }
-    inline T & U( int i) { assert(i>0 && i<NMAX);  return _t[i][0]; }
-    inline T & V( int i) { assert(i>0 && i<NMAX);  return _t[i][1]; }
-    inline const T & U( int i) const { assert(i>0 && i<NMAX); return _t[i][0]; }
-    inline const T & V( int i) const { assert(i>0 && i<NMAX); return _t[i][1]; }
+    inline T & U( int i) { vcg_assert(i>0 && i<NMAX);  return _t[i][0]; }
+    inline T & V( int i) { vcg_assert(i>0 && i<NMAX);  return _t[i][1]; }
+    inline const T & U( int i) const { vcg_assert(i>0 && i<NMAX); return _t[i][0]; }
+    inline const T & V( int i) const { vcg_assert(i>0 && i<NMAX); return _t[i][1]; }
 
     /// Return a reference to the texture id of the vertex
     inline short & N()       { return _n[0]; }
     /// Return a const reference to the texture id of the vertex
     inline short   N() const { return _n[0]; }
 
-    inline short     & N(int i)       { assert(i>0 && i<NMAX); return _n[i]; }
-    inline short       N(int i) const { assert(i>0 && i<NMAX); return _n[i]; }
+    inline short     & N(int i)       { vcg_assert(i>0 && i<NMAX); return _n[i]; }
+    inline short       N(int i) const { vcg_assert(i>0 && i<NMAX); return _n[i]; }
 
 
   /* <OLD_METHODS> (lowercase ones). DEPRECATED. TO BE REMOVED SOON.*/
@@ -159,22 +159,22 @@ public:
     inline T & V() { return _t[1]; }
     inline const T & U() const { return _t[0]; }
     inline const T & V() const { return _t[1]; }
-    inline T & U(const int i) { (void)i; assert(i==0); return _t[0]; }
-    inline T & V(const int i) { (void)i; assert(i==0); return _t[1]; }
-    inline const T & U(const int i) const { (void)i; assert(i==0); return _t[0]; }
-    inline const T & V(const int i) const { (void)i; assert(i==0); return _t[1]; }
+    inline T & U(const int i) { (void)i; vcg_assert(i==0); return _t[0]; }
+    inline T & V(const int i) { (void)i; vcg_assert(i==0); return _t[1]; }
+    inline const T & U(const int i) const { (void)i; vcg_assert(i==0); return _t[0]; }
+    inline const T & V(const int i) const { (void)i; vcg_assert(i==0); return _t[1]; }
 
-    inline Point2<T> & P(const int i)       { (void)i; assert(i==0); return _t; }
-    inline Point2<T>   P(const int i) const { (void)i; assert(i==0); return _t; }
+    inline Point2<T> & P(const int i)       { (void)i; vcg_assert(i==0); return _t; }
+    inline Point2<T>   P(const int i) const { (void)i; vcg_assert(i==0); return _t; }
 
     inline Point2<T> & P()       { return _t; }
     inline Point2<T>   P() const { return _t; }
 
-    inline short & N()       { assert(static_n()==0); return static_n(); }
-    inline short   N() const { assert(static_n()==0); return 0; }
+    inline short & N()       { vcg_assert(static_n()==0); return static_n(); }
+    inline short   N() const { vcg_assert(static_n()==0); return 0; }
 
-    inline short & N(const int i)       { (void)i; assert(i==0); return static_n(); }
-    inline short   N(const int i) const { (void)i; assert(i==0); return 0; }
+    inline short & N(const int i)       { (void)i; vcg_assert(i==0); return static_n(); }
+    inline short   N(const int i) const { (void)i; vcg_assert(i==0); return 0; }
 
 
 /* <OLD_METHODS> (lowercase ones). DEPRECATED. TO BE REMOVED SOON.*/
@@ -182,22 +182,22 @@ public:
     inline T & v() { return _t[1]; }
     inline const T & u() const { return _t[0]; }
     inline const T & v() const { return _t[1]; }
-    inline T & u(const int i) { (void)i; assert(i==0); return _t[0]; }
-    inline T & v(const int i) { (void)i; assert(i==0); return _t[1]; }
-    inline const T & u(const int i) const { (void)i; assert(i==0); return _t[0]; }
-    inline const T & v(const int i) const { (void)i; assert(i==0); return _t[1]; }
+    inline T & u(const int i) { (void)i; vcg_assert(i==0); return _t[0]; }
+    inline T & v(const int i) { (void)i; vcg_assert(i==0); return _t[1]; }
+    inline const T & u(const int i) const { (void)i; vcg_assert(i==0); return _t[0]; }
+    inline const T & v(const int i) const { (void)i; vcg_assert(i==0); return _t[1]; }
 
-    inline Point2<T> & t(const int i)       { (void)i; assert(i==0); return _t; }
-    inline Point2<T>   t(const int i) const { (void)i; assert(i==0); return _t; }
+    inline Point2<T> & t(const int i)       { (void)i; vcg_assert(i==0); return _t; }
+    inline Point2<T>   t(const int i) const { (void)i; vcg_assert(i==0); return _t; }
 
     inline Point2<T> & t()       { return _t; }
     inline Point2<T>   t() const { return _t; }
 
-    inline short & n()       { assert(static_n()==0); return static_n(); }
-    inline short   n() const { assert(static_n()==0); return 0; }
+    inline short & n()       { vcg_assert(static_n()==0); return static_n(); }
+    inline short   n() const { vcg_assert(static_n()==0); return 0; }
 
-    inline short & n(const int i)       { (void)i; assert(i==0); return static_n(); }
-    inline short   n(const int i) const { (void)i; assert(i==0); return 0; }
+    inline short & n(const int i)       { (void)i; vcg_assert(i==0); return static_n(); }
+    inline short   n(const int i) const { (void)i; vcg_assert(i==0); return 0; }
 
 /* </OLD_METHODS> */
 

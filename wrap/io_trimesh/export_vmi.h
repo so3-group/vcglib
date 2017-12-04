@@ -66,7 +66,7 @@ namespace io {
             case 1: return fwrite_mem(src, size,count);  break;
             case 2: return fwrite(src, size,count, F() ); break;
              }
-         assert(0);
+         vcg_assert(0);
          return 0;
         }
 

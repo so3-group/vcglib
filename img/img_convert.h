@@ -15,7 +15,7 @@ namespace img {
 template<typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convert_Y_to_RGB(const Image<1,SrcScalarType,SrcSafe> &source, Image<3,DestScalarType,DestSafe> &destination)
 {
-  assert(source.isValid());
+  vcg_assert(source.isValid());
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
   }
@@ -35,7 +35,7 @@ inline void convert_Y_to_RGB(const Image<1,SrcScalarType,SrcSafe> &source, Image
 template<typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convert_Y_to_RGBA(const Image<1,SrcScalarType,SrcSafe> &source, Image<4,DestScalarType,DestSafe> &destination, DestScalarType alpha_value=255.0f )
 {
-  assert(source.isValid());
+  vcg_assert(source.isValid());
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
   }
@@ -56,7 +56,7 @@ inline void convert_Y_to_RGBA(const Image<1,SrcScalarType,SrcSafe> &source, Imag
 template<typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convert_RGB_to_Y(const Image<3,SrcScalarType,SrcSafe> &source, Image<1,DestScalarType,DestSafe> &destination)
 {
-  assert(source.isValid());
+  vcg_assert(source.isValid());
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
   }
@@ -76,7 +76,7 @@ inline void convert_RGB_to_Y(const Image<3,SrcScalarType,SrcSafe> &source, Image
 template<typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convert_RGB_to_RGBA(const Image<3,SrcScalarType,SrcSafe> &source, Image<4,DestScalarType,DestSafe> &destination, DestScalarType alpha_value=255.0f )
 {
-  assert(source.isValid());
+  vcg_assert(source.isValid());
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
   }
@@ -96,7 +96,7 @@ inline void convert_RGB_to_RGBA(const Image<3,SrcScalarType,SrcSafe> &source, Im
 template<typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convert_RGBA_to_Y(const Image<4,SrcScalarType,SrcSafe> &source, Image<1,DestScalarType,DestSafe> &destination)
 {
-  assert(source.isValid());
+  vcg_assert(source.isValid());
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
   }
@@ -116,7 +116,7 @@ inline void convert_RGBA_to_Y(const Image<4,SrcScalarType,SrcSafe> &source, Imag
 template<typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convert_RGBA_to_RGB(const Image<4,SrcScalarType,SrcSafe> &source, Image<3,DestScalarType,DestSafe> &destination)
 {
-  assert(source.isValid());
+  vcg_assert(source.isValid());
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
   }
@@ -135,8 +135,8 @@ inline void convert_RGBA_to_RGB(const Image<4,SrcScalarType,SrcSafe> &source, Im
 template<int Channels, typename SrcScalarType, bool SrcSafe, typename DestScalarType, bool DestSafe>
 inline void convert_range_0_255_to_0_1(const Image<Channels,SrcScalarType,SrcSafe> &source, Image<Channels,DestScalarType,DestSafe> &destination)
 {
-  assert(source.isValid());
-  assert(source.attributes.hasRange(0,255));
+  vcg_assert(source.isValid());
+  vcg_assert(source.attributes.hasRange(0,255));
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
     if(!source.attributes.hasRange(0,255)) throw ImageException("Invalid range attribute");
@@ -151,8 +151,8 @@ inline void convert_range_0_255_to_0_1(const Image<Channels,SrcScalarType,SrcSaf
 template<int Channels, typename SrcScalarType, bool SrcSafe, typename DestScalarType, bool DestSafe>
 inline void convert_range_0_1_to_0_255(const Image<Channels,SrcScalarType,SrcSafe> &source, Image<Channels,DestScalarType,DestSafe> &destination)
 {
-  assert(source.isValid());
-  assert(source.attributes.hasRange(0,1));
+  vcg_assert(source.isValid());
+  vcg_assert(source.attributes.hasRange(0,1));
   if(SrcSafe || DestSafe){
     if(!source.isValid())  throw ImageException("Invalid source image");
     if(!source.attributes.hasRange(0,1)) throw ImageException("Invalid range attribute");

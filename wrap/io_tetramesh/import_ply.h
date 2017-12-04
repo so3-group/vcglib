@@ -69,7 +69,7 @@ typedef typename OpenMeshType::TetraType TetraType;
 typedef typename OpenMeshType::VertexIterator VertexIterator;
 typedef typename OpenMeshType::TetraIterator TetraIterator;
 
-//template <class T> int PlyType () {	assert(0);  return 0;}
+//template <class T> int PlyType () {	vcg_assert(0);  return 0;}
 
 #define MAX_USER_DATA 256
 // Struttura ausiliaria per la lettura del file ply
@@ -237,7 +237,7 @@ static int Open( OpenMeshType &m, const char * filename, int & loadmask, CallBac
 /// read a mesh with all the possible option specified in the PlyInfo obj.
 static int Open( OpenMeshType &m, const char * filename, PlyInfo &pi )
 {
-  assert(filename!=0);
+  vcg_assert(filename!=0);
 	vector<VertexPointer> index;
 	LoadPly_TetraAux fa;
 //	LoadPly_TristripAux tsa;

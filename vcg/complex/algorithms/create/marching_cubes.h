@@ -113,7 +113,7 @@ namespace vcg
             void ProcessCell(const vcg::Point3i &min, const vcg::Point3i &max)
             {
                 _case = _subconfig = _config = -1;
-                assert(min[0]<max[0] && min[1]<max[1] && min[2]<max[2]);
+                vcg_assert(min[0]<max[0] && min[1]<max[1] && min[2]<max[2]);
                 _corners[0].X()=min.X();		_corners[0].Y()=min.Y();		_corners[0].Z()=min.Z();
                 _corners[1].X()=max.X();		_corners[1].Y()=min.Y();		_corners[1].Z()=min.Z();
                 _corners[2].X()=max.X();		_corners[2].Y()=max.Y();		_corners[2].Z()=min.Z();
@@ -357,7 +357,7 @@ namespace vcg
                         case 43 : { /* 13.2 */ AddTriangles( MCLookUpTable::Tiling13_2_(_config,4), 6 ) ; break ; }
                         case 44 : { /* 13.2 */ AddTriangles( MCLookUpTable::Tiling13_2_(_config,5), 6 ) ; break ; }
                         case 45 : { /* 13.1 */ AddTriangles( MCLookUpTable::Tiling13_1_(_config)	, 4 ) ; break ; }
-                        default : { /*Impossible case 13*/  assert(false); }
+                        default : { /*Impossible case 13*/  vcg_assert(false); }
                         }
                         break ;
                     } // end of case 13
@@ -417,7 +417,7 @@ namespace vcg
                 case -4 : case 4 :  A = _field[3] ;  B = _field[7] ;  C = _field[4] ;  D = _field[0] ;  break ;
                 case -5 : case 5 :  A = _field[0] ;  B = _field[3] ;  C = _field[2] ;  D = _field[1] ;  break ;
                 case -6 : case 6 :  A = _field[4] ;  B = _field[7] ;  C = _field[6] ;  D = _field[5] ;  break ;
-                default : assert(false); // Invalid face code
+                default : vcg_assert(false); // Invalid face code
                 };
 
                 return face * A * ( A*C - B*D ) >= 0  ;  // face and A invert signs
@@ -548,11 +548,11 @@ namespace vcg
                         Ct = _field[1] + ( _field[5] - _field[1] ) * t ;
                         Dt = _field[0] + ( _field[4] - _field[0] ) * t ;
                         break ;
-                    default: { assert(false); /* Invalid edge */ break ; }
+                    default: { vcg_assert(false); /* Invalid edge */ break ; }
                     }
                     break ;
 
-                default : assert(false); /* Invalid ambiguous case */  break;
+                default : vcg_assert(false); /* Invalid ambiguous case */  break;
                 }
 
                 if( At >= 0 ) test ++ ;
@@ -690,13 +690,13 @@ namespace vcg
                         case  9: { _walker->GetZIntercept(_corners[1], _corners[5], vp); vertices_idx[vert] = tri::Index(*_mesh,vp); break; }
                         case 10: { _walker->GetZIntercept(_corners[2], _corners[6], vp); vertices_idx[vert] = tri::Index(*_mesh,vp); break; }
                         case 11: { _walker->GetZIntercept(_corners[3], _corners[7], vp); vertices_idx[vert] = tri::Index(*_mesh,vp); break; }
-                        case 12: { assert(v12 != NULL); vertices_idx[vert] = v12_idx; break; }
-                        default: { assert(false); /* Invalid edge identifier */ }
+                        case 12: { vcg_assert(v12 != NULL); vertices_idx[vert] = v12_idx; break; }
+                        default: { vcg_assert(false); /* Invalid edge identifier */ }
                         } // end of switch
 
                         // Note that vp can be zero if we are in case 12 and that vertices_idx is surely >0 so the following assert has to be corrected as below.
-                        // assert((vp - &_mesh->vert[0])>=0 && vertices_idx[vert]<_mesh->vert.size());
-                        assert(vertices_idx[vert]<_mesh->vert.size());
+                        // vcg_assert((vp - &_mesh->vert[0])>=0 && vertices_idx[vert]<_mesh->vert.size());
+                        vcg_assert(vertices_idx[vert]<_mesh->vert.size());
                     } // end for (int vert=0 ...)
 
                     _mesh->face[face_idx].V(0) = &_mesh->vert[vertices_idx[0]];

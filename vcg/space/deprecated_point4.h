@@ -59,7 +59,7 @@ Edited Comments and GPL license
 
 #ifndef __VCGLIB_POINT4
 #define __VCGLIB_POINT4
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 #include <vcg/math/base.h>
 
@@ -137,12 +137,12 @@ public:
     **/
     inline const T & operator [] ( const int i ) const
     {
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return _v[i];
     }
     inline T & operator [] ( const int i )
     {
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return _v[i];
     }
     inline T &X() {return _v[0];}
@@ -159,12 +159,12 @@ public:
     }
     inline const T & V ( const int i ) const
     {
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return _v[i];
     }
     inline T & V ( const int i )
     {
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return _v[i];
     }
         /// Padding function: give a default 0 value to all the elements that are not in the [0..2] range.
@@ -317,7 +317,7 @@ public:
 	inline T dot( const Point4 & p ) const { return (*this) * p; }
   inline Point4 operator ^ (  const Point4& /*p*/ ) const
     {
-        assert(0);// not defined by two vectors (only put for metaprogramming)
+        vcg_assert(0);// not defined by two vectors (only put for metaprogramming)
         return Point4();
     }
 

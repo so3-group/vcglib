@@ -88,7 +88,7 @@ Edited Comments and GPL license
 
 #include <float.h>
 #include <math.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <cmath>
 #include <limits>
 #include <algorithm>

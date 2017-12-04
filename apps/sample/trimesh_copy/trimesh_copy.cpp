@@ -96,9 +96,9 @@ bool UnitTest_Append(const char *filename1, const char *filename2)
   int endCopy = clock();
   std::cout << "mesh copied in " << float(endCopy-startCopy)/CLOCKS_PER_SEC << " msecs." << std::endl;
 
-  assert(ml.VN()==mr.VN());
-  assert(ml.en==mr.en);
-  assert(ml.FN()==mr.FN());
+  vcg_assert(ml.VN()==mr.VN());
+  vcg_assert(ml.en==mr.en);
+  vcg_assert(ml.FN()==mr.FN());
 
   int startSave = clock();
   vcg::tri::io::ExporterPLY<MeshType>::Save(ml,filename2);

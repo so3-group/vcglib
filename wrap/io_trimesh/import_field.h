@@ -51,7 +51,7 @@ public:
         }
         int numF;
         fscanf(f,"%d\n",&numF);
-        assert(numF==mesh.fn);
+        vcg_assert(numF==mesh.fn);
         char skipstr[200];
         //int readed0;
         for (int i=0;i<9;i++)
@@ -64,7 +64,7 @@ public:
             int i2=-1;
             double u0,v0,u1,v1,u2,v2;
             int readed1=fscanf(f,"%d %d %d %lf %lf %lf %lf %lf %lf",&i0,&i1,&i2,&u0,&v0,&u1,&v1,&u2,&v2);
-            assert(readed1==9);
+            vcg_assert(readed1==9);
             vcg::Point2<ScalarType> UV[3];
             UV[0]= vcg::Point2<ScalarType>(u0,v0);
             UV[1]= vcg::Point2<ScalarType>(u1,v1);
@@ -121,7 +121,7 @@ public:
 //            int i2=-1;
 //            double u0,v0,u1,v1,u2,v2;
 //            int readed1=fscanf(f,"%d %d %d %lf %lf %lf %lf %lf %lf",&i0,&i1,&i2,&u0,&v0,&u1,&v1,&u2,&v2);
-//            assert(readed1==9);
+//            vcg_assert(readed1==9);
 //            vcg::Point2<ScalarType> UV[3];
 //            UV[0]= vcg::Point2<ScalarType>(u0,v0);
 //            UV[1]= vcg::Point2<ScalarType>(u1,v1);
@@ -225,9 +225,9 @@ public:
          FILE *f = fopen(path,"rt");
         int num,symm;
         fscanf(f,"%d",&num);
-        assert(num==mesh.vn);
+        vcg_assert(num==mesh.vn);
         fscanf(f,"%d\n",&symm);
-        assert(symm==4);
+        vcg_assert(symm==4);
         for (unsigned int i=0;i<num;i++)
         {
             float dirX,dirY,dirZ;
@@ -293,7 +293,7 @@ public:
                 if (f0->V(1)==v)e0=1;
                 if (f0->V(2)==v)e0=2;
                 e0=(e0+2)%3;
-                assert(e0!=-1);
+                vcg_assert(e0!=-1);
                 FaceType *f1;
                 int e1;
                 f1=f0->FFp(e0);

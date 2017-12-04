@@ -112,7 +112,7 @@ namespace vcg{
 
 		void _NextCell()
 		{
-			assert(!end);
+			vcg_assert(!end);
 			vcg::Box3<ScalarType> bb_current;
 
 			Si.IPiToPf(CurrentCell,bb_current.min);
@@ -345,7 +345,7 @@ namespace vcg{
 			to_explore.Intersect(ibox);
 			if (!to_explore.IsNull())
 			{
-				assert(!( to_explore.min.X()<0 || to_explore.max.X()>=Si.siz[0] ||
+				vcg_assert(!( to_explore.min.X()<0 || to_explore.max.X()>=Si.siz[0] ||
 					to_explore.min.Y()<0 || to_explore.max.Y()>=Si.siz[1] ||  to_explore.min.Z()<0
 					|| to_explore.max.Z()>=Si.siz[2] ));
 				return true;

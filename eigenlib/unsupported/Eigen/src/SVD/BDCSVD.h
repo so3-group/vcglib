@@ -139,7 +139,7 @@ public:
 
   void setSwitchSize(int s) 
   {
-    eigen_assert(s>3 && "BDCSVD the size of the algo switch has to be greater than 4");
+    eigen_vcg_assert(s>3 && "BDCSVD the size of the algo switch has to be greater than 4");
     algoswap = s;
   }
 
@@ -157,8 +157,8 @@ public:
   inline const internal::solve_retval<BDCSVD, Rhs>
   solve(const MatrixBase<Rhs>& b) const
   {
-    eigen_assert(this->m_isInitialized && "BDCSVD is not initialized.");
-    eigen_assert(SVDBase<_MatrixType>::computeU() && SVDBase<_MatrixType>::computeV() && 
+    eigen_vcg_assert(this->m_isInitialized && "BDCSVD is not initialized.");
+    eigen_vcg_assert(SVDBase<_MatrixType>::computeU() && SVDBase<_MatrixType>::computeV() && 
 		 "BDCSVD::solve() requires both unitaries U and V to be computed (thin unitaries suffice).");
     return internal::solve_retval<BDCSVD, Rhs>(*this, b.derived());
   }
@@ -166,14 +166,14 @@ public:
  
   const MatrixUType& matrixU() const
   {
-    eigen_assert(this->m_isInitialized && "SVD is not initialized.");
+    eigen_vcg_assert(this->m_isInitialized && "SVD is not initialized.");
     if (isTranspose){
-      eigen_assert(this->computeV() && "This SVD decomposition didn't compute U. Did you ask for it?");
+      eigen_vcg_assert(this->computeV() && "This SVD decomposition didn't compute U. Did you ask for it?");
       return this->m_matrixV;
     }
     else 
     {
-      eigen_assert(this->computeU() && "This SVD decomposition didn't compute U. Did you ask for it?");
+      eigen_vcg_assert(this->computeU() && "This SVD decomposition didn't compute U. Did you ask for it?");
       return this->m_matrixU;
     }
      
@@ -182,14 +182,14 @@ public:
 
   const MatrixVType& matrixV() const
   {
-    eigen_assert(this->m_isInitialized && "SVD is not initialized.");
+    eigen_vcg_assert(this->m_isInitialized && "SVD is not initialized.");
     if (isTranspose){
-      eigen_assert(this->computeU() && "This SVD decomposition didn't compute V. Did you ask for it?");
+      eigen_vcg_assert(this->computeU() && "This SVD decomposition didn't compute V. Did you ask for it?");
       return this->m_matrixU;
     }
     else
     {
-      eigen_assert(this->computeV() && "This SVD decomposition didn't compute V. Did you ask for it?");
+      eigen_vcg_assert(this->computeV() && "This SVD decomposition didn't compute V. Did you ask for it?");
       return this->m_matrixV;
     }
   }
@@ -708,7 +708,7 @@ struct solve_retval<BDCSVD<_MatrixType>, Rhs>
 
   template<typename Dest> void evalTo(Dest& dst) const
   {
-    eigen_assert(rhs().rows() == dec().rows());
+    eigen_vcg_assert(rhs().rows() == dec().rows());
     // A = U S V^*
     // So A^{ - 1} = V S^{ - 1} U^*    
     Index diagSize = (std::min)(dec().rows(), dec().cols());

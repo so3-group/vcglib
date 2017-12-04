@@ -89,10 +89,10 @@ void CapHole(MyMesh &m, MyMesh &capMesh, bool reverseFlag)
     {
       MyFace* startB=&(m.face[i]);
       vcg::face::Pos<MyFace> p(startB,j);
-      assert(p.IsBorder());
+      vcg_assert(p.IsBorder());
       do
       {
-        assert(p.IsManifold());
+        vcg_assert(p.IsManifold());
         p.F()->SetV();
         outline.push_back(p.V()->P());
         p.NextB();

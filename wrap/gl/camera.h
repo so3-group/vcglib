@@ -158,7 +158,7 @@ static void TransformGL(vcg::Camera<S> & camera, S nearDist, S farDist )
     tp *= ratio;
   }
 
-	assert(glGetError()==0);
+	vcg_assert(glGetError()==0);
 	
 	switch(camera.cameraType) 
 	{
@@ -168,7 +168,7 @@ static void TransformGL(vcg::Camera<S> & camera, S nearDist, S farDist )
    case CameraType::CAVALIERI:   SetGLCavalieriProj(sx,dx,bt,tp,nearDist,farDist); 	break;
 	}
        
-	assert(glGetError()==0);
+	vcg_assert(glGetError()==0);
 };
 
 
@@ -202,7 +202,7 @@ static void SetSubView(vcg::Camera<S> & camera,vcg::Point2<S> p0,S nearDist, S f
 	}
 
 
-	assert(glGetError()==0);
+	vcg_assert(glGetError()==0);
 };
 };
 #endif
@@ -737,7 +737,7 @@ static void SetSubView(vcg::Camera<S> & camera,vcg::Point2<S> p0,S nearDist, S f
 //				 const int image_viewport[2]
 //			   )
 //	{
-//		assert(!IsOrtho());
+//		vcg_assert(!IsOrtho());
 //		valid = true;
 //		x_axis[0] = cc.r1; x_axis[1] = cc.r2; x_axis[2] = cc.r3;
 //		y_axis[0] = cc.r4; y_axis[1] = cc.r5; y_axis[2] = cc.r6;
@@ -768,7 +768,7 @@ static void SetSubView(vcg::Camera<S> & camera,vcg::Point2<S> p0,S nearDist, S f
 //				 int image_viewport[2]
 //			   )
 //	{
-//		assert(!IsOrtho());
+//		vcg_assert(!IsOrtho());
 //		cc.r1 = x_axis[0];  cc.r2 = x_axis[1]; cc.r3= x_axis[2] ;
 //		cc.r4 = y_axis[0];  cc.r5 = y_axis[1]; cc.r6= y_axis[2] ;
 //		cc.r7 = z_axis[0];  cc.r8 = z_axis[1]; cc.r9= z_axis[2] ;

@@ -30,7 +30,7 @@
 #include <string>
 #include <list>
 #include <algorithm>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/container/entries_allocation_table.h>
 
 namespace vcg {
@@ -187,7 +187,7 @@ if(!IsTheSameAsLast(pt)){
 	typename std::list<ENTRY_TYPE>::iterator lower_ite,upper_ite;
 	lower_ite = FindBase(pt);
 
-	assert(	lower_ite!=AT().end());
+	vcg_assert(	lower_ite!=AT().end());
 
 	Lower() = (*lower_ite).Start();
 	if( (*lower_ite).Start() == AT().back().Start())

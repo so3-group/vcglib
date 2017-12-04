@@ -75,13 +75,13 @@ public:
   PEdge(FacePointer  pf, const int nz) { this->Set(pf,nz); }
   void Set( FacePointer  pf, const int nz )
   {
-    assert(pf!=0);
-    assert(nz>=0);
-    assert(nz<pf->VN());
+    vcg_assert(pf!=0);
+    vcg_assert(nz>=0);
+    vcg_assert(nz<pf->VN());
 
     v[0] = pf->V(nz);
     v[1] = pf->V(pf->Next(nz));
-    assert(v[0] != v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
+    vcg_assert(v[0] != v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
 
     if( v[0] > v[1] ) std::swap(v[0],v[1]);
     f    = pf;
@@ -159,9 +159,9 @@ static void AllocateEdge(MeshType &m)
   // Compute and add edges
   std::vector<PEdge> Edges;
   FillUniqueEdgeVector(m,Edges,true,tri::HasPerEdgeFlags(m) );
-  assert(m.edge.empty());
+  vcg_assert(m.edge.empty());
   tri::Allocator<MeshType>::AddEdges(m,Edges.size());
-  assert(m.edge.size()==Edges.size());
+  vcg_assert(m.edge.size()==Edges.size());
 
   // Setup adjacency relations
   if(tri::HasEVAdjacency(m))
@@ -264,17 +264,17 @@ static void FaceFace(MeshType &m)
       typename std::vector<PEdge>::iterator q,q_next;
       for (q=ps;q<pe-1;++q)						// Scansione facce associate
       {
-        assert((*q).z>=0);
-        //assert((*q).z< 3);
+        vcg_assert((*q).z>=0);
+        //vcg_assert((*q).z< 3);
         q_next = q;
         ++q_next;
-        assert((*q_next).z>=0);
-        assert((*q_next).z< (*q_next).f->VN());
+        vcg_assert((*q_next).z>=0);
+        vcg_assert((*q_next).z< (*q_next).f->VN());
         (*q).f->FFp(q->z) = (*q_next).f;				// Collegamento in lista delle facce
         (*q).f->FFi(q->z) = (*q_next).z;
       }
-      assert((*q).z>=0);
-      assert((*q).z< (*q).f->VN());
+      vcg_assert((*q).z>=0);
+      vcg_assert((*q).z< (*q).f->VN());
       (*q).f->FFp((*q).z) = ps->f;
       (*q).f->FFi((*q).z) = ps->z;
       ps = pe;
@@ -336,13 +336,13 @@ public:
 
   void Set( FacePointer  pf, const int nz )
   {
-    assert(pf!=0);
-    assert(nz>=0);
-    assert(nz<3);
+    vcg_assert(pf!=0);
+    vcg_assert(nz>=0);
+    vcg_assert(nz<3);
 
     v[0] = pf->WT(nz);
     v[1] = pf->WT(pf->Next(nz));
-    assert(v[0] != v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
+    vcg_assert(v[0] != v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
 
     if( v[1] < v[0] ) std::swap(v[0],v[1]);
     f    = pf;
@@ -420,10 +420,10 @@ static void TestVertexEdge(MeshType &m)
   {
       if (!(*ei).IsD())
       {
-        assert(tri::IsValidPointer(m,ei->V(0)));
-        assert(tri::IsValidPointer(m,ei->V(1)));
-        if(ei->VEp(0)) assert(tri::IsValidPointer(m,ei->VEp(0)));
-        if(ei->VEp(1)) assert(tri::IsValidPointer(m,ei->VEp(1)));
+        vcg_assert(tri::IsValidPointer(m,ei->V(0)));
+        vcg_assert(tri::IsValidPointer(m,ei->V(1)));
+        if(ei->VEp(0)) vcg_assert(tri::IsValidPointer(m,ei->VEp(0)));
+        if(ei->VEp(1)) vcg_assert(tri::IsValidPointer(m,ei->VEp(1)));
         numVertex[tri::Index(m,(*ei).V(0))]++;
         numVertex[tri::Index(m,(*ei).V(1))]++;
       }
@@ -439,8 +439,8 @@ static void TestVertexEdge(MeshType &m)
         for(edge::VEIterator<EdgeType> vei(&*vi);!vei.End();++vei)
           cnt++;
         EdgeType *vep = vi->VEp();
-        assert((incidentNum==0) == (vi->VEp()==0) );
-        assert(cnt==incidentNum);        
+        vcg_assert((incidentNum==0) == (vi->VEp()==0) );
+        vcg_assert(cnt==incidentNum);        
       }
   }  
 }
@@ -451,7 +451,7 @@ static void TestVertexFace(MeshType &m)
 {
     SimpleTempData<typename MeshType::VertContainer, int > numVertex(m.vert,0);
 
-  assert(tri::HasPerVertexVFAdjacency(m));
+  vcg_assert(tri::HasPerVertexVFAdjacency(m));
 
     for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
     {
@@ -471,17 +471,17 @@ static void TestVertexFace(MeshType &m)
         if(vi->VFp()!=0) // unreferenced vertices MUST have VF == 0;
         {
             int num=0;
-            assert(tri::IsValidPointer(m, vi->VFp()));
+            vcg_assert(tri::IsValidPointer(m, vi->VFp()));
             VFi.f=vi->VFp();
             VFi.z=vi->VFi();
             while (!VFi.End())
             {
                 num++;
-                assert(!VFi.F()->IsD());
-                assert((VFi.F()->V(VFi.I()))==&(*vi));
+                vcg_assert(!VFi.F()->IsD());
+                vcg_assert((VFi.F()->V(VFi.I()))==&(*vi));
                 ++VFi;
             }
-            assert(num==numVertex[&(*vi)]);
+            vcg_assert(num==numVertex[&(*vi)]);
         }
     }
 }
@@ -489,7 +489,7 @@ static void TestVertexFace(MeshType &m)
 /// \brief Test correctness of FFtopology (only for 2Manifold Meshes!)
 static void TestFaceFace(MeshType &m)
 {
-  assert(HasFFAdjacency(m));
+  vcg_assert(HasFFAdjacency(m));
 
   for(FaceIterator fi=m.face.begin();fi!=m.face.end();++fi)
     {
@@ -500,8 +500,8 @@ static void TestFaceFace(MeshType &m)
         FaceType *ffpi=fi->FFp(i);
         int e=fi->FFi(i);
         //invariant property of FF topology for two manifold meshes
-        assert(ffpi->FFp(e) == &(*fi));
-        assert(ffpi->FFi(e) == i);
+        vcg_assert(ffpi->FFp(e) == &(*fi));
+        vcg_assert(ffpi->FFi(e) == i);
 
         // Test that the two faces shares the same edge
         // Vertices of the i-th edges of the first face
@@ -511,8 +511,8 @@ static void TestFaceFace(MeshType &m)
         VertexPointer ffv0i= ffpi->V0(e);
         VertexPointer ffv1i= ffpi->V1(e);
 
-        assert( (ffv0i==v0i) || (ffv0i==v1i) );
-        assert( (ffv1i==v0i) || (ffv1i==v1i) );
+        vcg_assert( (ffv0i==v0i) || (ffv0i==v1i) );
+        vcg_assert( (ffv1i==v0i) || (ffv1i==v1i) );
             }
 
         }
@@ -532,9 +532,9 @@ public:
   PVertexEdge(  ) {}
   PVertexEdge( EdgePointer  pe, const int nz )
 {
-  assert(pe!=0);
-  assert(nz>=0);
-  assert(nz<2);
+  vcg_assert(pe!=0);
+  vcg_assert(nz>=0);
+  vcg_assert(nz<2);
 
   v= pe->V(nz);
   e    = pe;
@@ -578,17 +578,17 @@ static void EdgeEdge(MeshType &m)
       typename std::vector<PVertexEdge>::iterator q,q_next;
       for (q=ps;q<pe-1;++q)						// Scansione edge associati
       {
-        assert((*q).z>=0);
-        assert((*q).z< 2);
+        vcg_assert((*q).z>=0);
+        vcg_assert((*q).z< 2);
         q_next = q;
         ++q_next;
-        assert((*q_next).z>=0);
-        assert((*q_next).z< 2);
+        vcg_assert((*q_next).z>=0);
+        vcg_assert((*q_next).z< 2);
         (*q).e->EEp(q->z) = (*q_next).e;				// Collegamento in lista delle facce
         (*q).e->EEi(q->z) = (*q_next).z;
       }
-      assert((*q).z>=0);
-      assert((*q).z< 2);
+      vcg_assert((*q).z>=0);
+      vcg_assert((*q).z< 2);
       (*q).e->EEp((*q).z) = ps->e;
       (*q).e->EEi((*q).z) = ps->z;
       ps = pe;
@@ -613,7 +613,7 @@ static void VertexEdge(MeshType &m)
   if( ! (*ei).IsD() )
   {
     for(int j=0;j<2;++j)
-    { assert(tri::IsValidPointer(m,ei->V(j)));
+    { vcg_assert(tri::IsValidPointer(m,ei->V(j)));
       (*ei).VEp(j) = (*ei).V(j)->VEp();
       (*ei).VEi(j) = (*ei).V(j)->VEi();
       (*ei).V(j)->VEp() = &(*ei);

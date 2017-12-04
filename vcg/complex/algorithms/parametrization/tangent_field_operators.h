@@ -40,8 +40,8 @@ vcg::Point2<ScalarType> InterpolateNRosy2D(const std::vector<vcg::Point2<ScalarT
                                            const int N)
 {
     // check parameter
-    assert(V.size() == W.size());
-    assert( N > 0);
+    vcg_assert(V.size() == W.size());
+    vcg_assert( N > 0);
 
     // create a vector of angles
     std::vector<ScalarType> angles(V.size(), 0);
@@ -69,7 +69,7 @@ vcg::Point2<ScalarType> InterpolateNRosy2D(const std::vector<vcg::Point2<ScalarT
         Res += VV[i] * W[i];
         Sum+=W[i];
     }
-    assert(Sum>0);
+    vcg_assert(Sum>0);
     Res /=Sum;
 
     //R /= VV.rows();
@@ -120,14 +120,14 @@ vcg::Point3<ScalarType> InterpolateNRosy3D(const std::vector<vcg::Point3<ScalarT
         //std::cout << "TargetN " << TargetN.X() << " " << TargetN.Y() << " " << TargetN.Z()<< std::endl<< std::flush;
 
         CoordType rotV=RotNorm*V[i];
-        //assert(fabs(rotV*TargetN)<0.000001);
+        //vcg_assert(fabs(rotV*TargetN)<0.000001);
         rotV.Normalize();
         //std::cout << "rotV " << rotV.X() << " " << rotV.Y() << " " << rotV.Z()<< std::endl<< std::flush;
 
         ///trassform to the reference frame
         rotV=RotFrame*rotV;
-        assert(!isnan(rotV.X()));
-        assert(!isnan(rotV.Y()));
+        vcg_assert(!isnan(rotV.X()));
+        vcg_assert(!isnan(rotV.Y()));
 
         //it's 2D from now on
         Cross2D.push_back(vcg::Point2<ScalarType>(rotV.X(),rotV.Y()));
@@ -135,8 +135,8 @@ vcg::Point3<ScalarType> InterpolateNRosy3D(const std::vector<vcg::Point3<ScalarT
     }
 
     vcg::Point2<ScalarType> AvDir2D=InterpolateNRosy2D(Cross2D,W,N);
-    assert(!isnan(AvDir2D.X()));
-    assert(!isnan(AvDir2D.Y()));
+    vcg_assert(!isnan(AvDir2D.X()));
+    vcg_assert(!isnan(AvDir2D.Y()));
     CoordType AvDir3D=CoordType(AvDir2D.X(),AvDir2D.Y(),0);
     //transform back to 3D
     AvDir3D=RotFrameInv*AvDir3D;
@@ -194,10 +194,10 @@ private:
         //find angle C
         ScalarType C=vcg::Angle(Dir2,-Dir0);
         //safety checks
-        assert(BTotal<=(M_PI));
-        assert(BTotal>=0);
-        assert(C<=(M_PI));
-        assert(C>=0);
+        vcg_assert(BTotal<=(M_PI));
+        vcg_assert(BTotal>=0);
+        vcg_assert(C<=(M_PI));
+        vcg_assert(C>=0);
 
         //push the first one
         SubDEdges.push_back(Edge0);
@@ -206,8 +206,8 @@ private:
             //find angle interval
             ScalarType B=StepAngle*(ScalarType)i;
             ScalarType A=(M_PI-C-B);
-            assert(A<=(M_PI));
-            assert(A>=0);
+            vcg_assert(A<=(M_PI));
+            vcg_assert(A>=0);
             //find current lenght
             ScalarType b=a*sin(B)/sin(A);
             //then move along the direction of edge b
@@ -262,9 +262,9 @@ private:
         OriginalFace.clear();
 
         //not ct on border
-        assert(!vPos.IsBorder());
+        vcg_assert(!vPos.IsBorder());
         //the vertex should be the one on the pos
-        assert(vPos.F()->V(vPos.E())==vPos.V());
+        vcg_assert(vPos.F()->V(vPos.E())==vPos.V());
 
         // collect all faces around the star of the vertex
         std::vector<PosType> StarPos;
@@ -285,9 +285,9 @@ private:
             VertexType *v2=CurrF->V1(currPos.E());
             CoordType P1=v1->P();
             CoordType P2=v2->P();
-            assert(v1!=v2);
-            assert(v0!=v1);
-            assert(v0!=v2);
+            vcg_assert(v1!=v2);
+            vcg_assert(v0!=v1);
+            vcg_assert(v0!=v2);
 
             SubdivideTris(vcg::Triangle3<ScalarType>(P0,P1,P2),0,SubFaces,numSub);
         }
@@ -300,11 +300,11 @@ private:
     {
         Dir.clear();
         //check
-        assert(SubFaces.size()>OriginalFace.size());
+        vcg_assert(SubFaces.size()>OriginalFace.size());
 
         int SubDivisionSize=SubFaces.size()/OriginalFace.size();
-        assert(SubDivisionSize>=3);
-        assert(SubDivisionSize%2==1);//should be odd
+        vcg_assert(SubDivisionSize>=3);
+        vcg_assert(SubDivisionSize%2==1);//should be odd
         int MiddlePos=SubDivisionSize/2+1;//the one in the middle that should preserve face's cross field
 
         //calculate the interpolation weights and intervals
@@ -342,8 +342,8 @@ private:
                 IndexF1=(interval+1) % OriginalFace.size();
                 alpha=1;
             }
-            assert((IndexF0>=0)&&(IndexF0<OriginalFace.size()));
-            assert((IndexF1>=0)&&(IndexF1<OriginalFace.size()));
+            vcg_assert((IndexF0>=0)&&(IndexF0<OriginalFace.size()));
+            vcg_assert((IndexF1>=0)&&(IndexF1<OriginalFace.size()));
 
             FaceType* F0=OriginalFace[IndexF0];
             FaceType* F1=OriginalFace[IndexF1];
@@ -351,7 +351,7 @@ private:
             InterpFaces.push_back(std::pair<FaceType*,FaceType*>(F0,F1));
             InterpWeights.push_back(alpha);
         }
-        assert(InterpFaces.size()==InterpWeights.size());
+        vcg_assert(InterpFaces.size()==InterpWeights.size());
         //then calculate the interpolated cross field
         for (size_t i=0;i<InterpFaces.size();i++)
         {
@@ -409,7 +409,7 @@ private:
        }
 
        //safety check
-       assert(t0.P(0)==t1.P(0));
+       vcg_assert(t0.P(0)==t1.P(0));
 
        CoordType Origin=t0.P(0);
        TriangleType T0Rot(CoordType(0,0,0),t0.P(1)-Origin,t0.P(2)-Origin);
@@ -435,10 +435,10 @@ private:
        //find the interpolation angles
        ScalarType Angle0=vcg::Angle(Dir0Rot,Sep0Rot);
        ScalarType Angle1=vcg::Angle(Dir1Rot,Sep1Rot);
-       assert(Angle0>=0);
-       assert(Angle1>=0);
-       assert(Angle0<=(M_PI/2));
-       assert(Angle1<=(M_PI/2));
+       vcg_assert(Angle0>=0);
+       vcg_assert(Angle1>=0);
+       vcg_assert(Angle0<=(M_PI/2));
+       vcg_assert(Angle1<=(M_PI/2));
        ScalarType alpha=0.5;//Angle0/(Angle0+Angle1);
 
        //then interpolate the direction
@@ -451,7 +451,7 @@ private:
        CoordType bary0,bary1;
        bool Inside0=vcg::InterpolationParameters(T0Rot,Interpolated,bary0);
        bool Inside1=vcg::InterpolationParameters(T1Rot,Interpolated,bary1);
-       assert(Inside0 || Inside1);
+       vcg_assert(Inside0 || Inside1);
 //       if (!(Inside0 || Inside1))
 //       {
 //           std::cout << "Not Inside " << Interpolated.X() << "," << Interpolated.Y() << "," << Interpolated.Z() << std::endl;
@@ -501,7 +501,7 @@ private:
             }
             DirProd.push_back(prod);
         }
-        assert(MaxInd0!=MaxInd1);
+        vcg_assert(MaxInd0!=MaxInd1);
 
         //then find the one to be deleted
         int IndexDel=MaxInd0;
@@ -534,9 +534,9 @@ public:
         directions.clear();
 
         //not ct on border
-        assert(!vPos.IsBorder());
+        vcg_assert(!vPos.IsBorder());
         //the vertex should be the one on the pos
-        assert(vPos.F()->V(vPos.E())==vPos.V());
+        vcg_assert(vPos.F()->V(vPos.E())==vPos.V());
 
         std::vector<TriangleType> SubFaces;
         std::vector<CoordType> Dir1,Dir2;
@@ -585,8 +585,8 @@ public:
             CoordType Dir1F0=Dir1[i];
             CoordType Dir2F0=Dir2[i];
 
-            assert(fabs(Dir1F0*N0)<0.001);
-            assert(fabs(Dir1F0*Dir2F0)<0.001);
+            vcg_assert(fabs(Dir1F0*N0)<0.001);
+            vcg_assert(fabs(Dir1F0*Dir2F0)<0.001);
 
             if ((Dir1F0*Bary0)<0)Dir1F0=-Dir1F0;
             if ((Dir2F0*Bary0)<0)Dir2F0=-Dir2F0;
@@ -594,8 +594,8 @@ public:
             CoordType Dir1F1=Dir1[(i+1)%Dir1.size()];
             CoordType Dir2F1=Dir2[(i+1)%Dir2.size()];
 
-            assert(fabs(Dir1F1*N1)<0.001);
-            assert(fabs(Dir1F1*Dir2F1)<0.01);
+            vcg_assert(fabs(Dir1F1*N1)<0.001);
+            vcg_assert(fabs(Dir1F1*Dir2F1)<0.01);
 
             //find the most similar rotation of the cross field
             vcg::Matrix33<ScalarType> rotation=vcg::RotationMatrix(N0,N1);
@@ -635,10 +635,10 @@ public:
             if (tri_Index==-1)continue;
 
             //retrieve original face
-            assert((tri_Index==0)||(tri_Index==1));
+            vcg_assert((tri_Index==0)||(tri_Index==1));
             int OrigFIndex=((i+tri_Index)%SubFaces.size())/numSub;
-            assert(OrigFIndex>=0);
-            assert(OrigFIndex<OriginalFaces.size());
+            vcg_assert(OrigFIndex>=0);
+            vcg_assert(OrigFIndex<OriginalFaces.size());
 
             FaceType* currF=OriginalFaces[OrigFIndex];
             //add the data
@@ -689,7 +689,7 @@ public:
                 ret=i;
             }
         }
-        assert(ret!=-1);
+        vcg_assert(ret!=-1);
 
         return ret;
     }
@@ -717,7 +717,7 @@ public:
                 ret=i;
             }
         }
-        assert(ret!=-1);
+        vcg_assert(ret!=-1);
 
         return ret;
     }
@@ -908,7 +908,7 @@ public:
     static CoordType CrossVector(const FaceType &f,
                                  const int &index)
     {
-        assert((index>=0)&&(index<4));
+        vcg_assert((index>=0)&&(index<4));
         CoordType axis[4];
         CrossVector(f,axis);
         return axis[index];
@@ -919,7 +919,7 @@ public:
     static CoordType CrossVector(const VertexType &v,
                                  const int &index)
     {
-        assert((index>=0)&&(index<4));
+        vcg_assert((index>=0)&&(index<4));
         CoordType axis[4];
         CrossVector(v,axis);
         return axis[index];
@@ -1144,8 +1144,8 @@ public:
         CoordType trans1=t1;
         if ((trans0*trans1)<0)trans1=-trans1;
         ScalarType angleD=vcg::Angle(trans0,trans1);
-        assert(angleD>=0);
-        assert(angleD<=M_PI_2);
+        vcg_assert(angleD>=0);
+        vcg_assert(angleD<=M_PI_2);
         return (angleD/M_PI_2);
     }
 
@@ -1451,7 +1451,7 @@ public:
                 std::pop_heap(heap.begin(), heap.end());
                 FaceType *f0=heap.back().second.first;
                 FaceType *f1=heap.back().second.second;
-                assert(f0->IsV());
+                vcg_assert(f0->IsV());
                 heap.pop_back();
 
                 MakeDirectionFaceCoherent(f0,f1);

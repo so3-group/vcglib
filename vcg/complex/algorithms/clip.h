@@ -259,7 +259,7 @@ public:
       ClipPolygonLine(4, b.min[2], pvP0,      n0, pvP1,     n1);
       ClipPolygonLine(5, b.max[2], pvP1,      n1, vClipped,  n);
 
-      assert(n < 64);
+      vcg_assert(n < 64);
 
       unsigned int firstV, lastV;
 
@@ -666,7 +666,7 @@ public:
       ClipPolygonLine(4, b.min[2], pvP0,      n0, pvP1,     n1);
       ClipPolygonLine(5, b.max[2], pvP1,      n1, vClipped,  n);
 
-      assert(n < 64);
+      vcg_assert(n < 64);
 
       unsigned int firstV, lastV;
 

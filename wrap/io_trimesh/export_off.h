@@ -109,7 +109,7 @@ public:
       }
     }
 
-    assert(j==m.vn);
+    vcg_assert(j==m.vn);
 
 
     if (mask &io::Mask::IOM_BITPOLYGONAL) {

@@ -70,10 +70,10 @@ static inline Matrix ConstructHomo(const MatrixBase<OtherDerived>& b)
 
 inline const Scalar &X() const { return data()[0]; }
 inline const Scalar &Y() const { return data()[1]; }
-inline const Scalar &Z() const { assert(SizeAtCompileTime>2); return data()[2]; }
+inline const Scalar &Z() const { vcg_assert(SizeAtCompileTime>2); return data()[2]; }
 inline Scalar &X() { return data()[0]; }
 inline Scalar &Y() { return data()[1]; }
-inline Scalar &Z() { assert(SizeAtCompileTime>2); return data()[2]; }
+inline Scalar &Z() { vcg_assert(SizeAtCompileTime>2); return data()[2]; }
 
 /** note, W always returns the last entry */
 inline Scalar& W() { return data()[SizeAtCompileTime-1]; }
@@ -89,7 +89,7 @@ EIGEN_DEPRECATED const Scalar* V() const { return data(); }
 // overloaded to return a const reference
 EIGEN_DEPRECATED inline const Scalar& V( const int i ) const
 {
-	assert(i>=0 && i<SizeAtCompileTime);
+	vcg_assert(i>=0 && i<SizeAtCompileTime);
 	return data()[i];
 }
 

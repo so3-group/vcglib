@@ -77,7 +77,7 @@ public:
       orig=&v;
     }
   }
-  inline void AddFaceVertex(MeshType &/*m*/, FaceType &/*f*/, int /*i*/)    {		assert(0);}
+  inline void AddFaceVertex(MeshType &/*m*/, FaceType &/*f*/, int /*i*/)    {		vcg_assert(0);}
   NearestToCenter(): valid(false){}
 
   CoordType bestPos;
@@ -88,7 +88,7 @@ public:
   VertexType *orig;
   CoordType Pos() const
   {
-    assert(valid);
+    vcg_assert(valid);
     return bestPos;
   }
   Color4b Col() const {return Color4b::White;}

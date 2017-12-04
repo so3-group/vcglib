@@ -34,7 +34,7 @@ namespace edge {
 /*@{*/template <class EdgeType>
 inline bool IsEdgeManifoldFF( EdgeType const & e, const int j )
 {
-  assert(e.cFFp(j) != 0); // never try to use this on uncomputed topology
+  vcg_assert(e.cFFp(j) != 0); // never try to use this on uncomputed topology
 
   if(EdgeType::HasFFAdjacency())
     return ( e.cFFp(j) == &e || &e == e.cFFp(j)->cFFp(e.cFFi(j)) );
@@ -52,7 +52,7 @@ inline bool IsEdgeBorder(EdgeType const & e,  const int j )
   if(EdgeType::HasEEAdjacency())
     return e.cEEp(j)==&e;
 
-  assert(0);
+  vcg_assert(0);
   return true;
 }
 
@@ -97,7 +97,7 @@ void VEDetach(EdgeType & e, int z)
   
   if(vz->VEp()==&e )  //if it is the first edge in the VE chain it detaches it from the begin
   {
-    assert(vz->VEi() == z);
+    vcg_assert(vz->VEi() == z);
     vz->VEp() = e.VEp(z);
     vz->VEi() = e.VEi(z); 
     return;  
@@ -113,7 +113,7 @@ void VEDetach(EdgeType & e, int z)
         return;       
       }
     }
-    assert(0);
+    vcg_assert(0);
   }
 }
 
@@ -172,16 +172,16 @@ void VEEdgeCollapse(MeshType &poly, typename MeshType::EdgeType *e0, const int z
   EdgeType *e1=0; // this edge will be deleted
   if( starVecEp[0] == e0 ) e1 = starVecEp[1];
   if( starVecEp[1] == e0 ) e1 = starVecEp[0];
-  assert(e1 && (e1!=e0) );
+  vcg_assert(e1 && (e1!=e0) );
 
   //int z0 = (z+1)%2;
   int z1 = -1;
   if(e1->V(0) == vd) z1=1;
   if(e1->V(1) == vd) z1=0;
-  assert(z1!=-1);
+  vcg_assert(z1!=-1);
   
   VertexType *v1 = e1->V(z1); 
-  assert(v1 != vd);
+  vcg_assert(v1 != vd);
   
   edge::VEDetach(*e1); // detach the edge to be deleted.
   

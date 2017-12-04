@@ -97,7 +97,7 @@ class ProductBase : public MatrixBase<Derived>
     ProductBase(const Lhs& a_lhs, const Rhs& a_rhs)
       : m_lhs(a_lhs), m_rhs(a_rhs)
     {
-      eigen_assert(a_lhs.cols() == a_rhs.rows()
+      eigen_vcg_assert(a_lhs.cols() == a_rhs.rows()
         && "invalid matrix product"
         && "if you wanted a coeff-wise or a dot product use the respective explicit functions");
     }
@@ -145,7 +145,7 @@ class ProductBase : public MatrixBase<Derived>
       return lhs().row(row).cwiseProduct(rhs().col(col).transpose()).sum();
 #else
       EIGEN_STATIC_ASSERT_SIZE_1x1(Derived)
-      eigen_assert(this->rows() == 1 && this->cols() == 1);
+      eigen_vcg_assert(this->rows() == 1 && this->cols() == 1);
       Matrix<Scalar,1,1> result = *this;
       return result.coeff(row,col);
 #endif
@@ -154,7 +154,7 @@ class ProductBase : public MatrixBase<Derived>
     typename Base::CoeffReturnType coeff(Index i) const
     {
       EIGEN_STATIC_ASSERT_SIZE_1x1(Derived)
-      eigen_assert(this->rows() == 1 && this->cols() == 1);
+      eigen_vcg_assert(this->rows() == 1 && this->cols() == 1);
       Matrix<Scalar,1,1> result = *this;
       return result.coeff(i);
     }
@@ -162,14 +162,14 @@ class ProductBase : public MatrixBase<Derived>
     const Scalar& coeffRef(Index row, Index col) const
     {
       EIGEN_STATIC_ASSERT_SIZE_1x1(Derived)
-      eigen_assert(this->rows() == 1 && this->cols() == 1);
+      eigen_vcg_assert(this->rows() == 1 && this->cols() == 1);
       return derived().coeffRef(row,col);
     }
 
     const Scalar& coeffRef(Index i) const
     {
       EIGEN_STATIC_ASSERT_SIZE_1x1(Derived)
-      eigen_assert(this->rows() == 1 && this->cols() == 1);
+      eigen_vcg_assert(this->rows() == 1 && this->cols() == 1);
       return derived().coeffRef(i);
     }
 

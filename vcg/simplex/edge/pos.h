@@ -171,7 +171,7 @@ public:
 	/// Changes edge maintaining the vertex
 	void FlipE()
 	{
-		assert( (e->V(0)==v) ||(e->V(1)==v));
+		vcg_assert( (e->V(0)==v) ||(e->V(1)==v));
 		e = (e->V(0)==v)?e->EEp(0):e->EEp(1);
 	}
   // return the vertex that it should have if we make FlipV;
@@ -272,7 +272,7 @@ public:
 	/// Constructor which takes a pointer to vertex
     VEIterator(const VertexType * _v){
       e = _v->cVEp(); z = _v->cVEi();
-	  assert(z>=0 && "VE adjacency not initialized");
+	  vcg_assert(z>=0 && "VE adjacency not initialized");
 	}
 
 	VFIEdgeType * &E() { return e;}

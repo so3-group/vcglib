@@ -25,7 +25,7 @@
 #ifndef TRACKUTILS_H
 #define TRACKUTILS_H
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/math/base.h>
 #include <vcg/math/similarity.h>
 #include <vcg/space/intersection3.h>
@@ -437,7 +437,7 @@ std::pair< float, bool > RayLineDistance(const Ray3f & R,const Line3f & Q,Point3
 //           R_s=R.P0();
 //           Q_t=ClosestPoint(Q,R_s);
 //        }else{
-//           assert(0);
+//           vcg_assert(0);
 //        }
 //      }
 //  	}

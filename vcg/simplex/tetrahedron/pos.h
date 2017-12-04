@@ -92,7 +92,7 @@ void operator++()
 		Vt() = tw->TVp(vi);
 		Vi() = tw->TVi(vi);
 
-		assert((Vt()==NULL)||((tw->V(vi))==(Vt()->V(Vi()))));
+		vcg_assert((Vt()==NULL)||((tw->V(vi))==(Vt()->V(Vi()))));
 }
 
 };
@@ -296,7 +296,7 @@ public:
 #ifdef _DEBUG
           vn0=nt->V(vcg::Tetra::VofE(ne2,0));
           vn1=nt->V(vcg::Tetra::VofE(ne2,1));
-          assert(((vn0==v0)&&(vn1==v1))||((vn1==v0)&&(vn0==v1)));
+          vcg_assert(((vn0==v0)&&(vn1==v1))||((vn1==v0)&&(vn0==v1)));
 #endif
           E()=ne2;
         }
@@ -306,7 +306,7 @@ public:
       vn0=nt->V(vcg::Tetra::VofE(E(),0));
 #ifdef _DEBUG
       vn1=nt->V(vcg::Tetra::VofE(E(),1));
-      assert((vn0==vcurr)||(vn1==vcurr));
+      vcg_assert((vn0==vcurr)||(vn1==vcurr));
 #endif
       if (vn0==vcurr)
         V()=vcg::Tetra::VofE(E(),0);
@@ -314,7 +314,7 @@ public:
         V()=vcg::Tetra::VofE(E(),1);
 
       T()=nt;
-      assert(T()->V(V())==vcurr);
+      vcg_assert(T()->V(V())==vcurr);
 			F()=nfa;
     }
   }
@@ -329,7 +329,7 @@ public:
 		FlipF();
 		#ifdef _DEBUG
 		VertexType *vnew=T()->V(V());
-		assert(vold==vnew);
+		vcg_assert(vold==vnew);
 		#endif	
 	}
 
@@ -339,22 +339,22 @@ public:
 		HETYPE ht=*this;
 		ht.FlipT();
 		ht.FlipT();
-		assert(ht==*this);
+		vcg_assert(ht==*this);
 
 		ht=*this;
 		ht.FlipF();
 		ht.FlipF();
-		assert(ht==*this);
+		vcg_assert(ht==*this);
 
 		ht=*this;
 		ht.FlipE();
 		ht.FlipE();
-		assert(ht==*this);
+		vcg_assert(ht==*this);
 
 		ht=*this;
 		ht.FlipV();
 		ht.FlipV();
-		assert(ht==*this);
+		vcg_assert(ht==*this);
 	}
 	#else
 	{}
@@ -459,7 +459,7 @@ PosLoop(TetraType*  tp,const int  fap,const int  ep,
       _loop=true;
 #ifdef _DEBUG
     if (_loop==false)
-      assert(t_old!=this->T());
+      vcg_assert(t_old!=this->T());
 #endif
   }
 

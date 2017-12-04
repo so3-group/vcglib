@@ -84,7 +84,7 @@ public:
   ///build mt strucure from a sequence of updates.
   void Load(std::vector<Update> &updates) {    
     //The last update erases everything.
-    assert(updates[0].erased.size() == 0);
+    vcg_assert(updates[0].erased.size() == 0);
 
     //maps cell -> node containing it
     std::map<Cell *, unsigned int> cell_node;   
@@ -113,7 +113,7 @@ public:
         
       for(unsigned int i = 0; i < (*u).erased.size(); i++) {
         Cell *cell = (*u).erased[i];
-        assert(cell_node.count(cell));
+        vcg_assert(cell_node.count(cell));
         node_erased[cell_node[cell]].push_back(cell);               
       }      
 

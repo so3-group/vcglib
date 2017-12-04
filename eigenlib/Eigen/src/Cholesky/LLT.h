@@ -96,14 +96,14 @@ template<typename _MatrixType, int _UpLo> class LLT
     /** \returns a view of the upper triangular matrix U */
     inline typename Traits::MatrixU matrixU() const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
       return Traits::getU(m_matrix);
     }
 
     /** \returns a view of the lower triangular matrix L */
     inline typename Traits::MatrixL matrixL() const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
       return Traits::getL(m_matrix);
     }
 
@@ -121,8 +121,8 @@ template<typename _MatrixType, int _UpLo> class LLT
     inline const internal::solve_retval<LLT, Rhs>
     solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
-      eigen_assert(m_matrix.rows()==b.rows()
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(m_matrix.rows()==b.rows()
                 && "LLT::solve(): invalid number of rows of the right hand side matrix b");
       return internal::solve_retval<LLT, Rhs>(*this, b.derived());
     }
@@ -149,7 +149,7 @@ template<typename _MatrixType, int _UpLo> class LLT
       */
     inline const MatrixType& matrixLLT() const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
       return m_matrix;
     }
 
@@ -163,7 +163,7 @@ template<typename _MatrixType, int _UpLo> class LLT
       */
     ComputationInfo info() const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
       return m_info;
     }
 
@@ -207,7 +207,7 @@ static typename MatrixType::Index llt_rank_update_lower(MatrixType& mat, const V
   typedef typename TempVectorType::SegmentReturnType TempVecSegment;
 
   Index n = mat.cols();
-  eigen_assert(mat.rows()==n && vec.size()==n);
+  eigen_vcg_assert(mat.rows()==n && vec.size()==n);
 
   TempVectorType temp;
 
@@ -273,7 +273,7 @@ template<typename Scalar> struct llt_inplace<Scalar, Lower>
     using std::sqrt;
     typedef typename MatrixType::Index Index;
     
-    eigen_assert(mat.rows()==mat.cols());
+    eigen_vcg_assert(mat.rows()==mat.cols());
     const Index size = mat.rows();
     for(Index k = 0; k < size; ++k)
     {
@@ -298,7 +298,7 @@ template<typename Scalar> struct llt_inplace<Scalar, Lower>
   static typename MatrixType::Index blocked(MatrixType& m)
   {
     typedef typename MatrixType::Index Index;
-    eigen_assert(m.rows()==m.cols());
+    eigen_vcg_assert(m.rows()==m.cols());
     Index size = m.rows();
     if(size<32)
       return unblocked(m);
@@ -392,7 +392,7 @@ LLT<MatrixType,_UpLo>& LLT<MatrixType,_UpLo>::compute(const MatrixType& a)
 {
   check_template_parameters();
   
-  eigen_assert(a.rows()==a.cols());
+  eigen_vcg_assert(a.rows()==a.cols());
   const Index size = a.rows();
   m_matrix.resize(size, size);
   m_matrix = a;
@@ -414,8 +414,8 @@ template<typename VectorType>
 LLT<_MatrixType,_UpLo> LLT<_MatrixType,_UpLo>::rankUpdate(const VectorType& v, const RealScalar& sigma)
 {
   EIGEN_STATIC_ASSERT_VECTOR_ONLY(VectorType);
-  eigen_assert(v.size()==m_matrix.cols());
-  eigen_assert(m_isInitialized);
+  eigen_vcg_assert(v.size()==m_matrix.cols());
+  eigen_vcg_assert(m_isInitialized);
   if(internal::llt_inplace<typename MatrixType::Scalar, UpLo>::rankUpdate(m_matrix,v,sigma)>=0)
     m_info = NumericalIssue;
   else
@@ -457,8 +457,8 @@ template<typename MatrixType, int _UpLo>
 template<typename Derived>
 void LLT<MatrixType,_UpLo>::solveInPlace(MatrixBase<Derived> &bAndX) const
 {
-  eigen_assert(m_isInitialized && "LLT is not initialized.");
-  eigen_assert(m_matrix.rows()==bAndX.rows());
+  eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
+  eigen_vcg_assert(m_matrix.rows()==bAndX.rows());
   matrixL().solveInPlace(bAndX);
   matrixU().solveInPlace(bAndX);
 }
@@ -469,7 +469,7 @@ void LLT<MatrixType,_UpLo>::solveInPlace(MatrixBase<Derived> &bAndX) const
 template<typename MatrixType, int _UpLo>
 MatrixType LLT<MatrixType,_UpLo>::reconstructedMatrix() const
 {
-  eigen_assert(m_isInitialized && "LLT is not initialized.");
+  eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
   return matrixL() * matrixL().adjoint().toDenseMatrix();
 }
 

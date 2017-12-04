@@ -93,7 +93,7 @@ template<typename T> struct NumTraits
 {
 	struct wrong_type
 	{
-		wrong_type() { assert(0 && "Eigen: you are using a wrong scalar type" ); }
+		wrong_type() { vcg_assert(0 && "Eigen: you are using a wrong scalar type" ); }
 	};
 
 	typedef wrong_type Real;
@@ -201,7 +201,7 @@ struct ei_import_selector<Derived1,Derived2,false,false>
 			Size1 = Derived1::SizeAtCompileTime,
 			Size2 = Derived2::SizeAtCompileTime
 		};
-		assert(Size1<=4 && Size2<=4);
+		vcg_assert(Size1<=4 && Size2<=4);
 		a.coeffRef(0) = Scalar(b.coeff(0));
 		if (Size1>1) { if (Size2>1) a.coeffRef(1) = Scalar(b.coeff(1)); else a.coeffRef(1) = 0; }
 		if (Size1>2) { if (Size2>2) a.coeffRef(2) = Scalar(b.coeff(2)); else a.coeffRef(2) = 0; }

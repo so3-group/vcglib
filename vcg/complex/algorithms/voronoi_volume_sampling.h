@@ -110,7 +110,7 @@ public:
     ScalarType _maxDist = this->poissonRadiusSurface*3.0f;
     dist=_maxDist;
     FacePointer f=surfGrid.GetClosest(PDistFunct,mf,q,_maxDist,dist,closestP);
-    assert(f);
+    vcg_assert(f);
     assert (dist >=0);
     CoordType dir = closestP - q;
     if(dir*f->cN() > 0) dist = -dist;
@@ -259,7 +259,7 @@ ScalarType DistanceFromVoronoiSurfaceEdge(const CoordType &p_point, const CoordT
 {
   seedTree->doQueryK(p_point,3,pq);
   pq.sort();
-  assert(pq.getWeight(0) <= pq.getWeight(1));
+  vcg_assert(pq.getWeight(0) <= pq.getWeight(1));
   
   CoordType p0= this->seedMesh.vert[pq.getIndex(0)].P();
   CoordType p1= this->seedMesh.vert[pq.getIndex(1)].P();
@@ -316,7 +316,7 @@ ScalarType DistanceFromVoronoiCorner(const CoordType &p_point)
 void BarycentricRelaxVoronoiSamples(int relaxStep)
 {
   bool changed=false;
-  assert(montecarloVolumeMesh.vn > seedMesh.vn*20);
+  vcg_assert(montecarloVolumeMesh.vn > seedMesh.vn*20);
   int i;
   for(i=0;i<relaxStep;++i)
   {
@@ -368,7 +368,7 @@ void BarycentricRelaxVoronoiSamples(int relaxStep)
 void QuadricRelaxVoronoiSamples(int relaxStep)
 {
   bool changed=false;
-  assert(montecarloVolumeMesh.vn > seedMesh.vn*20);
+  vcg_assert(montecarloVolumeMesh.vn > seedMesh.vn*20);
   int i;
   for(i=0;i<relaxStep;++i)
   {
@@ -438,7 +438,7 @@ ScalarType ImplicitFunction(const CoordType &p, const Param &pp)
   case 2: elemDist = DistanceFromVoronoiFace(p) - pp.isoThr; break;
   case 3: elemDist = DistanceFromVoronoiCorner(p) - pp.isoThr; break;
   case 4: elemDist = DistanceFromVoronoiInternalEdge(p) - pp.isoThr; break;
-  default: assert(0);
+  default: vcg_assert(0);
   }
   ScalarType val;
   if(pp.surfFlag)

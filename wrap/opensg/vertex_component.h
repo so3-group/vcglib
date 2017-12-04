@@ -41,7 +41,7 @@ namespace vert {
 
 /// ------------------------- OPENSGINFO -----------------------------------------
 
-template< class T > class EmptyOSGInfo : public T { public : OSG::GeometryPtr Geo() { assert(0); return NULL; } };
+template< class T > class EmptyOSGInfo : public T { public : OSG::GeometryPtr Geo() { vcg_assert(0); return NULL; } };
 
 template< class T > class OSGInfo : public T 
 {
@@ -109,10 +109,10 @@ template< class T > class EmptyOSGCoord : public T
 public :
 	typedef OSG::Pnt3f CoordType;
 	typedef OSG::Real32 ScalarType;
-	CoordType & P() { assert(0); return CoordType(); }
-	const CoordType & P() const { assert(0); return CoordType(); }
-	const CoordType & cP() const { assert(0); return CoordType(); }
-	CoordType & P() { assert(0); return CoordType(); }
+	CoordType & P() { vcg_assert(0); return CoordType(); }
+	const CoordType & P() const { vcg_assert(0); return CoordType(); }
+	const CoordType & cP() const { vcg_assert(0); return CoordType(); }
+	CoordType & P() { vcg_assert(0); return CoordType(); }
 	static bool HasCoord() { return false; }
 	static void Name( std::vector< std::string > & name ) { T::Name(name); }
 };
@@ -199,8 +199,8 @@ template< class T > class EmptyOSGNormal : public T
 public : 
 	typedef OSG::Vec3f NormalType;
 	typedef OSG::Real32 ScalarType;
-	NormalType & N() { assert(0); return NormalType(); }
-	const NormalType cN()const { assert(0); return NormalType(); }
+	NormalType & N() { vcg_assert(0); return NormalType(); }
+	const NormalType cN()const { vcg_assert(0); return NormalType(); }
 	static bool HasNormal() { return false; }
 	static bool HasNormalOcc() { return false; }
 	static void Name( std::vector< std::string > & name ) { T::Name(name); }
@@ -288,7 +288,7 @@ template< class T > class EmptyOSGColor : public T
 public : 
 	typedef OSG::Color3f ColorType;
 	typedef OSG::Real32 ScalarType;
-	ColorType & C() { assert(0); return ColorType(); }
+	ColorType & C() { vcg_assert(0); return ColorType(); }
 	static bool HasColor() { return false; }
 	static void Name( std::vector< std::string > & name ) { T::Name(name); }
 };

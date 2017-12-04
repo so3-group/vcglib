@@ -75,7 +75,7 @@ template<typename MatrixType,int RowFactor,int ColFactor> class Replicate
     {
       EIGEN_STATIC_ASSERT((internal::is_same<typename internal::remove_const<MatrixType>::type,OriginalMatrixType>::value),
                           THE_MATRIX_OR_EXPRESSION_THAT_YOU_PASSED_DOES_NOT_HAVE_THE_EXPECTED_TYPE)
-      eigen_assert(RowFactor!=Dynamic && ColFactor!=Dynamic);
+      eigen_vcg_assert(RowFactor!=Dynamic && ColFactor!=Dynamic);
     }
 
     template<typename OriginalMatrixType>

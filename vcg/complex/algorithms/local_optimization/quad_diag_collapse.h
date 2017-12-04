@@ -158,7 +158,7 @@ namespace vcg{
 
                 vector<VertexPointer> vertices = HalfEdgeTopology<MeshType>::getVertices(hp->HFp());
 
-                assert(vertices.size() == 4);
+                vcg_assert(vertices.size() == 4);
 
                 N += vcg::Normal<typename MeshType::CoordType>(vertices[0]->cP(), vertices[1]->cP(), vertices[2]->cP());
                 N += vcg::Normal<typename MeshType::CoordType>(vertices[2]->cP(), vertices[3]->cP(), vertices[0]->cP());
@@ -528,11 +528,11 @@ namespace vcg{
             static void Init(MeshType &m,HeapType &h_ret)
             {
                 // Grid and reference mesh must be initialized
-                assert(grid());
-                assert(refMesh());
+                vcg_assert(grid());
+                vcg_assert(refMesh());
 
-                assert(!HalfedgeQuadClean<MeshType>::has_doublets(m));
-                assert(!HalfedgeQuadClean<MeshType>::has_singlets(m));
+                vcg_assert(!HalfedgeQuadClean<MeshType>::has_doublets(m));
+                vcg_assert(!HalfedgeQuadClean<MeshType>::has_singlets(m));
 
                 vcg::tri::InitFaceIMark(m);
 

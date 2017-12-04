@@ -117,7 +117,7 @@ class MCTriEdgeCollapse: public tri::TriEdgeCollapse< MCTriMesh, VertexPair, MYT
         if(starVec0.size()>starVec1.size()) MidPoint=p0;
         if(starVec0.size()<starVec1.size()) MidPoint=p1;
 
-//        assert(	(p0[0]==p1[0]) ||
+//        vcg_assert(	(p0[0]==p1[0]) ||
 //                        (p0[1]==p1[1]) ||
 //                        (p0[2]==p1[2]) );
 //      DoCollapse(m, this->pos, MidPoint);

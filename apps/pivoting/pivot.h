@@ -27,7 +27,7 @@ struct Hinge {
       Hinge(int _v0, int _v1, int _v2, int _face, Point3f &_center): 
                v0(_v0), v1(_v1), v2(_v2), 
                face(_face), center(_center), count(0) {
-                 assert(v0 != v1 && v1 != v2 && v0 != v2);
+                 vcg_assert(v0 != v1 && v1 != v2 && v0 != v2);
                }
     };
     
@@ -147,7 +147,7 @@ class Pivot {
       if(!found)  //see bad luck above
         return false;
       
-      assert(!front.size());
+      vcg_assert(!front.size());
       //TODO: should i check the Hinges too?
       addFace(v0, v1, v2);
       
@@ -159,7 +159,7 @@ class Pivot {
         int v1 = (int)(mesh.face.back().V1(i));    
         int v2 = (int)(mesh.face.back().V2(i));    
         nb[v0] = 1;
-        assert(!mesh.vert[v0].IsB());
+        vcg_assert(!mesh.vert[v0].IsB());
         mesh.vert[v0].SetB();
         Hinge Hinge(v0, v1, v2, 0, center);
         Hinge.previous = e;
@@ -222,7 +222,7 @@ class Pivot {
             mesh.vert[vert].ClearB();
           }              
         }        
-        assert(previous.previous == e.next); 
+        vcg_assert(previous.previous == e.next); 
         addFace(previous.v0, next.v0, e.v0);                       
     
         front.erase(e.previous);
@@ -248,7 +248,7 @@ class Pivot {
       //does v2 belongs to a front? (and which?)
       std::list<Hinge>::iterator touch = touches(v2, ei);
     
-      assert(v2 != v0 && v2 != v1);  
+      vcg_assert(v2 != v0 && v2 != v1);  
     
       int fn = mesh.face.size();
       if(touch != front.end()) {       
@@ -362,7 +362,7 @@ class Pivot {
               
       
       } else {
-        assert(!mesh.vert[v2].IsB()); //fatal error! a new point is already a border?
+        vcg_assert(!mesh.vert[v2].IsB()); //fatal error! a new point is already a border?
     
         /*  adding a new vertex
                  
@@ -482,7 +482,7 @@ class Pivot {
           return false;
         }
            
-        assert(candidate != Hinge.v0 && candidate != Hinge.v1);
+        vcg_assert(candidate != Hinge.v0 && candidate != Hinge.v1);
         return true;
     }         
     
@@ -565,7 +565,7 @@ class Pivot {
     }
     
     void Pivot::detach(int v) {
-      assert(nb[v] > 0);
+      vcg_assert(nb[v] > 0);
       if(--nb[v] == 0) {
         mesh.vert[v].SetV();
         mesh.vert[v].ClearB();      
@@ -695,7 +695,7 @@ class Pivot {
             break;
           }
         }
-        assert(touch != front.end());
+        vcg_assert(touch != front.end());
       }
     
       return touch;
@@ -738,7 +738,7 @@ class Pivot {
           float h = intruder*naxis;
           if(fabs(h) > radius) continue;
           intruder -= naxis*h;
-          assert(fabs(intruder *naxis) < 0.01);
+          vcg_assert(fabs(intruder *naxis) < 0.01);
           float off = radius - intruder.Norm(); //(distance from the center ring of the thorus
           if(h*h + off*off > radius*radius) continue; //outside of thorus
           if(d1*intruder < 0 || d2*intruder < 0) continue; //ouside of sector

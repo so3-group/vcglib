@@ -156,7 +156,7 @@ template<class MESH_TYPE> class OverlapEstimation
         if(normBuckets) {normBuckets->clear(); delete normBuckets; }
         if(param.normalEqualization){
             normBuckets = BucketVertexNormal(mMov->vert, 30);
-            assert(normBuckets);
+            vcg_assert(normBuckets);
         }
         return true;
     }
@@ -184,14 +184,14 @@ template<class MESH_TYPE> class OverlapEstimation
         //else, get a vector of vertex pointers sampled in a normal equalized manner; used as query points
         vector<VertexPointer> queryVert;
         if(param.normalEqualization){
-            assert(normBuckets);
+            vcg_assert(normBuckets);
             for(unsigned int i=0; i<mMov->vert.size(); i++) queryVert.push_back(&(mMov->vert[i]));//do a copy of pointers to vertexes
             SampleVertNormalEqualized(queryVert, param.samples);
         }
         else{
             SampleVertUniform(*mMov, queryVert, param.samples);
         }
-        assert(queryVert.size()!=0);
+        vcg_assert(queryVert.size()!=0);
 
         //init variables for consensus
         float consDist = param.consensusDist*(mMov->bbox.Diag()/100.0f);  //consensus distance
@@ -218,7 +218,7 @@ template<class MESH_TYPE> class OverlapEstimation
             else closestVertex=NULL;  //out of bbox, we consider the point not in consensus...
 
             if(closestVertex!=NULL && dist < consDist){
-                assert(closestVertex->P()==closestPnt); //coord and vertex pointer returned by getClosest must be the same
+                vcg_assert(closestVertex->P()==closestPnt); //coord and vertex pointer returned by getClosest must be the same
 
                 //point is in consensus distance, now we check if normals are near
                 if(queryNrm.dot(closestVertex->N())>param.consensusNormalsAngle)  //15 degrees
@@ -279,7 +279,7 @@ template<class MESH_TYPE> class OverlapEstimation
       */
     bool SampleVertNormalEqualized(vector<typename MESH_TYPE::VertexPointer>& vert, int SampleNum)
     {
-        assert(normBuckets);
+        vcg_assert(normBuckets);
         // vettore di contatori per sapere quanti punti ho gia' preso per ogni bucket
         vector<int> BKTpos(normBuckets->size(),0);
 

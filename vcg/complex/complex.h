@@ -25,7 +25,7 @@
 #define __VCG_MESH_H
 #define __VCG_MESH
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <string>
 #include <vector>
 #include <set>

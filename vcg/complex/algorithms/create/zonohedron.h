@@ -195,8 +195,8 @@ private:
 
     // given two index of vectors, returns face
     Face& face(VecIndex i, VecIndex j){
-        assert(i!=j);
-        assert( i*n + j < (int) _face.size() );
+        vcg_assert(i!=j);
+        vcg_assert( i*n + j < (int) _face.size() );
         return _face[i*n + j];
     }
 

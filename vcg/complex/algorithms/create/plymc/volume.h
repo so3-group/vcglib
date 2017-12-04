@@ -139,7 +139,7 @@ bool Verbose; // se true stampa un sacco di info in piu su logfp;
 
         rsz=sz/BLOCKSIDE();
         if(sz!=rsz*BLOCKSIDE()) {
-            assert(0); // il box deve essere multipli di BLOCKSIDE()
+            vcg_assert(0); // il box deve essere multipli di BLOCKSIDE()
       exit(-1);
         }
 
@@ -194,7 +194,7 @@ void SetSubPart(Point3i _div, Point3i _pos)
     // Controllo correttezza parametri.
     for(k=0;k<3;++k)
         {
-            assert(_div[k]>0);
+            vcg_assert(_div[k]>0);
             if(_div[k]==0){
                 printf("Error in subbox definition:\n the subdiv settings must be greater than 0; it was %i %i %i\n",_div[0],_div[1],_div[2]);
                 exit(-1);
@@ -315,16 +315,16 @@ public:
     {
         int x=_x-SubPartSafe.min[0];		int y=_y-SubPartSafe.min[1];		int z=_z-SubPartSafe.min[2];
 
-        assert(_x>=SubPartSafe.min[0] && _x<SubPartSafe.max[0] &&
+        vcg_assert(_x>=SubPartSafe.min[0] && _x<SubPartSafe.max[0] &&
                _y>=SubPartSafe.min[1] && _y<SubPartSafe.max[1] &&
                _z>=SubPartSafe.min[2] && _z<SubPartSafe.max[2]);
 
-    //	assert(x>=0 && x<sz[0] && y>=0 && y<sz[1] && z>=0 && z<sz[2]);
+    //	vcg_assert(x>=0 && x<sz[0] && y>=0 && y<sz[1] && z>=0 && z<sz[2]);
 
         int rx=x/BLOCKSIDE();		int ry=y/BLOCKSIDE();		int rz=z/BLOCKSIDE();
-        assert(rx>=0 && rx<asz[0] && ry>=0 && ry<asz[1] && rz>=0 && rz<asz[2]);
+        vcg_assert(rx>=0 && rx<asz[0] && ry>=0 && ry<asz[1] && rz>=0 && rz<asz[2]);
         rpos = rz*asz[0]*asz[1]+ry*asz[0]+rx;
-        assert(rpos < int(rv.size()));
+        vcg_assert(rpos < int(rv.size()));
         int lx = x%BLOCKSIDE();		int ly = y%BLOCKSIDE();		int lz = z % BLOCKSIDE();
         lpos = lz*BLOCKSIDE()*BLOCKSIDE()+ly*BLOCKSIDE()+lx;
         if(rv[rpos].empty()) return false;
@@ -343,7 +343,7 @@ public:
         int ry = ( remainder ) / asz[0] ;
         int rx =   remainder % asz[0];
 
-        assert(rx>=0 && rx<asz[0] && ry>=0 && ry<asz[1] && rz>=0 && rz<asz[2]);
+        vcg_assert(rx>=0 && rx<asz[0] && ry>=0 && ry<asz[1] && rz>=0 && rz<asz[2]);
 
         int lz =   lpos / (BLOCKSIDE()*BLOCKSIDE());	int lemaindel =  lpos % (BLOCKSIDE()*BLOCKSIDE());
         int ly = ( lemaindel ) / BLOCKSIDE();
@@ -357,11 +357,11 @@ public:
         y+=SubPartSafe.min[1];
         z+=SubPartSafe.min[2];
 
-        assert(x>=0 && x<sz[0] && y>=0 && y<sz[1] && z>=0 && z<sz[2]);
+        vcg_assert(x>=0 && x<sz[0] && y>=0 && y<sz[1] && z>=0 && z<sz[2]);
         //int trpos,tlpos;
-        //assert(rv[rpos].size()>0);
+        //vcg_assert(rv[rpos].size()>0);
         //Pos(x,y,z,trpos,tlpos);
-        //assert(trpos==rpos && tlpos == lpos);
+        //vcg_assert(trpos==rpos && tlpos == lpos);
         return true;
      }
 
@@ -569,8 +569,8 @@ void Interize( Point3x & vert ) const // OK
 {
     for(int j=0;j<3;++j)
     {
-        assert(vert[j]>=bbox.min[j]);
-        assert(vert[j]<=bbox.max[j]);
+        vcg_assert(vert[j]>=bbox.min[j]);
+        vcg_assert(vert[j]<=bbox.max[j]);
         vert[j] = (vert[j] - bbox.min[j]) * sz[j] / (bbox.max[j] - bbox.min[j]);
     }
 }
@@ -586,7 +586,7 @@ bool SplatVert( const Point3x & v0, double quality, const Point3x & nn, Color4b 
 {
     Box3i ibox;
 
-  assert(math::Abs(SquaredNorm(nn) - 1.0) < 0.0001); // Just a safety check that the vertex normals are NORMALIZED!
+  vcg_assert(math::Abs(SquaredNorm(nn) - 1.0) < 0.0001); // Just a safety check that the vertex normals are NORMALIZED!
     ibox.min=Point3i(floor(v0[0]),floor(v0[1]),floor(v0[2]));
     ibox.max=Point3i( ceil(v0[0]), ceil(v0[1]), ceil(v0[2]));
     ibox.Intersect(SubPartSafe);
@@ -629,8 +629,8 @@ template <const int CoordZ>
   const int crd0 = CoordZ;
   const int crd1 = (CoordZ+1)%3;
   const int crd2 = (CoordZ+2)%3;
-  assert(fabs(norm[crd0])+0.001 > fabs(norm[crd1]));
-  assert(fabs(norm[crd0])+0.001 > fabs(norm[crd2]));
+  vcg_assert(fabs(norm[crd0])+0.001 > fabs(norm[crd1]));
+  vcg_assert(fabs(norm[crd0])+0.001 > fabs(norm[crd2]));
   scalar x,y;
     for(x=sx;x<=ex;++x)
         for(y=sy;y<=ey;++y)
@@ -643,7 +643,7 @@ template <const int CoordZ>
                 (n0< EPS && n1< EPS && n2< EPS ) )
             {
                 scalar iz = ( dist - x*norm[crd1] - y*norm[crd2] ) / norm[crd0];
-                //assert(iz>=fbox.min[2] && iz<=fbox.max[2]);
+                //vcg_assert(iz>=fbox.min[2] && iz<=fbox.max[2]);
                 AddIntercept<CoordZ>(x,y,iz, quality, norm );
             }
         }
@@ -704,8 +704,8 @@ bool ScanFace2( const Point3x & v0, const Point3x & v1, const Point3x & v2,
     Point3x d21 = v2 - v1;
     Point3x d02 = v0 - v2;
 
-    assert(norm.Norm() >0.999f && norm.Norm()<1.001f);
-//    assert(0);
+    vcg_assert(norm.Norm() >0.999f && norm.Norm()<1.001f);
+//    vcg_assert(0);
     scalar  dist = norm * v0;
 
 
@@ -801,7 +801,7 @@ bool ScanFace( const Point3x & v0, const Point3x & v1, const Point3x & v2,
                 (n0< EPS && n1< EPS && n2< EPS ))
             {
                 double iz = ( dist - double(x)*norm[0] - double(y)*norm[1] ) / norm[2];
-                //assert(iz>=fbox.min[2] && iz<=fbox.max[2]);
+                //vcg_assert(iz>=fbox.min[2] && iz<=fbox.max[2]);
                 AddXYInt(x,y,iz,-norm[2], quality, nn );
             }
         }
@@ -820,7 +820,7 @@ bool ScanFace( const Point3x & v0, const Point3x & v1, const Point3x & v2,
                 (n0< EPS && n1< EPS && n2< EPS ))
             {
                 double iy = ( dist - double(x)*norm[0] - double(z)*norm[2] ) / norm[1];
-                //assert(iy>=fbox.min[1] && iy<=fbox.max[1]);
+                //vcg_assert(iy>=fbox.min[1] && iy<=fbox.max[1]);
                 AddXZInt(x,z,iy,-norm[1], quality,nn  );
             }
         }
@@ -839,7 +839,7 @@ bool ScanFace( const Point3x & v0, const Point3x & v1, const Point3x & v2,
                 (n0< EPS && n1< EPS && n2< EPS ) )
             {
                 double ix = ( dist - double(y)*norm[1] - double(z)*norm[2] ) / norm[0];
-                //assert(ix>=fbox.min[0] && ix<=fbox.max[0]);
+                //vcg_assert(ix>=fbox.min[0] && ix<=fbox.max[0]);
                 AddYZInt(y,z,ix,-norm[0], quality, nn );
             }
         }
@@ -1323,12 +1323,12 @@ class VolumeIterator
 
     typename VOL::voxel_type &operator *()
         {
-          assert(rpos>=0 && lpos >=0);
+          vcg_assert(rpos>=0 && lpos >=0);
             return V.rv[rpos][lpos];
         }
     bool Next()
     {
-        assert(IsValid());
+        vcg_assert(IsValid());
         if(lpos< VOL::BLOCKSIDE() * VOL::BLOCKSIDE() * VOL::BLOCKSIDE() -1)
         {
             ++lpos;

@@ -65,12 +65,12 @@ namespace vcg
                   */
                 static VertexPointer edge_collapse_quad(MeshType &m, HEdgePointer hp, VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(hp);
-                    assert(MeshType::HEdgeType::HasHVAdjacency());
-                    assert(hp->HVp() == vp || hp->HOp()->HVp() == vp);
-                    assert(hp->HFp()->VN() == 4);
-                    assert(hp->HOp()->HFp()->VN() == 4);
+                    vcg_assert(vp);
+                    vcg_assert(hp);
+                    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                    vcg_assert(hp->HVp() == vp || hp->HOp()->HVp() == vp);
+                    vcg_assert(hp->HFp()->VN() == 4);
+                    vcg_assert(hp->HOp()->HFp()->VN() == 4);
 
 
                     VertexPointer vp_opp;
@@ -85,7 +85,7 @@ namespace vcg
 
                     VertexPointer vp_rot = vertex_rotate_quad( vp );
 
-                    assert(vp_rot == vp);
+                    vcg_assert(vp_rot == vp);
 
                     return diagonal_collapse_quad( m, fp, vp );
                 }
@@ -103,20 +103,20 @@ namespace vcg
                 static VertexPointer diagonal_collapse_quad(MeshType &m, FacePointer fp, VertexPointer vp)
                 {
 
-                    assert(MeshType::VertexType::HasVHAdjacency());
-                    assert(MeshType::FaceType::HasFHAdjacency());
-                    assert(MeshType::HEdgeType::HasHVAdjacency());
-                    assert(MeshType::HEdgeType::HasHFAdjacency());
-                    assert(MeshType::HEdgeType::HasHOppAdjacency());
-                    assert(MeshType::HEdgeType::HasHPrevAdjacency());
+                    vcg_assert(MeshType::VertexType::HasVHAdjacency());
+                    vcg_assert(MeshType::FaceType::HasFHAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHFAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHPrevAdjacency());
 
-                    assert(fp);
-                    assert(fp->FHp());
-                    assert(fp->VN() == 4);
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(fp->FHp());
+                    vcg_assert(fp->VN() == 4);
+                    vcg_assert(!fp->IsD());
 
-                    assert( !has_doublet_quad(fp) );
-                    assert(!is_singlet_quad(fp));
+                    vcg_assert( !has_doublet_quad(fp) );
+                    vcg_assert(!is_singlet_quad(fp));
 
                     bool HasHE = MeshType::HEdgeType::HasHEAdjacency();
                     bool HasEH = MeshType::EdgeType::HasEHAdjacency();
@@ -125,12 +125,12 @@ namespace vcg
 
                     vector<VertexPointer> vps = getVertices(fp);
 
-                    assert(vps.size()==4);
+                    vcg_assert(vps.size()==4);
 
                     for(unsigned int i = 0; i< vps.size(); i++)
                     {
                         // all vertices must be different
-                        assert( count(vps.begin(), vps.end(), vps[i]) == 1 );
+                        vcg_assert( count(vps.begin(), vps.end(), vps[i]) == 1 );
                     }
 
                     hp = fp->FHp();
@@ -140,7 +140,7 @@ namespace vcg
 
                     vector<HEdgePointer> hps = getHEdges(fp,hp);
 
-                    assert(vp == hps[0]->HVp());
+                    vcg_assert(vp == hps[0]->HVp());
 
                     VertexPointer opposite_vertex = hps[2]->HVp();
 
@@ -244,26 +244,26 @@ namespace vcg
                   */
                 static FacePointer doublet_remove_quad(MeshType &m, VertexPointer vp)
                 {
-                    assert(vp);
+                    vcg_assert(vp);
 
                     HEdgePointer hp = vp->VHp();
 
-                    assert(hp);
+                    vcg_assert(hp);
 
                     FacePointer fp1 = hp->HFp();
                     FacePointer fp2 = hp->HOp()->HFp();
 
-                    assert(!is_singlet_quad(fp1));
-                    assert(!is_singlet_quad(fp2));
+                    vcg_assert(!is_singlet_quad(fp1));
+                    vcg_assert(!is_singlet_quad(fp2));
 
 
-                    assert( fp1 );
-                    assert( fp2 );
+                    vcg_assert( fp1 );
+                    vcg_assert( fp2 );
 
-                    assert( hp->HOp()->HNp()->HOp() == hp->HPp() );
+                    vcg_assert( hp->HOp()->HNp()->HOp() == hp->HPp() );
 
-                    assert( fp1->VN() == 4);
-                    assert( fp2->VN() == 4);
+                    vcg_assert( fp1->VN() == 4);
+                    vcg_assert( fp2->VN() == 4);
 
                     // end of check
 
@@ -330,7 +330,7 @@ namespace vcg
                           3
                       */
 
-                    assert( is_singlet_quad(fp) );
+                    vcg_assert( is_singlet_quad(fp) );
 
                     bool HasHE = MeshType::HEdgeType::HasHEAdjacency();
                     bool HasEH = MeshType::EdgeType::HasEHAdjacency();
@@ -359,7 +359,7 @@ namespace vcg
                     for(typename vector<HEdgePointer>::iterator hi = int_hedges.begin(); hi != int_hedges.end();++hi)
                         Allocator<MeshType>::DeleteHEdge( m, *(*hi) );
 
-                    assert(ext_hedges.size() == 2);
+                    vcg_assert(ext_hedges.size() == 2);
 
 
                     if(ext_hedges[0]->HFp() || ext_hedges[1]->HFp())
@@ -413,26 +413,26 @@ namespace vcg
                 static HEdgePointer edge_rotate_quad(HEdgePointer hp, bool cw)
                 {
 
-                    assert( MeshType::HEdgeType::HasHFAdjacency() );
-                    assert( MeshType::HEdgeType::HasHOppAdjacency() );
-                    assert( MeshType::FaceType::HasFHAdjacency() );
+                    vcg_assert( MeshType::HEdgeType::HasHFAdjacency() );
+                    vcg_assert( MeshType::HEdgeType::HasHOppAdjacency() );
+                    vcg_assert( MeshType::FaceType::HasFHAdjacency() );
 
 
                     FacePointer fp1 = hp->HFp();
                     FacePointer fp2 = hp->HOp()->HFp();
 
 
-                    assert( fp1 );
-                    assert( fp1->VN() == 4 );
+                    vcg_assert( fp1 );
+                    vcg_assert( fp1->VN() == 4 );
 
-                    assert( fp2 );
-                    assert( fp2->VN() == 4 );
+                    vcg_assert( fp2 );
+                    vcg_assert( fp2->VN() == 4 );
 
-                    assert(!is_singlet_quad(fp1));
-                    assert(!is_singlet_quad(fp2));
+                    vcg_assert(!is_singlet_quad(fp1));
+                    vcg_assert(!is_singlet_quad(fp2));
 
-                    assert(!has_doublet_quad(fp1));
-                    assert(!has_doublet_quad(fp2));
+                    vcg_assert(!has_doublet_quad(fp1));
+                    vcg_assert(!has_doublet_quad(fp2));
 
                     vector<FacePointer> fps;
                     typedef vector<HEdgePointer> hedge_vect;
@@ -507,8 +507,8 @@ namespace vcg
                 static VertexPointer vertex_rotate_quad(VertexPointer vp)
                 {
 
-                    assert(MeshType::VertexType::HasVHAdjacency());
-                    assert( vp->VHp() );
+                    vcg_assert(MeshType::VertexType::HasVHAdjacency());
+                    vcg_assert( vp->VHp() );
 
                     Pos<MeshType> p(vp->VHp(), true);
 
@@ -519,8 +519,8 @@ namespace vcg
 
                     do
                     {
-                        assert( p.F() );
-                        assert( p.F()->VN() == 4);
+                        vcg_assert( p.F() );
+                        vcg_assert( p.F()->VN() == 4);
 
                         hedges.push_back(getHEdges(p.F(), p.HE()));
 
@@ -537,7 +537,7 @@ namespace vcg
                         hedges[i][0]->HNp() = hedges[i][2];
                         hedges[i][2]->HPp() = hedges[i][0];
 
-                        assert(hedges[i][0]->HOp() == hedges[(i+size-1)%size][3]);
+                        vcg_assert(hedges[i][0]->HOp() == hedges[(i+size-1)%size][3]);
 
                         hedges[i][2]->HNp() = hedges[(i+1)%size][1];
                         hedges[(i+1)%size][1]->HPp() = hedges[i][2];
@@ -573,19 +573,19 @@ namespace vcg
                 static VertexPointer edge_collapse(MeshType &m, HEdgePointer hp, VertexPointer vp)
                 {
 
-                    assert(MeshType::VertexType::HasVHAdjacency());
-                    assert(MeshType::HEdgeType::HasHOppAdjacency());
-                    assert(MeshType::HEdgeType::HasHVAdjacency());
-                    assert(MeshType::HEdgeType::HasHPrevAdjacency());
+                    vcg_assert(MeshType::VertexType::HasVHAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHPrevAdjacency());
 
                     if( hp->HFp() )
-                        assert(hp->HFp()->VN() > 3);
+                        vcg_assert(hp->HFp()->VN() > 3);
 
                     if( hp->HOp()->HFp())
-                        assert(hp->HOp()->HFp()->VN() > 3);
+                        vcg_assert(hp->HOp()->HFp()->VN() > 3);
 
-                    assert(hp->HFp() || hp->HOp()->HFp());
-                    assert(hp->HVp() == vp || hp->HOp()->HVp() == vp);
+                    vcg_assert(hp->HFp() || hp->HOp()->HFp());
+                    vcg_assert(hp->HVp() == vp || hp->HOp()->HVp() == vp);
 
 
                     HEdgePointer hopp = hp->HOp();
@@ -641,20 +641,20 @@ namespace vcg
                 static FacePointer add_face(MeshType &m, vector<VertexPointer> &vps)
                 {
 
-                    assert(MeshType::VertexType::HasVHAdjacency());
-                    assert(MeshType::HEdgeType::HasHVAdjacency());
-                    assert(MeshType::HEdgeType::HasHFAdjacency());
-                    assert(MeshType::HEdgeType::HasHOppAdjacency());
-                    assert(MeshType::HEdgeType::HasHPrevAdjacency());
+                    vcg_assert(MeshType::VertexType::HasVHAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHFAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHPrevAdjacency());
 
                     unsigned int size = vps.size();
 
-                    assert(size >= 3); //there must be at least 3 vertices
+                    vcg_assert(size >= 3); //there must be at least 3 vertices
 
                     for(unsigned int i = 0; i< size; i++)
                     {
                         // all vertices must be different
-                        assert( count(vps.begin(), vps.end(), vps[i]) == 1 );
+                        vcg_assert( count(vps.begin(), vps.end(), vps[i]) == 1 );
                     }
 
                     vector<HEdgePointer> hps;
@@ -681,12 +681,12 @@ namespace vcg
                 static bool remove_face(MeshType &m, FacePointer fp)
                 {
 
-                    assert(MeshType::VertexType::HasVHAdjacency());
-                    assert(MeshType::FaceType::HasFHAdjacency());
-                    assert(MeshType::HEdgeType::HasHVAdjacency());
-                    assert(MeshType::HEdgeType::HasHFAdjacency());
-                    assert(MeshType::HEdgeType::HasHOppAdjacency());
-                    assert(MeshType::HEdgeType::HasHPrevAdjacency());
+                    vcg_assert(MeshType::VertexType::HasVHAdjacency());
+                    vcg_assert(MeshType::FaceType::HasFHAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHFAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHPrevAdjacency());
 
                     if( can_remove_face(fp) )
                     {
@@ -739,20 +739,20 @@ namespace vcg
                 static FacePointer add_face_unsafe(MeshType &m, vector<VertexPointer> &vps, vector<HEdgePointer> &hps, vector<bool> &non_manifold_vertices)
                 {
 
-                    assert(MeshType::VertexType::HasVHAdjacency());
-                    assert(MeshType::HEdgeType::HasHVAdjacency());
-                    assert(MeshType::HEdgeType::HasHFAdjacency());
-                    assert(MeshType::HEdgeType::HasHOppAdjacency());
-                    assert(MeshType::HEdgeType::HasHPrevAdjacency());
+                    vcg_assert(MeshType::VertexType::HasVHAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHFAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                    vcg_assert(MeshType::HEdgeType::HasHPrevAdjacency());
 
                     unsigned int size = vps.size();
 
-                    assert(size >= 3); //there must be at least 3 vertices
+                    vcg_assert(size >= 3); //there must be at least 3 vertices
 
 //                    for(unsigned int i = 0; i< size; i++)
 //                    {
 //                        // all vertices must be different
-//                        assert( count(vps.begin(), vps.end(), vps[i]) == 1 );
+//                        vcg_assert( count(vps.begin(), vps.end(), vps[i]) == 1 );
 //                    }
 
                     bool HasHE = MeshType::HEdgeType::HasHEAdjacency();
@@ -760,7 +760,7 @@ namespace vcg
 
                     HEdgeIterator hi;
 
-                    assert(hps.size() == size);
+                    vcg_assert(hps.size() == size);
 
                     HEdgePointer nullPointer = NULL;
                     int edge_n = count(hps.begin(), hps.end(), nullPointer);
@@ -862,7 +862,7 @@ namespace vcg
                             hps1.push_back(hps[i]);
                     }
 
-                    assert( hps1.size() == size );
+                    vcg_assert( hps1.size() == size );
 
                     for(unsigned int i = 0; i < size; i++)
                     {
@@ -920,7 +920,7 @@ namespace vcg
                                         p.FlipF();
 
                                         if(p.HE() == vps[next]->VHp())
-                                            assert(0); //can't add a connection, there is no space
+                                            vcg_assert(0); //can't add a connection, there is no space
                                     }
 
 
@@ -1070,7 +1070,7 @@ namespace vcg
 
                     unsigned int i = hps.size();
 
-                    assert( i < vps.size() );
+                    vcg_assert( i < vps.size() );
 
                     HEdgePointer he = vps[i]->VHp();
 
@@ -1152,8 +1152,8 @@ namespace vcg
                 static bool can_remove_face(FacePointer fp)
                 {
 
-                    assert(fp);
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(!fp->IsD());
 
                     Pos<MeshType> p(fp->FHp(), true);
 
@@ -1192,10 +1192,10 @@ namespace vcg
                 static bool check_diagonal_collapse_quad(HEdgePointer hp)
                 {
 
-                    assert(hp);
-                    assert(hp->HFp());
-                    assert(hp->HFp()->VN() == 4);
-                    assert(!hp->IsD());
+                    vcg_assert(hp);
+                    vcg_assert(hp->HFp());
+                    vcg_assert(hp->HFp()->VN() == 4);
+                    vcg_assert(!hp->IsD());
 
                     vector<FacePointer> faces;
 
@@ -1256,7 +1256,7 @@ namespace vcg
 
                     size = it- intersection.begin();
 
-                    assert( size >= 2 );
+                    vcg_assert( size >= 2 );
 
                    return (size==2);
 
@@ -1275,8 +1275,8 @@ namespace vcg
                   */
                 static bool is_nonManifold_vertex(MeshType &m, VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     set<HEdgePointer> set1;
                     for(HEdgeIterator hi = m.hedge.begin(); hi != m.hedge.end(); ++hi)
@@ -1305,8 +1305,8 @@ namespace vcg
                   */
                 static bool is_nonManifold_vertex(VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     vector<FacePointer> faces = get_incident_faces(vp);
 
@@ -1352,8 +1352,8 @@ namespace vcg
                   */
                 static vector<VertexPointer> getVertices(VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     HEdgePointer hp = vp->VHp();
 
@@ -1368,7 +1368,7 @@ namespace vcg
                     {
                         if(p.F())
                         {
-                            assert(!p.F()->IsD());
+                            vcg_assert(!p.F()->IsD());
 
                             ret.push_back( opp_vert( p.HE() ) );
 
@@ -1394,8 +1394,8 @@ namespace vcg
                   */
                 static set<FacePointer> getFaces(VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     set<FacePointer> ret;
 
@@ -1422,9 +1422,9 @@ namespace vcg
                   */
                 static bool is_singlet_quad(FacePointer fp)
                 {
-                    assert(fp);
-                    assert(fp->FHp());
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(fp->FHp());
+                    vcg_assert(!fp->IsD());
 
                     Pos<MeshType> p( fp->FHp() );
 
@@ -1452,13 +1452,13 @@ namespace vcg
                   */
                 static vector<VertexPointer> getVertices(FacePointer fp, HEdgePointer starting_he = NULL)
                 {
-                    assert(fp);
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(!fp->IsD());
 
                     if(!starting_he)
                         starting_he = fp->FHp();
 
-                    assert( starting_he->HFp() == fp );
+                    vcg_assert( starting_he->HFp() == fp );
 
                     Pos<MeshType> p( starting_he, true );
 
@@ -1467,14 +1467,14 @@ namespace vcg
 
                     do
                     {
-                        assert(!(p.V()->IsD()));
+                        vcg_assert(!(p.V()->IsD()));
 
                         ret.push_back( p.V() );
 
                         p.FlipV();
                         p.FlipE();
 
-                        assert(ret.size() <= (unsigned int)(fp->VN()));
+                        vcg_assert(ret.size() <= (unsigned int)(fp->VN()));
 
                     }while(p.HE() != starting_he);
 
@@ -1493,11 +1493,11 @@ namespace vcg
                   */
                 static vector<HEdgePointer> getHEdges(FacePointer fp, HEdgePointer starting_he = NULL)
                 {
-                    assert(fp);
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(!fp->IsD());
 
                     if(starting_he)
-                        assert( starting_he->HFp() == fp );
+                        vcg_assert( starting_he->HFp() == fp );
                     else
                         starting_he = fp->FHp();
 
@@ -1512,7 +1512,7 @@ namespace vcg
                         p.FlipV();
                         p.FlipE();
 
-                        assert(ret.size() <= (unsigned int) (fp->VN()));
+                        vcg_assert(ret.size() <= (unsigned int) (fp->VN()));
 
                     }while(p.HE() != starting_he);
 
@@ -1532,11 +1532,11 @@ namespace vcg
                   */
                 static vector<FacePointer> get_incident_faces(VertexPointer vp, HEdgePointer starting_he = NULL)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     if(starting_he)
-                        assert( starting_he->HVp() == vp );
+                        vcg_assert( starting_he->HVp() == vp );
                     else
                         starting_he = vp->VHp();
 
@@ -1563,13 +1563,13 @@ namespace vcg
 
                 static vector<FacePointer> get_adjacent_faces(FacePointer fp)
                 {
-                    assert(fp);
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(!fp->IsD());
 
                     vector<FacePointer> ret;
 
                     Pos<MeshType> p( fp->FHp() );
-                    assert(p.F() == fp);
+                    vcg_assert(p.F() == fp);
 
                     do
                     {
@@ -1596,11 +1596,11 @@ namespace vcg
                   */
                 static vector<HEdgePointer> get_incident_hedges(VertexPointer vp, HEdgePointer starting_he = NULL)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     if(starting_he)
-                        assert( starting_he->HVp() == vp );
+                        vcg_assert( starting_he->HVp() == vp );
                     else
                         starting_he = vp->VHp();
 
@@ -1613,7 +1613,7 @@ namespace vcg
 
                     do
                     {
-                        assert(!p.HE()->IsD());
+                        vcg_assert(!p.HE()->IsD());
 
                         ret.push_back( p.HE() );
 
@@ -1649,9 +1649,9 @@ namespace vcg
                   */
                 static vector<HEdgePointer> find_doublet_hedges_quad(FacePointer fp)
                 {
-                    assert(fp);
-                    assert(fp->FHp());
-                    assert(!fp->IsD());
+                    vcg_assert(fp);
+                    vcg_assert(fp->FHp());
+                    vcg_assert(!fp->IsD());
 
                     vector<HEdgePointer> ret;
 
@@ -1663,7 +1663,7 @@ namespace vcg
                         if(vertex_valence(p.V()) == 2 && !isBorderVertex(p.V()))
                                  ret.push_back(p.HE());
 
-                        assert(ret.size() <= 4);
+                        vcg_assert(ret.size() <= 4);
 
                         p.FlipV();
                         p.FlipE();
@@ -1684,8 +1684,8 @@ namespace vcg
                   */
                 static bool isBorderVertex(VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     if( !(vp->VHp()) )
                         return true;
@@ -1714,8 +1714,8 @@ namespace vcg
                   */
                 static int vertex_valence(VertexPointer vp)
                 {
-                    assert(vp);
-                    assert(!vp->IsD());
+                    vcg_assert(vp);
+                    vcg_assert(!vp->IsD());
 
                     if( !(vp->VHp()) )
                         return 0;
@@ -1726,7 +1726,7 @@ namespace vcg
 
                     do
                     {
-                        assert(!p.HE()->IsD());
+                        vcg_assert(!p.HE()->IsD());
                         ret++;
 
                         p.FlipE();
@@ -1747,10 +1747,10 @@ namespace vcg
             protected:
                 static void change_vertex(VertexPointer old_vp, VertexPointer new_vp)
                 {
-                    assert(old_vp);
-                    assert(new_vp);
-                    assert(old_vp != new_vp);
-                    assert(!old_vp->IsD());
+                    vcg_assert(old_vp);
+                    vcg_assert(new_vp);
+                    vcg_assert(old_vp != new_vp);
+                    vcg_assert(!old_vp->IsD());
 
                     Pos<MeshType> p(old_vp->VHp(),true);
 

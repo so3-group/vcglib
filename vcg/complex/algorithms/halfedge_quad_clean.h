@@ -106,7 +106,7 @@ namespace vcg
             {
                 vector<HEdgePointer> hedges = HalfEdgeTopology<MeshType>::find_doublet_hedges_quad(fp);
 
-                assert(hedges.size() <= 4);
+                vcg_assert(hedges.size() <= 4);
 
                 switch(hedges.size())
                 {
@@ -163,7 +163,7 @@ namespace vcg
                                     while(valence1 == 1 || valence2 == 1)
                                     {
 
-                                        assert(! (valence1 == 1 && valence2 == 1));
+                                        vcg_assert(! (valence1 == 1 && valence2 == 1));
 
                                         FacePointer singlet_pointer;
 
@@ -201,7 +201,7 @@ namespace vcg
                         return fp;
 
                     default:
-                        assert(0);
+                        vcg_assert(0);
                   }
             }
 
@@ -530,8 +530,8 @@ namespace vcg
               */
             static FlipType best_flip( HEdgePointer hp)
             {
-                assert(hp);
-                assert(!hp->IsD());
+                vcg_assert(hp);
+                vcg_assert(!hp->IsD());
 
                 vector<VertexPointer> vps1 = HalfEdgeTopology<MeshType>::getVertices(hp->HFp(), hp);
 
@@ -634,8 +634,8 @@ namespace vcg
               */
             static FlipType best_flip( HEdgePointer hp)
             {
-                assert(hp);
-                assert(!hp->IsD());
+                vcg_assert(hp);
+                vcg_assert(!hp->IsD());
 
                 vector<VertexPointer> face1 = HalfEdgeTopology<MeshType>::getVertices(hp->HFp(), hp);
                 vector<VertexPointer> face2 = HalfEdgeTopology<MeshType>::getVertices(hp->HOp()->HFp(), hp->HOp());
@@ -686,7 +686,7 @@ namespace vcg
             static float area(vector<VertexPointer> &vertices)
             {
 
-                assert(vertices.size() == 4);
+                vcg_assert(vertices.size() == 4);
 
                 float tri1 =  Norm( (vertices[1]->cP() - vertices[0]->cP()) ^ (vertices[2]->cP() - vertices[0]->cP()) );
                 float tri2 =  Norm( (vertices[2]->cP() - vertices[0]->cP()) ^ (vertices[3]->cP() - vertices[0]->cP()) );

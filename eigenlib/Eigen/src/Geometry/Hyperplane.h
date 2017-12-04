@@ -223,7 +223,7 @@ public:
       normal() = mat * normal();
     else
     {
-      eigen_assert(0 && "invalid traits value in Hyperplane::transform()");
+      eigen_vcg_assert(0 && "invalid traits value in Hyperplane::transform()");
     }
     return *this;
   }

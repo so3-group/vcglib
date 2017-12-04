@@ -139,8 +139,8 @@ public:
     {
       //if(vp>=newBase && vp<newEnd) return;
       if(vp<oldBase || vp>oldEnd) return;
-      assert(vp>=oldBase);
-      assert(vp<oldEnd);
+      vcg_assert(vp>=oldBase);
+      vcg_assert(vp<oldEnd);
       vp=newBase+(vp-oldBase);
       if(!remap.empty())
         vp  = newBase + remap[vp-newBase];
@@ -477,11 +477,11 @@ public:
             */
   static FaceIterator AddFace(MeshType &m, VertexPointer v0, VertexPointer v1, VertexPointer v2)
   {
-    assert(m.vert.size()>0);
-    assert((v0!=v1) && (v1!=v2) && (v0!=v2));
-    assert(v0>=&m.vert.front() && v0<=&m.vert.back());
-    assert(v1>=&m.vert.front() && v1<=&m.vert.back());
-    assert(v2>=&m.vert.front() && v2<=&m.vert.back());
+    vcg_assert(m.vert.size()>0);
+    vcg_assert((v0!=v1) && (v1!=v2) && (v0!=v2));
+    vcg_assert(v0>=&m.vert.front() && v0<=&m.vert.back());
+    vcg_assert(v1>=&m.vert.front() && v1<=&m.vert.back());
+    vcg_assert(v2>=&m.vert.front() && v2<=&m.vert.back());
     PointerUpdater<FacePointer> pu;
     FaceIterator fi = AddFaces(m,1,pu);
     fi->Alloc(3);
@@ -495,10 +495,10 @@ public:
             */
   static FaceIterator AddFace(MeshType &m, size_t v0, size_t v1, size_t v2)
   {
-    assert((v0!=v1) && (v1!=v2) && (v0!=v2));
-    assert(v0>=0 && v0<=m.vert.size());
-    assert(v1>=0 && v1<=m.vert.size());
-    assert(v2>=0 && v2<=m.vert.size());
+    vcg_assert((v0!=v1) && (v1!=v2) && (v0!=v2));
+    vcg_assert(v0>=0 && v0<=m.vert.size());
+    vcg_assert(v1>=0 && v1<=m.vert.size());
+    vcg_assert(v2>=0 && v2<=m.vert.size());
     return AddFace(m,&(m.vert[v0]),&(m.vert[v1]),&(m.vert[v2]));
   }
   /** Function to add a face to the mesh and initializing it with the three given coords
@@ -523,11 +523,11 @@ public:
             */
   static FaceIterator AddQuadFace(MeshType &m, VertexPointer v0, VertexPointer v1, VertexPointer v2, VertexPointer v3)
   {
-    assert(m.vert.size()>0);
-    assert(v0>=&m.vert.front() && v0<=&m.vert.back());
-    assert(v1>=&m.vert.front() && v1<=&m.vert.back());
-    assert(v2>=&m.vert.front() && v2<=&m.vert.back());
-    assert(v3>=&m.vert.front() && v3<=&m.vert.back());
+    vcg_assert(m.vert.size()>0);
+    vcg_assert(v0>=&m.vert.front() && v0<=&m.vert.back());
+    vcg_assert(v1>=&m.vert.front() && v1<=&m.vert.back());
+    vcg_assert(v2>=&m.vert.front() && v2<=&m.vert.back());
+    vcg_assert(v3>=&m.vert.front() && v3<=&m.vert.back());
     PointerUpdater<FacePointer> pu;
     if(FaceType::HasPolyInfo())
     {
@@ -653,8 +653,8 @@ public:
             */
   static void DeleteFace(MeshType &m, FaceType &f)
   {
-    assert(&f >= &m.face.front() && &f <= &m.face.back());
-    assert(!f.IsD());
+    vcg_assert(&f >= &m.face.front() && &f <= &m.face.back());
+    vcg_assert(!f.IsD());
     f.Dealloc();
     f.SetD();
     --m.fn;
@@ -665,8 +665,8 @@ public:
             */
   static void DeleteVertex(MeshType &m, VertexType &v)
   {
-    assert(&v >= &m.vert.front() && &v <= &m.vert.back());
-    assert(!v.IsD());
+    vcg_assert(&v >= &m.vert.front() && &v <= &m.vert.back());
+    vcg_assert(!v.IsD());
     v.SetD();
     --m.vn;
   }
@@ -676,8 +676,8 @@ public:
             */
   static void DeleteEdge(MeshType &m, EdgeType &e)
   {
-    assert(&e >= &m.edge.front() && &e <= &m.edge.back());
-    assert(!e.IsD());
+    vcg_assert(&e >= &m.edge.front() && &e <= &m.edge.back());
+    vcg_assert(!e.IsD());
     e.SetD();
     --m.en;
   }
@@ -687,8 +687,8 @@ public:
            */
   static void DeleteHEdge(MeshType &m, HEdgeType &h)
   {
-    assert(&h >= &m.hedge.front() && &h <= &m.hedge.back());
-    assert(!h.IsD());
+    vcg_assert(&h >= &m.hedge.front() && &h <= &m.hedge.back());
+    vcg_assert(!h.IsD());
     h.SetD();
     --m.hn;
   }
@@ -709,7 +709,7 @@ public:
     {
       if(pu.remap[i]<size_t(m.vn))
       {
-        assert(!m.vert[i].IsD());
+        vcg_assert(!m.vert[i].IsD());
         m.vert[ pu.remap [i] ].ImportData(m.vert[i]);
         if(HasVFAdjacency(m))
         {
@@ -755,7 +755,7 @@ public:
         for(int i=0;i<fi->VN();++i)
         {
           size_t oldIndex = (*fi).V(i) - pu.oldBase;
-          assert(pu.oldBase <= (*fi).V(i) && oldIndex < pu.remap.size());
+          vcg_assert(pu.oldBase <= (*fi).V(i) && oldIndex < pu.remap.size());
           (*fi).V(i) = pu.newBase+pu.remap[oldIndex];
         }
     // Loop on the edges to update the pointers EV relation
@@ -802,7 +802,7 @@ public:
         ++pos;
       }
     }
-    assert((int)pos==m.vn);
+    vcg_assert((int)pos==m.vn);
 
     PermutateVertexVector(m, pu);
 
@@ -841,14 +841,14 @@ public:
         ++pos;
       }
     }
-    assert((int)pos==m.en);
+    vcg_assert((int)pos==m.en);
 
     // the actual copying of the data.
     for(size_t i=0;i<m.edge.size();++i)
     {
       if(pu.remap[i]<size_t(m.en))  // uninitialized entries in the remap vector has max_int value;
       {
-        assert(!m.edge[i].IsD());
+        vcg_assert(!m.edge[i].IsD());
         m.edge[ pu.remap [i] ].ImportData(m.edge[i]);
         // copy the vertex reference (they are not data!)
         m.edge[ pu.remap[i] ].V(0) = m.edge[i].cV(0);
@@ -964,7 +964,7 @@ public:
         ++pos;
       }
     }
-    assert((int)pos==m.fn);
+    vcg_assert((int)pos==m.fn);
 
     // reorder the optional atttributes in m.face_attr to reflect the changes
     ReorderAttribute(m.face_attr,pu.remap,m);
@@ -980,7 +980,7 @@ public:
           if ((*vi).IsVFInitialized() && (*vi).VFp()!=0 )
           {
             size_t oldIndex = (*vi).cVFp() - fbase;
-            assert(fbase <= (*vi).cVFp() && oldIndex < pu.remap.size());
+            vcg_assert(fbase <= (*vi).cVFp() && oldIndex < pu.remap.size());
             (*vi).VFp() = fbase+pu.remap[oldIndex];
           }
         }
@@ -1008,7 +1008,7 @@ public:
             if ((*fi).IsVFInitialized(i) && (*fi).VFp(i)!=0 )
             {
               size_t oldIndex = (*fi).VFp(i) - fbase;
-              assert(fbase <= (*fi).VFp(i) && oldIndex < pu.remap.size());
+              vcg_assert(fbase <= (*fi).VFp(i) && oldIndex < pu.remap.size());
               (*fi).VFp(i) = fbase+pu.remap[oldIndex];
             }
         if(HasFFAdjacency(m))
@@ -1016,7 +1016,7 @@ public:
             if ((*fi).cFFp(i)!=0)
             {
               size_t oldIndex = (*fi).FFp(i) - fbase;
-			  assert(fbase <= (*fi).FFp(i) && oldIndex < pu.remap.size());
+			  vcg_assert(fbase <= (*fi).FFp(i) && oldIndex < pu.remap.size());
               (*fi).FFp(i) = fbase+pu.remap[oldIndex];
             }
       }
@@ -1059,7 +1059,7 @@ public:
     h._name = name;
     if(!name.empty()){
       i = m.vert_attr.find(h);
-      assert(i ==m.vert_attr.end() );// an attribute with this name exists
+      vcg_assert(i ==m.vert_attr.end() );// an attribute with this name exists
     }
 
     h._sizeof = sizeof(ATTR_TYPE);
@@ -1101,7 +1101,7 @@ public:
   static typename MeshType::template PerVertexAttributeHandle<ATTR_TYPE>
   FindPerVertexAttribute( MeshType & m, const std::string & name)
   {
-    assert(!name.empty());
+    vcg_assert(!name.empty());
     PointerToAttribute h1; h1._name = name;
     typename std::set<PointerToAttribute > :: iterator i;
 
@@ -1113,7 +1113,7 @@ public:
           m.vert_attr.erase(i);						// remove it from the set
           FixPaddedPerVertexAttribute<ATTR_TYPE>(m,attr);
           std::pair<AttrIterator,bool> new_i = m.vert_attr.insert(attr);	// insert the modified PointerToAttribute
-          assert(new_i.second);
+          vcg_assert(new_i.second);
           i = new_i.first;
         }
         return typename MeshType::template PerVertexAttributeHandle<ATTR_TYPE>((*i)._handle,(*i).n_attr);
@@ -1148,7 +1148,7 @@ public:
         for(typename MeshType::VertexIterator vi = m.vert.begin(); vi != m.vert.end(); ++vi)
           h[vi] = ATTR_TYPE();
         return;}
-    assert(0);
+    vcg_assert(0);
   }
 
   /*! \brief If  the per-vertex attribute exists, delete it.
@@ -1200,7 +1200,7 @@ public:
     h._name = name;
     if(!name.empty()){
       i = m.edge_attr.find(h);
-      assert(i ==m.edge_attr.end() );// an attribute with this name exists
+      vcg_assert(i ==m.edge_attr.end() );// an attribute with this name exists
     }
     h._sizeof = sizeof(ATTR_TYPE);
     h._padding = 0;
@@ -1241,7 +1241,7 @@ public:
   static
   typename MeshType::template PerEdgeAttributeHandle<ATTR_TYPE>
   FindPerEdgeAttribute( MeshType & m, const std::string & name){
-    assert(!name.empty());
+    vcg_assert(!name.empty());
     PointerToAttribute h1; h1._name = name;
     typename std::set<PointerToAttribute > ::const_iterator i;
 
@@ -1253,7 +1253,7 @@ public:
           m.edge_attr.erase(i);						// remove it from the set
           FixPaddedPerEdgeAttribute<ATTR_TYPE>(m,attr);
           std::pair<AttrIterator,bool> new_i = m.edge_attr.insert(attr);	// insert the modified PointerToAttribute
-          assert(new_i.second);
+          vcg_assert(new_i.second);
           i = new_i.first;
         }
         return typename MeshType::template PerEdgeAttributeHandle<ATTR_TYPE>((*i)._handle,(*i).n_attr);
@@ -1323,7 +1323,7 @@ public:
     h._name = name;
     if(!name.empty()){
       i = m.face_attr.find(h);
-      assert(i ==m.face_attr.end() );// an attribute with this name exists
+      vcg_assert(i ==m.face_attr.end() );// an attribute with this name exists
     }
 
     h._sizeof = sizeof(ATTR_TYPE);
@@ -1363,7 +1363,7 @@ public:
   static
   typename MeshType::template PerFaceAttributeHandle<ATTR_TYPE>
   FindPerFaceAttribute( MeshType & m, const std::string & name){
-    assert(!name.empty());
+    vcg_assert(!name.empty());
     PointerToAttribute h1; h1._name = name;
     typename std::set<PointerToAttribute > ::iterator i;
 
@@ -1375,7 +1375,7 @@ public:
           m.face_attr.erase(i);											// remove it from the set
           FixPaddedPerFaceAttribute<ATTR_TYPE>(m,attr);
           std::pair<AttrIterator,bool> new_i = m.face_attr.insert(attr);	// insert the modified PointerToAttribute
-          assert(new_i.second);
+          vcg_assert(new_i.second);
           i = new_i.first;
         }
         return typename MeshType::template PerFaceAttributeHandle<ATTR_TYPE>((*i)._handle,(*i).n_attr);
@@ -1442,7 +1442,7 @@ public:
     h._name = name;
     if(!name.empty()){
       i = m.mesh_attr.find(h);
-      assert(i ==m.mesh_attr.end() );// an attribute with this name exists
+      vcg_assert(i ==m.mesh_attr.end() );// an attribute with this name exists
     }
     h._sizeof = sizeof(ATTR_TYPE);
     h._padding = 0;
@@ -1474,7 +1474,7 @@ public:
   static
   typename MeshType::template PerMeshAttributeHandle<ATTR_TYPE>
   FindPerMeshAttribute( MeshType & m, const std::string & name){
-    assert(!name.empty());
+    vcg_assert(!name.empty());
     PointerToAttribute h1; h1._name = name;
     typename std::set<PointerToAttribute > ::iterator i;
 
@@ -1486,7 +1486,7 @@ public:
           m.mesh_attr.erase(i);											// remove it from the set
           FixPaddedPerMeshAttribute<ATTR_TYPE>(m,attr);
           std::pair<AttrIterator,bool> new_i = m.mesh_attr.insert(attr);	// insert the modified PointerToAttribute
-          assert(new_i.second);
+          vcg_assert(new_i.second);
           i = new_i.first;
         }
 

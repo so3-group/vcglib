@@ -115,7 +115,7 @@ void ActiveCoordinateFrame::Render(QGLWidget* glw)
     } else if(current_mode==rotz) {
       verse=((axis+z_axis).Norm()<1?-1:1);
       glColor(zcolor); axis_name='z'; arc_point=x_axis*(size*0.8);
-    } else assert(0);
+    } else vcg_assert(0);
     // normalizing rotation between -180 and 180 degrees
     float sign = ((angle*verse)<0) ? -1 : 1;
     float abs_angle = (angle<0) ? -angle : angle;
@@ -146,7 +146,7 @@ void ActiveCoordinateFrame::Render(QGLWidget* glw)
     }else if(current_mode==movz){
       verse=((ntra+z_axis).Norm()<1?-1:1);
       glColor(zcolor); axis_name='z';
-    }else assert(0);
+    }else vcg_assert(0);
     message = QString("moved %1 units along %2")
                       .arg(verse*manipulator->track.tra.Norm(),5,'f',3)
                       .arg(axis_name);
@@ -238,7 +238,7 @@ void ActiveCoordinateFrame::ButtonDown(int button)
 
 void ActiveCoordinateFrame::SetSnap(float rot_deg)
 {
-  assert((rot_deg>=0.0)&&(rot_deg<=180));
+  vcg_assert((rot_deg>=0.0)&&(rot_deg<=180));
   rot_snap_rad=rot_deg*M_PI/180.0;
   Update();
 }

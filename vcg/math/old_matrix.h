@@ -157,8 +157,8 @@ public:
 	*/
 	void Resize(const unsigned int m, const unsigned int n)
 	{
-		assert(m>=2);
-		assert(n>=2);
+		vcg_assert(m>=2);
+		vcg_assert(n>=2);
 		Base::resize(m,n);
 		memset(Base::data(), 0, m*n*sizeof(Scalar));
 	};

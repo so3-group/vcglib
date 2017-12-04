@@ -25,7 +25,7 @@ LevenbergMarquardt<FunctorType>::minimizeOneStep(FVectorType  &x)
   RealScalar temp, temp1,temp2; 
   RealScalar ratio; 
   RealScalar pnorm, xnorm, fnorm1, actred, dirder, prered;
-  eigen_assert(x.size()==n); // check the caller is not cheating us
+  eigen_vcg_assert(x.size()==n); // check the caller is not cheating us
 
   temp = 0.0; xnorm = 0.0;
   /* calculate the jacobian matrix. */

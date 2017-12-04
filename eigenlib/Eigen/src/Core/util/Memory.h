@@ -185,7 +185,7 @@ inline void* generic_aligned_realloc(void* ptr, size_t size, size_t old_size)
 #ifdef EIGEN_NO_MALLOC
 inline void check_that_malloc_is_allowed()
 {
-  eigen_assert(false && "heap allocation is forbidden (EIGEN_NO_MALLOC is defined)");
+  eigen_vcg_assert(false && "heap allocation is forbidden (EIGEN_NO_MALLOC is defined)");
 }
 #elif defined EIGEN_RUNTIME_NO_MALLOC
 inline bool is_malloc_allowed_impl(bool update, bool new_value = false)
@@ -199,7 +199,7 @@ inline bool is_malloc_allowed() { return is_malloc_allowed_impl(false); }
 inline bool set_is_malloc_allowed(bool new_value) { return is_malloc_allowed_impl(true, new_value); }
 inline void check_that_malloc_is_allowed()
 {
-  eigen_assert(is_malloc_allowed() && "heap allocation is forbidden (EIGEN_RUNTIME_NO_MALLOC is defined and g_is_malloc_allowed is false)");
+  eigen_vcg_assert(is_malloc_allowed() && "heap allocation is forbidden (EIGEN_RUNTIME_NO_MALLOC is defined and g_is_malloc_allowed is false)");
 }
 #else 
 inline void check_that_malloc_is_allowed()

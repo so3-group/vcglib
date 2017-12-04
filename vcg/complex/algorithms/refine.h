@@ -141,7 +141,7 @@ struct MidPoint : public   std::unary_function<face::Pos<typename MESH_TYPE::Fac
      InterpolatorFunctorType *intFunc; /// This callback is called to fill up
 
     void operator()(VertexType &nv, PosType  ep){
-        assert(mp);
+        vcg_assert(mp);
         VertexType *V0 = ep.V() ;
         VertexType *V1 = ep.VFlip() ;
         if(V0 > V1) std::swap(V1,V0);
@@ -173,7 +173,7 @@ struct MidPoint : public   std::unary_function<face::Pos<typename MESH_TYPE::Fac
     TexCoord2<FL_TYPE,1> WedgeInterp(TexCoord2<FL_TYPE,1> &t0, TexCoord2<FL_TYPE,1> &t1)
     {
         TexCoord2<FL_TYPE,1> tmp;
-        assert(t0.n()== t1.n());
+        vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;
@@ -206,18 +206,18 @@ struct MidPointArc : public std::unary_function<face::Pos<typename MESH_TYPE::Fa
         typename MESH_TYPE::CoordType n0=ep.f->V(ep.z)->N() -np*(ep.f->V(ep.z)->N()*np);
         n0.Normalize();
         typename MESH_TYPE::CoordType n1=ep.f->V1(ep.z)->N()-np*(ep.f->V1(ep.z)->N()*np);
-        assert(n1.Norm()>EPS);
+        vcg_assert(n1.Norm()>EPS);
         n1.Normalize();
         typename MESH_TYPE::ScalarType cosa0=n0*n;
         typename MESH_TYPE::ScalarType cosa1=n1*n;
         if(2-cosa0-cosa1<EPS) {nv.P()=(ep.f->V(ep.z)->P()+ep.f->V1(ep.z)->P())/2.0;return;}
         typename MESH_TYPE::ScalarType cosb0=(d0*n)/d;
         typename MESH_TYPE::ScalarType cosb1=(d1*n)/d;
-        assert(1+cosa0>EPS);
-        assert(1+cosa1>EPS);
+        vcg_assert(1+cosa0>EPS);
+        vcg_assert(1+cosa1>EPS);
         typename MESH_TYPE::ScalarType delta0=d*(cosb0 +sqrt( ((1-cosb0*cosb0)*(1-cosa0))/(1+cosa0)) );
         typename MESH_TYPE::ScalarType delta1=d*(cosb1 +sqrt( ((1-cosb1*cosb1)*(1-cosa1))/(1+cosa1)) );
-        assert(delta0+delta1<2*d);
+        vcg_assert(delta0+delta1<2*d);
         nv.P()=vp+n*sign*(delta0+delta1)/2.0;
         return ;
     }
@@ -233,7 +233,7 @@ struct MidPointArc : public std::unary_function<face::Pos<typename MESH_TYPE::Fa
     TexCoord2<FL_TYPE,1> WedgeInterp(TexCoord2<FL_TYPE,1> &t0, TexCoord2<FL_TYPE,1> &t1)
     {
         TexCoord2<FL_TYPE,1> tmp;
-        assert(t0.n()== t1.n());
+        vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;
@@ -337,7 +337,7 @@ bool RefineE(MESH_TYPE &m, MIDPOINT &mid, EDGEPRED &ep,bool RefineSelected=false
     typedef typename MESH_TYPE::FacePointer FacePointer;
     typedef typename MESH_TYPE::FaceType FaceType;
     typedef typename MESH_TYPE::FaceType::TexCoordType TexCoordType;
-    assert(tri::HasFFAdjacency(m));
+    vcg_assert(tri::HasFFAdjacency(m));
     tri::UpdateFlags<MESH_TYPE>::FaceBorderFromFF(m);
     typedef face::Pos<FaceType>  PosType;
 
@@ -370,7 +370,7 @@ bool RefineE(MESH_TYPE &m, MIDPOINT &mid, EDGEPRED &ep,bool RefineSelected=false
                 RD[edgeCur.F()].ep[edgeCur.E()]=true;
                 ++NewFaceNum;
                 ++NewVertNum;
-                assert(edgeCur.IsManifold());
+                vcg_assert(edgeCur.IsManifold());
                 if(!edgeCur.IsBorder())
                 {
                     edgeCur.FlipF();
@@ -410,7 +410,7 @@ bool RefineE(MESH_TYPE &m, MIDPOINT &mid, EDGEPRED &ep,bool RefineSelected=false
                         if(!edgeCur.IsBorder())
                         {
                             edgeCur.FlipF();
-                            assert(RD[edgeCur.F()].ep[edgeCur.E()]);
+                            vcg_assert(RD[edgeCur.F()].ep[edgeCur.E()]);
                             RD[edgeCur.F()].vp[edgeCur.E()] = &*lastv;
                         }
                         ++lastv;
@@ -419,7 +419,7 @@ bool RefineE(MESH_TYPE &m, MIDPOINT &mid, EDGEPRED &ep,bool RefineSelected=false
          }
   }
 
-    assert(lastv==m.vert.end()); // critical assert: we MUST have used all the vertex that we forecasted we need
+    vcg_assert(lastv==m.vert.end()); // critical assert: we MUST have used all the vertex that we forecasted we need
 
     FaceIterator lastf = tri::Allocator<MESH_TYPE>::AddFaces(m,NewFaceNum);
     FaceIterator oldendf = lastf;
@@ -486,7 +486,7 @@ bool RefineE(MESH_TYPE &m, MIDPOINT &mid, EDGEPRED &ep,bool RefineSelected=false
           if(tri::HasPerWedgeTexCoord(m)) //analogo ai vertici...
             (*nf[i]).WT(j)=wtt[SplitTab[ind].TV[i][j]];
 
-          assert((*nf[i]).V(j)!=0);
+          vcg_assert((*nf[i]).V(j)!=0);
           if(SplitTab[ind].TE[i][j]!=3){
             if(orgflag & (MESH_TYPE::FaceType::BORDER0<<(SplitTab[ind].TE[i][j])))
               (*nf[i]).SetB(j);
@@ -514,12 +514,12 @@ bool RefineE(MESH_TYPE &m, MIDPOINT &mid, EDGEPRED &ep,bool RefineSelected=false
       }
     }
 
-    assert(lastf==m.face.end());	 // critical assert: we MUST have used all the faces that we forecasted we need and that we previously allocated.
-    assert(!m.vert.empty());
+    vcg_assert(lastf==m.face.end());	 // critical assert: we MUST have used all the faces that we forecasted we need and that we previously allocated.
+    vcg_assert(!m.vert.empty());
     for(fi=m.face.begin();fi!=m.face.end();++fi) if(!(*fi).IsD()){
-      assert((*fi).V(0)>=&*m.vert.begin() && (*fi).V(0)<=&m.vert.back() );
-      assert((*fi).V(1)>=&*m.vert.begin() && (*fi).V(1)<=&m.vert.back() );
-      assert((*fi).V(2)>=&*m.vert.begin() && (*fi).V(2)<=&m.vert.back() );
+      vcg_assert((*fi).V(0)>=&*m.vert.begin() && (*fi).V(0)<=&m.vert.back() );
+      vcg_assert((*fi).V(1)>=&*m.vert.begin() && (*fi).V(1)<=&m.vert.back() );
+      vcg_assert((*fi).V(2)>=&*m.vert.begin() && (*fi).V(2)<=&m.vert.back() );
     }
     tri::UpdateTopology<MESH_TYPE>::FaceFace(m);
 
@@ -586,7 +586,7 @@ struct MidPointButterfly : public std::unary_function<face::Pos<typename MESH_TY
             vr0=&he.v->P();
             he.FlipV();
             he.NextB();
-            assert(&he.v->P()==vl);
+            vcg_assert(&he.v->P()==vl);
             he.NextB();
             vl0=&he.v->P();
             nv.P()=((*vl)+(*vr))*(9.0/16.0)-((*vl0)+(*vr0))/16.0 ;
@@ -597,17 +597,17 @@ struct MidPointButterfly : public std::unary_function<face::Pos<typename MESH_TY
             vu=&he.v->P();
             he.FlipF();he.FlipE();he.FlipV();
             vur=&he.v->P();
-            he.FlipV();he.FlipE();he.FlipF(); assert(&he.v->P()==vu); // back to vu (on the right)
+            he.FlipV();he.FlipE();he.FlipF(); vcg_assert(&he.v->P()==vu); // back to vu (on the right)
             he.FlipE();
             he.FlipF();he.FlipE();he.FlipV();
             vul=&he.v->P();
-            he.FlipV();he.FlipE();he.FlipF(); assert(&he.v->P()==vu); // back to vu (on the left)
-            he.FlipV();he.FlipE();he.FlipF(); assert(&he.v->P()==vl);// again on vl (but under the edge)
+            he.FlipV();he.FlipE();he.FlipF(); vcg_assert(&he.v->P()==vu); // back to vu (on the left)
+            he.FlipV();he.FlipE();he.FlipF(); vcg_assert(&he.v->P()==vl);// again on vl (but under the edge)
             he.FlipE();he.FlipV();
             vd=&he.v->P();
             he.FlipF();he.FlipE();he.FlipV();
             vdl=&he.v->P();
-            he.FlipV();he.FlipE();he.FlipF(); assert(&he.v->P()==vd);// back to vd (on the right)
+            he.FlipV();he.FlipE();he.FlipF(); vcg_assert(&he.v->P()==vd);// back to vd (on the right)
             he.FlipE();
             he.FlipF();he.FlipE();he.FlipV();
             vdr=&he.v->P();
@@ -627,7 +627,7 @@ struct MidPointButterfly : public std::unary_function<face::Pos<typename MESH_TY
     TexCoord2<FL_TYPE,1> WedgeInterp(TexCoord2<FL_TYPE,1> &t0, TexCoord2<FL_TYPE,1> &t1)
     {
         TexCoord2<FL_TYPE,1> tmp;
-        assert(t0.n()== t1.n());
+        vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;
@@ -706,7 +706,7 @@ face::Pos<typename MESH_TYPE::FaceType> he(ep.f,ep.z,ep.f->V(ep.z));
             vr0=&he.v->P();
             he.FlipV();
             he.NextB();
-            assert(&he.v->P()==vl);
+            vcg_assert(&he.v->P()==vl);
             he.NextB();
             vl0=&he.v->P();
             return ((*vl)+(*vr))*(9.0/16.0)-((*vl0)+(*vr0))/16.0 ;
@@ -714,14 +714,14 @@ face::Pos<typename MESH_TYPE::FaceType> he(ep.f,ep.z,ep.f->V(ep.z));
 
     int kl=0,kr=0; // valence of left and right vertices
     bool bl=false,br=false; // if left and right vertices are of border
-  face::Pos<typename MESH_TYPE::FaceType> heStart=he;assert(he.v->P()==*vl);
+  face::Pos<typename MESH_TYPE::FaceType> heStart=he;vcg_assert(he.v->P()==*vl);
     do { // compute valence of left vertex
         he.FlipE();he.FlipF();
         if(he.IsBorder()) bl=true;
         ++kl;
     }	while(he!=heStart);
 
-    he.FlipV();heStart=he;assert(he.v->P()==*vr);
+    he.FlipV();heStart=he;vcg_assert(he.v->P()==*vr);
     do { // compute valence of right vertex
         he.FlipE();he.FlipF();
         if(he.IsBorder()) br=true;
@@ -731,7 +731,7 @@ face::Pos<typename MESH_TYPE::FaceType> he(ep.f,ep.z,ep.f->V(ep.z));
     if(kr==6 && kl==6) return MidPointButterfly<MESH_TYPE>()( ep );
     // TRACE("odd vertex among valences of %i %i\n",kl,kr);
     typename MESH_TYPE::CoordType newposl=*vl*.75, newposr=*vr*.75;
-    he.FlipV();heStart=he; assert(he.v->P()==*vl);
+    he.FlipV();heStart=he; vcg_assert(he.v->P()==*vl);
     int i=0;
     if(kl!=6)
     do { // compute position  of left vertex
@@ -739,7 +739,7 @@ face::Pos<typename MESH_TYPE::FaceType> he(ep.f,ep.z,ep.f->V(ep.z));
         he.FlipE();he.FlipF();
         ++i;
     }	while(he!=heStart);
-    i=0;he.FlipV();heStart=he;assert(he.v->P()==*vr);
+    i=0;he.FlipV();heStart=he;vcg_assert(he.v->P()==*vr);
     if(kr!=6)
     do { // compute position of right vertex
         newposr+=he.VFlip()->P()* Rules[kr][i];
@@ -798,7 +798,7 @@ public:
     TexCoord2<FL_TYPE,1> WedgeInterp(TexCoord2<FL_TYPE,1> &t0, TexCoord2<FL_TYPE,1> &t1)
     {
         TexCoord2<FL_TYPE,1> tmp;
-        assert(t0.n()== t1.n());
+        vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;
@@ -851,7 +851,7 @@ struct MidPointSphere : public std::unary_function<face::Pos<typename MESH_TYPE:
     TexCoord2<FL_TYPE,1> WedgeInterp(TexCoord2<FL_TYPE,1> &t0, TexCoord2<FL_TYPE,1> &t1)
     {
         TexCoord2<FL_TYPE,1> tmp;
-        assert(t0.n()== t1.n());
+        vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;

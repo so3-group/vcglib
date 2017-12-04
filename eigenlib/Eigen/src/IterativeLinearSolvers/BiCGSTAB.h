@@ -199,8 +199,8 @@ public:
   inline const internal::solve_retval_with_guess<BiCGSTAB, Rhs, Guess>
   solveWithGuess(const MatrixBase<Rhs>& b, const Guess& x0) const
   {
-    eigen_assert(m_isInitialized && "BiCGSTAB is not initialized.");
-    eigen_assert(Base::rows()==b.rows()
+    eigen_vcg_assert(m_isInitialized && "BiCGSTAB is not initialized.");
+    eigen_vcg_assert(Base::rows()==b.rows()
               && "BiCGSTAB::solve(): invalid number of rows of the right hand side matrix b");
     return internal::solve_retval_with_guess
             <BiCGSTAB, Rhs, Guess>(*this, b.derived(), x0);

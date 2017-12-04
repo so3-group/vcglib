@@ -342,10 +342,10 @@ namespace vcg{
             Point2i &siz = this->siz;
             CoordType &voxel = this->voxel;
 
-            assert(!_bbox.IsNull());
+            vcg_assert(!_bbox.IsNull());
             bbox=_bbox;
             dim  = bbox.max - bbox.min;
-            assert((grid_size.V(0)>0)&&(grid_size.V(1)>0));//&&(grid_size.V(2)>0));
+            vcg_assert((grid_size.V(0)>0)&&(grid_size.V(1)>0));//&&(grid_size.V(2)>0));
             siz=grid_size;
 
             voxel[0] = dim[0]/siz[0];

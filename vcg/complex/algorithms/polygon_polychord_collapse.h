@@ -179,7 +179,7 @@ public:
      * @return A reference to the corresponding PC_Chord.
      */
     inline PC_Chord & operator[] (const std::pair<size_t, unsigned char> &face_edge) {
-      assert(face_edge.first >= 0 && 2*face_edge.first+face_edge.second < _Chords.size());
+      vcg_assert(face_edge.first >= 0 && 2*face_edge.first+face_edge.second < _Chords.size());
       return _Chords[2*face_edge.first + face_edge.second];
     }
     /**
@@ -188,7 +188,7 @@ public:
      * @return A reference to the corresponding PC_Chord.
      */
     inline const PC_Chord & operator[] (const std::pair<size_t, unsigned char> &face_edge) const {
-      assert(face_edge.first >= 0 && 2*face_edge.first+face_edge.second < _Chords.size());
+      vcg_assert(face_edge.first >= 0 && 2*face_edge.first+face_edge.second < _Chords.size());
       return _Chords[2*face_edge.first + face_edge.second];
     }
 
@@ -198,7 +198,7 @@ public:
      * @return A std::pair <size_t, unsigned char>(face_index, offset) with offset being 0 or 1.
      */
     inline std::pair<size_t, unsigned char> operator[] (PC_Chord const * const coord) {
-      assert(coord >= &_Chords[0] && coord < &_Chords[0]+_Chords.size());
+      vcg_assert(coord >= &_Chords[0] && coord < &_Chords[0]+_Chords.size());
       return std::pair<size_t, unsigned char>((coord - &_Chords[0])/2, (coord - &_Chords[0])%2);
     }
 
@@ -335,8 +335,8 @@ public:
      * @return true if satisfied, false otherwise.
      */
     bool CheckLinkConditions (const PolyMeshType &mesh, const vcg::face::Pos<FaceType> &startPos) {
-      assert(!startPos.IsNull());
-      assert(mesh.vert.size() == _lcVertices.size());
+      vcg_assert(!startPos.IsNull());
+      vcg_assert(mesh.vert.size() == _lcVertices.size());
       std::vector<LCEdge> lcEdges;
       LCVertexStar intersection;
 
@@ -386,8 +386,8 @@ public:
      * @param lcEdges Vector of edge stars.
      */
     void LC_computeStars (const PolyMeshType &mesh, const vcg::face::Pos<FaceType> &startPos, std::vector<LCEdge> &lcEdges) {
-      assert(!startPos.IsNull());
-      assert(mesh.vert.size() == _lcVertices.size());
+      vcg_assert(!startPos.IsNull());
+      vcg_assert(mesh.vert.size() == _lcVertices.size());
       vcg::face::Pos<FaceType> runPos = startPos;
       vcg::face::JumpingPos<FaceType> vStarPos;
       vcg::face::Pos<FaceType> eStarPos;
@@ -505,7 +505,7 @@ public:
       } while (runPos != startPos);
 
       // check if the starting pos or the border has been reached
-      assert(runPos == startPos || runPos.IsBorder());
+      vcg_assert(runPos == startPos || runPos.IsBorder());
     }
 
     /**
@@ -594,7 +594,7 @@ public:
     vcg::face::Pos<FaceType> runPos = startPos;
     std::pair<size_t, unsigned char> face_edge(std::numeric_limits<size_t>::max(), 0);
     do {
-      assert(runPos.F()->VN() == 4);
+      vcg_assert(runPos.F()->VN() == 4);
       face_edge.first = vcg::tri::Index(mesh, runPos.F());
       face_edge.second = runPos.E() % 2;
       chords[face_edge].mark = mark;
@@ -795,7 +795,7 @@ public:
       runPos.FlipE();
       runPos.FlipF();
     } while (runPos != startPos && !runPos.IsBorder());
-    assert(runPos == startPos || vcg::face::IsBorder(*startPos.F(),startPos.E()));
+    vcg_assert(runPos == startPos || vcg::face::IsBorder(*startPos.F(),startPos.E()));
     if (runPos.IsBorder()) {
       // compute new vertex on the last (border) edge
       point = (runPos.V()->P() + runPos.VFlip()->P()) / 2.f;
@@ -877,7 +877,7 @@ public:
       // get the current coord
       chords.GetCurrent(face_edge);
       resultCode = chords[face_edge].q;
-      assert(resultCode == PC_VOID);
+      vcg_assert(resultCode == PC_VOID);
       // construct a pos on the face and edge of the current coord
       pos.Set(&mesh.face[face_edge.first], face_edge.second, mesh.face[face_edge.first].V(face_edge.second));
       // (try to) collapse the polychord
@@ -1393,7 +1393,7 @@ public:
         }
       } else if (!runPos.FFlip()->IsV()) {
         // must be runPos.E() == leftEdge and faceSubdivisionsIt->second.subfaces.size() == 1
-        assert(faceSubdivisionsIt->second.subfaces.size() == 1);
+        vcg_assert(faceSubdivisionsIt->second.subfaces.size() == 1);
         faceSubdivisionsIt->second.subfaces.front().front().ffpAdj.at(leftEdge) = runPos.FFlip();
         faceSubdivisionsIt->second.subfaces.front().front().ffiAdj.at(leftEdge) = runPos.F()->FFi(leftEdge);
         externalFaces.push_back(ExternalFaceData(runPos.FFlip(),
@@ -1581,7 +1581,7 @@ public:
   static PC_ResultCode CheckPolychordFindStartPosition (const vcg::face::Pos<FaceType> &pos,
                                                         vcg::face::Pos<FaceType> &startPos,
                                                         const bool checkSing = true) {
-    assert(!pos.IsNull());
+    vcg_assert(!pos.IsNull());
     int valence = 0;
     bool singSideA = false, singSideB = false;
     bool borderSideA = false, borderSideB = false;
@@ -1703,7 +1703,7 @@ public:
                               PC_Chords &chords,
                               const unsigned long mark,
                               const PC_ResultCode q) {
-    assert(!startPos.IsNull());
+    vcg_assert(!startPos.IsNull());
     vcg::face::Pos<FaceType> tmpPos, runPos = startPos;
     std::pair<size_t, unsigned char> face_edge(std::numeric_limits<size_t>::max(), 0);
 
@@ -1742,7 +1742,7 @@ public:
       runPos.FlipE();
       runPos.FlipF();
     } while (runPos != startPos && !runPos.IsBorder() && runPos.F()->VN() == 4);
-    assert(runPos == startPos || vcg::face::IsBorder(*startPos.F(),startPos.E())
+    vcg_assert(runPos == startPos || vcg::face::IsBorder(*startPos.F(),startPos.E())
            || runPos.F()->VN() != 4 || startPos.FFlip()->VN() != 4);
   }
 
@@ -1752,11 +1752,11 @@ public:
    * @return true if adjacent to non-manifold edges, false otherwise.
    */
   static bool IsVertexAdjacentToAnyNonManifoldEdge (const vcg::face::Pos<FaceType> &pos) {
-    assert(!pos.IsNull());
+    vcg_assert(!pos.IsNull());
     vcg::face::JumpingPos<FaceType> jmpPos;
     jmpPos.Set(pos.F(), pos.E(), pos.V());
     do {
-      assert(!jmpPos.FFlip()->IsD());
+      vcg_assert(!jmpPos.FFlip()->IsD());
       if (!jmpPos.IsManifold())
         return true;
       jmpPos.NextFE();
@@ -1778,12 +1778,12 @@ public:
                                            const vcg::face::Pos<FaceType> &startPos,
                                            const PC_Chords &chords,
                                            const unsigned long mark) {
-    assert(!startPos.IsNull());
+    vcg_assert(!startPos.IsNull());
     vcg::face::Pos<FaceType> runPos = startPos;
     vcg::face::Pos<FaceType> tmpPos;
     std::pair<size_t, unsigned char> face_edge(std::numeric_limits<size_t>::max(), 0);
     do {
-      assert(runPos.F()->VN() == 4);
+      vcg_assert(runPos.F()->VN() == 4);
       // check if we've already crossed this face
       face_edge.first = vcg::tri::Index(mesh, runPos.F());
       face_edge.second = (runPos.E()+1)%2;
@@ -1842,7 +1842,7 @@ public:
                                       const vcg::face::Pos<FaceType> &startPos,
                                       PC_Chords &chords,
                                       const unsigned long mark) {
-    assert(!startPos.IsNull());
+    vcg_assert(!startPos.IsNull());
     vcg::face::Pos<FaceType> runPos = startPos;
     vcg::face::JumpingPos<FaceType> tmpPos;
     std::pair<size_t, unsigned char> face_edge1(std::numeric_limits<size_t>::max(), 0);
@@ -1855,7 +1855,7 @@ public:
     do {
       face_edge1.first = vcg::tri::Index(mesh, runPos.F());
       face_edge1.second = runPos.E() % 2;
-      assert(chords[face_edge1].mark == mark);
+      vcg_assert(chords[face_edge1].mark == mark);
       // check one vertex
       runPos.FlipV();
       in = true;
@@ -1881,8 +1881,8 @@ public:
           ++nTraversal;
         }
       } while (tmpPos != runPos);
-      assert(in);
-      assert(nTraversal % 2 == 0);
+      vcg_assert(in);
+      vcg_assert(nTraversal % 2 == 0);
       if (nTraversal > 2)
         return false;
 
@@ -1911,8 +1911,8 @@ public:
           ++nTraversal;
         }
       } while (tmpPos != runPos);
-      assert(in);
-      assert(nTraversal % 2 == 0);
+      vcg_assert(in);
+      vcg_assert(nTraversal % 2 == 0);
       if (nTraversal > 2)
         return false;
 
@@ -1947,8 +1947,8 @@ public:
           ++nTraversal;
         }
       } while (tmpPos != runPos);
-      assert(in);
-      assert(nTraversal % 2 == 0);
+      vcg_assert(in);
+      vcg_assert(nTraversal % 2 == 0);
       if (nTraversal > 2)
         return false;
 
@@ -1977,8 +1977,8 @@ public:
           ++nTraversal;
         }
       } while (tmpPos != runPos);
-      assert(in);
-      assert(nTraversal % 2 == 0);
+      vcg_assert(in);
+      vcg_assert(nTraversal % 2 == 0);
       if (nTraversal > 2)
         return false;
     }

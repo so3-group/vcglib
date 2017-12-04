@@ -59,8 +59,8 @@ EIGEN_DEPRECATED Scalar Determinant() const { return determinant(); };
 */
 EIGEN_DEPRECATED Scalar Cofactor(unsigned int i, unsigned int j) const
 {
-	assert(rows() == cols());
-	assert(rows()>2);
+	vcg_assert(rows() == cols());
+	vcg_assert(rows()>2);
 	return (((i+j)%2==0) ? 1. : -1.) * minor(i,j).determinant();
 };
 
@@ -166,7 +166,7 @@ EIGEN_DEPRECATED void SetRow(unsigned int j, const MatrixBase<OtherDerived>& oth
 /*! \deprecated use *this.diagonal() = expression */
 EIGEN_DEPRECATED void SetDiagonal(Scalar *v)
 {
-	assert(rows() == cols());
+	vcg_assert(rows() == cols());
 	diagonal() = Map<Matrix<Scalar,RowsAtCompileTime,1> >(v,cols(),1);
 }
 

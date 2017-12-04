@@ -54,14 +54,14 @@ class Stride
     Stride()
       : m_outer(OuterStrideAtCompileTime), m_inner(InnerStrideAtCompileTime)
     {
-      eigen_assert(InnerStrideAtCompileTime != Dynamic && OuterStrideAtCompileTime != Dynamic);
+      eigen_vcg_assert(InnerStrideAtCompileTime != Dynamic && OuterStrideAtCompileTime != Dynamic);
     }
 
     /** Constructor allowing to pass the strides at runtime */
     Stride(Index outerStride, Index innerStride)
       : m_outer(outerStride), m_inner(innerStride)
     {
-      eigen_assert(innerStride>=0 && outerStride>=0);
+      eigen_vcg_assert(innerStride>=0 && outerStride>=0);
     }
 
     /** Copy constructor */

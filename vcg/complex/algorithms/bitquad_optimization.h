@@ -404,7 +404,7 @@ static int RemoveSinglets(MeshType &m, Pos *p=NULL)
 */
 static ScalarType MeasureQuality(MeshType &m)
 {
-  assert(MeshType::HasPerFaceFlags());
+  vcg_assert(MeshType::HasPerFaceFlags());
   ScalarType res = 0;
   int div = 0;
   for (FaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++) if (!fi->IsD()) {

@@ -356,7 +356,7 @@ static int Open( OpenMeshType &m, const char * filename, int & loadmask, CallBac
 /// read a mesh with all the possible option specified in the PlyInfo obj, returns 0 on success.
 static int Open( OpenMeshType &m, const char * filename, PlyInfo &pi )
 {
-    assert(filename!=0);
+    vcg_assert(filename!=0);
     std::vector<VertexPointer> index;
     LoadPly_FaceAux fa;
     LoadPly_EdgeAux ea;
@@ -708,7 +708,7 @@ static int Open( OpenMeshType &m, const char * filename, PlyInfo &pi )
         }
         else if( !strcmp( pf.ElemName(i),"edge") && (n>0) )/******************** EDGE READING *******************************/
         {
-            assert( pi.mask & Mask::IOM_EDGEINDEX );
+            vcg_assert( pi.mask & Mask::IOM_EDGEINDEX );
             EdgeIterator ei=Allocator<OpenMeshType>::AddEdges(m,n);
             pf.SetCurElement(i);
             for(int j=0;j<n;++j)

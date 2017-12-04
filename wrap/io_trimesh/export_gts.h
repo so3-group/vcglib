@@ -76,7 +76,7 @@ namespace vcg {
 							j++;
 						}
 					}
-					assert(j==m.vn);
+					vcg_assert(j==m.vn);
 
 					// build the edge list, and count the number of edges
 					typedef std::pair<int,int> Edge;

@@ -119,7 +119,7 @@ public:
 
           // tempV takes the next vertex in the 1ring neighborhood
           tempV = pos.VFlip();
-          assert(tempV!=central_vertex);
+          vcg_assert(tempV!=central_vertex);
           AdjVertex v;
 
           v.isBorder = pos.IsBorder();
@@ -138,7 +138,7 @@ public:
           } else {
             weights.push_back(0.5f * (vertices[i].doubleArea + vertices[(i-1)%vertices.size()].doubleArea) / totalDoubleAreaSize);
           }
-          assert(weights.back() < 1.0f);
+          vcg_assert(weights.back() < 1.0f);
         }
 
         // compute I-NN^t to be used for computing the T_i's
@@ -624,7 +624,7 @@ static void MeanAndGaussian(MeshType & m)
             face::JumpingPos<typename MeshType::FaceType> p((*vi).VFp(),&(*vi));
             p.FlipE();
             typename MeshType::VertexType * firstv = p.VFlip();
-            assert(p.F()->V(p.VInd())==&(*vi));
+            vcg_assert(p.F()->V(p.VInd())==&(*vi));
 
             do{
                 if( p.F() != p.FFlip()){
@@ -710,8 +710,8 @@ static void MeanAndGaussian(MeshType & m)
         const float curRatio = minRatio + (maxRatio-minRatio)*q;
         float pd1Len = sqrt(1.0/(1+curRatio*curRatio));
         float pd2Len = curRatio * pd1Len;
-//        assert(fabs(curRatio - pd2Len/pd1Len)<0.0000001);
-//        assert(fabs(pd1Len*pd1Len + pd2Len*pd2Len - 1.0f)<0.0001);
+//        vcg_assert(fabs(curRatio - pd2Len/pd1Len)<0.0000001);
+//        vcg_assert(fabs(pd1Len*pd1Len + pd2Len*pd2Len - 1.0f)<0.0001);
         m.vert[i].PD1() *= pd1Len;
         m.vert[i].PD2() *= pd2Len;
       }

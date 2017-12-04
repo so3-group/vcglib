@@ -109,8 +109,8 @@ public:
    */
   const MatrixUType& matrixU() const
   {
-    eigen_assert(m_isInitialized && "SVD is not initialized.");
-    eigen_assert(computeU() && "This SVD decomposition didn't compute U. Did you ask for it?");
+    eigen_vcg_assert(m_isInitialized && "SVD is not initialized.");
+    eigen_vcg_assert(computeU() && "This SVD decomposition didn't compute U. Did you ask for it?");
     return m_matrixU;
   }
 
@@ -125,8 +125,8 @@ public:
    */
   const MatrixVType& matrixV() const
   {
-    eigen_assert(m_isInitialized && "SVD is not initialized.");
-    eigen_assert(computeV() && "This SVD decomposition didn't compute V. Did you ask for it?");
+    eigen_vcg_assert(m_isInitialized && "SVD is not initialized.");
+    eigen_vcg_assert(computeV() && "This SVD decomposition didn't compute V. Did you ask for it?");
     return m_matrixV;
   }
 
@@ -137,7 +137,7 @@ public:
    */
   const SingularValuesType& singularValues() const
   {
-    eigen_assert(m_isInitialized && "SVD is not initialized.");
+    eigen_vcg_assert(m_isInitialized && "SVD is not initialized.");
     return m_singularValues;
   }
 
@@ -146,7 +146,7 @@ public:
   /** \returns the number of singular values that are not exactly 0 */
   Index nonzeroSingularValues() const
   {
-    eigen_assert(m_isInitialized && "SVD is not initialized.");
+    eigen_vcg_assert(m_isInitialized && "SVD is not initialized.");
     return m_nonzeroSingularValues;
   }
 
@@ -193,7 +193,7 @@ protected:
 template<typename MatrixType>
 bool SVDBase<MatrixType>::allocate(Index rows, Index cols, unsigned int computationOptions)
 {
-  eigen_assert(rows >= 0 && cols >= 0);
+  eigen_vcg_assert(rows >= 0 && cols >= 0);
 
   if (m_isAllocated &&
       rows == m_rows &&
@@ -212,9 +212,9 @@ bool SVDBase<MatrixType>::allocate(Index rows, Index cols, unsigned int computat
   m_computeThinU = (computationOptions & ComputeThinU) != 0;
   m_computeFullV = (computationOptions & ComputeFullV) != 0;
   m_computeThinV = (computationOptions & ComputeThinV) != 0;
-  eigen_assert(!(m_computeFullU && m_computeThinU) && "SVDBase: you can't ask for both full and thin U");
-  eigen_assert(!(m_computeFullV && m_computeThinV) && "SVDBase: you can't ask for both full and thin V");
-  eigen_assert(EIGEN_IMPLIES(m_computeThinU || m_computeThinV, MatrixType::ColsAtCompileTime==Dynamic) &&
+  eigen_vcg_assert(!(m_computeFullU && m_computeThinU) && "SVDBase: you can't ask for both full and thin U");
+  eigen_vcg_assert(!(m_computeFullV && m_computeThinV) && "SVDBase: you can't ask for both full and thin V");
+  eigen_vcg_assert(EIGEN_IMPLIES(m_computeThinU || m_computeThinV, MatrixType::ColsAtCompileTime==Dynamic) &&
 	       "SVDBase: thin U and V are only available when your matrix has a dynamic number of columns.");
 
   m_diagSize = (std::min)(m_rows, m_cols);

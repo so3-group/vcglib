@@ -76,14 +76,14 @@ class PoissonSolver
     int VertexIndex(VertexType* v)
     {
         typename std::map<VertexType*,int>::iterator iteMap=VertexToInd.find(v);
-        assert(iteMap!=VertexToInd.end());
+        vcg_assert(iteMap!=VertexToInd.end());
         return ((*iteMap).second);
     }
 
     VertexType* IndexVertex(int index)
     {
         typename std::map<int,VertexType*>::iterator iteMap=IndToVertex.find(index);
-        assert(iteMap!=IndToVertex.end());
+        vcg_assert(iteMap!=IndToVertex.end());
         return ((*iteMap).second);
     }
 
@@ -96,8 +96,8 @@ class PoissonSolver
     void SetValA(int Xindex,int Yindex,ScalarType val)
     {
         //int size=(int)S.nrows();
-        assert(0 <= Xindex && Xindex < int(total_size));
-        assert(0 <= Yindex && Yindex < int(total_size));
+        vcg_assert(0 <= Xindex && Xindex < int(total_size));
+        vcg_assert(0 <= Yindex && Yindex < int(total_size));
         //S.A().addEntryReal(Xindex,Yindex,val);
         //if (Xindex>=Yindex)
         A.coeffRef(Xindex,Yindex) +=val;
@@ -139,8 +139,8 @@ class PoissonSolver
                     v1=vt1;
                 }
             }
-        assert(v0!=NULL);
-        assert(v1!=NULL);
+        vcg_assert(v0!=NULL);
+        vcg_assert(v1!=NULL);
     }
 
     ///set the value of b of the system Ax=b
@@ -210,8 +210,8 @@ class PoissonSolver
                 ///add for both u and v
                 int Xindex=index[i][j][0]*2;
                 int Yindex=index[i][j][1]*2;
-                assert(Xindex<int(n_vert_vars*2));
-                assert(Yindex<int(n_vert_vars*2));
+                vcg_assert(Xindex<int(n_vert_vars*2));
+                vcg_assert(Yindex<int(n_vert_vars*2));
                 SetValA(Xindex,Yindex,val[i][j]);
                 SetValA(Xindex+1,Yindex+1,val[i][j]);
             }
@@ -229,8 +229,8 @@ class PoissonSolver
                 ///add for both u and v
                 int Xindex=index[i][j][0]*2;
                 int Yindex=index[i][j][1]*2;
-                assert(Xindex<(n_vert_vars*2));
-                assert(Yindex<(n_vert_vars*2));
+                vcg_assert(Xindex<(n_vert_vars*2));
+                vcg_assert(Yindex<(n_vert_vars*2));
                 SetValA(Xindex,Yindex,val[i][j]);
                 SetValA(Xindex+1,Yindex+1,val[i][j]);
             }
@@ -312,8 +312,8 @@ class PoissonSolver
         /*MyMesh::PerFaceCoordHandle<ScalarType> Fh = tri::Allocator<MyMesh>::AddPerVertexAttribute<float>  (m,std::string("Irradiance"));
         bool CrossDir0 = tri::HasPerVertexAttribute(mesh,"CrossDir0");
                 bool CrossDir1 = tri::HasPerVertexAttribute(mesh,"CrossDir1");
-                assert(CrossDir0);
-                assert(CrossDir1);*/
+                vcg_assert(CrossDir0);
+                vcg_assert(CrossDir1);*/
 
         //K1=f->Q3();
         K1=f->PD1();
@@ -351,12 +351,12 @@ class PoissonSolver
     {
         ScalarType penalization=1000000;
         int offset_row=n_vert_vars;
-        assert(to_fix.size()>0);
+        vcg_assert(to_fix.size()>0);
         for (size_t i=0;i<to_fix.size();i++)
         {
             ///take a vertex
             VertexType *v=to_fix[i];
-            assert(!v->IsD());
+            vcg_assert(!v->IsD());
             int index=VertexIndex(v);
             //v->vertex_index[0];
             int indexvert=index*2;
@@ -606,7 +606,7 @@ public:
     void FixDefaultVertices()
     {
         ///in this case there are already vertices fixed, so no need to fix by default
-        assert(to_fix.size()==0);
+        vcg_assert(to_fix.size()==0);
         ///then fix only one vertex
         if (use_direction_field)
         {
@@ -627,7 +627,7 @@ public:
             if (v0==v1)
             {
                 //				tri::io::ExporterPLY<MeshType>::Save(mesh,"./parametrized.ply");
-                assert(0);
+                vcg_assert(0);
             }
             v0->T().P()=Point2<ScalarType>(0,0);
             v1->T().P()=Point2<ScalarType>(1,1);
@@ -647,8 +647,8 @@ public:
 //        {
 //            bool CrossDir0 = tri::HasPerFaceAttribute(mesh,"CrossDir0");
 //            bool CrossDir1 = tri::HasPerFaceAttribute(mesh,"CrossDir1");
-//            assert(CrossDir0);
-//            assert(CrossDir1);
+//            vcg_assert(CrossDir0);
+//            vcg_assert(CrossDir1);
 //            Fh0= tri::Allocator<MeshType> :: template GetPerFaceAttribute<CoordType>(mesh,std::string("CrossDir0"));
 //            Fh1= tri::Allocator<MeshType> :: template GetPerFaceAttribute<CoordType>(mesh,std::string("CrossDir1"));
 //        }
@@ -680,11 +680,11 @@ public:
         n_fixed_vars=to_fix.size();*/
         if (use_direction_field)
         {
-            assert(to_fix.size()>0);
+            vcg_assert(to_fix.size()>0);
         }
         else
         {
-            assert(to_fix.size()>1);
+            vcg_assert(to_fix.size()>1);
         }
 
         n_fixed_vars=to_fix.size();
@@ -695,8 +695,8 @@ public:
 //        {
 //            bool CrossDir0 = tri::HasPerFaceAttribute(mesh,"CrossDir0");
 //            bool CrossDir1 = tri::HasPerFaceAttribute(mesh,"CrossDir1");
-//            assert(CrossDir0);
-//            assert(CrossDir1);
+//            vcg_assert(CrossDir0);
+//            vcg_assert(CrossDir1);
 //        }
 
         ///build the laplacian system
@@ -738,15 +738,15 @@ public:
         {
             tri::UV_Utils<MeshType>::GloballyMirrorX(mesh);
             bool isUnfolded = tri::Distortion<MeshType,false>::GloballyUnFolded(mesh);
-            assert( ! isUnfolded);
+            vcg_assert( ! isUnfolded);
         }
         return true;
     }
 
     PoissonSolver(MeshType &_mesh):mesh(_mesh)
     {
-        assert(mesh.vert.size()>3);
-        assert(mesh.face.size()>1);
+        vcg_assert(mesh.vert.size()>3);
+        vcg_assert(mesh.face.size()>1);
     }
 
 

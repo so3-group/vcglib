@@ -102,49 +102,49 @@ _WRAP_EIGEN_XPR(glScale)
 	inline void glScale(float const & p){ glScalef(p,p,p);}
 	inline void glScale(double const & p){ glScaled(p,p,p);}
 
-	template<typename T> inline void glVertex(const Eigen::Matrix<T,2,1> & p) { assert(0); }
+	template<typename T> inline void glVertex(const Eigen::Matrix<T,2,1> & p) { vcg_assert(0); }
 	template<> inline void glVertex(const Eigen::Matrix<int,2,1> & p)   { glVertex2iv((const GLint*)p.data());}
 	template<> inline void glVertex(const Eigen::Matrix<short,2,1> & p) { glVertex2sv(p.data());}
 	template<> inline void glVertex(const Eigen::Matrix<float,2,1> & p) { glVertex2fv(p.data());}
 	template<> inline void glVertex(const Eigen::Matrix<double,2,1> & p){ glVertex2dv(p.data());}
 
-	template<typename T> inline void glTexCoord(const Eigen::Matrix<T,2,1> & p) { assert(0); }
+	template<typename T> inline void glTexCoord(const Eigen::Matrix<T,2,1> & p) { vcg_assert(0); }
 	template<> inline void glTexCoord(const Eigen::Matrix<int,2,1> & p)   { glTexCoord2iv((const GLint*)p.data());}
 	template<> inline void glTexCoord(const Eigen::Matrix<short,2,1> & p) { glTexCoord2sv(p.data());}
 	template<> inline void glTexCoord(const Eigen::Matrix<float,2,1> & p) { glTexCoord2fv(p.data());}
 	template<> inline void glTexCoord(const Eigen::Matrix<double,2,1> & p){ glTexCoord2dv(p.data());}
 
-	template<typename T> inline void glTranslate(const Eigen::Matrix<T,2,1> & p) { assert(0); }
+	template<typename T> inline void glTranslate(const Eigen::Matrix<T,2,1> & p) { vcg_assert(0); }
 	template<> inline void glTranslate(const Eigen::Matrix<float,2,1> & p) { glTranslatef(p[0],p[1],0);}
 	template<> inline void glTranslate(const Eigen::Matrix<double,2,1> & p){ glTranslated(p[0],p[1],0);}
 
-	template<typename T> inline void glScale(const Eigen::Matrix<T,2,1> & p) { assert(0); }
+	template<typename T> inline void glScale(const Eigen::Matrix<T,2,1> & p) { vcg_assert(0); }
 	template<> inline void glScale(const Eigen::Matrix<float,2,1> & p) { glScalef(p[0],p[1],1.f);}
 	template<> inline void glScale(const Eigen::Matrix<double,2,1> & p){ glScaled(p[0],p[1],1.0);}
 
-	template<typename T> inline void glVertex(const Eigen::Matrix<T,3,1> & p) { assert(0); }
+	template<typename T> inline void glVertex(const Eigen::Matrix<T,3,1> & p) { vcg_assert(0); }
 	template<> inline void glVertex(const Eigen::Matrix<int,3,1> & p)   { glVertex3iv((const GLint*)p.data());}
 	template<> inline void glVertex(const Eigen::Matrix<short,3,1> & p) { glVertex3sv(p.data());}
 	template<> inline void glVertex(const Eigen::Matrix<float,3,1> & p) { glVertex3fv(p.data());}
 	template<> inline void glVertex(const Eigen::Matrix<double,3,1> & p){ glVertex3dv(p.data());}
 
-	template<typename T> inline void glNormal(const Eigen::Matrix<T,3,1> & p) { assert(0); }
+	template<typename T> inline void glNormal(const Eigen::Matrix<T,3,1> & p) { vcg_assert(0); }
 	template<> inline void glNormal(const Eigen::Matrix<int,3,1> & p)   { glNormal3iv((const GLint*)p.data());}
 	template<> inline void glNormal(const Eigen::Matrix<short,3,1> & p) { glNormal3sv(p.data());}
 	template<> inline void glNormal(const Eigen::Matrix<float,3,1> & p) { glNormal3fv(p.data());}
 	template<> inline void glNormal(const Eigen::Matrix<double,3,1> & p){ glNormal3dv(p.data());}
 
-	template<typename T> inline void glTexCoord(const Eigen::Matrix<T,3,1> & p) { assert(0); }
+	template<typename T> inline void glTexCoord(const Eigen::Matrix<T,3,1> & p) { vcg_assert(0); }
 	template<> inline void glTexCoord(const Eigen::Matrix<int,3,1> & p)   { glTexCoord3iv((const GLint*)p.data());}
 	template<> inline void glTexCoord(const Eigen::Matrix<short,3,1> & p) { glTexCoord3sv(p.data());}
 	template<> inline void glTexCoord(const Eigen::Matrix<float,3,1> & p) { glTexCoord3fv(p.data());}
 	template<> inline void glTexCoord(const Eigen::Matrix<double,3,1> & p){ glTexCoord3dv(p.data());}
 
-	template<typename T> inline void glTranslate(const Eigen::Matrix<T,3,1> & p) { assert(0); }
+	template<typename T> inline void glTranslate(const Eigen::Matrix<T,3,1> & p) { vcg_assert(0); }
 	template<> inline void glTranslate(const Eigen::Matrix<float,3,1> & p) { glTranslatef(p[0],p[1],p[2]);}
 	template<> inline void glTranslate(const Eigen::Matrix<double,3,1> & p){ glTranslated(p[0],p[1],p[2]);}
 
-	template<typename T> inline void glScale(const Eigen::Matrix<T,3,1> & p) { assert(0); }
+	template<typename T> inline void glScale(const Eigen::Matrix<T,3,1> & p) { vcg_assert(0); }
 	template<> inline void glScale(const Eigen::Matrix<float,3,1> & p) { glScalef(p[0],p[1],p[2]);}
 	template<> inline void glScale(const Eigen::Matrix<double,3,1> & p){ glScaled(p[0],p[1],p[2]);}
 

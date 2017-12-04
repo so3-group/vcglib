@@ -38,7 +38,7 @@ of Greg Turk and on the work of Claudio Rocchini
 #ifdef WIN32
 #define assert ASSERT
 #else
-#include <assert.h>
+#include <vcg/math/assert.h>
 #endif
 #ifdef _MSC_VER
 #pragma warning( disable : 4267 )
@@ -57,7 +57,7 @@ of Greg Turk and on the work of Claudio Rocchini
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 #include <vector>
 #include <algorithm>
@@ -167,14 +167,14 @@ static char CrossType[9][9]=
 
 static inline void SwapShort( ushort * s )
 {
-	assert(s);
+	vcg_assert(s);
     *s = ushort( (int(*s)>>8) | (int(*s)<<8) );
 }
 
 
 static inline void SwapInt( uint * x )
 {
-	assert(x);
+	vcg_assert(x);
     *x = 
 	( ((*x)>>24) & 0x000000FF ) |
 	( ((*x)>> 8) & 0x0000FF00 ) |
@@ -186,7 +186,7 @@ static inline void SwapInt( uint * x )
 static inline void SwapDouble( double * /*d*/ )
 {
 	// Come si fa?
-	assert(0);
+	vcg_assert(0);
 }
 
 
@@ -194,8 +194,8 @@ static inline void SwapDouble( double * /*d*/ )
 
 static inline int ReadCharB( XFILE * fp, char * c, int /*format*/ )
 {
-	assert(fp);
-	assert(c);
+	vcg_assert(fp);
+	vcg_assert(c);
 
 	return pb_fread(c,1,1,fp);
 }
@@ -203,8 +203,8 @@ static inline int ReadCharB( XFILE * fp, char * c, int /*format*/ )
 
 static inline int ReadShortB( XFILE * fp, short * s, int format )
 {
-	assert(fp);
-	assert(s);
+	vcg_assert(fp);
+	vcg_assert(s);
 
 	int r;
 	r = pb_fread(s,sizeof(short),1,fp);
@@ -222,8 +222,8 @@ static inline int ReadShortB( XFILE * fp, short * s, int format )
 
 static inline int ReadIntB( XFILE * fp, int * i, int format )
 {
-	assert(fp);
-	assert(i);
+	vcg_assert(fp);
+	vcg_assert(i);
 
 	int r;
 	r = pb_fread(i,sizeof(int),1,fp);
@@ -241,8 +241,8 @@ static inline int ReadIntB( XFILE * fp, int * i, int format )
 
 static inline int ReadUCharB( XFILE * fp, uchar * uc, int /*format*/ )
 {
-	assert(fp);
-	assert(uc);
+	vcg_assert(fp);
+	vcg_assert(uc);
 
 	return pb_fread(uc,1,1,fp);
 }
@@ -250,8 +250,8 @@ static inline int ReadUCharB( XFILE * fp, uchar * uc, int /*format*/ )
 
 static inline int ReadUShortB( XFILE * fp, ushort * us, int format )
 {
-	assert(fp);
-	assert(us);
+	vcg_assert(fp);
+	vcg_assert(us);
 
 	int r;
 	r = pb_fread(us,sizeof(ushort),1,fp);
@@ -269,8 +269,8 @@ static inline int ReadUShortB( XFILE * fp, ushort * us, int format )
 
 static inline int ReadUIntB( XFILE * fp, uint * ui, int format )
 {
-	assert(fp);
-	assert(ui);
+	vcg_assert(fp);
+	vcg_assert(ui);
 
 	int r;
 	r = pb_fread(ui,sizeof(uint),1,fp);
@@ -288,8 +288,8 @@ static inline int ReadUIntB( XFILE * fp, uint * ui, int format )
 
 static inline int ReadFloatB( XFILE * fp, float * f, int format )
 {
-	assert(fp);
-	assert(f);
+	vcg_assert(fp);
+	vcg_assert(f);
 
 	int r;
 	r = pb_fread(f,sizeof(float),1,fp);
@@ -307,8 +307,8 @@ static inline int ReadFloatB( XFILE * fp, float * f, int format )
 
 static inline int ReadDoubleB( XFILE * fp, double * d, int format )
 {
-	assert(fp);
-	assert(d);
+	vcg_assert(fp);
+	vcg_assert(d);
 
 	int r;
 	r = pb_fread(d,sizeof(double),1,fp);
@@ -450,8 +450,8 @@ static inline int ReadDouble( XFILE * fp, double & d )
 
 static inline int ReadCharA( XFILE * fp, char * c )
 {
-	assert(fp);
-	assert(c);
+	vcg_assert(fp);
+	vcg_assert(c);
 
 	int r,t;
 	r = ReadInt(fp,t);
@@ -462,8 +462,8 @@ static inline int ReadCharA( XFILE * fp, char * c )
 
 static inline int ReadShortA( XFILE * fp, short * s )
 {
-	assert(fp);
-	assert(s);
+	vcg_assert(fp);
+	vcg_assert(s);
 
 	int r,t;
 	r = ReadInt(fp,t);
@@ -474,16 +474,16 @@ static inline int ReadShortA( XFILE * fp, short * s )
 
 static inline int ReadIntA( XFILE * fp, int * i )
 {
-	assert(fp);
-	assert(i);
+	vcg_assert(fp);
+	vcg_assert(i);
 
 	return ReadInt(fp,*i);
 }
 
 static inline int ReadUCharA( XFILE * fp, uchar * uc )
 {
-	assert(fp);
-	assert(uc);
+	vcg_assert(fp);
+	vcg_assert(uc);
 
 	int r;
 	uint t;
@@ -495,8 +495,8 @@ static inline int ReadUCharA( XFILE * fp, uchar * uc )
 
 static inline int ReadUShortA( XFILE * fp, ushort * us )
 {
-	assert(fp);
-	assert(us);
+	vcg_assert(fp);
+	vcg_assert(us);
 
 	int r;
 	uint t;
@@ -508,16 +508,16 @@ static inline int ReadUShortA( XFILE * fp, ushort * us )
 
 static inline int ReadUIntA( XFILE * fp, uint * ui )
 {
-	assert(fp);
-	assert(ui);
+	vcg_assert(fp);
+	vcg_assert(ui);
 
 	return ReadUInt(fp,*ui);
 }
 
 static inline int ReadFloatA( XFILE * fp, float * f )
 {
-	assert(fp);
-	assert(f);
+	vcg_assert(fp);
+	vcg_assert(f);
 
 	return ReadFloat(fp,*f);
 }
@@ -525,8 +525,8 @@ static inline int ReadFloatA( XFILE * fp, float * f )
 
 static inline int ReadDoubleA( XFILE * fp, double * d )
 {
-	assert(fp);
-	assert(d);
+	vcg_assert(fp);
+	vcg_assert(d);
 
 	return ReadDouble(fp,*d);
 }
@@ -537,7 +537,7 @@ static inline int ReadDoubleA( XFILE * fp, double * d )
 
 static inline void StoreInt( void * mem, const int tm, const int val )
 {
-	assert(mem);
+	vcg_assert(mem);
 
 	switch(tm)
 	{
@@ -549,7 +549,7 @@ static inline void StoreInt( void * mem, const int tm, const int val )
 	case T_UINT:	*(uint   *)mem = (uint  )val; break;
 	case T_FLOAT:	*(float  *)mem = (float )val; break;
 	case T_DOUBLE:	*(double *)mem = (double)val; break;
-	default: assert(0);
+	default: vcg_assert(0);
 	}
 }
 
@@ -560,7 +560,7 @@ static inline int SkipScalarA( XFILE * fp, const int tf )
 	int t;
 	float f;
 
-	assert(fp);
+	vcg_assert(fp);
 
 	switch(tf)
 	{
@@ -575,7 +575,7 @@ static inline int SkipScalarA( XFILE * fp, const int tf )
 	case T_DOUBLE:
 		return ReadFloat(fp,f);
 	default:
-		assert(0);
+		vcg_assert(0);
 		return 0;
 	}
 }
@@ -586,7 +586,7 @@ static inline int SkipScalarB( XFILE * fp, const int tf)
 {
   char dummy[8];
 
-	assert(fp);
+	vcg_assert(fp);
 	return pb_fread(dummy,1,TypeSize[tf],fp);
 }
 
@@ -617,7 +617,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		case T_UINT:	*(uint   *)mem = (uint  )ch; break;
 		case T_FLOAT:	*(float  *)mem = (float )ch; break;
 		case T_DOUBLE:	*(double *)mem = (double)ch; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_SHORT:	//================== Lettura short
@@ -632,7 +632,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		case T_UINT:	*(uint   *)mem = (uint  )sh; break;
 		case T_FLOAT:	*(float  *)mem = (float )sh; break;
 		case T_DOUBLE:	*(double *)mem = (double)sh; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_INT:		//================== Lettura int
@@ -647,7 +647,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		case T_UINT:	*(uint   *)mem = (uint  )in; break;
 		case T_FLOAT:	*(float  *)mem = (float )in; break;
 		case T_DOUBLE:	*(double *)mem = (double)in; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_UCHAR:	//================== Lettura uchar
@@ -662,7 +662,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		case T_UINT:	*(uint   *)mem = (uint  )uc; break;
 		case T_FLOAT:	*(float  *)mem = (float )uc; break;
 		case T_DOUBLE:	*(double *)mem = (double)uc; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_USHORT:	//================== Lettura ushort
@@ -677,7 +677,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		case T_UINT:	*(uint   *)mem = (uint  )us; break;
 		case T_FLOAT:	*(float  *)mem = (float )us; break;
 		case T_DOUBLE:	*(double *)mem = (double)us; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_UINT:	//================== Lettura uint
@@ -692,7 +692,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		case T_UINT:	*(uint   *)mem = (uint  )ui; break;
 		case T_FLOAT:	*(float  *)mem = (float )ui; break;
 		case T_DOUBLE:	*(double *)mem = (double)ui; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_FLOAT:	//================== Lettura float
@@ -701,7 +701,7 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		{
 		case T_FLOAT:  *(float  *)mem = fl; break;
 		case T_DOUBLE: *(double *)mem = fl; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_DOUBLE:	//================== Lettura double
@@ -710,11 +710,11 @@ static int ReadScalarB( XFILE * fp, void * mem, const int tf, const int tm, int 
 		{
 		case T_FLOAT:  *(float  *)mem = (float)dd; break;
 		case T_DOUBLE: *(double *)mem = dd;        break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	default:
-		assert(0);
+		vcg_assert(0);
 	}
 
 	return r;
@@ -749,7 +749,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		case T_UINT:	*(uint   *)mem = (uint  )ch; break;
 		case T_FLOAT:	*(float  *)mem = (float )ch; break;
 		case T_DOUBLE:	*(double *)mem = (double)ch; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_SHORT:	//================== Lettura short
@@ -764,7 +764,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		case T_UINT:	*(uint   *)mem = (uint  )sh; break;
 		case T_FLOAT:	*(float  *)mem = (float )sh; break;
 		case T_DOUBLE:	*(double *)mem = (double)sh; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_INT:		//================== Lettura int
@@ -779,7 +779,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		case T_UINT:	*(uint   *)mem = (uint  )in; break;
 		case T_FLOAT:	*(float  *)mem = (float )in; break;
 		case T_DOUBLE:	*(double *)mem = (double)in; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_UCHAR:	//================== Lettura uchar
@@ -794,7 +794,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		case T_UINT:	*(uint   *)mem = (uint  )uc; break;
 		case T_FLOAT:	*(float  *)mem = (float )uc; break;
 		case T_DOUBLE:	*(double *)mem = (double)uc; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_USHORT:	//================== Lettura ushort
@@ -809,7 +809,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		case T_UINT:	*(uint   *)mem = (uint  )us; break;
 		case T_FLOAT:	*(float  *)mem = (float )us; break;
 		case T_DOUBLE:	*(double *)mem = (double)us; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_UINT:	//================== Lettura uint
@@ -824,7 +824,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		case T_UINT:	*(uint   *)mem = (uint  )ui; break;
 		case T_FLOAT:	*(float  *)mem = (float )ui; break;
 		case T_DOUBLE:	*(double *)mem = (double)ui; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_FLOAT:	//================== Lettura float
@@ -833,7 +833,7 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		{
 		case T_FLOAT:  *(float  *)mem = fl; break;
 		case T_DOUBLE: *(double *)mem = fl; break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	case T_DOUBLE:	//================== Lettura double
@@ -842,11 +842,11 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 		{
 		case T_FLOAT:  *(float  *)mem = (float)dd; break;
 		case T_DOUBLE: *(double *)mem = dd;        break;
-		default: assert(0);
+		default: vcg_assert(0);
 		}
 		break;
 	default:
-		assert(0);
+		vcg_assert(0);
 	}
 
 	return r;
@@ -857,18 +857,18 @@ static int ReadScalarA( XFILE * fp, void * mem, const int tf, const int tm )
 
 void PlyElement::AddProp( const char * na, int ti, int isl, int t2 )
 {
-	assert(na);
-	assert(ti>0);
-	assert(ti<T_MAXTYPE);
-	assert( t2>0 || (t2==0 && isl==0));
-	assert(t2<T_MAXTYPE);
+	vcg_assert(na);
+	vcg_assert(ti>0);
+	vcg_assert(ti<T_MAXTYPE);
+	vcg_assert( t2>0 || (t2==0 && isl==0));
+	vcg_assert(t2<T_MAXTYPE);
 
 	props.push_back( PlyProperty (na,ti,isl,t2) );
 }
 
 PlyProperty * PlyElement::FindProp( const char * na )
 {
-	assert(na);
+	vcg_assert(na);
 	vector<PlyProperty>::iterator i;
 
 	for(i=props.begin();i!=props.end();++i)
@@ -889,7 +889,7 @@ int PlyElement::AddToRead(
 		size_t offset2
 	)	// Vedi struttura PropDescriptor
 {
-	assert(propname);
+	vcg_assert(propname);
 
 	PlyProperty * p = FindProp(propname);
 	if(p==0)
@@ -1265,7 +1265,7 @@ error:
 int PlyFile::OpenWrite( const char * /*filename*/ )
 {
 		// Per ora non implementato
-	assert(0);
+	vcg_assert(0);
 	return -1;
 }
 
@@ -1275,7 +1275,7 @@ int PlyFile::OpenWrite( const char * /*filename*/ )
 int PlyFile::FindType( const char * name ) const
 {
 	int i;
-	assert(name);
+	vcg_assert(name);
 
 	for(i=1;i<9;++i)
 		if( !strcmp(name,typenames[i]) || !strcmp(name,newtypenames[i]))
@@ -1285,7 +1285,7 @@ int PlyFile::FindType( const char * name ) const
 
 PlyElement * PlyFile::FindElement( const char * na ) 
 {
-	assert(na);
+	vcg_assert(na);
 	vector<PlyElement>::iterator i;
 
 	for(i=elements.begin();i!=elements.end();++i)
@@ -1307,7 +1307,7 @@ int PlyFile::AddToRead(
 		size_t offset2
 	)	// Vedi struttura PropDescriptor
 {
-	assert(elemname);
+	vcg_assert(elemname);
 	PlyElement * e = FindElement(elemname);
 	if(e==0)
 	{
@@ -1349,7 +1349,7 @@ static bool cb_skip_bin1( GZFILE fp, void * /*mem*/, PropDescriptor * /*d*/ )
 {
   char dummy[1];
 
-	assert(fp);
+	vcg_assert(fp);
 	return pb_fread(dummy,1,1,fp)!=0;
 }
 
@@ -1357,7 +1357,7 @@ static bool cb_skip_bin2( GZFILE fp, void * /*mem*/, PropDescriptor * /*d*/ )
 {
   char dummy[2];
 
-	assert(fp);
+	vcg_assert(fp);
 	return pb_fread(dummy,1,2,fp)!=0;
 }
 
@@ -1365,7 +1365,7 @@ static bool cb_skip_bin4( GZFILE fp, void * /*mem*/, PropDescriptor * /*d*/ )
 {
   char dummy[4];
 
-	assert(fp);
+	vcg_assert(fp);
 	return pb_fread(dummy,1,4,fp)!=0;
 }
 
@@ -1373,7 +1373,7 @@ static bool cb_skip_bin8( GZFILE fp, void * /*mem*/, PropDescriptor * /*d*/ )
 {
   char dummy[8];
 
-	assert(fp);
+	vcg_assert(fp);
 	return pb_fread(dummy,1,8,fp)!=0;
 }
 
@@ -1381,7 +1381,7 @@ static bool cb_skip_float_ascii( GZFILE fp, void * /*mem*/, PropDescriptor * /*d
 {
   float dummy;
 
-	assert(fp);
+	vcg_assert(fp);
 	return fscanf(fp,"%f",&dummy)!=EOF;
 }
 
@@ -1389,7 +1389,7 @@ static bool cb_skip_int_ascii( GZFILE fp, void * /*mem*/, PropDescriptor * /*d*/
 {
   int dummy;
 
-	assert(fp);
+	vcg_assert(fp);
 	return fscanf(fp,"%d",&dummy)!=EOF;
 }
 
@@ -1917,7 +1917,7 @@ static bool cb_read_list_ascii( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,TypeSize[d->memtype1]);
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -1949,7 +1949,7 @@ static bool cb_read_list_chch( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(char));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -1969,7 +1969,7 @@ static bool cb_read_list_chsh( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(short));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -1993,7 +1993,7 @@ static bool cb_read_list_chin( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(int));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2017,7 +2017,7 @@ static bool cb_read_list_chuc( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uchar));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2041,7 +2041,7 @@ static bool cb_read_list_chus( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(ushort));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2065,7 +2065,7 @@ static bool cb_read_list_chui( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uint));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2089,7 +2089,7 @@ static bool cb_read_list_chfl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2113,7 +2113,7 @@ static bool cb_read_list_chdo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2139,7 +2139,7 @@ static bool cb_read_list_shch( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(char));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2162,7 +2162,7 @@ static bool cb_read_list_shsh( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(short));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2185,7 +2185,7 @@ static bool cb_read_list_shin( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(int));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2208,7 +2208,7 @@ static bool cb_read_list_shuc( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uchar));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2231,7 +2231,7 @@ static bool cb_read_list_shus( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(ushort));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2254,7 +2254,7 @@ static bool cb_read_list_shui( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uint));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2277,7 +2277,7 @@ static bool cb_read_list_shfl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2300,7 +2300,7 @@ static bool cb_read_list_shdo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2326,7 +2326,7 @@ static bool cb_read_list_inch( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(char));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2349,7 +2349,7 @@ static bool cb_read_list_insh( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(short));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2375,14 +2375,14 @@ static bool cb_read_list_inin( GZFILE fp, void * mem, PropDescriptor * d )
 	case T_SHORT : { short val; if( ReadShortB(fp,&val,d->format)==0 ) return false; n=val; } break;
 	case T_UINT : { uint val; if( ReadUIntB(fp,&val,d->format)==0 ) return false; n=val; } break;
 	case T_INT : { int val; if( ReadIntB(fp,&val,d->format)==0 ) return false; n=val; } break;
-	default: assert(0); break;
+	default: vcg_assert(0); break;
 	}
 	char * store;
 	StoreInt( ((char *)mem)+d->offset2, d->memtype2, int(n));
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(int));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2404,7 +2404,7 @@ static bool cb_read_list_inuc( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uchar));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2427,7 +2427,7 @@ static bool cb_read_list_inus( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(ushort));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2450,7 +2450,7 @@ static bool cb_read_list_inui( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uint));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2473,7 +2473,7 @@ static bool cb_read_list_infl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2496,7 +2496,7 @@ static bool cb_read_list_indo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2521,7 +2521,7 @@ static bool cb_read_list_ucch( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(char));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2544,7 +2544,7 @@ static bool cb_read_list_ucsh( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(short));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2567,7 +2567,7 @@ static bool cb_read_list_ucin( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(int));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2590,7 +2590,7 @@ static bool cb_read_list_ucuc( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uchar));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2613,7 +2613,7 @@ static bool cb_read_list_ucus( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(ushort));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2636,7 +2636,7 @@ static bool cb_read_list_ucui( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uint));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2659,7 +2659,7 @@ static bool cb_read_list_ucfl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2682,7 +2682,7 @@ static bool cb_read_list_ucdo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2708,7 +2708,7 @@ static bool cb_read_list_usch( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(char));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2731,7 +2731,7 @@ static bool cb_read_list_ussh( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(short));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2754,7 +2754,7 @@ static bool cb_read_list_usin( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(int));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2777,7 +2777,7 @@ static bool cb_read_list_usuc( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uchar));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2800,7 +2800,7 @@ static bool cb_read_list_usus( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(ushort));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2823,7 +2823,7 @@ static bool cb_read_list_usui( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uint));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2846,7 +2846,7 @@ static bool cb_read_list_usfl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2869,7 +2869,7 @@ static bool cb_read_list_usdo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2895,7 +2895,7 @@ static bool cb_read_list_uich( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(char));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2918,7 +2918,7 @@ static bool cb_read_list_uish( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(short));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2941,7 +2941,7 @@ static bool cb_read_list_uiin( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(int));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2964,7 +2964,7 @@ static bool cb_read_list_uiuc( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uchar));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -2987,7 +2987,7 @@ static bool cb_read_list_uius( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(ushort));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3010,7 +3010,7 @@ static bool cb_read_list_uiui( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(uint));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3033,7 +3033,7 @@ static bool cb_read_list_uifl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3056,7 +3056,7 @@ static bool cb_read_list_uido( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3081,7 +3081,7 @@ static bool cb_read_list_flfl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3104,7 +3104,7 @@ static bool cb_read_list_fldo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3127,7 +3127,7 @@ static bool cb_read_list_dofl( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(float));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3150,7 +3150,7 @@ static bool cb_read_list_dodo( GZFILE fp, void * mem, PropDescriptor * d )
 	if(d->alloclist)
 	{
 		store = (char *)calloc(n,sizeof(double));
-		assert(store);
+		vcg_assert(store);
 		*(char **)(((char *)mem)+d->offset1) = store;
 	}
 	else
@@ -3201,7 +3201,7 @@ void PlyFile::compile( PlyProperty * p )
 				case T_DOUBLE: 
 					p->cb = cb_skip_float_ascii;
 					break;
-				default: p->cb = 0; assert(0); break;
+				default: p->cb = 0; vcg_assert(0); break;
 				}
 			}
 		}
@@ -3225,7 +3225,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_list_chui; break;
 					case T_FLOAT:	p->cb = cb_read_list_chfl; break;
 					case T_DOUBLE:	p->cb = cb_read_list_chdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_SHORT:	//================== Lettura short
@@ -3239,7 +3239,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_list_shui; break;
 					case T_FLOAT:	p->cb = cb_read_list_shfl; break;
 					case T_DOUBLE:	p->cb = cb_read_list_shdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_INT:		//================== Lettura int
@@ -3253,7 +3253,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_list_inui; break;
 					case T_FLOAT:	p->cb = cb_read_list_infl; break;
 					case T_DOUBLE:	p->cb = cb_read_list_indo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_UCHAR:	//================== Lettura uchar
@@ -3267,7 +3267,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_list_ucui; break;
 					case T_FLOAT:	p->cb = cb_read_list_ucfl; break;
 					case T_DOUBLE:	p->cb = cb_read_list_ucdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_USHORT:	//================== Lettura ushort
@@ -3281,7 +3281,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_list_usui; break;
 					case T_FLOAT:	p->cb = cb_read_list_usfl; break;
 					case T_DOUBLE:	p->cb = cb_read_list_usdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_UINT:	//================== Lettura uint
@@ -3295,7 +3295,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_list_uiui; break;
 					case T_FLOAT:	p->cb = cb_read_list_uifl; break;
 					case T_DOUBLE:	p->cb = cb_read_list_uido; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_FLOAT:	//================== Lettura float
@@ -3303,7 +3303,7 @@ void PlyFile::compile( PlyProperty * p )
 					{
 					case T_FLOAT:  p->cb = cb_read_list_flfl; break;
 					case T_DOUBLE: p->cb = cb_read_list_fldo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_DOUBLE:	//================== Lettura double
@@ -3311,11 +3311,11 @@ void PlyFile::compile( PlyProperty * p )
 					{
 					case T_FLOAT:  p->cb = cb_read_list_dofl; break;
 					case T_DOUBLE: p->cb = cb_read_list_dodo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				default:
-					assert(0);
+					vcg_assert(0);
 				}
 			}
 			else
@@ -3326,7 +3326,7 @@ void PlyFile::compile( PlyProperty * p )
 				case 2: p->cb = cb_skip_list_bin2; break;
 				case 4: p->cb = cb_skip_list_bin4; break;
 				case 8: p->cb = cb_skip_list_bin8; break; // before 29/6/08 was p->cb = cb_skip_list_bin4 but by simmetry...
-				default:p->cb = 0; assert(0); break;
+				default:p->cb = 0; vcg_assert(0); break;
 				}
 			}
 		}
@@ -3347,7 +3347,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_chui; break;
 					case T_FLOAT:	p->cb = cb_read_chfl; break;
 					case T_DOUBLE:	p->cb = cb_read_chdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_SHORT:	//================== Lettura short
@@ -3361,7 +3361,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_shui; break;
 					case T_FLOAT:	p->cb = cb_read_shfl; break;
 					case T_DOUBLE:	p->cb = cb_read_shdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_INT:		//================== Lettura int
@@ -3375,7 +3375,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_inui; break;
 					case T_FLOAT:	p->cb = cb_read_infl; break;
 					case T_DOUBLE:	p->cb = cb_read_indo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_UCHAR:	//================== Lettura uchar
@@ -3389,7 +3389,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_ucui; break;
 					case T_FLOAT:	p->cb = cb_read_ucfl; break;
 					case T_DOUBLE:	p->cb = cb_read_ucdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_USHORT:	//================== Lettura ushort
@@ -3403,7 +3403,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_usui; break;
 					case T_FLOAT:	p->cb = cb_read_usfl; break;
 					case T_DOUBLE:	p->cb = cb_read_usdo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_UINT:	//================== Lettura uint
@@ -3417,7 +3417,7 @@ void PlyFile::compile( PlyProperty * p )
 					case T_UINT:	p->cb = cb_read_uiui; break;
 					case T_FLOAT:	p->cb = cb_read_uifl; break;
 					case T_DOUBLE:	p->cb = cb_read_uido; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_FLOAT:	//================== Lettura float
@@ -3425,7 +3425,7 @@ void PlyFile::compile( PlyProperty * p )
 					{
 					case T_FLOAT:  p->cb = cb_read_flfl; break;
 					case T_DOUBLE: p->cb = cb_read_fldo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				case T_DOUBLE:	//================== Lettura double
@@ -3433,11 +3433,11 @@ void PlyFile::compile( PlyProperty * p )
 					{
 					case T_FLOAT:  p->cb = cb_read_dofl; break;
 					case T_DOUBLE: p->cb = cb_read_dodo; break;
-					default: assert(0);
+					default: vcg_assert(0);
 					}
 					break;
 				default:
-					assert(0);
+					vcg_assert(0);
 				}
 			}
 			else
@@ -3448,7 +3448,7 @@ void PlyFile::compile( PlyProperty * p )
 				case 2: p->cb = cb_skip_bin2; break;
 				case 4: p->cb = cb_skip_bin4; break;
 				case 8: p->cb = cb_skip_bin8; break;
-				default:p->cb = 0; assert(0); break;
+				default:p->cb = 0; vcg_assert(0); break;
 				}
 			}
 		}
@@ -3468,7 +3468,7 @@ void PlyFile::compile( PlyElement * e )
 	// Funzioni statiche per la lettura di un elemento
 int ReadBin  ( XFILE * fp, const PlyProperty * pr, void * mem, int fmt )
 {
-	assert(pr);
+	vcg_assert(pr);
 
 		// Lettura di una lista
 	if(pr->islist)
@@ -3478,7 +3478,7 @@ int ReadBin  ( XFILE * fp, const PlyProperty * pr, void * mem, int fmt )
 		if( !ReadScalarB(fp,&n,pr->tipoindex, T_INT, fmt) )
 			return 0;
 
-		assert(n<12);	// Valore abbastanza aleatorio
+		vcg_assert(n<12);	// Valore abbastanza aleatorio
 
 			// Lettura con memorizzazione
 		if(pr->bestored)
@@ -3490,7 +3490,7 @@ int ReadBin  ( XFILE * fp, const PlyProperty * pr, void * mem, int fmt )
 			if(pr->desc.alloclist)
 			{
 				store = (char *)calloc(n,TypeSize[pr->desc.memtype1]);
-				assert(store);
+				vcg_assert(store);
 				*(char **)(((char *)mem)+pr->desc.offset1) = store;
 			}
 			else
@@ -3540,8 +3540,8 @@ int ReadBin  ( XFILE * fp, const PlyProperty * pr, void * mem, int fmt )
 
 int ReadAscii( XFILE * fp, const PlyProperty * pr, void * mem, int /*fmt*/ )
 {
-	assert(pr);
-	assert(mem);
+	vcg_assert(pr);
+	vcg_assert(mem);
 
 
 		// Lettura di una lista
@@ -3552,7 +3552,7 @@ int ReadAscii( XFILE * fp, const PlyProperty * pr, void * mem, int /*fmt*/ )
 		if( !ReadScalarA(fp,&n,pr->tipoindex, T_INT) )
 			return 0;
 
-		assert(n<12);	// Valore abbastanza aleatorio
+		vcg_assert(n<12);	// Valore abbastanza aleatorio
 
 			// Lettura con memorizzazione
 		if(pr->bestored)
@@ -3564,7 +3564,7 @@ int ReadAscii( XFILE * fp, const PlyProperty * pr, void * mem, int /*fmt*/ )
 			if(pr->desc.alloclist)
 			{
 				store = (char *)calloc(n,TypeSize[pr->desc.memtype1]);
-				assert(store);
+				vcg_assert(store);
 				*(char **)(((char *)mem)+pr->desc.offset1) = store;
 			}
 			else
@@ -3613,8 +3613,8 @@ int ReadAscii( XFILE * fp, const PlyProperty * pr, void * mem, int /*fmt*/ )
 
 int PlyFile::Read( void * mem )
 {
-	assert(cure);
-	assert(ReadCB);
+	vcg_assert(cure);
+	vcg_assert(ReadCB);
 
 	vector<PlyProperty>::iterator i;
 

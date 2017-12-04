@@ -153,8 +153,8 @@ public:
   
   //duplicated ... because of gcc new confoming to ISO template derived classes
   //do no 'see' parent members (unless explicitly specified) 
-  const S & V ( const int i ) const	{ assert(i>=0 && i<4); return Point4<S>::V(i); }
-  S & V ( const int i )	{ assert(i>=0 && i<4); return Point4<S>::V(i); }
+  const S & V ( const int i ) const	{ vcg_assert(i>=0 && i<4); return Point4<S>::V(i); }
+  S & V ( const int i )	{ vcg_assert(i>=0 && i<4); return Point4<S>::V(i); }
 
   /// constuctor that imports from different Quaternion types
   template <class Q>

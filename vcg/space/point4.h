@@ -104,7 +104,7 @@ public:
 
 	inline Point4 operator ^ (  const Point4& p ) const
 	{
-		assert(0 && "not defined by two vectors (only put for metaprogramming)");
+		vcg_assert(0 && "not defined by two vectors (only put for metaprogramming)");
 		return Point4();
 	}
 

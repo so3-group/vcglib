@@ -96,7 +96,7 @@ private:
         {
             std::swap(IntegerLine0,IntegerLine1);
             std::swap(val0,val1);
-            assert(val1>=val0);
+            vcg_assert(val1>=val0);
             swapped=true;
         }
 
@@ -123,11 +123,11 @@ private:
 
         //have to check distance also in opposite direction
         ScalarType lenght=val1-val0;
-        assert(lenght>=0);
+        vcg_assert(lenght>=0);
         //alpha=1.0-(dist/lenght);
         alpha=(dist1/lenght);
         if (swapped)alpha=1-alpha;
-        assert((alpha>0)&&(alpha<1));
+        vcg_assert((alpha>0)&&(alpha<1));
         return true;
     }
 
@@ -170,7 +170,7 @@ private:
                 CoordType p0=f->P0(j);
                 CoordType p1=f->P1(j);
                 KeyEdgeType k(p0,p1);
-                assert(InterpMap.count(k)==1);
+                vcg_assert(InterpMap.count(k)==1);
                 if (!InterpMap[k].to_split)continue;
                 //then get the intepolated value
                 vcg::Point2<ScalarType> UV=InterpMap[k].PosUV;
@@ -194,7 +194,7 @@ private:
     void InitSplitMap(TriMesh &to_split,
                       int dir)
     {
-       assert((dir==0)||(dir==1));
+       vcg_assert((dir==0)||(dir==1));
        InterpMap.clear();
        //printf("direction %d\n",dir );
        //first add all eddge
@@ -211,7 +211,7 @@ private:
 //               printf("p0 (%5.5f,%5.5f,%5.5f) p1(%5.5f,%5.5f,%5.5f) \n",p0.X(),p0.Y(),p0.Z(),p1.X(),p1.Y(),p1.Z());
 //               printf("uv0 (%5.5f,%5.5f) uv1(%5.5f,%5.5f) \n",Uv0.X(),Uv0.Y(),Uv1.X(),Uv1.Y());
 //               fflush(stdout);
-               assert(InterpMap.count(k)==0);
+               vcg_assert(InterpMap.count(k)==0);
                InterpMap[k]=InterpolationInfo();
            }
        }
@@ -231,7 +231,7 @@ private:
                if (!ToSplit(uv0,uv1,dir,alpha))continue;
 
                KeyEdgeType k(p0,p1);
-               assert(InterpMap.count(k)==1);
+               vcg_assert(InterpMap.count(k)==1);
                InterpMap[k].Pos3D=p0*alpha+p1*(1-alpha);
                InterpMap[k].PosUV=uv0*alpha+uv1*(1-alpha);
                InterpMap[k].to_split=true;
@@ -252,7 +252,7 @@ private:
 //               if (p0>p1)continue; //only one verse of coherence
 
                KeyEdgeType k0(p0,p1);
-               assert(InterpMap.count(k0)==1);//there should be already in the
+               vcg_assert(InterpMap.count(k0)==1);//there should be already in the
                                               //table and it should be coherent
 
                KeyEdgeType k1(p1,p0);
@@ -278,7 +278,7 @@ private:
                    else
                    {
                        ScalarType alpha=InterpMap[k1].alpha;
-                       assert((alpha>=0)&&(alpha<=1));
+                       vcg_assert((alpha>=0)&&(alpha<=1));
                        alpha=1-alpha;
                        InterpMap[k0].PosUV=alpha*uv0+(1-alpha)*uv1;
                        InterpMap[k0].alpha=alpha;
@@ -302,7 +302,7 @@ private:
                    else //recalculate , it pass across a seam
                    {
                        ScalarType alpha=InterpMap[k1].alpha;
-                       assert((alpha>=0)&&(alpha<=1));
+                       vcg_assert((alpha>=0)&&(alpha<=1));
                        alpha=1-alpha;
                        InterpMap[k0].PosUV=alpha*uv0+(1-alpha)*uv1;
                        InterpMap[k0].alpha=alpha;
@@ -332,17 +332,17 @@ private:
         {
             VertexType* v0=ep.f->V0(ep.z);
             VertexType* v1=ep.f->V1(ep.z);
-            assert(v0!=v1);
+            vcg_assert(v0!=v1);
 
             CoordType p0=v0->P();
             CoordType p1=v1->P();
-            assert(p0!=p1);
+            vcg_assert(p0!=p1);
 
             KeyEdgeType k(p0,p1);
             bool found=(MapEdge->count(k)==1);
-            assert(found);
+            vcg_assert(found);
             bool to_split=(*MapEdge)[k].to_split;
-            assert(to_split);
+            vcg_assert(to_split);
 
             //get the value on which the edge must be splitted
             nv.P()= (*MapEdge)[k].Pos3D;
@@ -374,15 +374,15 @@ private:
         {
             VertexType* v0=ep.f->V0(ep.z);
             VertexType* v1=ep.f->V1(ep.z);
-            assert(v0!=v1);
+            vcg_assert(v0!=v1);
 
             CoordType p0=v0->P();
             CoordType p1=v1->P();
-            assert(p0!=p1);
+            vcg_assert(p0!=p1);
 
             KeyEdgeType k(p0,p1);
             bool found=(MapEdge->count(k)==1);
-            assert(found);
+            vcg_assert(found);
             bool to_split=(*MapEdge)[k].to_split;
             return(to_split);
         }
@@ -475,7 +475,7 @@ private:
                         f->ClearF(j);
                         TriFaceType *f1=f->FFp(j);
                         int z=f->FFi(j);
-                        assert(f1!=f);
+                        vcg_assert(f1!=f);
                         f1->ClearF(z);
                     }
                 }
@@ -505,7 +505,7 @@ private:
         currPos.F()->SetV();
         currPos.F()->C()=vcg::Color4b(255,0,0,255);
         poly.clear();
-        assert(currPos.V()->IsS());
+        vcg_assert(currPos.V()->IsS());
         TriVertexType *v_init=currPos.V();
         poly.push_back(currPos.V());
 
@@ -566,7 +566,7 @@ private:
 
                 if (poly.size()>2)
                 {
-                   assert(poly.size()==UVpoly.size());
+                   vcg_assert(poly.size()==UVpoly.size());
                    std::reverse(poly.begin(),poly.end());
 //                    std::reverse(UVpoly.begin(),UVpoly.end());
 
@@ -642,12 +642,12 @@ public:
 
         //test manifoldness
         int test=vcg::tri::Clean<TriMesh>::CountNonManifoldVertexFF(Tmesh);
-        //assert(test==0);
+        //vcg_assert(test==0);
         if (test != 0)
             cerr << "Assertion failed: TestIsProper NonManifoldVertices!" << endl;
 
         test=vcg::tri::Clean<TriMesh>::CountNonManifoldEdgeFF(Tmesh);
-        //assert(test==0);
+        //vcg_assert(test==0);
         if (test != 0)
             cerr << "Assertion failed: TestIsProper NonManifoldEdges" << endl;
 
@@ -660,7 +660,7 @@ public:
                 //int indexOpp=f->FFi(z);
                 TriFaceType *Fopp=f->FFp(z);
                 if (Fopp==f) continue;
-                //assert( f->FFp(z)->FFp(f->FFi(z))==f );
+                //vcg_assert( f->FFp(z)->FFp(f->FFi(z))==f );
                 if (f->FFp(z)->FFp(f->FFi(z))!=f)
                     cerr << "Assertion failed: TestIsProper f->FFp(z)->FFp(f->FFi(z))!=f " << endl;
             }
@@ -750,7 +750,7 @@ public:
             for (int j=0;j<size;j++)
             {
                 CoordType pos=(polygons[i][j])->P();
-                assert(VertMap.count(pos)==1);
+                vcg_assert(VertMap.count(pos)==1);
                 int index=VertMap[pos];
                 Pmesh.face[i].V(j)=&(Pmesh.vert[index]);
             }

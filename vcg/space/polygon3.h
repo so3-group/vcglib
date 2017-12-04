@@ -203,9 +203,9 @@ void PolyAngleDeviation(const PolygonType &F,
 {
     typedef typename PolygonType::CoordType CoordType;
     typedef typename PolygonType::ScalarType ScalarType;
-    assert(F.VN()>2);
+    vcg_assert(F.VN()>2);
     ScalarType IdealAngle=M_PI-(2*M_PI/(ScalarType)F.VN());
-    assert(IdealAngle>0);
+    vcg_assert(IdealAngle>0);
 
     //then compute the angle deviation
     MaxDev=0;
@@ -217,7 +217,7 @@ void PolyAngleDeviation(const PolygonType &F,
         CoordType dir1=F.cP2(i)-F.cP1(i);
 
         ScalarType VAngle=vcg::Angle(dir0,dir1);
-        assert(VAngle>=0);
+        vcg_assert(VAngle>=0);
         ScalarType VAngleDiff=fabs(VAngle-IdealAngle);
 
         if (VAngleDiff>MaxDev)MaxDev=VAngleDiff;
@@ -240,7 +240,7 @@ vcg::Plane3<typename PolygonType::ScalarType> PolyFittingPlane(const PolygonType
     typedef typename PolygonType::CoordType CoordType;
     typedef typename PolygonType::ScalarType ScalarType;
     vcg::Plane3<ScalarType> BestPL;
-    assert(F.VN()>=3);
+    vcg_assert(F.VN()>=3);
     std::vector<CoordType> pointVec;
     for (int i=0;i<F.VN();i++)
         pointVec.push_back(F.cP(i));
@@ -317,7 +317,7 @@ void PolyPCA(const PolygonType &F,
     minInd=(maxInd+1)%3;
 
     if (minInd==normInd)minInd=(normInd+1)%3;
-    assert((minInd!=normInd)&&(minInd!=maxInd)&&(minInd!=maxInd));
+    vcg_assert((minInd!=normInd)&&(minInd!=maxInd)&&(minInd!=maxInd));
 
     ///maximum direction of PCA
     PCA[0][0] = evec(0,maxInd);
@@ -521,7 +521,7 @@ typename PolygonType::ScalarType PolyAspectRatio(const PolygonType &F,
     GetPolyTemplatePos(F,TemplatePos,isotropic);
 
     ScalarType diff=0;
-    assert((int)TemplatePos.size()==F.VN());
+    vcg_assert((int)TemplatePos.size()==F.VN());
 
     ScalarType AreaP=PolyArea(F);
     for (size_t i=0;i<TemplatePos.size();i++)

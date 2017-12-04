@@ -38,7 +38,7 @@ First Commit.
 #define __VCGLIB_AABBBINARYTREEBASE_H
 
 // standard headers
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 // stl headers
 #include <vector>

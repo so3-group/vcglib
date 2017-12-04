@@ -56,14 +56,14 @@ public:
   /** 2D only */
   inline Scaling(const Scalar& sx, const Scalar& sy)
   {
-    ei_assert(Dim==2);
+    ei_vcg_assert(Dim==2);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
   }
   /** 3D only */
   inline Scaling(const Scalar& sx, const Scalar& sy, const Scalar& sz)
   {
-    ei_assert(Dim==3);
+    ei_vcg_assert(Dim==3);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
     m_coeffs.z() = sz;

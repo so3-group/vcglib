@@ -201,7 +201,7 @@ public:
       normal() = mat * normal();
     else
     {
-      ei_assert("invalid traits value in Hyperplane::transform()");
+      ei_vcg_assert("invalid traits value in Hyperplane::transform()");
     }
     return *this;
   }

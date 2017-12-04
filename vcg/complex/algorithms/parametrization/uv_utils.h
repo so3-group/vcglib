@@ -126,9 +126,9 @@ public:
                     VertexType *v0=(*fi).V(0);
                     VertexType *v1=(*fi).V1(0);
                     VertexType *v2=(*fi).V2(0);
-                    assert(v0!=v1);
-                    assert(v1!=v2);
-                    assert(v0!=v2);
+                    vcg_assert(v0!=v1);
+                    vcg_assert(v1!=v2);
+                    vcg_assert(v0!=v2);
                     UVCoordType uv1=v1->T().P();
                     UVCoordType uv2=v2->T().P();
                     int index=v0-&(m.vert[0]);

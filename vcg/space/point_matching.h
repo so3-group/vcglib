@@ -50,7 +50,7 @@ void ComputeCrossCovarianceMatrix(const std::vector<Point3<S> > &spVec, Point3<S
                                   const std::vector<Point3<S> > &tpVec, Point3<S> &tpBarycenter,
                                   Eigen::Matrix3d &m)
 {
-    assert(spVec.size()==tpVec.size());
+    vcg_assert(spVec.size()==tpVec.size());
     m.setZero();
     spBarycenter.SetZero();
     tpBarycenter.SetZero();

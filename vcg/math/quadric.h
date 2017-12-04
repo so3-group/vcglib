@@ -103,7 +103,7 @@ public:
   
   void operator = ( const Quadric & q )
   {
-    assert( q.IsValid() );
+    vcg_assert( q.IsValid() );
     
     a[0] = q.a[0];
     a[1] = q.a[1];
@@ -119,8 +119,8 @@ public:
   
   void operator += ( const Quadric & q )
   {
-    assert( IsValid() );
-    assert( q.IsValid() );
+    vcg_assert( IsValid() );
+    vcg_assert( q.IsValid() );
     
     a[0] += q.a[0];
     a[1] += q.a[1];
@@ -136,7 +136,7 @@ public:
   
   void operator *= ( const ScalarType & w )			// Amplifica una quadirca
   {
-    assert( IsValid() );
+    vcg_assert( IsValid() );
     
     a[0] *= w;
     a[1] *= w;
@@ -157,7 +157,7 @@ public:
   template <class ResultScalarType>
   ResultScalarType Apply( const Point3<ResultScalarType> & p ) const
   {
-    assert( IsValid() );
+    vcg_assert( IsValid() );
     return ResultScalarType (
             p[0]*p[0]*a[0] + 2*p[0]*p[1]*a[1] + 2*p[0]*p[2]*a[2] + p[0]*b[0]
         +   p[1]*p[1]*a[3] + 2*p[1]*p[2]*a[4] + p[1]*b[1]

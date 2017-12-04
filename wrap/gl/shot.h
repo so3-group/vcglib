@@ -111,21 +111,21 @@ static void TransformGL(vcg::Shot<ScalarType> & shot)
 /// set the OpenGL PROJECTION and MODELVIEW matrix to match camera+shot. requires near and far plane
 static void SetView(vcg::Shot<ScalarType> & shot, ScalarType nearDist, ScalarType farDist)
 {
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 	GlCameraType::TransformGL(shot.Intrinsics, nearDist, farDist); // apply camera/projection transformation
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
 
 	GlShot<ShotType>::TransformGL(shot);	// apply similarity/modelview transformation
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 }
 
 /// restore the previous OpenGL modelview and projection state. to be called AFTER a SetView
@@ -195,14 +195,14 @@ static void SetSubView(vcg::Shot<ScalarType> & shot,
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 	GlCameraType::SetSubView(shot.Intrinsics,p1,0,1000,p2);
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
 	GlShot<ShotType>::TransformGL(shot);							// apply similarity/modelview transformation
-	assert(glGetError() == 0);
+	vcg_assert(glGetError() == 0);
 }
 
 

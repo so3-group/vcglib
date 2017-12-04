@@ -25,7 +25,7 @@
 
 #include <limits>
 #include <stdio.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <algorithm>
 #include <vector>
 #include <vcg/space/box2.h>
@@ -136,7 +136,7 @@ static bool PackAsAxisAlignedRect(const std::vector< std::vector<Point2x> > &pol
   std::vector<Box2x> bbVec;
   for(size_t i=0;i<polyVec.size();++i)
   {
-    assert(polyVec[i].size()>0);
+    vcg_assert(polyVec[i].size()>0);
     bbVec.push_back(getPolyBB(polyVec[i]));
   }
   return RectPacker<float>::Pack(bbVec,containerSizeX,trVec,coveredContainer);

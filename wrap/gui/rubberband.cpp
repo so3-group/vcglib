@@ -44,7 +44,7 @@ Rubberband::Rubberband(Color4b c)
 void Rubberband::Render(QGLWidget* gla)
 {
   if(have_to_pick){
-    assert(currentphase!=RUBBER_DRAGGED);
+    vcg_assert(currentphase!=RUBBER_DRAGGED);
     Point3f pick_point;
     bool picked = Pick(QTLogicalToDevice(gla, qt_cursor.x()), QTLogicalToDevice(gla, gla->height() - qt_cursor.y()), pick_point);
     if(picked){ // we have not picked the background
@@ -65,7 +65,7 @@ void Rubberband::Render(QGLWidget* gla)
           currentphase = RUBBER_DRAGGED;
           break;
         default:
-          assert(0);
+          vcg_assert(0);
       }
     }
   }
@@ -104,7 +104,7 @@ void Rubberband::Render(QGLWidget* gla)
   } 
   else 
   {
-    assert(currentphase == RUBBER_DRAGGED);
+    vcg_assert(currentphase == RUBBER_DRAGGED);
     glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_COLOR);
     glEnable(GL_LINE_SMOOTH);
@@ -136,7 +136,7 @@ void Rubberband::Render(QGLWidget* gla)
 
 
   glPopAttrib();
-  assert(!glGetError());
+  vcg_assert(!glGetError());
 }
 
 void Rubberband::RenderLine(QGLWidget* gla, Point3f AA, Point3f BB)
@@ -180,7 +180,7 @@ void Rubberband::RenderLine(QGLWidget* gla, Point3f AA, Point3f BB)
 
 	glDepthFunc(GL_LESS);
 	glPopAttrib();
-	assert(!glGetError());
+	vcg_assert(!glGetError());
 }
 
 void Rubberband::Drag(QPoint p)
@@ -213,7 +213,7 @@ bool Rubberband::IsReady()
 
 void Rubberband::GetPoints(Point3f &s,Point3f &e)
 {
-  assert(IsReady());
+  vcg_assert(IsReady());
   s=start;
   e=end;
 }

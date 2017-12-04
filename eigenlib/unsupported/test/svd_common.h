@@ -137,7 +137,7 @@ void svd_test_computation_options_2(const MatrixType& m, const SVD& fullSvd)
 }
 
 template<typename MatrixType, typename SVD> 
-void svd_verify_assert(const MatrixType& m)
+void svd_verify_vcg_assert(const MatrixType& m)
 {
   typedef typename MatrixType::Scalar Scalar;
   typedef typename MatrixType::Index Index;

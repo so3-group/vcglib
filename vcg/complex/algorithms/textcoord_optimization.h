@@ -67,7 +67,7 @@ public:
    
   /* Constructior */
   TextureOptimizer(MeshType &_m):m(_m),isFixed(_m.vert){
-    assert(m.HasPerVertexTexture());
+    vcg_assert(m.HasPerVertexTexture());
   }
   
   // initializes on current geometry 
@@ -334,7 +334,7 @@ public:
 template<class MESH_TYPE>
 bool IsFoldFree(MESH_TYPE &m){
   
-  assert(m.HasPerVertexTexture());
+  vcg_assert(m.HasPerVertexTexture());
   
   typedef typename MESH_TYPE::VertexType::TextureType::PointType PointType;
   typedef typename MESH_TYPE::VertexType::TextureType::PointType::ScalarType ScalarType;
@@ -355,8 +355,8 @@ bool IsFoldFree(MESH_TYPE &m){
 template<class MESH_TYPE>
 int MarkFolds(MESH_TYPE &m){
   
-  assert(m.HasPerVertexTexture());
-  assert(m.HasPerFaceQuality());
+  vcg_assert(m.HasPerVertexTexture());
+  vcg_assert(m.HasPerFaceQuality());
   
   typedef typename MESH_TYPE::VertexType::TextureType::PointType PointType;
   typedef typename MESH_TYPE::VertexType::TextureType::PointType::ScalarType ScalarType;
@@ -394,7 +394,7 @@ int MarkFolds(MESH_TYPE &m){
 template<class MESH_TYPE>
 void SmoothTextureCoords(MESH_TYPE &m){
   
-  assert(m.HasPerVertexTexture());
+  vcg_assert(m.HasPerVertexTexture());
   
   typedef typename MESH_TYPE::VertexType::TextureType::PointType PointType;
   

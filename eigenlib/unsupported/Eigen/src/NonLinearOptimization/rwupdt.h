@@ -12,7 +12,7 @@ void rwupdt(
     typedef DenseIndex Index;
 
     const Index n = r.cols();
-    eigen_assert(r.rows()>=n);
+    eigen_vcg_assert(r.rows()>=n);
     std::vector<JacobiRotation<Scalar> > givens(n);
 
     /* Local variables */

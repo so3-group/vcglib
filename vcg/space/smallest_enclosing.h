@@ -24,7 +24,7 @@
 #include <vcg/space/triangle3.h>
 #include <vcg/space/tetra3.h>
 #include <vcg/space/sphere3.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 namespace vcg{
 	/** \addtogroup space */
 /*@{*/

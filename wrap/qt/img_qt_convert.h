@@ -10,7 +10,7 @@ namespace img {
 template<typename ScalarType, bool Safe> 
 inline void convert_QImage_to_Y(const QImage &source, Image<1,ScalarType,Safe> &destination)
 {
-  assert(!source.isNull());
+  vcg_assert(!source.isNull());
   if(Safe){
     if(source.isNull())  throw ImageException("Null source image");
   }
@@ -25,7 +25,7 @@ inline void convert_QImage_to_Y(const QImage &source, Image<1,ScalarType,Safe> &
 template<typename ScalarType, bool Safe> 
 inline void convert_QImage_to_RGB(const QImage &source, Image<3,ScalarType,Safe> &destination)
 {
-  assert(!source.isNull());
+  vcg_assert(!source.isNull());
   if(Safe){
     if(source.isNull())  throw ImageException("Null source image");
   }
@@ -43,7 +43,7 @@ inline void convert_QImage_to_RGB(const QImage &source, Image<3,ScalarType,Safe>
 template<typename ScalarType, bool Safe> 
 inline void convert_QImage_to_RGBA(const QImage &source, Image<4,ScalarType,Safe> &destination)
 {
-  assert(!source.isNull());
+  vcg_assert(!source.isNull());
   if(Safe){
     if(source.isNull())  throw ImageException("Null source image");
   }
@@ -62,8 +62,8 @@ inline void convert_QImage_to_RGBA(const QImage &source, Image<4,ScalarType,Safe
 template<typename ScalarType, bool Safe> 
 inline void convert_Y_to_QImage(const Image<1,ScalarType,Safe> &source, QImage &destination)
 {
-  assert(source.isValid());
-  assert(source.attributes.hasRange(0,255));
+  vcg_assert(source.isValid());
+  vcg_assert(source.attributes.hasRange(0,255));
   if(Safe){
     if(!source.isValid()) throw ImageException("Invalid source image");
     if(!source.attributes.hasRange(0,255)) throw ImageException("Invalid range attribute");
@@ -79,8 +79,8 @@ inline void convert_Y_to_QImage(const Image<1,ScalarType,Safe> &source, QImage &
 template<typename ScalarType, bool Safe> 
 inline void convert_RGB_to_QImage(const Image<3,ScalarType,Safe> &source, QImage &destination)
 {
-  assert(source.isValid());
-  assert(source.attributes.hasRange(ScalarType(0.0),ScalarType(255.0)));
+  vcg_assert(source.isValid());
+  vcg_assert(source.attributes.hasRange(ScalarType(0.0),ScalarType(255.0)));
   if(Safe){
     if(!source.isValid()) throw ImageException("Invalid source image");
     if(!source.attributes.hasRange(ScalarType(0.0),ScalarType(255.0))) throw ImageException("Invalid range attribute");
@@ -97,8 +97,8 @@ inline void convert_RGB_to_QImage(const Image<3,ScalarType,Safe> &source, QImage
 template<typename ScalarType, bool Safe> 
 inline void convert_RGBA_to_QImage(const Image<4,ScalarType,Safe> &source, QImage &destination)
 {
-  assert(source.isValid());
-  assert(source.attributes.hasRange(ScalarType(0.0),ScalarType(255.0)));
+  vcg_assert(source.isValid());
+  vcg_assert(source.attributes.hasRange(ScalarType(0.0),ScalarType(255.0)));
   if(Safe){
     if(!source.isValid()) throw ImageException("Invalid source image");
     if(!source.attributes.hasRange(ScalarType(0.0),ScalarType(255.0))) throw ImageException("Invalid range attribute");

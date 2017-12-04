@@ -74,7 +74,7 @@ public:
             data = input;
             if (input.size() != 16)
             {
-                assert(0);
+                vcg_assert(0);
             }
         }
 
@@ -157,7 +157,7 @@ public:
 
         static Bicubic fit(std::vector<CoordType> VV)
         {
-            assert(VV.size() >= 16);
+            vcg_assert(VV.size() >= 16);
             Eigen::MatrixXf A(VV.size(),16);
             Eigen::MatrixXf b(VV.size(),1);
             Eigen::MatrixXf sol(16,1);

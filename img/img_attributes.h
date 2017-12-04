@@ -131,7 +131,7 @@ public:
   
   void setRange(ScalarType arg_range_min, ScalarType arg_range_max)
   {
-    assert(arg_range_min<=arg_range_max);
+    vcg_assert(arg_range_min<=arg_range_max);
     _range_min = arg_range_min;
     _range_max = arg_range_max;
   }

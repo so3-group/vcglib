@@ -68,7 +68,7 @@ int main( int argc, char **argv )
   tri::UpdateNormal<MyMesh>::PerVertexNormalizedPerFaceNormalized(m);
 
   tri::UpdateFlags<MyMesh>::FaceFauxSignedCrease(m,math::ToRad(-40.f),math::ToRad(40.f  ),false);
-  assert(tri::Clean<MyMesh>::IsFaceFauxConsistent(m));
+  vcg_assert(tri::Clean<MyMesh>::IsFaceFauxConsistent(m));
   tri::BuildFromNonFaux(m,e);
   printf("Out mesh has %i vert %i edges\n",e.vn,e.en);
 

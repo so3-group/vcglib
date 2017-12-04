@@ -11,7 +11,7 @@ namespace img {
 template<int Channels, typename ScalarType, bool Safe>
 inline bool saveNativeFormat(const Image<Channels,ScalarType,Safe> &image, const char *filename)
 {
-  assert(image.isValid());
+  vcg_assert(image.isValid());
   if(Safe){
     if(!image.isValid()) throw ImageException("Invalid image");
   }
@@ -27,7 +27,7 @@ inline bool saveNativeFormat(const Image<Channels,ScalarType,Safe> &image, const
     } else if(typeid(ScalarType) == typeid(double)) {
       scalartype=2;
     } else {
-      assert(0);
+      vcg_assert(0);
     }
     output.write(reinterpret_cast<const char*>(& scalartype), sizeof(int));
     int width=image.width();
@@ -54,15 +54,15 @@ inline bool openNativeFormat(const char *filename, Image<Channels,ScalarType,Saf
   if (input.is_open()) {    
     int channels;
     input.read(reinterpret_cast<char*>(&channels), sizeof(int));
-    assert(channels==Channels);
+    vcg_assert(channels==Channels);
     int scalartype;
     input.read(reinterpret_cast<char*>(&scalartype), sizeof(int));
     if(typeid(ScalarType) == typeid(float)) {
-      assert(scalartype==1);
+      vcg_assert(scalartype==1);
     } else if(typeid(ScalarType) == typeid(double)) {
-      assert(scalartype==2);
+      vcg_assert(scalartype==2);
     } else { 
-      assert(0);
+      vcg_assert(0);
     }
     int width;
     input.read(reinterpret_cast<char*>(&width), sizeof(int));

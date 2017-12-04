@@ -241,7 +241,7 @@ public:
     for(i=es.AV01().begin();i!=es.AV01().end();++i)
         {
             FaceType  & f = *((*i).f);
-            assert(f.V((*i).z) == c.V(0));
+            vcg_assert(f.V((*i).z) == c.V(0));
             vcg::face::VFDetach(f,((*i).z+1)%3);
             vcg::face::VFDetach(f,((*i).z+2)%3);
             Allocator<TriMeshType>::DeleteFace(m,f);

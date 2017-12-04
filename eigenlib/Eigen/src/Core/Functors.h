@@ -660,7 +660,7 @@ template <typename Scalar, bool RandomAccess> struct linspaced_op
   template<typename Index>
   EIGEN_STRONG_INLINE const Scalar operator() (Index row, Index col) const 
   {
-    eigen_assert(col==0 || row==0);
+    eigen_vcg_assert(col==0 || row==0);
     return impl(col + row);
   }
 
@@ -672,7 +672,7 @@ template <typename Scalar, bool RandomAccess> struct linspaced_op
   template<typename Index>
   EIGEN_STRONG_INLINE const Packet packetOp(Index row, Index col) const
   {
-    eigen_assert(col==0 || row==0);
+    eigen_vcg_assert(col==0 || row==0);
     return impl.packetOp(col + row);
   }
 

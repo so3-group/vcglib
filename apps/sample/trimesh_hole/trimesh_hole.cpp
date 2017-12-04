@@ -123,7 +123,7 @@ int main(int argc,char ** argv){
     tri::UpdateTopology<MyMesh>::FaceFace(m);
     tri::UpdateNormal<MyMesh>::PerVertexPerFace(m);
     tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
-  assert(tri::Clean<MyMesh>::IsFFAdjacencyConsistent(m));
+  vcg_assert(tri::Clean<MyMesh>::IsFFAdjacencyConsistent(m));
 
     //compute the average of face area
     float AVG,sumA=0.0f;
@@ -150,7 +150,7 @@ int main(int argc,char ** argv){
 
     tri::UpdateFlags<MyMesh>::FaceBorderFromFF(m);
 
-  assert(tri::Clean<MyMesh>::IsFFAdjacencyConsistent(m));
+  vcg_assert(tri::Clean<MyMesh>::IsFFAdjacencyConsistent(m));
 
   printf("\nStart refinig...\n");
 

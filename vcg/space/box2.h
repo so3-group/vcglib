@@ -24,7 +24,7 @@
 #ifndef __VCGLIB_BOX2
 #define __VCGLIB_BOX2
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <algorithm>
 #include <vcg/math/base.h>
 #include <vcg/space/point2.h>

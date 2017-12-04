@@ -26,7 +26,7 @@
 
 #include <unordered_map>
 #include <vector>
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 namespace vcg
 {
@@ -74,7 +74,7 @@ namespace vcg
     void MakeSet(OBJECT_TYPE *x)
     {
       int object_count		= int(inserted_objects.size());
-      assert(inserted_objects.find(x)==inserted_objects.end()); //the map mustn't already contain the object x
+      vcg_assert(inserted_objects.find(x)==inserted_objects.end()); //the map mustn't already contain the object x
       nodes.push_back(DisjointSetNode(x));
       inserted_objects.insert( hPair(x,object_count) );
     }
@@ -95,7 +95,7 @@ namespace vcg
     OBJECT_TYPE* FindSet(OBJECT_TYPE *x)
     {
       hIterator pos = inserted_objects.find(x);
-      assert(pos!=inserted_objects.end());
+      vcg_assert(pos!=inserted_objects.end());
       DisjointSetNode *node = &nodes[pos->second];
       if (node->parent!=x)
         node->parent = FindSet(node->parent);
@@ -109,7 +109,7 @@ namespace vcg
     {
       hIterator xPos = inserted_objects.find(x);
       hIterator yPos = inserted_objects.find(y);
-      assert(xPos!=inserted_objects.end() && yPos!=inserted_objects.end());
+      vcg_assert(xPos!=inserted_objects.end() && yPos!=inserted_objects.end());
       DisjointSetNode *xNode = &nodes[xPos->second];
       DisjointSetNode *yNode = &nodes[yPos->second];
       if (xNode->rank>yNode->rank)

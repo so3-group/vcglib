@@ -115,7 +115,7 @@ class IncompleteLUT : internal::noncopyable
       : m_droptol(droptol),m_fillfactor(fillfactor),
         m_analysisIsOk(false),m_factorizationIsOk(false),m_isInitialized(false)
     {
-      eigen_assert(fillfactor != 0);
+      eigen_vcg_assert(fillfactor != 0);
       compute(mat); 
     }
     
@@ -130,7 +130,7 @@ class IncompleteLUT : internal::noncopyable
       */
     ComputationInfo info() const
     {
-      eigen_assert(m_isInitialized && "IncompleteLUT is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "IncompleteLUT is not initialized.");
       return m_info;
     }
     
@@ -168,8 +168,8 @@ class IncompleteLUT : internal::noncopyable
     template<typename Rhs> inline const internal::solve_retval<IncompleteLUT, Rhs>
      solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "IncompleteLUT is not initialized.");
-      eigen_assert(cols()==b.rows()
+      eigen_vcg_assert(m_isInitialized && "IncompleteLUT is not initialized.");
+      eigen_vcg_assert(cols()==b.rows()
                 && "IncompleteLUT::solve(): invalid number of rows of the right hand side matrix b");
       return internal::solve_retval<IncompleteLUT, Rhs>(*this, b.derived());
     }
@@ -246,7 +246,7 @@ void IncompleteLUT<Scalar>::factorize(const _MatrixType& amat)
   using std::swap;
   using std::abs;
 
-  eigen_assert((amat.rows() == amat.cols()) && "The factorization should be done on a square matrix");
+  eigen_vcg_assert((amat.rows() == amat.cols()) && "The factorization should be done on a square matrix");
   Index n = amat.cols();  // Size of the matrix
   m_lu.resize(n,n);
   // Declare Working vectors and variables
@@ -255,7 +255,7 @@ void IncompleteLUT<Scalar>::factorize(const _MatrixType& amat)
   VectorXi jr(n);   // Indicate the position of the nonzero elements in the vector u -- A zero location is indicated by -1
 
   // Apply the fill-reducing permutation
-  eigen_assert(m_analysisIsOk && "You must first call analyzePattern()");
+  eigen_vcg_assert(m_analysisIsOk && "You must first call analyzePattern()");
   SparseMatrix<Scalar,RowMajor, Index> mat;
   mat = amat.twistedBy(m_Pinv);
 
@@ -346,7 +346,7 @@ void IncompleteLUT<Scalar>::factorize(const _MatrixType& amat)
       // Start elimination
       typename FactorType::InnerIterator ki_it(m_lu, minrow);
       while (ki_it && ki_it.index() < minrow) ++ki_it;
-      eigen_internal_assert(ki_it && ki_it.col()==minrow);
+      eigen_internal_vcg_assert(ki_it && ki_it.col()==minrow);
       Scalar fact = u(jj) / ki_it.value();
 
       // drop too small elements
@@ -370,13 +370,13 @@ void IncompleteLUT<Scalar>::factorize(const _MatrixType& amat)
           {
             newpos = ii + sizeu;
             sizeu++;
-            eigen_internal_assert(sizeu<=n);
+            eigen_internal_vcg_assert(sizeu<=n);
           }
           else // dealing with the lower part
           {
             newpos = sizel;
             sizel++;
-            eigen_internal_assert(sizel<=ii);
+            eigen_internal_vcg_assert(sizel<=ii);
           }
           ju(newpos) = j;
           u(newpos) = -prod;

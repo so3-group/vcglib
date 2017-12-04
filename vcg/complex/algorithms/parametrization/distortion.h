@@ -84,14 +84,14 @@ public:
 
     static ScalarType EdgeLenght3D(const FaceType *f,int e)
     {
-        assert((e>=0)&&(e<3));
+        vcg_assert((e>=0)&&(e<3));
         ScalarType length=(f->cP0(e)-f->cP1(e)).Norm();
         return (length);
     }
 
     static ScalarType EdgeLenghtUV(const FaceType *f,int e)
     {
-        assert((e>=0)&&(e<3));
+        vcg_assert((e>=0)&&(e<3));
         Point2<TexScalarType> uv0,uv1;
         if(PerWedgeFlag) {
             uv0=f->cWT(e+0).P();
@@ -106,7 +106,7 @@ public:
 
     static ScalarType AngleCos3D(const FaceType *f,int e)
     {
-        assert((e>=0)&&(e<3));
+        vcg_assert((e>=0)&&(e<3));
         CoordType p0=f->P((e+2)%3);
         CoordType p1=f->P(e);
         CoordType p2=f->P((e+1)%3);
@@ -141,7 +141,7 @@ public:
 
     static ScalarType AngleRad3D(const FaceType *f,int e)
     {
-        assert((e>=0)&&(e<3));
+        vcg_assert((e>=0)&&(e<3));
         CoordType p0=f->cP((e+2)%3);
         CoordType p1=f->cP(e);
         CoordType p2=f->cP((e+1)%3);
@@ -236,9 +236,9 @@ public:
     {
         ScalarType edgeUV=EdgeLenghtUV(f,e)*EdgeScaleVal;
         ScalarType edge3D=EdgeLenght3D(f,e);
-        assert(edge3D > 0);
+        vcg_assert(edge3D > 0);
         ScalarType diff=fabs(edge3D-edgeUV)/edge3D;
-        assert(!math::IsNAN(diff));
+        vcg_assert(!math::IsNAN(diff));
         return diff;
     }
 
@@ -250,9 +250,9 @@ public:
     {
         ScalarType areaUV=AreaUV(f)*AreaScaleVal;
         ScalarType area3D=Area3D(f);
-        assert(area3D > 0);
+        vcg_assert(area3D > 0);
         ScalarType diff=fabs(areaUV-area3D)/area3D;
-        assert(!math::IsNAN(diff));
+        vcg_assert(!math::IsNAN(diff));
         return diff;
     }
 
@@ -376,8 +376,8 @@ public:
             {
                 std::cout<<"Warnign A Deficit "<<AngleDeficit<<std::endl;
             }
-//            assert(AngleDeficit<45);
-//            assert(AngleDeficit>=0);
+//            vcg_assert(AngleDeficit<45);
+//            vcg_assert(AngleDeficit>=0);
 
             ScalarType doubleArea = vcg::DoubleArea( f );
             ScalarType distortion = (AngleDeficit)/ 45 ;

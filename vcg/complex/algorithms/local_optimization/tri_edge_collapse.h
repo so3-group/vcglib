@@ -152,7 +152,7 @@ public:
     vfi = face::VFIterator<FaceType>(v[1]);
     while (!vfi.End())
     {
-      assert(!vfi.F()->IsD());
+      vcg_assert(!vfi.F()->IsD());
       if( !(vfi.V1()->IsV()) && (vfi.V1()->IsRW()))
       {
         vfi.V1()->SetV();

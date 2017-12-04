@@ -86,7 +86,7 @@ public:
 		else if (p1.Z()!=p2.Z())		//intersezione della superficie con un Zedge
 			return (p1.Y()==_current_slice)? _z_cs[index]!=-1 : _z_ns[index]!=-1;
 
-		assert(false); // impossibile: i due punti non erano allineati rispetto a nessuna direzione
+		vcg_assert(false); // impossibile: i due punti non erano allineati rispetto a nessuna direzione
 		return false;
 	}
 

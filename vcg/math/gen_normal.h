@@ -200,7 +200,7 @@ static int BestMatchingNormal(const Point3x &n, std::vector<Point3x> &nv)
                 ret=ni-nv.begin();
             }
         }
-  assert(ret>=0 && ret <int(nv.size()));
+  vcg_assert(ret>=0 && ret <int(nv.size()));
     return ret;
 }
 
@@ -216,8 +216,8 @@ class OctaLevel
 
     Point3x &Val(int i, int j) {
 
-      assert(i>=-sz2 && i<=sz2);
-      assert(j>=-sz2 && j<=sz2);
+      vcg_assert(i>=-sz2 && i<=sz2);
+      vcg_assert(j>=-sz2 && j<=sz2);
       return v[i+sz2 +(j+sz2)*sz];
     }
 /*

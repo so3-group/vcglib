@@ -361,7 +361,7 @@ Note: The faux bit is used to color polygonal faces uniformly
         for(int j=0;j<3;++j)
           if((*fi).IsF(j))
           {
-            assert(!IsBorder((*fi),j));
+            vcg_assert(!IsBorder((*fi),j));
             (*fi).FFp(j)->C()= (*fi).C();
           }
       }
@@ -789,7 +789,7 @@ static Color4b ColorDesaturate(Color4b c, int method)
       int val = (int)ComputeLuminosity(c);
       return Color4b( val, val, val, 255);
     }
-    default: assert(0);
+    default: vcg_assert(0);
   }
 }
 

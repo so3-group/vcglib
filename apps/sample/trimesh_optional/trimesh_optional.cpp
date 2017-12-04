@@ -97,14 +97,14 @@ int main(int , char **)
 
   printf("Generated mesh has %i vertices and %i triangular faces\n",cm.VN(),cm.FN());
 
-  assert(tri::HasFFAdjacency(cmof) == false);
+  vcg_assert(tri::HasFFAdjacency(cmof) == false);
   cmof.face.EnableFFAdjacency();
-  assert(tri::HasFFAdjacency(cmof) == true);
+  vcg_assert(tri::HasFFAdjacency(cmof) == true);
 
-  assert(tri::HasVFAdjacency(cmof) == false);
+  vcg_assert(tri::HasVFAdjacency(cmof) == false);
   cmof.vert.EnableVFAdjacency();
   cmof.face.EnableVFAdjacency();
-  assert(tri::HasVFAdjacency(cmof) == true);
+  vcg_assert(tri::HasVFAdjacency(cmof) == true);
 
   tri::UpdateTopology<MyMesh   >::FaceFace(cm);
   tri::UpdateTopology<MyMeshOcf>::FaceFace(cmof);

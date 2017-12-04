@@ -64,9 +64,9 @@ public:
     STATIC_ASSERT( Channels>0 );
     STATIC_FLOAT_OR_DOUBLE_TYPECHECK( ScalarType );
 
-    assert(image._width > 0);
-    assert(image._height > 0);
-    assert(image._data != NULL);
+    vcg_assert(image._width > 0);
+    vcg_assert(image._height > 0);
+    vcg_assert(image._data != NULL);
     if(Safe) {
       if(image._width <= 0) throw ImageException("Image(Image): Nonpositive width");
       if(image._height <= 0) throw ImageException("Image(Image): Nonpositive height");
@@ -91,9 +91,9 @@ public:
     STATIC_ASSERT( Channels>0 );
     STATIC_FLOAT_OR_DOUBLE_TYPECHECK( ScalarType );
 
-    assert(image._width > 0);
-    assert(image._height > 0);
-    assert(image._data != NULL);
+    vcg_assert(image._width > 0);
+    vcg_assert(image._height > 0);
+    vcg_assert(image._data != NULL);
     if(Safe || OtherSafe) {
       if(image._width <= 0) throw ImageException("Image(Image): Nonpositive width");
       if(image._height <= 0) throw ImageException("Image(Image): Nonpositive height");
@@ -123,8 +123,8 @@ public:
     STATIC_ASSERT( Channels>0 );
     STATIC_FLOAT_OR_DOUBLE_TYPECHECK( ScalarType );
 
-    assert(arg_width>0);
-    assert(arg_height>0);
+    vcg_assert(arg_width>0);
+    vcg_assert(arg_height>0);
     if(Safe) {
       if(arg_width <= 0) throw ImageException("Image(int,int): Nonpositive width");
       if(arg_height <= 0) throw ImageException("Image(int,int): Nonpositive height");
@@ -154,9 +154,9 @@ public:
   template<typename OtherScalarType, bool OtherSafe> 
   inline Image< Channels,ScalarType,Safe> & operator =(const Image<Channels,OtherScalarType,OtherSafe> &image)
   {
-    assert(image._width > 0);
-    assert(image._height > 0);
-    assert(image._data != NULL);
+    vcg_assert(image._width > 0);
+    vcg_assert(image._height > 0);
+    vcg_assert(image._data != NULL);
     if(Safe || OtherSafe) {
       if(image._width <= 0) throw ImageException("operator =: Nonpositive width");
       if(image._height <= 0) throw ImageException("operator =: Nonpositive height");
@@ -183,8 +183,8 @@ public:
   */
   inline void setZero(int arg_width, int arg_height)
   {
-    assert(arg_width>0);
-    assert(arg_height>0);
+    vcg_assert(arg_width>0);
+    vcg_assert(arg_height>0);
     if(Safe) {
       if(arg_width <= 0) throw ImageException("setZero: Nonpositive width");
       if(arg_height <= 0) throw ImageException("setZero: Nonpositive height");
@@ -225,9 +225,9 @@ public:
   */
   inline void getPixel(int x, int y, ScalarType (& ret_pixel)[Channels]) const
   {
-    assert( _data != NULL );
-    assert( x >= 0 && x < _width );
-    assert( y >= 0 && y < _height );
+    vcg_assert( _data != NULL );
+    vcg_assert( x >= 0 && x < _width );
+    vcg_assert( y >= 0 && y < _height );
     if( Safe ){
       if ( _data == NULL ) throw ImageException("getPixel: NULL data");
       if ( !( x >= 0 && x < _width ) ) throw ImageException("getPixel: x out of bounds");
@@ -245,9 +245,9 @@ public:
   */
   inline void setPixel(int x, int y, const ScalarType (& pixel)[Channels])
   {
-    assert( _data != NULL );
-    assert( x >= 0 && x < _width );
-    assert( y >= 0 && y < _height );
+    vcg_assert( _data != NULL );
+    vcg_assert( x >= 0 && x < _width );
+    vcg_assert( y >= 0 && y < _height );
     if( Safe ){
       if ( _data == NULL ) throw ImageException("setPixel: NULL data");
       if ( !( x >= 0 && x < _width ) ) throw ImageException("setPixel: x out of bounds");
@@ -266,10 +266,10 @@ public:
   */
   inline ScalarType getValue(int x, int y, int channel) const
   {
-    assert( _data != NULL );
-    assert( x >= 0 && x < _width );
-    assert( y >= 0 && y < _height );
-    assert( channel >=0 && channel < Channels );
+    vcg_assert( _data != NULL );
+    vcg_assert( x >= 0 && x < _width );
+    vcg_assert( y >= 0 && y < _height );
+    vcg_assert( channel >=0 && channel < Channels );
     if( Safe ){
       if ( _data == NULL ) throw ImageException("getFloat: NULL data");
       if ( !( x >= 0 && x < _width ) ) throw ImageException("getFloat: x out of bounds");
@@ -288,10 +288,10 @@ public:
   */
   inline void setValue(int x, int y, int channel, ScalarType value)
   {
-    assert( _data != NULL );
-    assert( x >= 0 && x < _width );
-    assert( y >= 0 && y < _height );
-    assert( channel >=0 && channel < Channels );
+    vcg_assert( _data != NULL );
+    vcg_assert( x >= 0 && x < _width );
+    vcg_assert( y >= 0 && y < _height );
+    vcg_assert( channel >=0 && channel < Channels );
     if( Safe ){
       if ( _data == NULL ) throw ImageException("setFloat: NULL data");
       if ( !( x >= 0 && x < _width ) ) throw ImageException("setFloat: x out of bounds");
@@ -338,9 +338,9 @@ public:
 ///// chi gli serve se la implementa, ora non c'ho tempo
 //  inline void bilinearPixel(float x, float y, const ScalarType[] &pixel) const
 //  {
-//    assert( _data != NULL );
-//    assert( x >= 0.0f && x <= _width-1.0f );
-//    assert( y >= 0.0f && y <= _height-1.0f );
+//    vcg_assert( _data != NULL );
+//    vcg_assert( x >= 0.0f && x <= _width-1.0f );
+//    vcg_assert( y >= 0.0f && y <= _height-1.0f );
 //    if( SAFE ){
 //      if ( _data == NULL ) throw ImageException("bilinearPixel: NULL data");
 //      if ( !( x >= 0.0f && x <= _width-1.0f ) ) throw ImageException("bilinearPixel: x out of bounds");
@@ -399,7 +399,7 @@ public:
   */
   inline void setWidth(int width)
   {
-     assert(width > 0);
+     vcg_assert(width > 0);
      if(Safe){
        if(width <= 0) throw ImageException("setWidth: Nonpositive width");
     }
@@ -413,7 +413,7 @@ public:
   */
    inline void setHeight(int height)
   {
-    assert(height > 0);
+    vcg_assert(height > 0);
     if(Safe){
        if(height <= 0) throw ImageException("setHeight: Nonpositive height");
     }
@@ -447,7 +447,7 @@ public:
   */
   inline void setValues(ScalarType* data)
   {
-    assert(data!=NULL);
+    vcg_assert(data!=NULL);
     if(Safe){
       if(data == NULL) throw ImageException("setValues: NULL data");
     }

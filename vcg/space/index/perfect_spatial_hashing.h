@@ -543,7 +543,7 @@ namespace vcg
                     for (int j=0; j<m_EntryPerSide; j++)
                         for (int k=0; k<m_EntryPerSide; k++)
                         {
-                            assert(m_Table[i][j][k]==NULL);
+                            vcg_assert(m_Table[i][j][k]==NULL);
                             m_FreeEntries.push_back(EntryCoordinate(i, j, k));
                         }
             }
@@ -594,7 +594,7 @@ namespace vcg
              */
             void SetEntry(const EntryCoordinate &at, std::vector< ObjectPointer > *data)
             {
-                assert(IsFree(at));
+                vcg_assert(IsFree(at));
                 m_Table[at.X()][at.Y()][at.Z()] = new Data(data);
                 m_FreeEntries.remove(at);
             }
@@ -864,7 +864,7 @@ namespace vcg
             void SetOffset(const typename UniformGrid::CellCoordinate &coord, const Offset &offset)
             {
                 EntryCoordinate entry = DomainToOffsetTable(coord);
-                assert(IsFree(entry));
+                vcg_assert(IsFree(entry));
                 m_Table[entry.X()][entry.Y()][entry.Z()] = new Offset(offset);
                 m_NumberOfOccupiedEntries++;
             }
@@ -1171,7 +1171,7 @@ namespace vcg
             {
             case FastConstructionApproach		:	PerformFastConstruction(number_of_cells_occupied, callback)		; break;
             case CompactConstructionApproach: PerformCompactConstruction(number_of_cells_occupied, callback); break;
-            default: assert(false);
+            default: vcg_assert(false);
             }
             Finalize();
         } // end of method Set
@@ -1314,7 +1314,7 @@ namespace vcg
         {
 #ifdef _DEBUG
             for (UniformGrid::EntryIterator iUGEntry=m_UniformGrid.Begin(), eUGEntry=m_UniformGrid.End(); iUGEntry!=eUGEntry; iUGEntry++)
-                assert(m_Bitmap.ContainsData(iUGEntry.GetPosition())==((*iUGEntry)->size()>0));
+                vcg_assert(m_Bitmap.ContainsData(iUGEntry.GetPosition())==((*iUGEntry)->size()>0));
 #endif
             m_HashTable.Finalize();
             m_UniformGrid.Finalize();

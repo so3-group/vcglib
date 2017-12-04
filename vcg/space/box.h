@@ -303,7 +303,7 @@ public:
 		/// Compute box size Y.
 	inline S SizeY() const { return _max.Y()-_min.Y();}
 		/// Compute box size Z.
-	inline S SizeZ() const { static_assert(N>2); return _max.Z()-_min.Z();}
+	inline S SizeZ() const { static_vcg_assert(N>2); return _max.Z()-_min.Z();}
 
 	/** @name Linearity for boxes 
   **/

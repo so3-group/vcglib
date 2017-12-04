@@ -1,7 +1,7 @@
 #ifndef GLW_COMMON_H
 #define GLW_COMMON_H
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 #include "./config.h"
 

@@ -113,7 +113,7 @@ public:
                 }
             }
         }
-        if (bottom[rast_i].size() == 0) assert("ERROR: EMPTY BOTTOM VECTOR"==0);
+        if (bottom[rast_i].size() == 0) vcg_assert("ERROR: EMPTY BOTTOM VECTOR"==0);
 
         //compute top
         //IT ASSUMES THAT THERE IS AT LEAST ONE NON-0 ELEMENT (which should always be the case, even if the poly is just a point)
@@ -130,7 +130,7 @@ public:
             }
             deltaY[rast_i].push_back(deltay_i);
         }
-        if (deltaY[rast_i].size() == 0) assert("ERROR: EMPTY deltaY VECTOR"==0);
+        if (deltaY[rast_i].size() == 0) vcg_assert("ERROR: EMPTY deltaY VECTOR"==0);
 
         //same meaning as bottom, but for the left side
         //we want left/right sides vector to be ordered so that index 0 is at poly's bottom
@@ -146,7 +146,7 @@ public:
                 }
             }
         }
-        if (left[rast_i].size() == 0) assert("ERROR: EMPTY leftSide VECTOR"==0);
+        if (left[rast_i].size() == 0) vcg_assert("ERROR: EMPTY leftSide VECTOR"==0);
 
         //we want left/right sides vector to be ordered so that index 0 is at poly's bottom
         int deltax_i;
@@ -161,7 +161,7 @@ public:
             }
             deltaX[rast_i].push_back(deltax_i);
         }
-        if (deltaX[rast_i].size() == 0) assert("ERROR: EMPTY rightSide VECTOR"==0);
+        if (deltaX[rast_i].size() == 0) vcg_assert("ERROR: EMPTY rightSide VECTOR"==0);
 
         //compute the discreteArea: IT IS THE AREA (measured in grid cells) BETWEEN THE TOP AND BOTTOM SIDES...
         int discreteArea = 0;

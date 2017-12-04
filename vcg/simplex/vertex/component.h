@@ -48,63 +48,63 @@ namespace vertex {
 template <class TT> class EmptyCore: public TT {
 public:
   typedef int FlagType;
-  int &Flags()       { assert(0); static int dummyflags(0);  return dummyflags; }
+  int &Flags()       { vcg_assert(0); static int dummyflags(0);  return dummyflags; }
   int cFlags() const { return 0; }
   static bool HasFlags()   { return false; }
 
   typedef vcg::Point3f CoordType;
   typedef CoordType::ScalarType      ScalarType;
-  CoordType &P()       { assert(0); static CoordType coord(0, 0, 0); return coord; }
-  CoordType cP() const { assert(0); static CoordType coord(0, 0, 0);  assert(0); return coord; }
+  CoordType &P()       { vcg_assert(0); static CoordType coord(0, 0, 0); return coord; }
+  CoordType cP() const { vcg_assert(0); static CoordType coord(0, 0, 0);  vcg_assert(0); return coord; }
   static bool HasCoord()   { return false; }
   inline bool IsCoordEnabled() const { return TT::VertexType::HasCoord();}
 
   typedef vcg::Point3s NormalType;
-  NormalType &N()       { assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
-  NormalType cN() const { assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
+  NormalType &N()       { vcg_assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
+  NormalType cN() const { vcg_assert(0); static NormalType dummy_normal(0, 0, 0); return dummy_normal; }
   static bool HasNormal()    { return false; }
   inline bool IsNormalEnabled() const { return TT::VertexType::HasNormal();}
 
   typedef float QualityType;
-  QualityType &Q()       { assert(0); static QualityType dummyQuality(0); return dummyQuality; }
-  QualityType cQ() const { assert(0); static QualityType dummyQuality(0); return dummyQuality; }
+  QualityType &Q()       { vcg_assert(0); static QualityType dummyQuality(0); return dummyQuality; }
+  QualityType cQ() const { vcg_assert(0); static QualityType dummyQuality(0); return dummyQuality; }
   static bool HasQuality()   { return false; }
   inline bool IsQualityEnabled() const { return TT::VertexType::HasQuality();}
 
   typedef vcg::Color4b ColorType;
-  ColorType &C()       { static ColorType dumcolor(vcg::Color4b::White); assert(0); return dumcolor; }
-  ColorType cC() const { static ColorType dumcolor(vcg::Color4b::White);  assert(0); return dumcolor; }
+  ColorType &C()       { static ColorType dumcolor(vcg::Color4b::White); vcg_assert(0); return dumcolor; }
+  ColorType cC() const { static ColorType dumcolor(vcg::Color4b::White);  vcg_assert(0); return dumcolor; }
   static bool HasColor()   { return false; }
   inline bool IsColorEnabled() const { return TT::VertexType::HasColor();}
 
   typedef int  MarkType;
   void InitIMark()    {  }
-  int cIMark()  const { assert(0); static int tmp=-1; return tmp;}
-  int &IMark()        { assert(0); static int tmp=-1; return tmp;}
+  int cIMark()  const { vcg_assert(0); static int tmp=-1; return tmp;}
+  int &IMark()        { vcg_assert(0); static int tmp=-1; return tmp;}
   static bool HasMark()   { return false; }
   inline bool IsMarkEnabled() const { return TT::VertexType::HasMark();}
 
   typedef ScalarType RadiusType;
-  RadiusType &R()       { static ScalarType v = 0.0; assert(0 && "the radius component is not available"); return v; }
-  RadiusType cR() const { static const ScalarType v = 0.0; assert(0 && "the radius component is not available"); return v; }
+  RadiusType &R()       { static ScalarType v = 0.0; vcg_assert(0 && "the radius component is not available"); return v; }
+  RadiusType cR() const { static const ScalarType v = 0.0; vcg_assert(0 && "the radius component is not available"); return v; }
   static bool HasRadius()     { return false; }
   inline bool IsRadiusEnabled() const { return TT::VertexType::HasRadius();}
 
   typedef vcg::TexCoord2<float,1> TexCoordType;
-  TexCoordType &T()       { static TexCoordType dummy_texcoord;  assert(0); return dummy_texcoord; }
-  TexCoordType cT() const { static TexCoordType dummy_texcoord;  assert(0); return dummy_texcoord; }
+  TexCoordType &T()       { static TexCoordType dummy_texcoord;  vcg_assert(0); return dummy_texcoord; }
+  TexCoordType cT() const { static TexCoordType dummy_texcoord;  vcg_assert(0); return dummy_texcoord; }
   static bool HasTexCoord()   { return false; }
   inline bool IsTexCoordEnabled() const { return TT::VertexType::HasTexCoord();}
 
-  typename TT::TetraPointer &VTp()       { static typename TT::TetraPointer tp = 0;  assert(0); return tp; }
-  typename TT::TetraPointer cVTp() const  { static typename TT::TetraPointer tp = 0;  assert(0); return tp; }
+  typename TT::TetraPointer &VTp()       { static typename TT::TetraPointer tp = 0;  vcg_assert(0); return tp; }
+  typename TT::TetraPointer cVTp() const  { static typename TT::TetraPointer tp = 0;  vcg_assert(0); return tp; }
   int &VTi() { static int z = 0; return z; }
   static bool HasVTAdjacency() { return false; }
 
-  typename TT::FacePointer &VFp()       { static typename TT::FacePointer fp=0;  assert(0); return fp; }
-  typename TT::FacePointer cVFp() const { static typename TT::FacePointer fp=0;  assert(0); return fp; }
-  int &VFi()       { static int z=-1; assert(0); return z;}
-  int cVFi() const { static int z=-1; assert(0); return z;}
+  typename TT::FacePointer &VFp()       { static typename TT::FacePointer fp=0;  vcg_assert(0); return fp; }
+  typename TT::FacePointer cVFp() const { static typename TT::FacePointer fp=0;  vcg_assert(0); return fp; }
+  int &VFi()       { static int z=-1; vcg_assert(0); return z;}
+  int cVFi() const { static int z=-1; vcg_assert(0); return z;}
   bool IsNull() const { return true; }
   static bool HasVFAdjacency()   { return false; }
   bool IsVFInitialized() const {return static_cast<const typename TT::VertexType *>(this)->cVFi()!=-1;}
@@ -115,8 +115,8 @@ public:
     }
   }
 
-  typename TT::EdgePointer &VEp()       { static typename TT::EdgePointer ep=0;  assert(0); return ep; }
-  typename TT::EdgePointer cVEp() const { static typename TT::EdgePointer ep=0;  assert(0); return ep; }
+  typename TT::EdgePointer &VEp()       { static typename TT::EdgePointer ep=0;  vcg_assert(0); return ep; }
+  typename TT::EdgePointer cVEp() const { static typename TT::EdgePointer ep=0;  vcg_assert(0); return ep; }
   int &VEi()       { static int z=-1; return z;}
   int cVEi() const { static int z=-1; return z;}
   static bool HasVEAdjacency()   {   return false; }
@@ -127,8 +127,8 @@ public:
       static_cast<typename TT::VertexPointer>(this)->VEi()=-1;
     }
   }
-  typename TT::HEdgePointer &VHp()       { static typename TT::HEdgePointer ep=0;  assert(0); return ep; }
-  typename TT::HEdgePointer cVHp() const { static typename TT::HEdgePointer ep=0;  assert(0); return ep; }
+  typename TT::HEdgePointer &VHp()       { static typename TT::HEdgePointer ep=0;  vcg_assert(0); return ep; }
+  typename TT::HEdgePointer cVHp() const { static typename TT::HEdgePointer ep=0;  vcg_assert(0); return ep; }
   int &VHi()       { static int z=0; return z;}
   int cVHi() const { static int z=0; return z;}
   static bool HasVHAdjacency()   {   return false; }
@@ -137,21 +137,21 @@ public:
   typedef float   ScalarTypeCur;
   typedef Point3f CurVecType;
   typedef Point2f CurvatureType;
-  float &Kh()       { static float dummy = 0.f; assert(0);return dummy;}
-  float &Kg()       { static float dummy = 0.f; assert(0);return dummy;}
-  float cKh() const { static float dummy = 0.f; assert(0); return dummy;}
-  float cKg() const { static float dummy = 0.f; assert(0); return dummy;}
+  float &Kh()       { static float dummy = 0.f; vcg_assert(0);return dummy;}
+  float &Kg()       { static float dummy = 0.f; vcg_assert(0);return dummy;}
+  float cKh() const { static float dummy = 0.f; vcg_assert(0); return dummy;}
+  float cKg() const { static float dummy = 0.f; vcg_assert(0); return dummy;}
 
   typedef CurvatureDirBaseType<float> CurvatureDirType;
-  CurVecType &PD1()       {static CurVecType v(0,0,0); assert(0);return v;}
-  CurVecType &PD2()       {static CurVecType v(0,0,0); assert(0);return v;}
-  CurVecType cPD1() const {static CurVecType v(0,0,0); assert(0);return v;}
-  CurVecType cPD2() const {static CurVecType v(0,0,0); assert(0);return v;}
+  CurVecType &PD1()       {static CurVecType v(0,0,0); vcg_assert(0);return v;}
+  CurVecType &PD2()       {static CurVecType v(0,0,0); vcg_assert(0);return v;}
+  CurVecType cPD1() const {static CurVecType v(0,0,0); vcg_assert(0);return v;}
+  CurVecType cPD2() const {static CurVecType v(0,0,0); vcg_assert(0);return v;}
 
-  CurScalarType &K1()       { static ScalarType v = 0.0;assert(0);return v;}
-  CurScalarType &K2()       { static ScalarType v = 0.0;assert(0);return v;}
-  CurScalarType cK1() const {static ScalarType v = 0.0;assert(0);return v;}
-  CurScalarType cK2() const  {static ScalarType v = 0.0;assert(0);return v;}
+  CurScalarType &K1()       { static ScalarType v = 0.0;vcg_assert(0);return v;}
+  CurScalarType &K2()       { static ScalarType v = 0.0;vcg_assert(0);return v;}
+  CurScalarType cK1() const {static ScalarType v = 0.0;vcg_assert(0);return v;}
+  CurScalarType cK2() const  {static ScalarType v = 0.0;vcg_assert(0);return v;}
 
   static bool HasCurvature()			{ return false; }
   static bool HasCurvatureDir()			{ return false; }

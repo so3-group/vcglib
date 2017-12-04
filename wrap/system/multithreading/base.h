@@ -1,7 +1,7 @@
 #ifndef MT_BASE_H
 #define MT_BASE_H
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 #define MT_PREVENT_COPY(CLASS_NAME) \
 	private: \

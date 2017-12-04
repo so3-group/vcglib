@@ -8,7 +8,7 @@ namespace img {
 template<int Channels,typename ScalarType, bool Safe>
 inline ScalarType minValue(const Image<Channels,ScalarType,Safe> &image)
 {
-  assert(image.isValid());
+  vcg_assert(image.isValid());
   if(Safe){
     if(!image.isValid())  throw ImageException("Invalid image");
   }
@@ -25,7 +25,7 @@ inline ScalarType minValue(const Image<Channels,ScalarType,Safe> &image)
 template<int Channels,typename ScalarType, bool Safe>
 inline ScalarType maxValue(const Image<Channels,ScalarType,Safe> &image)
 {
-  assert(image.isValid());
+  vcg_assert(image.isValid());
   if(Safe){
     if(!image.isValid())  throw ImageException("Invalid image");
   }

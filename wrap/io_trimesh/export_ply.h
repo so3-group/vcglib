@@ -64,7 +64,7 @@ namespace vcg {
                     case ply::T_SHORT	:		dest = (StoType) (*  ((short  *) src)); break;
                     case ply::T_CHAR	:		dest = (StoType) (*  ((char   *) src)); break;
                     case ply::T_UCHAR	:		dest = (StoType) (*  ((unsigned char *)src)); break;
-                    default : assert(0);
+                    default : vcg_assert(0);
                     }
                 }
 
@@ -396,7 +396,7 @@ namespace vcg {
                                     case ply::T_SHORT	 :		PlyConv(pi.VertexData[i].memtype1,  ((char *)vp)+pi.VertexData[i].offset1, ts );	fwrite(&ts, sizeof(short),1,fpout); break;
                                     case ply::T_CHAR	 :		PlyConv(pi.VertexData[i].memtype1,  ((char *)vp)+pi.VertexData[i].offset1, tc );	fwrite(&tc, sizeof(char),1,fpout); break;
                                     case ply::T_UCHAR	 :		PlyConv(pi.VertexData[i].memtype1,  ((char *)vp)+pi.VertexData[i].offset1, tuc);	fwrite(&tuc,sizeof(unsigned char),1,fpout); break;
-                                    default : assert(0);
+                                    default : vcg_assert(0);
                                     }
                                 }
                             }
@@ -434,7 +434,7 @@ namespace vcg {
                                     case ply::T_SHORT	 :		ti=*( (short  *)        (((char *)vp)+pi.VertexData[i].offset1)); fprintf(fpout,"%i ",ti); break;
                                     case ply::T_CHAR	 :		ti=*( (char   *)        (((char *)vp)+pi.VertexData[i].offset1));	fprintf(fpout,"%i ",ti); break;
                                     case ply::T_UCHAR	 :		ti=*( (unsigned char *) (((char *)vp)+pi.VertexData[i].offset1));	fprintf(fpout,"%i ",ti); break;
-                                    default : assert(0);
+                                    default : vcg_assert(0);
                                     }
                                 }
 
@@ -445,7 +445,7 @@ namespace vcg {
                     }
                     /*vcg::tri::*/
                     // this assert triggers when the vn != number of vertexes in vert that are not deleted.
-                    assert(j==m.vn);
+                    vcg_assert(j==m.vn);
 
                     char c = 3;
                     unsigned char b9 = 9;
@@ -534,7 +534,7 @@ namespace vcg {
                                 case ply::T_SHORT	 :		PlyConv(pi.FaceData[i].memtype1,  ((char *)fp)+pi.FaceData[i].offset1, ts );	fwrite(&ts, sizeof(short),1,fpout); break;
                                 case ply::T_CHAR	 :		PlyConv(pi.FaceData[i].memtype1,  ((char *)fp)+pi.FaceData[i].offset1, tc );	fwrite(&tc, sizeof(char),1,fpout); break;
                                 case ply::T_UCHAR	 :		PlyConv(pi.FaceData[i].memtype1,  ((char *)fp)+pi.FaceData[i].offset1, tuc);	fwrite(&tuc,sizeof(unsigned char),1,fpout); break;
-                                default : assert(0);
+                                default : vcg_assert(0);
                                 }
                             }
                         }
@@ -601,7 +601,7 @@ namespace vcg {
                                 case  ply::T_SHORT	:		ti=*( (short  *)        (((char *)fp)+pi.FaceData[i].offset1));	fprintf(fpout,"%i ",ti); break;
                                 case  ply::T_CHAR		:		ti=*( (char   *)        (((char *)fp)+pi.FaceData[i].offset1));	fprintf(fpout,"%i ",ti); break;
                                 case  ply::T_UCHAR	:		ti=*( (unsigned char *) (((char *)fp)+pi.FaceData[i].offset1));	fprintf(fpout,"%i ",ti); break;
-                                default : assert(0);
+                                default : vcg_assert(0);
                                 }
                             }
 
@@ -609,7 +609,7 @@ namespace vcg {
                         }
                         }
                     }
-                    assert(fcnt==m.fn);
+                    vcg_assert(fcnt==m.fn);
                     int eauxvv[2];
                     if( pi.mask & Mask::IOM_EDGEINDEX )
                     {
@@ -629,7 +629,7 @@ namespace vcg {
                                     fprintf(fpout,"%d %d \n", indices[ei->cV(0)],	indices[ei->cV(1)]);
                             }
                         }
-                        assert(ecnt==m.en);
+                        vcg_assert(ecnt==m.en);
                     }
                     fclose(fpout);
                     return 0;

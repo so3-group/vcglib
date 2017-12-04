@@ -29,7 +29,7 @@ namespace vcg
 	template <typename T>
 	class GL_TYPE_NM
 	{public:
-	static GLenum SCALAR() { assert(0); return 0;}
+	static GLenum SCALAR() { vcg_assert(0); return 0;}
 	};
 	template <> class GL_TYPE_NM<float>
 	{ public:

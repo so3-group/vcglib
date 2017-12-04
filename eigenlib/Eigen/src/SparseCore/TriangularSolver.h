@@ -49,7 +49,7 @@ struct sparse_solve_triangular_selector<Lhs,Rhs,Mode,Lower,RowMajor>
           other.coeffRef(i,col) = tmp;
         else
         {
-          eigen_assert(lastIndex==i);
+          eigen_vcg_assert(lastIndex==i);
           other.coeffRef(i,col) = tmp/lastVal;
         }
       }
@@ -75,7 +75,7 @@ struct sparse_solve_triangular_selector<Lhs,Rhs,Mode,Upper,RowMajor>
           ++it;
         if(!(Mode & UnitDiag))
         {
-          eigen_assert(it && it.index()==i);
+          eigen_vcg_assert(it && it.index()==i);
           l_ii = it.value();
           ++it;
         }
@@ -114,7 +114,7 @@ struct sparse_solve_triangular_selector<Lhs,Rhs,Mode,Lower,ColMajor>
             ++it;
           if(!(Mode & UnitDiag))
           {
-            eigen_assert(it && it.index()==i);
+            eigen_vcg_assert(it && it.index()==i);
             tmp /= it.value();
           }
           if (it && it.index()==i)
@@ -147,7 +147,7 @@ struct sparse_solve_triangular_selector<Lhs,Rhs,Mode,Upper,ColMajor>
             typename Lhs::ReverseInnerIterator it(lhs, i);
             while(it && it.index()!=i)
               --it;
-            eigen_assert(it && it.index()==i);
+            eigen_vcg_assert(it && it.index()==i);
             other.coeffRef(i,col) /= it.value();
           }
           typename Lhs::InnerIterator it(lhs, i);
@@ -165,8 +165,8 @@ template<typename ExpressionType,int Mode>
 template<typename OtherDerived>
 void SparseTriangularView<ExpressionType,Mode>::solveInPlace(MatrixBase<OtherDerived>& other) const
 {
-  eigen_assert(m_matrix.cols() == m_matrix.rows() && m_matrix.cols() == other.rows());
-  eigen_assert((!(Mode & ZeroDiag)) && bool(Mode & (Upper|Lower)));
+  eigen_vcg_assert(m_matrix.cols() == m_matrix.rows() && m_matrix.cols() == other.rows());
+  eigen_vcg_assert((!(Mode & ZeroDiag)) && bool(Mode & (Upper|Lower)));
 
   enum { copy = internal::traits<OtherDerived>::Flags & RowMajorBit };
 
@@ -244,7 +244,7 @@ struct sparse_solve_triangular_sparse_selector<Lhs,Rhs,Mode,UpLo,ColMajor>
           {
             if (IsLower)
             {
-              eigen_assert(it.index()==i);
+              eigen_vcg_assert(it.index()==i);
               ci /= it.value();
             }
             else
@@ -290,8 +290,8 @@ template<typename ExpressionType,int Mode>
 template<typename OtherDerived>
 void SparseTriangularView<ExpressionType,Mode>::solveInPlace(SparseMatrixBase<OtherDerived>& other) const
 {
-  eigen_assert(m_matrix.cols() == m_matrix.rows() && m_matrix.cols() == other.rows());
-  eigen_assert( (!(Mode & ZeroDiag)) && bool(Mode & (Upper|Lower)));
+  eigen_vcg_assert(m_matrix.cols() == m_matrix.rows() && m_matrix.cols() == other.rows());
+  eigen_vcg_assert( (!(Mode & ZeroDiag)) && bool(Mode & (Upper|Lower)));
 
 //   enum { copy = internal::traits<OtherDerived>::Flags & RowMajorBit };
 

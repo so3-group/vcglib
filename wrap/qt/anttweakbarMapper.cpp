@@ -31,7 +31,7 @@ TwMouseButtonID Qt2TwMouseButtonId(QMouseEvent *e)
   if(e->button() && Qt::MidButton) return TW_MOUSE_MIDDLE;
   if(e->button() && Qt::RightButton) return TW_MOUSE_RIGHT;
   return TW_MOUSE_LEFT;
-//  assert(0);
+//  vcg_assert(0);
 }
 
 int TwMousePressQt(QMouseEvent *e)

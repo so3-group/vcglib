@@ -50,7 +50,7 @@ template<typename T, int Value> class variable_if_dynamic
 {
   public:
     EIGEN_EMPTY_STRUCT_CTOR(variable_if_dynamic)
-    explicit variable_if_dynamic(T v) { EIGEN_ONLY_USED_FOR_DEBUG(v); assert(v == T(Value)); }
+    explicit variable_if_dynamic(T v) { EIGEN_ONLY_USED_FOR_DEBUG(v); vcg_assert(v == T(Value)); }
     static T value() { return T(Value); }
     void setValue(T) {}
 };
@@ -58,7 +58,7 @@ template<typename T, int Value> class variable_if_dynamic
 template<typename T> class variable_if_dynamic<T, Dynamic>
 {
     T m_value;
-    variable_if_dynamic() { assert(false); }
+    variable_if_dynamic() { vcg_assert(false); }
   public:
     explicit variable_if_dynamic(T value) : m_value(value) {}
     T value() const { return m_value; }
@@ -71,7 +71,7 @@ template<typename T, int Value> class variable_if_dynamicindex
 {
   public:
     EIGEN_EMPTY_STRUCT_CTOR(variable_if_dynamicindex)
-    explicit variable_if_dynamicindex(T v) { EIGEN_ONLY_USED_FOR_DEBUG(v); assert(v == T(Value)); }
+    explicit variable_if_dynamicindex(T v) { EIGEN_ONLY_USED_FOR_DEBUG(v); vcg_assert(v == T(Value)); }
     static T value() { return T(Value); }
     void setValue(T) {}
 };
@@ -79,7 +79,7 @@ template<typename T, int Value> class variable_if_dynamicindex
 template<typename T> class variable_if_dynamicindex<T, DynamicIndex>
 {
     T m_value;
-    variable_if_dynamicindex() { assert(false); }
+    variable_if_dynamicindex() { vcg_assert(false); }
   public:
     explicit variable_if_dynamicindex(T value) : m_value(value) {}
     T value() const { return m_value; }

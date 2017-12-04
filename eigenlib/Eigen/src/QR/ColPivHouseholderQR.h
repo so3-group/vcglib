@@ -141,7 +141,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
     inline const internal::solve_retval<ColPivHouseholderQR, Rhs>
     solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return internal::solve_retval<ColPivHouseholderQR, Rhs>(*this, b.derived());
     }
 
@@ -155,7 +155,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     const MatrixType& matrixQR() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return m_qr;
     }
     
@@ -170,7 +170,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
      */
     const MatrixType& matrixR() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return m_qr;
     }
     
@@ -179,7 +179,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
     /** \returns a const reference to the column permutation matrix */
     const PermutationType& colsPermutation() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return m_colsPermutation;
     }
 
@@ -221,7 +221,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
     inline Index rank() const
     {
       using std::abs;
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       RealScalar premultiplied_threshold = abs(m_maxpivot) * threshold();
       Index result = 0;
       for(Index i = 0; i < m_nonzero_pivots; ++i)
@@ -237,7 +237,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     inline Index dimensionOfKernel() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return cols() - rank();
     }
 
@@ -250,7 +250,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     inline bool isInjective() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return rank() == cols();
     }
 
@@ -263,7 +263,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     inline bool isSurjective() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return rank() == rows();
     }
 
@@ -275,7 +275,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     inline bool isInvertible() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return isInjective() && isSurjective();
     }
 
@@ -288,7 +288,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
     internal::solve_retval<ColPivHouseholderQR, typename MatrixType::IdentityReturnType>
     inverse() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return internal::solve_retval<ColPivHouseholderQR,typename MatrixType::IdentityReturnType>
                (*this, MatrixType::Identity(m_qr.rows(), m_qr.cols()));
     }
@@ -346,7 +346,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     RealScalar threshold() const
     {
-      eigen_assert(m_isInitialized || m_usePrescribedThreshold);
+      eigen_vcg_assert(m_isInitialized || m_usePrescribedThreshold);
       return m_usePrescribedThreshold ? m_prescribedThreshold
       // this formula comes from experimenting (see "LU precision tuning" thread on the list)
       // and turns out to be identical to Higham's formula used already in LDLt.
@@ -362,7 +362,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     inline Index nonzeroPivots() const
     {
-      eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
       return m_nonzero_pivots;
     }
 
@@ -379,7 +379,7 @@ template<typename _MatrixType> class ColPivHouseholderQR
       */
     ComputationInfo info() const
     {
-      eigen_assert(m_isInitialized && "Decomposition is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "Decomposition is not initialized.");
       return Success;
     }
 
@@ -406,16 +406,16 @@ template<typename MatrixType>
 typename MatrixType::RealScalar ColPivHouseholderQR<MatrixType>::absDeterminant() const
 {
   using std::abs;
-  eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
-  eigen_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
+  eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+  eigen_vcg_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
   return abs(m_qr.diagonal().prod());
 }
 
 template<typename MatrixType>
 typename MatrixType::RealScalar ColPivHouseholderQR<MatrixType>::logAbsDeterminant() const
 {
-  eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
-  eigen_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
+  eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+  eigen_vcg_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
   return m_qr.diagonal().cwiseAbs().array().log().sum();
 }
 
@@ -436,7 +436,7 @@ ColPivHouseholderQR<MatrixType>& ColPivHouseholderQR<MatrixType>::compute(const 
   Index size = matrix.diagonalSize();
   
   // the column permutation is stored as int indices, so just to be sure:
-  eigen_assert(cols<=NumTraits<int>::highest());
+  eigen_vcg_assert(cols<=NumTraits<int>::highest());
 
   m_qr = matrix;
   m_hCoeffs.resize(size);
@@ -522,7 +522,7 @@ struct solve_retval<ColPivHouseholderQR<_MatrixType>, Rhs>
 
   template<typename Dest> void evalTo(Dest& dst) const
   {
-    eigen_assert(rhs().rows() == dec().rows());
+    eigen_vcg_assert(rhs().rows() == dec().rows());
 
     const Index cols = dec().cols(),
 				nonzero_pivots = dec().nonzeroPivots();
@@ -560,7 +560,7 @@ template<typename MatrixType>
 typename ColPivHouseholderQR<MatrixType>::HouseholderSequenceType ColPivHouseholderQR<MatrixType>
   ::householderQ() const
 {
-  eigen_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
+  eigen_vcg_assert(m_isInitialized && "ColPivHouseholderQR is not initialized.");
   return HouseholderSequenceType(m_qr, m_hCoeffs.conjugate());
 }
 

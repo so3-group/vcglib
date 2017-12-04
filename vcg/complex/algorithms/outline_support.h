@@ -162,7 +162,7 @@ public:
         maxInd=i;
       }
     }
-    assert(maxInd>=0);
+    vcg_assert(maxInd>=0);
     return maxInd;
   }
 
@@ -205,10 +205,10 @@ public:
           FaceType* startB=&(m.face[i]);
           face::Pos<FaceType> p(startB,j);
           face::Pos<FaceType> startPos = p;
-          assert(p.IsBorder());
+          vcg_assert(p.IsBorder());
           do
           {
-            assert(p.IsManifold());
+            vcg_assert(p.IsManifold());
             p.F()->SetV();
             outline.push_back(p.V()->P());
             p.NextB();

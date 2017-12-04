@@ -183,7 +183,7 @@ namespace tri {
 
         do
         {
-            assert(!p.F()->IsF(p.E()));
+            vcg_assert(!p.F()->IsF(p.E()));
             vs.push_back(p.V());
             p.FlipE();
             while( p.F()->IsF(p.E()) )
@@ -197,7 +197,7 @@ namespace tri {
             }
             p.FlipV();
         } while(p!=start);
-        //assert(vs.size() == fs.size()+2);
+        //vcg_assert(vs.size() == fs.size()+2);
     }
     static void ExtractPolygon(typename TriMeshType::FacePointer tfp, std::vector<typename TriMeshType::VertexPointer> &vs)
     {

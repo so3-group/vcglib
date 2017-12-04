@@ -595,8 +595,8 @@ class JacobiSVD : public SVDBase<_MatrixType>
     inline const internal::solve_retval<JacobiSVD, Rhs>
     solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(this->m_isInitialized && "JacobiSVD is not initialized.");
-      eigen_assert(SVDBase<MatrixType>::computeU() && SVDBase<MatrixType>::computeV() && "JacobiSVD::solve() requires both unitaries U and V to be computed (thin unitaries suffice).");
+      eigen_vcg_assert(this->m_isInitialized && "JacobiSVD is not initialized.");
+      eigen_vcg_assert(SVDBase<MatrixType>::computeU() && SVDBase<MatrixType>::computeV() && "JacobiSVD::solve() requires both unitaries U and V to be computed (thin unitaries suffice).");
       return internal::solve_retval<JacobiSVD, Rhs>(*this, b.derived());
     }
 
@@ -624,7 +624,7 @@ void JacobiSVD<MatrixType, QRPreconditioner>::allocate(Index rows, Index cols, u
 
   if (QRPreconditioner == FullPivHouseholderQRPreconditioner)
   {
-      eigen_assert(!(this->m_computeThinU || this->m_computeThinV) &&
+      eigen_vcg_assert(!(this->m_computeThinU || this->m_computeThinV) &&
               "JacobiSVD: can't compute thin U or thin V with the FullPivHouseholderQR preconditioner. "
               "Use the ColPivHouseholderQR preconditioner instead.");
   }
@@ -743,7 +743,7 @@ struct solve_retval<JacobiSVD<_MatrixType, QRPreconditioner>, Rhs>
 
   template<typename Dest> void evalTo(Dest& dst) const
   {
-    eigen_assert(rhs().rows() == dec().rows());
+    eigen_vcg_assert(rhs().rows() == dec().rows());
 
     // A = U S V^*
     // So A^{-1} = V S^{-1} U^*

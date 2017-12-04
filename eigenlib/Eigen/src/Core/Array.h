@@ -117,7 +117,7 @@ class Array
     // FIXME is it still needed ??
     /** \internal */
     Array(internal::constructor_without_unaligned_array_assert)
-      : Base(internal::constructor_without_unaligned_array_assert())
+      : Base(internal::constructor_without_unaligned_array_vcg_assert())
     {
       Base::_check_template_params();
       EIGEN_INITIALIZE_COEFFS_IF_THAT_OPTION_IS_ENABLED
@@ -135,8 +135,8 @@ class Array
     {
       Base::_check_template_params();
       EIGEN_STATIC_ASSERT_VECTOR_ONLY(Array)
-      eigen_assert(dim >= 0);
-      eigen_assert(SizeAtCompileTime == Dynamic || SizeAtCompileTime == dim);
+      eigen_vcg_assert(dim >= 0);
+      eigen_vcg_assert(SizeAtCompileTime == Dynamic || SizeAtCompileTime == dim);
       EIGEN_INITIALIZE_COEFFS_IF_THAT_OPTION_IS_ENABLED
     }
 

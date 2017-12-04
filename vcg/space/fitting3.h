@@ -90,7 +90,7 @@ void FitPlaneToPointSet(const std::vector< Point3<S> > & pointVec, Plane3<S> & p
 template <class S >
 void ComputeWeightedCovarianceMatrix(const std::vector<Point3<S> > &pointVec, const std::vector<S> &weightVec, Point3<S> &bp, Eigen::Matrix<S,3,3> &m)
 {
-  assert(pointVec.size() == weightVec.size());
+  vcg_assert(pointVec.size() == weightVec.size());
   // First cycle: compute the weighted barycenter
   bp.SetZero();
   S wSum=0;

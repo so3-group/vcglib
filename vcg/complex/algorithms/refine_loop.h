@@ -301,7 +301,7 @@ struct LS3Projection {
         else if (uQuad==0.)
         {
             LScalar s = LScalar(1)/vcg::Norm(uLinear);
-            assert(!vcg::math::IsNAN(s) && "normal should not have zero len!");
+            vcg_assert(!vcg::math::IsNAN(s) && "normal should not have zero len!");
             uLinear *= s;
             uConstant *= s;
 
@@ -382,7 +382,7 @@ struct OddPointLoopGeneric : public std::unary_function<face::Pos<typename MESH_
             he.FlipE();	he.FlipV();
             u = he.v;
             he.FlipV();	he.FlipE();
-            assert(he.v == r); // back to r
+            vcg_assert(he.v == r); // back to r
             he.FlipF();	he.FlipE();	he.FlipV();
             d = he.v;
 
@@ -487,7 +487,7 @@ struct EvenPointLoopGeneric : public std::unary_function<face::Pos<typename MESH
 //			proj.project(nv);
         }
         else {	//	Inner rule
-//			assert(!he.v->IsB()); border flag no longer updated (useless)
+//			vcg_assert(!he.v->IsB()); border flag no longer updated (useless)
             if(valence)
                 (*valence)[he.V()] = k;
 
@@ -519,7 +519,7 @@ struct EvenPointLoopGeneric : public std::unary_function<face::Pos<typename MESH
     TexCoord2<FL_TYPE,1> WedgeInterp(TexCoord2<FL_TYPE,1> &t0, TexCoord2<FL_TYPE,1> &t1)
     {
         TexCoord2<FL_TYPE,1> tmp;
-        // assert(t0.n()== t1.n());
+        // vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;

@@ -11,12 +11,12 @@ namespace img {
 template<int Channels, typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void convert_gamma_precompensated_rgb_to_linear_rgb(const img::Image<Channels,ScalarType1,Safe1> &gamma_precompensated_rgb_image, img::Image<Channels,ScalarType2,Safe2> &linear_rgb_image)
 {
-  assert(gamma_precompensated_rgb_image.isValid());
-  assert(!gamma_precompensated_rgb_image.attributes.hasColorspace(SRGB));
-  assert(gamma_precompensated_rgb_image.attributes.hasRange(0.0,1.0));
+  vcg_assert(gamma_precompensated_rgb_image.isValid());
+  vcg_assert(!gamma_precompensated_rgb_image.attributes.hasColorspace(SRGB));
+  vcg_assert(gamma_precompensated_rgb_image.attributes.hasRange(0.0,1.0));
   ScalarType2 old_gamma;
   gamma_precompensated_rgb_image.attributes.getGamma(old_gamma);
-  assert((old_gamma>0.0)&&(old_gamma<1.0));
+  vcg_assert((old_gamma>0.0)&&(old_gamma<1.0));
   if(Safe1 || Safe2){
     if(!gamma_precompensated_rgb_image.isValid())  throw ImageException("Invalid rgb image");
     if(gamma_precompensated_rgb_image.attributes.hasColorspace(SRGB)) throw ImageException("Invalid colorspace attribute");
@@ -39,11 +39,11 @@ inline void convert_gamma_precompensated_rgb_to_linear_rgb(const img::Image<Chan
 template<int Channels, typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void convert_linear_rgb_to_gamma_precompensated_rgb(const img::Image<Channels,ScalarType1,Safe1> &linear_rgb_image, img::Image<Channels,ScalarType2,Safe2> &gamma_precompensated_rgb_image, ScalarType2 gamma=ScalarType2(1.0/2.2))
 {
-  assert(linear_rgb_image.isValid());
-  assert(!linear_rgb_image.attributes.hasColorspace(SRGB));
-  assert(linear_rgb_image.attributes.hasRange(0.0,1.0));
-  assert(linear_rgb_image.attributes.hasGamma(1.0));
-  assert((gamma>0.0)&&(gamma<1.0));
+  vcg_assert(linear_rgb_image.isValid());
+  vcg_assert(!linear_rgb_image.attributes.hasColorspace(SRGB));
+  vcg_assert(linear_rgb_image.attributes.hasRange(0.0,1.0));
+  vcg_assert(linear_rgb_image.attributes.hasGamma(1.0));
+  vcg_assert((gamma>0.0)&&(gamma<1.0));
   if(Safe1 || Safe2){
     if(!linear_rgb_image.isValid())  throw img::ImageException("Invalid rgb image");
     if(linear_rgb_image.attributes.hasColorspace(SRGB)) throw ImageException("Invalid colorspace attribute");
@@ -66,10 +66,10 @@ inline void convert_linear_rgb_to_gamma_precompensated_rgb(const img::Image<Chan
 template<int Channels, typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void convert_gamma_precompensated_srgb_to_linear_srgb(const img::Image<Channels,ScalarType1,Safe1> &gamma_precompensated_srgb_image, img::Image<Channels,ScalarType2,Safe2> &linear_srgb_image)
 {
-  assert(gamma_precompensated_srgb_image.isValid());
-  assert(gamma_precompensated_srgb_image.attributes.hasColorspace(SRGB));
-  assert(gamma_precompensated_srgb_image.attributes.hasRange(0.0,1.0));
-  assert(!gamma_precompensated_srgb_image.attributes.hasGamma(1.0));
+  vcg_assert(gamma_precompensated_srgb_image.isValid());
+  vcg_assert(gamma_precompensated_srgb_image.attributes.hasColorspace(SRGB));
+  vcg_assert(gamma_precompensated_srgb_image.attributes.hasRange(0.0,1.0));
+  vcg_assert(!gamma_precompensated_srgb_image.attributes.hasGamma(1.0));
   if(Safe1 || Safe2){
     if(!gamma_precompensated_srgb_image.isValid())  throw ImageException("Invalid rgb image");
     if(!gamma_precompensated_srgb_image.attributes.hasColorspace(SRGB)) throw ImageException("Invalid colorspace attribute");
@@ -96,10 +96,10 @@ inline void convert_gamma_precompensated_srgb_to_linear_srgb(const img::Image<Ch
 template<int Channels, typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void convert_linear_srgb_to_gamma_precompensated_srgb(const img::Image<Channels,ScalarType1,Safe1> &linear_srgb_image, img::Image<Channels,ScalarType2,Safe2> &gamma_precompensated_srgb_image)
 {
-  assert(linear_srgb_image.isValid());
-  assert(linear_srgb_image.attributes.hasColorspace(SRGB));
-  assert(linear_srgb_image.attributes.hasRange(0.0,1.0));
-  assert(linear_srgb_image.attributes.hasGamma(1.0));
+  vcg_assert(linear_srgb_image.isValid());
+  vcg_assert(linear_srgb_image.attributes.hasColorspace(SRGB));
+  vcg_assert(linear_srgb_image.attributes.hasRange(0.0,1.0));
+  vcg_assert(linear_srgb_image.attributes.hasGamma(1.0));
   if(Safe1 || Safe2){
     if(!linear_srgb_image.isValid())  throw img::ImageException("Invalid rgb image");
     if(!linear_srgb_image.attributes.hasColorspace(SRGB)) throw ImageException("Invalid colorspace attribute");
@@ -126,10 +126,10 @@ inline void convert_linear_srgb_to_gamma_precompensated_srgb(const img::Image<Ch
 template<typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void convert_srgb_to_xyz(const img::Image<3,ScalarType1,Safe1> &rgb_image, img::Image<3,ScalarType2,Safe2> &xyz_image)
 {
-  assert( rgb_image.isValid());
-  assert( rgb_image.attributes.hasRange(0.0,1.0));
-  assert( rgb_image.attributes.hasGamma(1.0));
-  assert( rgb_image.attributes.hasColorspace(img::RGB) );
+  vcg_assert( rgb_image.isValid());
+  vcg_assert( rgb_image.attributes.hasRange(0.0,1.0));
+  vcg_assert( rgb_image.attributes.hasGamma(1.0));
+  vcg_assert( rgb_image.attributes.hasColorspace(img::RGB) );
   if(Safe1 || Safe2){
     if(!rgb_image.isValid())  throw img::ImageException("Invalid rgb image");
     if(!rgb_image.attributes.hasRange(0.0,1.0))  throw img::ImageException("Invalid range attribute");
@@ -156,10 +156,10 @@ inline void convert_srgb_to_xyz(const img::Image<3,ScalarType1,Safe1> &rgb_image
 template<typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void convert_xyz_to_rgb(const img::Image<3,ScalarType1,Safe1> &xyz_image, img::Image<3,ScalarType2,Safe2> &rgb_image)
 {
-  assert( xyz_image.isValid());
-  assert( xyz_image.attributes.hasRange(0.0,1.0));
-  assert( xyz_image.attributes.hasGamma(1.0));
-  assert( xyz_image.attributes.hasColorspace(img::CIE_XYZ) );
+  vcg_assert( xyz_image.isValid());
+  vcg_assert( xyz_image.attributes.hasRange(0.0,1.0));
+  vcg_assert( xyz_image.attributes.hasGamma(1.0));
+  vcg_assert( xyz_image.attributes.hasColorspace(img::CIE_XYZ) );
   
   if(Safe1 || Safe2){
     if(!xyz_image.isValid())  throw img::ImageException("Invalid xyz image");
@@ -195,7 +195,7 @@ inline void convert_xyz_to_rgb(const img::Image<3,ScalarType1,Safe1> &xyz_image,
 //template<typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 //inline void convert_xyz_to_lab(const img::Image<3,ScalarType1,Safe1> &xyz_image, img::Image<3,ScalarType2,Safe2> &lab_image)
 //{
-//  assert(xyz_image.isValid());
+//  vcg_assert(xyz_image.isValid());
 //  if(Safe1 || Safe2){
 //    if(!xyz_image.isValid())  throw img::ImageException("Invalid xyz image");
 //  }
@@ -222,8 +222,8 @@ inline void convert_xyz_to_rgb(const img::Image<3,ScalarType1,Safe1> &xyz_image,
 //template<typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 //inline void convert_lab_to_xyz(const img::Image<3,ScalarType1,Safe1> &lab_image, img::Image<3,ScalarType2,Safe2> &xyz_image)
 //{
-//  assert(0); // sistemare attributi
-//  assert(lab_image.isValid());
+//  vcg_assert(0); // sistemare attributi
+//  vcg_assert(lab_image.isValid());
 //  if(Safe1 || Safe2){
 //    if(!lab_image.isValid())  throw img::ImageException("Invalid lab image");
 //  }

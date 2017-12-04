@@ -91,11 +91,11 @@ class MappedSparseMatrix
 
       Index start = m_outerIndex[outer];
       Index end = m_outerIndex[outer+1];
-      eigen_assert(end>=start && "you probably called coeffRef on a non finalized matrix");
-      eigen_assert(end>start && "coeffRef cannot be called on a zero coefficient");
+      eigen_vcg_assert(end>=start && "you probably called coeffRef on a non finalized matrix");
+      eigen_vcg_assert(end>start && "coeffRef cannot be called on a zero coefficient");
       Index* r = std::lower_bound(&m_innerIndices[start],&m_innerIndices[end],inner);
       const Index id = r-&m_innerIndices[0];
-      eigen_assert((*r==inner) && (id<end) && "coeffRef cannot be called on a zero coefficient");
+      eigen_vcg_assert((*r==inner) && (id<end) && "coeffRef cannot be called on a zero coefficient");
       return m_values[id];
     }
 

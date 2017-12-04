@@ -135,15 +135,15 @@ template<typename Derived> class MapBase<Derived, ReadOnlyAccessors>
               m_cols(ColsAtCompileTime == Dynamic ? vecSize : Index(ColsAtCompileTime))
     {
       EIGEN_STATIC_ASSERT_VECTOR_ONLY(Derived)
-      eigen_assert(vecSize >= 0);
-      eigen_assert(dataPtr == 0 || SizeAtCompileTime == Dynamic || SizeAtCompileTime == vecSize);
+      eigen_vcg_assert(vecSize >= 0);
+      eigen_vcg_assert(dataPtr == 0 || SizeAtCompileTime == Dynamic || SizeAtCompileTime == vecSize);
       checkSanity();
     }
 
     inline MapBase(PointerType dataPtr, Index nbRows, Index nbCols)
             : m_data(dataPtr), m_rows(nbRows), m_cols(nbCols)
     {
-      eigen_assert( (dataPtr == 0)
+      eigen_vcg_assert( (dataPtr == 0)
               || (   nbRows >= 0 && (RowsAtCompileTime == Dynamic || RowsAtCompileTime == nbRows)
                   && nbCols >= 0 && (ColsAtCompileTime == Dynamic || ColsAtCompileTime == nbCols)));
       checkSanity();
@@ -156,7 +156,7 @@ template<typename Derived> class MapBase<Derived, ReadOnlyAccessors>
       EIGEN_STATIC_ASSERT(EIGEN_IMPLIES(internal::traits<Derived>::Flags&PacketAccessBit,
                                         internal::inner_stride_at_compile_time<Derived>::ret==1),
                           PACKET_ACCESS_REQUIRES_TO_HAVE_INNER_STRIDE_FIXED_TO_1);
-      eigen_assert(EIGEN_IMPLIES(internal::traits<Derived>::Flags&AlignedBit, (size_t(m_data) % 16) == 0)
+      eigen_vcg_assert(EIGEN_IMPLIES(internal::traits<Derived>::Flags&AlignedBit, (size_t(m_data) % 16) == 0)
                    && "input pointer is not aligned on a 16 byte boundary");
     }
 

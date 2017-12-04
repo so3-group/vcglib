@@ -76,7 +76,7 @@ public:
 
   inline Voxel & operator += ( Voxel const & vx)
   {
-    assert(!b);
+    vcg_assert(!b);
     if(cnt==0)
     {
       v=vx.v;
@@ -97,8 +97,8 @@ public:
 
   inline bool Normalize(int thr)
   {
-    assert(cnt>0);
-    assert(!B());
+    vcg_assert(cnt>0);
+    vcg_assert(!B());
     if(cnt<thr)
     {
       (*this) = Zero();

@@ -121,8 +121,8 @@ void SkylineInplaceLU<MatrixType>::compute() {
     const size_t rows = m_lu.rows();
     const size_t cols = m_lu.cols();
 
-    eigen_assert(rows == cols && "We do not (yet) support rectangular LU.");
-    eigen_assert(!m_lu.IsRowMajor && "LU decomposition does not work with rowMajor Storage");
+    eigen_vcg_assert(rows == cols && "We do not (yet) support rectangular LU.");
+    eigen_vcg_assert(!m_lu.IsRowMajor && "LU decomposition does not work with rowMajor Storage");
 
     for (Index row = 0; row < rows; row++) {
         const double pivot = m_lu.coeffDiag(row);
@@ -185,8 +185,8 @@ void SkylineInplaceLU<MatrixType>::computeRowMajor() {
     const size_t rows = m_lu.rows();
     const size_t cols = m_lu.cols();
 
-    eigen_assert(rows == cols && "We do not (yet) support rectangular LU.");
-    eigen_assert(m_lu.IsRowMajor && "You're trying to apply rowMajor decomposition on a ColMajor matrix !");
+    eigen_vcg_assert(rows == cols && "We do not (yet) support rectangular LU.");
+    eigen_vcg_assert(m_lu.IsRowMajor && "You're trying to apply rowMajor decomposition on a ColMajor matrix !");
 
     for (Index row = 0; row < rows; row++) {
         typename MatrixType::InnerLowerIterator llIt(m_lu, row);

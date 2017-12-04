@@ -51,7 +51,7 @@ public:
     bool B() const {return cnt==255;}  // puo' essere a true solo se cnt == 0; (il che significa che e' stato gia' normalizzato
 
     void SetB(bool val) {
-        assert( val == (cnt==255 || cnt==0) );
+        vcg_assert( val == (cnt==255 || cnt==0) );
       if(val) cnt=255;
         else if(cnt==255) cnt=0;
     }
@@ -151,7 +151,7 @@ public:
 
     inline bool Normalize(int thr)
     {
-     assert(cnt>0);
+     vcg_assert(cnt>0);
      if(cnt<thr)
      {
          (*this) = Zero();

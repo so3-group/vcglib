@@ -698,7 +698,7 @@ namespace vcg
                         glBindBuffer(cbo->_target, cbo->_bohandle);
                         //we call glGetError BEFORE the glBufferData function in order to clean the error flag
                         GLenum err = glGetError();
-                        //assert(err == GL_NO_ERROR);
+                        //vcg_assert(err == GL_NO_ERROR);
                         glBufferData(cbo->_target, dim, NULL, GL_STATIC_DRAW);
                         err = glGetError();
                         //even if there according the MemoryInfo subclass there is enough space we were not able to allocate an attribute buffer object. We have to deallocate all the bos related to this mesh
@@ -2167,13 +2167,13 @@ namespace vcg
 
             void set(const MESH_TYPE& m,typename MESH_TYPE::FacePointer  pf, const int nz )
             {
-                assert(pf!=0);
-                assert(nz>=0);
-                assert(nz<pf->VN());
+                vcg_assert(pf!=0);
+                vcg_assert(nz>=0);
+                vcg_assert(nz<pf->VN());
 
                 _v[0] = GLuint(vcg::tri::Index(m,pf->V(nz)));;
                 _v[1] = GLuint(vcg::tri::Index(m,pf->V(pf->Next(nz))));
-                assert(_v[0] != _v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
+                vcg_assert(_v[0] != _v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
 
                 if( _v[0] > _v[1] ) 
                     std::swap(_v[0],_v[1]);   
@@ -2181,13 +2181,13 @@ namespace vcg
 
             void set(const MESH_TYPE& m,typename MESH_TYPE::EdgePointer pe,const int nz)
             {
-                assert(pe!=0);
-                assert(nz>=0);
-                assert(nz<2);
+                vcg_assert(pe!=0);
+                vcg_assert(nz>=0);
+                vcg_assert(nz<2);
 
                 _v[0] = size_t(vcg::tri::Index(m,pe->V(nz)));;
                 _v[1] = size_t(vcg::tri::Index(m,pe->V((nz + 1)%2)));
-                assert(_v[0] != _v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
+                vcg_assert(_v[0] != _v[1]); // The face pointed by 'f' is Degenerate (two coincident vertexes)
 
                 if( _v[0] > _v[1] )
                     std::swap(_v[0],_v[1]);   

@@ -101,7 +101,7 @@ namespace io {
 
 				vcg::glu_tesselator::tesselate(pl2,tx);
 				size_t ntri = tx.size() / 3;
-				assert(tx.size() % 3 == 0);
+				vcg_assert(tx.size() % 3 == 0);
 					
 
 				int polvert = 0;
@@ -129,7 +129,7 @@ namespace io {
 				}
 				trioff += ntri;
 			}
-			assert(trioff == totaltri);
+			vcg_assert(trioff == totaltri);
 		}
 	};
 }

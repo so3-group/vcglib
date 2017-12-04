@@ -721,12 +721,12 @@ void BuildMeshFromCoordVectorIndexVector(MeshType & in, const std::vector<InCoor
   for(size_t i=0;i<f.size();++i)
   {
     const InFaceIndexType &ff= f[i];
-    assert( ff[0]>=0 );
-    assert( ff[1]>=0 );
-    assert( ff[2]>=0 );
-    assert( ff[0]<in.vn );
-    assert( ff[1]<in.vn );
-    assert( ff[2]<in.vn );
+    vcg_assert( ff[0]>=0 );
+    vcg_assert( ff[1]>=0 );
+    vcg_assert( ff[2]>=0 );
+    vcg_assert( ff[0]<in.vn );
+    vcg_assert( ff[1]<in.vn );
+    vcg_assert( ff[2]<in.vn );
     in.face[i].V(0) = &in.vert[ ff[0] ];
     in.face[i].V(1) = &in.vert[ ff[0] ];
     in.face[i].V(2) = &in.vert[ ff[0] ];
@@ -804,8 +804,8 @@ void Grid(MeshType & in, int w, int h, float wl, float hl, float *data=0)
 template <class MeshType>
 void FaceGrid(MeshType & in, int w, int h)
 {
-    assert(in.vn == (int)in.vert.size()); // require a compact vertex vector
-    assert(in.vn >= w*h); // the number of vertices should match the number of expected grid vertices
+    vcg_assert(in.vn == (int)in.vert.size()); // require a compact vertex vector
+    vcg_assert(in.vn >= w*h); // the number of vertices should match the number of expected grid vertices
 
     Allocator<MeshType>::AddFaces(in,(w-1)*(h-1)*2);
 
@@ -846,7 +846,7 @@ template <class MeshType>
 void SparseFaceGrid(MeshType & in, const std::vector<int> &grid, int w, int h)
 {
     tri::RequireCompactness(in);
-    assert(in.vn <= w*h); // the number of vertices should match the number of expected grid vertices
+    vcg_assert(in.vn <= w*h); // the number of vertices should match the number of expected grid vertices
 
 //	    V0       V1
 //   i+0,j+0 -- i+0,j+1

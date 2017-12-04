@@ -91,7 +91,7 @@ namespace vcg {
 			inline Link(){};
 			/// Costruttore con inizializzatori
 			inline Link(ObjPtr nt, const int ni ){
-				assert(ni>=0);
+				vcg_assert(ni>=0);
 				t = nt;
 				i = ni;
 			};
@@ -143,11 +143,11 @@ namespace vcg {
       if ( p[0]<0 || p[0] > BT::siz[0] || 
 				p[1]<0 || p[1]> BT::siz[1] || 
 				p[2]<0 || p[2]> BT::siz[2] )
-				assert(0);
+				vcg_assert(0);
 			//return NULL;
 			else
 #endif
-        assert(((unsigned int) p[0]+BT::siz[0]*p[1]+BT::siz[1]*p[2])<grid.size());
+        vcg_assert(((unsigned int) p[0]+BT::siz[0]*p[1]+BT::siz[1]*p[2])<grid.size());
 
 			int axis0 = (axis+1)%3;
 			int axis1 = (axis+2)%3;
@@ -180,8 +180,8 @@ namespace vcg {
 		/// BY INTEGER COORDS
 		inline Cell* Grid( const int x, const int y, const int z )
 		{
-			assert(!( x<0 || x>=BT::siz[0] || y<0 || y>=BT::siz[1] || z<0 || z>=BT::siz[2] ));
-			assert(grid.size()>0);
+			vcg_assert(!( x<0 || x>=BT::siz[0] || y<0 || y>=BT::siz[1] || z<0 || z>=BT::siz[2] ));
+			vcg_assert(grid.size()>0);
 			return &*grid.begin() + ( x+BT::siz[0]*(y+BT::siz[1]*z) );
 		}
 
@@ -285,7 +285,7 @@ namespace vcg {
 				  Point3i _siz;
 				  Point3<FLT> _dim = _bbox.max - _bbox.min;
 				  _dim/=_cellRadius;
-				  assert(_dim[0]>0 && _dim[1]>0 && _dim[2]>0 );
+				  vcg_assert(_dim[0]>0 && _dim[1]>0 && _dim[2]>0 );
 				  _siz[0] = (int)ceil(_dim[0]);
 				  _siz[1] = (int)ceil(_dim[1]);
 				  _siz[2] = (int)ceil(_dim[2]);
@@ -374,7 +374,7 @@ namespace vcg {
 				pl = links.begin();
 				for(pg=0;pg<grid.size();++pg)
 				{
-					assert(pl!=links.end());
+					vcg_assert(pl!=links.end());
 					grid[pg] = &*pl;
 					while( (int)pg == pl->Index() )	// Trovato inizio
 					{

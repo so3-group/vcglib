@@ -64,7 +64,7 @@ CoordinateFrame::CoordinateFrame(float s)
 
 void CoordinateFrame::Render(QGLWidget* glw,QPainter* p)
 {
-  assert( glw!= NULL);
+  vcg_assert( glw!= NULL);
   glPushAttrib(GL_ALL_ATTRIB_BITS);
   glDisable(GL_LIGHTING);
   glDisable(GL_TEXTURE_2D);
@@ -156,7 +156,7 @@ void CoordinateFrame::Render(QGLWidget* glw,QPainter* p)
   }
   glGetError(); // Patch to buggy qt rendertext;
   glPopAttrib();
-  assert(!glGetError());
+  vcg_assert(!glGetError());
 }
 
 void CoordinateFrame::drawTickedLine(const Point3d &a,const Point3d &b, float dim,float tickDist,float linewidth)
@@ -330,7 +330,7 @@ void MovableCoordinateFrame::AlignWith(const Point3f pri,const Point3f secondary
 
   // realign axis 3
   Point3f new_third_pro = plane.Projection(Inverse(rotation).Rotate(third));// axis 3 projection after the first rotation
-  assert(old_third_pro.Norm() > EPSILON ); // old axis 3 projection should not be null
+  vcg_assert(old_third_pro.Norm() > EPSILON ); // old axis 3 projection should not be null
   // align axis 3 projection after the first rotation to old axis 3 projection
   old_third_pro.Normalize();
   RotateToAlign(new_third_pro,old_third_pro);
@@ -346,8 +346,8 @@ void MovableCoordinateFrame::RotateToAlign(const Point3f source, const Point3f d
 {
   const float EPSILON=1e-6f;
   // source and dest must be versors
-  assert( math::Abs(source.Norm() - 1) < EPSILON);
-  assert( math::Abs(dest.Norm() - 1) < EPSILON);
+  vcg_assert( math::Abs(source.Norm() - 1) < EPSILON);
+  vcg_assert( math::Abs(dest.Norm() - 1) < EPSILON);
 
   Point3f axis = dest ^ source;
   float sinangle = axis.Norm();
@@ -363,7 +363,7 @@ void MovableCoordinateFrame::RotateToAlign(const Point3f source, const Point3f d
     axis=plane.Projection(Point3f(1,0,0)); // project a "random" point on source's normal plane
     if(axis.Norm() < EPSILON){ // source was ~ [1,0,0]...
       axis=plane.Projection(Point3f(0,1,0));
-      assert(axis.Norm() > EPSILON); // this point must be good
+      vcg_assert(axis.Norm() > EPSILON); // this point must be good
     }
   }
   rotation = rotation * Quaternionf(angle,axis);

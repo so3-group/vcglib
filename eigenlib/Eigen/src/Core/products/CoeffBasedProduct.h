@@ -153,7 +153,7 @@ class CoeffBasedProduct
       // We still allow to mix T and complex<T>.
       EIGEN_STATIC_ASSERT((internal::scalar_product_traits<typename Lhs::RealScalar, typename Rhs::RealScalar>::Defined),
         YOU_MIXED_DIFFERENT_NUMERIC_TYPES__YOU_NEED_TO_USE_THE_CAST_METHOD_OF_MATRIXBASE_TO_CAST_NUMERIC_TYPES_EXPLICITLY)
-      eigen_assert(lhs.cols() == rhs.rows()
+      eigen_vcg_assert(lhs.cols() == rhs.rows()
         && "invalid matrix product"
         && "if you wanted a coeff-wise or a dot product use the respective explicit functions");
     }

@@ -206,8 +206,8 @@ static std::pair<typename MeshType::FaceType *, typename MeshType::VertexType *>
     typename MeshType::FaceType *sideFFp;
     int sideFFi;
 
-    assert(tri::HasFFAdjacency(m));
-    assert(face::IsBorder(f,edge));
+    vcg_assert(tri::HasFFAdjacency(m));
+    vcg_assert(face::IsBorder(f,edge));
     //qDebug("OldFacePRE  %i %i %i",tri::Index(m,f.V(0)),tri::Index(m,f.V(1)),tri::Index(m,f.V(2)));
     if(newFace==0) newFace=&*tri::Allocator<MeshType>::AddFaces(m,1);
     if(newVert==0) {
@@ -243,8 +243,8 @@ static std::pair<typename MeshType::FaceType *, typename MeshType::VertexType *>
     sideFFp->FFp(sideFFi)=newFace;
     sideFFp->FFi(sideFFi)=(edge+1)%3;
 
-    assert(face::IsBorder(f,edge));
-    assert(face::IsBorder(*newFace,edge));
+    vcg_assert(face::IsBorder(f,edge));
+    vcg_assert(face::IsBorder(*newFace,edge));
 
     return std::make_pair(newFace,newVert);
 }
@@ -299,7 +299,7 @@ static bool MakeTriEvenByDelete(MeshType& m)
       }
     }
   }
-  assert(0); // no border face found? then how could the number of tri be Odd?
+  vcg_assert(0); // no border face found? then how could the number of tri be Odd?
   return true;
 }
 
@@ -341,7 +341,7 @@ static void MakeBitTriOnly(MeshType &m){
  * Other connectivity structures, and per edge and per wedge flags are ignored
  */
 static bool MakeBitTriQuadConventional(MeshType &/*m*/){
-  assert(0); // todo
+  vcg_assert(0); // todo
   return false;
 }
 
@@ -433,10 +433,10 @@ static void MakePureByRefine(MeshType &m){
       // assuming is a quad (not a penta, etc), i.e. only one faux
       // add a vertex in the center of the faux edge, splitting the face in 2
       ev+=1; ef+=1;
-      assert(k!=3);
+      vcg_assert(k!=3);
     }
   }
-  assert(ev%2==0); // should be even by now
+  vcg_assert(ev%2==0); // should be even by now
   ev/=2; // I was counting each of them twice
 
   //int originalFaceNum = m.fn;
@@ -461,7 +461,7 @@ static void MakePureByRefine(MeshType &m){
 
       if (k==0) // add a vertex in the center of the face, splitting it in 3
       {
-        assert(nvi!=m.vert.end());
+        vcg_assert(nvi!=m.vert.end());
         VertexType *nv = &*nvi; nvi++;
         //*nv = *fi->V0( 0 ); // lazy: copy everything from the old vertex
                 nv->ImportData(*(fi->V0( 0 ))); // lazy: copy everything from the old vertex
@@ -481,7 +481,7 @@ static void MakePureByRefine(MeshType &m){
         fb->FFp(2)=fa->FFp(2); fb->FFi(2)=fa->FFi(2);
                 fc->FFp(0)=fa->FFp(0); fc->FFi(0)=fa->FFi(0);
 
-        assert( fa->FFp(1)->FFp(fa->FFi(1)) == fa );
+        vcg_assert( fa->FFp(1)->FFp(fa->FFi(1)) == fa );
         /*    */fb->FFp(2)->FFp(fb->FFi(2)) =  fb;
         /*    */fc->FFp(0)->FFp(fc->FFi(0)) =  fc;
 
@@ -525,9 +525,9 @@ static void MakePureByRefine(MeshType &m){
       int ea2 = BQ::FauxIndex(fa); // index of the only faux edge
       FaceType *fb = fa->FFp(ea2);
       int eb2 = fa->FFi(ea2);
-      assert(fb->FFp(eb2)==fa) ;
-      assert(fa->IsF(ea2));
-      //assert(fb->IsF(eb2)); // reciprocal faux edge
+      vcg_assert(fb->FFp(eb2)==fa) ;
+      vcg_assert(fa->IsF(ea2));
+      //vcg_assert(fb->IsF(eb2)); // reciprocal faux edge
 
       int ea0 = (ea2+1) %3;
       int ea1 = (ea2+2) %3;
@@ -535,16 +535,16 @@ static void MakePureByRefine(MeshType &m){
       int eb1 = (eb2+2) %3;
 
       // create new vert in center of faux edge
-      assert(nvi!=m.vert.end());
+      vcg_assert(nvi!=m.vert.end());
       VertexType *nv = &*nvi; nvi++;
       // *nv = * fa->V0( ea2 );
             nv->ImportData(*(fa->V0( ea2 ) )); // lazy: copy everything from the old vertex
       //nv->P() = ( fa->V(ea2)->P() + fa->V(ea0)->P() ) /2.0;
       Interpolator::Apply(*(fa->V(ea2)),*(fa->V(ea0)),0.5,*nv);
       // split faces: add 2 faces (one per side)
-      assert(nfi!=m.face.end());
+      vcg_assert(nfi!=m.face.end());
       FaceType *fc = &*nfi; nfi++;
-      assert(nfi!=m.face.end());
+      vcg_assert(nfi!=m.face.end());
       FaceType *fd = &*nfi; nfi++;
 
             fc->ImportData(*fa ); CopyTopology(fc,fa); // lazy: copy everything from the old vertex
@@ -617,8 +617,8 @@ static void MakePureByRefine(MeshType &m){
       if (bd) nsplit++;
     }
   }
-  assert(nfi==m.face.end());
-  assert(nvi==m.vert.end());
+  vcg_assert(nfi==m.face.end());
+  vcg_assert(nvi==m.vert.end());
 
   // now and there are no tris left, but there can be faces with ONE edge border & faux ()
 
@@ -663,7 +663,7 @@ static void MakePureByRefine(MeshType &m){
 
         if (fc->FFp(ea1)==fa) fc->FFp(ea1)=fc; // recover border status
 
-        assert(fa->IsF(ea0) == fa->IsF(ea1) );
+        vcg_assert(fa->IsF(ea0) == fa->IsF(ea1) );
         bool b = fa->IsF(ea1);
 
         fa->ClearAllF();
@@ -696,7 +696,7 @@ static void MakePureByCatmullClark(MeshType &m){
 // marks edge distance froma a given face.
 // Stops at maxDist or at the distance when a triangle is found
 static FaceType * MarkEdgeDistance(MeshType &m, FaceType *startF, int maxDist){
-    assert(tri::HasPerFaceQuality(m));
+    vcg_assert(tri::HasPerFaceQuality(m));
 
   for (FaceIterator fi = m.face.begin();  fi!=m.face.end(); fi++)  if (!fi->IsD()) {
     fi->Q()=maxDist;
@@ -712,7 +712,7 @@ static FaceType * MarkEdgeDistance(MeshType &m, FaceType *startF, int maxDist){
   while ( stackPos<int(stack.size())) {
     FaceType *f = stack[stackPos++];
     for (int k=0; k<3; k++) {
-      assert(FFCorrectness(*f,k));
+      vcg_assert(FFCorrectness(*f,k));
       FaceType *fk = f->FFp(k);
       int fq = int(f->Q()) + ( ! f->IsF(k) );
       if (fk->Q()> fq && fq <= maxDist) {
@@ -819,8 +819,8 @@ break;
 
   if (marriageEdge!=-1) {
     // consume the marriage (two tris = one quad)
-    assert(!(tb->IsAnyF()));
-    assert(!(tb->FFp(marriageEdge)->IsAnyF()));
+    vcg_assert(!(tb->IsAnyF()));
+    vcg_assert(!(tb->FFp(marriageEdge)->IsAnyF()));
     tb->SetF(marriageEdge);
     tb->FFp(marriageEdge)->SetF(tb->FFi(marriageEdge));
 

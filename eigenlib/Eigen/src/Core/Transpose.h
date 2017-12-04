@@ -291,7 +291,7 @@ struct inplace_transpose_selector<MatrixType,false> { // non square matrix
 template<typename Derived>
 inline void DenseBase<Derived>::transposeInPlace()
 {
-  eigen_assert((rows() == cols() || (RowsAtCompileTime == Dynamic && ColsAtCompileTime == Dynamic))
+  eigen_vcg_assert((rows() == cols() || (RowsAtCompileTime == Dynamic && ColsAtCompileTime == Dynamic))
                && "transposeInPlace() called on a non-square non-resizable matrix");
   internal::inplace_transpose_selector<Derived>::run(derived());
 }
@@ -387,7 +387,7 @@ struct checkTransposeAliasing_impl
 {
     static void run(const Derived& dst, const OtherDerived& other)
     {
-        eigen_assert((!check_transpose_aliasing_run_time_selector
+        eigen_vcg_assert((!check_transpose_aliasing_run_time_selector
                       <typename Derived::Scalar,blas_traits<Derived>::IsTransposed,OtherDerived>
                       ::run(extract_data(dst), other))
           && "aliasing detected during transposition, use transposeInPlace() "

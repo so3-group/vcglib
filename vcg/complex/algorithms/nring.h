@@ -60,7 +60,7 @@ public:
 
     Nring(VertexType* v, MeshType* m) : m(m)
     {
-        assert((unsigned)(v - &*m->vert.begin()) < m->vert.size());
+        vcg_assert((unsigned)(v - &*m->vert.begin()) < m->vert.size());
         insertAndFlag(v);
 
     }
@@ -75,7 +75,7 @@ public:
         insertAndFlag(v);
 
         typename face::Pos<FaceType> p(v->VFp(),v);
-        assert(p.V() == v);
+        vcg_assert(p.V() == v);
 
         int count = 0;
         face::Pos<FaceType> ori = p;
@@ -84,7 +84,7 @@ public:
             insertAndFlag(p.F());
             p.FlipF();
             p.FlipE();
-            assert(count++ < 100);
+            vcg_assert(count++ < 100);
         } while (ori != p);
 
     }

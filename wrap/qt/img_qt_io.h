@@ -54,7 +54,7 @@ inline bool saveQtY(const Image<1,ScalarType,Safe> &image,const QString filename
   QImage qimage;
   convert_Y_to_QImage(image,qimage);
   bool success = qimage.save(filename);
-  assert(success);
+  vcg_assert(success);
   if(Safe){
     if(!success)  throw ImageException("cannot save image");
   }
@@ -67,7 +67,7 @@ inline bool saveQtRGB(const Image<3,ScalarType,Safe> &image,const QString filena
   QImage qimage;
   convert_RGB_to_QImage(image,qimage);
   bool success = qimage.save(filename);
-  assert(success);
+  vcg_assert(success);
   if(Safe){
     if(!success)  throw ImageException("cannot save image");
   }
@@ -81,7 +81,7 @@ inline bool saveQtRGB(const Image<3,ScalarType,Safe> &image,const QString filena
 //  QImage qimage;
 //  convert_RGBA_to_QImage(image,qimage);
 //  bool success = qimage.save(filename);
-//  assert(success);
+//  vcg_assert(success);
 //  if(Safe){
 //    if(!success)  throw ImageException("cannot save image");
 //  }
@@ -109,9 +109,9 @@ inline bool saveQtRGB(const Image<3,ScalarType,Safe> &image,const QString filena
 template<typename ScalarType, bool Safe>
 inline bool savePGM(const Image<1,ScalarType,Safe> &image, const QString filename)
 {
-  assert(image.isValid());
-  assert(image.attributes.hasRange(ScalarType(0.0),ScalarType(255.0)));
-  assert(filename.endsWith(".pgm",Qt::CaseInsensitive));
+  vcg_assert(image.isValid());
+  vcg_assert(image.attributes.hasRange(ScalarType(0.0),ScalarType(255.0)));
+  vcg_assert(filename.endsWith(".pgm",Qt::CaseInsensitive));
   if(Safe){
     if(!image.isValid()) throw ImageException("Invalid image");
     if(!image.attributes.hasRange(ScalarType(0.0),ScalarType(255.0))) throw ImageException("Invalid range attribute");

@@ -219,7 +219,7 @@ public:
       int eCnt =  findNonVisitedEdgesDuringRetract(vp,ep);
       if(eCnt==1) // We have only one non visited edge over vp
       {
-        assert(!ep->IsV());
+        vcg_assert(!ep->IsV());
         ep->SetV();
         --unvisitedEdgeNum;
         VertexType *otherVertP;
@@ -228,11 +228,11 @@ public:
         vertStack.push(otherVertP);
       }
     }
-    assert(unvisitedEdgeNum >0);
+    vcg_assert(unvisitedEdgeNum >0);
     
     for(size_t i =0; i<t.edge.size();++i)
       if(t.edge[i].IsV()) tri::Allocator<MeshType>::DeleteEdge(t,t.edge[i]);
-    assert(t.en >0);
+    vcg_assert(t.en >0);
     tri::Clean<MeshType>::RemoveUnreferencedVertex(t);
     tri::Allocator<MeshType>::CompactEveryVector(t);
   }
@@ -253,7 +253,7 @@ public:
           if(face::IsBorder(*fp,j))
           {
             face::Pos<FaceType> startPos(fp,int(j));
-            assert(startPos.IsBorder());
+            vcg_assert(startPos.IsBorder());
             face::Pos<FaceType> curPos=startPos;
             face::Pos<FaceType> prevPos=startPos;
             int edgeCnt=0;
@@ -341,7 +341,7 @@ public:
       std::swap(visitStack.back(),visitStack[rand()%visitStack.size()]);
       PosType c = visitStack.back();
       visitStack.pop_back();
-      assert(c.F()->IsV());
+      vcg_assert(c.F()->IsV());
       c.F()->C() = Color4b::ColorRamp(0,base.fn,cnt);
       c.FlipF();
       if(!c.F()->IsV())
@@ -359,7 +359,7 @@ public:
         tri::Allocator<MeshType>::AddEdge(dualMesh,c.V()->P(),c.VFlip()->P());
       }
     }
-    assert(cnt==base.fn);
+    vcg_assert(cnt==base.fn);
     
     Retract(dualMesh);
 } 
@@ -565,7 +565,7 @@ public:
       TexCoord2f WedgeInterp(TexCoord2f &t0, TexCoord2f &t1)
       {
           TexCoord2f tmp;
-          assert(t0.n()== t1.n());
+          vcg_assert(t0.n()== t1.n());
           tmp.n()=t0.n();
           tmp.t()=(t0.t()+t1.t())/2.0;
           return tmp;
@@ -630,7 +630,7 @@ public:
       TexCoord2f WedgeInterp(TexCoord2f &t0, TexCoord2f &t1)
       {
           TexCoord2f tmp;
-          assert(t0.n()== t1.n());
+          vcg_assert(t0.n()== t1.n());
           tmp.n()=t0.n();
           tmp.t()=(t0.t()+t1.t())/2.0;
           return tmp;
@@ -755,7 +755,7 @@ public:
           maxInd=j;
         }
       }        
-//      assert(maxInd!=-1);
+//      vcg_assert(maxInd!=-1);
 //      if(maxInd>=0 && maxDist > par.surfDistThr)
 //        fp->V(maxInd)->Q() = maxDist;
     }
@@ -876,7 +876,7 @@ public:
       float closestDist;
       Point3f closestP,closestN,ip;
       FaceType *f = vcg::tri::GetClosestFaceBase(base,uniformGrid,vi->P(),maxDist, closestDist, closestP, closestN,ip);
-      assert(f);
+      vcg_assert(f);
       VertexType *closestVp=0;
       int indIp = -1;
       ScalarType minDist = std::numeric_limits<ScalarType>::max();
@@ -894,7 +894,7 @@ public:
           minIp=ip[i];
         }          
       }
-      assert(closestVp && (indIp!=-1));
+      vcg_assert(closestVp && (indIp!=-1));
       
       
       if(minDist < par.maxSnapThr) {  // First Case: Snap to vertex;
@@ -957,7 +957,7 @@ public:
       {
         std::vector<EdgeType *> edgeStarVec;
         edge::VEStarVE(&(poly.vert[i]),edgeStarVec);
-        assert(edgeStarVec.size() == degreeVec[i]);
+        vcg_assert(edgeStarVec.size() == degreeVec[i]);
         for(size_t j=delta;j<edgeStarVec.size();++j)
         {
           EdgeType *ep = edgeStarVec[j];
@@ -972,7 +972,7 @@ public:
         }
       }
     }
-    assert(firstVi == poly.vert.end());
+    vcg_assert(firstVi == poly.vert.end());
   }
   
   /*
@@ -996,7 +996,7 @@ public:
     UpdateTopology<MeshType>::VertexEdge(poly);
     for(size_t i=0;i<poly.vn;++i)
     {
-      assert(edge::VEDegree<EdgeType>(&(poly.vert[i])) <=2);
+      vcg_assert(edge::VEDegree<EdgeType>(&(poly.vert[i])) <=2);
     }
     
     tri::UpdateTopology<MeshType>::EdgeEdge(poly);
@@ -1011,7 +1011,7 @@ public:
       ccVec.resize(ccVec.size()+1);
       while(eIt->IsV()) ++eIt;
 //      printf("Starting component from edge %i\n",tri::Index(poly,&*eIt));
-      assert(eIt != poly.edge.end());
+      vcg_assert(eIt != poly.edge.end());
       edge::Pos<EdgeType> startPos(&*eIt,0);
       edge::Pos<EdgeType> curPos(&*eIt,0);
       do
@@ -1022,7 +1022,7 @@ public:
       while(curPos!=startPos && !curPos.IsBorder()) ;
       
       curPos.FlipV();
-      assert(!curPos.IsBorder());
+      vcg_assert(!curPos.IsBorder());
       do
       {
 //         printf("<%i %i %i>-",tri::Index(poly,curPos.VFlip()), tri::Index(poly,curPos.E()) ,tri::Index(poly,curPos.V()));
@@ -1121,7 +1121,7 @@ public:
     UpdateTopology<MeshType>::VertexEdge(poly);
     for(size_t i=0;i<poly.vn;++i)
     {
-      assert(edge::VEDegree<EdgeType>(&(poly.vert[i])) <=2);
+      vcg_assert(edge::VEDegree<EdgeType>(&(poly.vert[i])) <=2);
     }
         UpdateTopology<MeshType>::EdgeEdge(poly);
     
@@ -1145,7 +1145,7 @@ public:
         if(cur->EEp(0) != prev)
         {
           toFlipVec[j] = true;
-          assert(cur->EEp(1) == prev || j==0);
+          vcg_assert(cur->EEp(1) == prev || j==0);
         }      
       }
       for(int j=0;j<ccVec[i].size();++j)
@@ -1183,7 +1183,7 @@ public:
       float closestDist;
       Point3f closestP;
       FaceType *f = vcg::tri::GetClosestFaceBase(m,uniformGrid,newP,par.gridBailout, closestDist, closestP);
-      assert(f);
+      vcg_assert(f);
       VertexType *closestVp=0;
       ScalarType minDist = std::numeric_limits<ScalarType>::max();
       for(int i=0;i<3;++i) {
@@ -1193,7 +1193,7 @@ public:
           closestVp = f->V(i);
         }
       }
-      assert(closestVp);
+      vcg_assert(closestVp);
       if(minDist < par.maxSnapThr)  {
            vec[i]->P() = closestVp->P();
       }
@@ -1319,7 +1319,7 @@ public:
       FaceType *f = vcg::tri::GetClosestFaceBase(base,uniformGrid,samplePnt,maxDist, surfDist, closestPSurf);        
       if(dist)
         dist->Add(surfDist);
-      assert(f);
+      vcg_assert(f);
       if(surfDist > maxSurfDist)
       {
         maxSurfDist = surfDist;
@@ -1431,7 +1431,7 @@ public:
     tri::RequireCompactness(poly);
     tri::UpdateTopology<MeshType>::VertexEdge(poly);
     printf("SmoothProject: Selected vert num %i\n",tri::UpdateSelection<MeshType>::VertexCount(poly));
-    assert(poly.en>0 && base.fn>0);
+    vcg_assert(poly.en>0 && base.fn>0);
     for(int k=0;k<iterNum;++k)
     {
       std::vector<Point3f> posVec(poly.vn,Point3f(0,0,0));
@@ -1464,7 +1464,7 @@ public:
           float minDist;
           Point3f closestP;
           FaceType *f = vcg::tri::GetClosestFaceBase(base,uniformGrid,newP,maxDist, minDist, closestP);
-          assert(f);
+          vcg_assert(f);
           poly.vert[i].P() = newP*(1.0-projectWeight) +closestP*projectWeight;
           poly.vert[i].N() = f->N();
         }

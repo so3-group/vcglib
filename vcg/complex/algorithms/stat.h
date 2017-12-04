@@ -61,7 +61,7 @@ public:
   }
   static std::pair<float,float> ComputePerVertexQualityMinMax( MeshType & m)
   {
-//    assert(0);
+//    vcg_assert(0);
     tri::RequirePerVertexQuality(m);
     typename MeshType::template PerMeshAttributeHandle  < std::pair<float,float> > mmqH;
     mmqH = tri::Allocator<MeshType>::template GetPerMeshAttribute <std::pair<float,float> >(m,"minmaxQ");
@@ -187,7 +187,7 @@ public:
     for(VertexIterator vi = m.vert.begin(); vi != m.vert.end(); ++vi)
       if(!(*vi).IsD() &&  ((!selectionOnly) || (*vi).IsS()) )
       {
-        assert(!math::IsNAN((*vi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
+        vcg_assert(!math::IsNAN((*vi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
         h.Add((*vi).Q());
       }
   }
@@ -199,7 +199,7 @@ public:
     for(FaceIterator fi = m.face.begin(); fi != m.face.end(); ++fi)
       if(!(*fi).IsD() &&  ((!selectionOnly) || (*fi).IsS()) )
       {
-        assert(!math::IsNAN((*fi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
+        vcg_assert(!math::IsNAN((*fi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
         h.Add((*fi).Q());
       }
   }
@@ -212,7 +212,7 @@ public:
     h.SetRange( minmax.first,minmax.second, HistSize );
     for(FaceIterator fi = m.face.begin(); fi != m.face.end(); ++fi)
       if(!(*fi).IsD() &&  ((!selectionOnly) || (*fi).IsS()) ){
-        assert(!math::IsNAN((*fi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
+        vcg_assert(!math::IsNAN((*fi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
         h.Add((*fi).Q());
       }
   }
@@ -227,7 +227,7 @@ public:
     for(VertexIterator vi = m.vert.begin(); vi != m.vert.end(); ++vi)
       if(!(*vi).IsD() &&  ((!selectionOnly) || (*vi).IsS()) )
       {
-        assert(!math::IsNAN((*vi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
+        vcg_assert(!math::IsNAN((*vi).Q()) && "You should never try to compute Histogram with Invalid Floating points numbers (NaN)");
         h.Add((*vi).Q());
       }
     // Sanity check; If some very wrong value has happened in the Q value,
@@ -258,7 +258,7 @@ public:
 
   static void ComputeEdgeLengthHistogram( MeshType & m, Histogramf &h)
   {
-    assert(m.edge.size()>0);
+    vcg_assert(m.edge.size()>0);
     h.Clear();
     h.SetRange( 0, m.bbox.Diag(), 10000);
     for(EdgeIterator ei = m.edge.begin(); ei != m.edge.end(); ++ei)

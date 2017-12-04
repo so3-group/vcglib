@@ -57,7 +57,7 @@ namespace vcg {
 					ScalarType dist;
 					CoordType Norm, ip, nearest;
 					FaceType *f = vcg::tri::GetClosestFaceBase< TriMeshType, FaceSpatialIndexing >( m, _g_mesh, test, m.bbox.Diag(), dist, nearest, Norm, ip);
-					assert( f != NULL );			/// Check if there is any face in the mesh
+					vcg_assert( f != NULL );			/// Check if there is any face in the mesh
 					/// If the point is on the face is considered inside.
 					if( ( test - nearest ).Norm() <= EPSILON )
 						return true;
@@ -80,7 +80,7 @@ namespace vcg {
 						r.Set( test, ( bary - test ) );
 						r.Normalize();
 						FaceType *f1 = vcg::tri::DoRay< TriMeshType, FaceSpatialIndexing >( m, _g_mesh, r, m.bbox.Diag(), dist );
-						assert( f1 != NULL );
+						vcg_assert( f1 != NULL );
 						/// In this case normal direction is enough.
 						if( ( f1->N() * ( test - bary ) ) < 0 )
 							return true;

@@ -1,7 +1,7 @@
 
 // STD headers
 #include <iostream>
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 // VCG headers
 #include <vcg/math/camera.h>

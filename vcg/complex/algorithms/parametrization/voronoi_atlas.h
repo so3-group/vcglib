@@ -68,7 +68,7 @@ public:
         if(face::IsBorder(*fi,j) && !(fi->IsV()))
         {
           face::Pos<FaceType> pp(&*fi,j,fi->V(j));
-          assert(pp.IsBorder());
+          vcg_assert(pp.IsBorder());
           face::Pos<FaceType> startPos = pp;
           do
           {
@@ -176,7 +176,7 @@ public:
       int selCnt = tri::VoronoiProcessing<VoroMesh>::FaceSelectAssociateRegion(m,seedVec[i]);
       //qDebug("Region %i of %i faces",i,selCnt);
       if(selCnt==0) continue;
-      assert(selCnt>0);
+      vcg_assert(selCnt>0);
       if(pp.overlap){
       tri::UpdateSelection<VoroMesh>::VertexFromFaceLoose(m);
       tri::UpdateSelection<VoroMesh>::FaceFromVertexLoose(m);

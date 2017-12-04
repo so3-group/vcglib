@@ -55,7 +55,7 @@ Revision 1.1  2004/03/16 03:07:38  tarini
 #ifndef __VCGLIB_POINT
 #define __VCGLIB_POINT
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/math/base.h>
 #include <vcg/space/space.h>
 
@@ -154,24 +154,24 @@ public:
 
 	inline S & operator [] ( const int i )
 	{
-		assert(i>=0 && i<N);
+		vcg_assert(i>=0 && i<N);
 		return _v[i];
 	}
 	inline const S & operator [] ( const int i ) const
 	{
-		assert(i>=0 && i<N);
+		vcg_assert(i>=0 && i<N);
 		return _v[i];
 	}
   inline const S &X() const { return _v[0]; }
     inline const S &Y() const { return _v[1]; }
-    inline const S &Z() const { static_assert(N>2); return _v[2]; }
+    inline const S &Z() const { static_vcg_assert(N>2); return _v[2]; }
      /// W is in any case the last coordinate.
      /// (in a 2D point, W() == Y(). In a 3D point, W()==Z()
      ///  in a 4D point, W() is a separate component)
     inline const S &W() const { return _v[N-1]; }
     inline S &X() { return _v[0]; }
     inline S &Y() { return _v[1]; }
-    inline S &Z() { static_assert(N>2); return _v[2]; }
+    inline S &Z() { static_vcg_assert(N>2); return _v[2]; }
     inline S &W() { return _v[N-1]; }
     inline const S * V() const
     {
@@ -183,12 +183,12 @@ public:
 	}
     inline S & V( const int i )
     {
-        assert(i>=0 && i<N);
+        vcg_assert(i>=0 && i<N);
         return _v[i];
     }
     inline const S & V( const int i ) const
     {
-        assert(i>=0 && i<N);
+        vcg_assert(i>=0 && i<N);
         return _v[i];
     }
 //@}
@@ -733,7 +733,7 @@ public:
 		return Point4( _v[0]*s, _v[1]*s , _v[2]*s , _v[3]*s ); }
 
 	inline PointType operator ^ ( PointType const & p ) const {
-		assert(0);
+		vcg_assert(0);
 		return *this;
 	}
 

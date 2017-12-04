@@ -100,24 +100,24 @@ public:
 
     // return a copy of the i-th column
     Point4<T> GetColumn4(const int& i)const{
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return Point4<T>(ElementAt(0,i),ElementAt(1,i),ElementAt(2,i),ElementAt(3,i));
         //return Point4<T>(_a[i],_a[i+4],_a[i+8],_a[i+12]);
     }
 
     Point3<T> GetColumn3(const int& i)const{
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return Point3<T>(ElementAt(0,i),ElementAt(1,i),ElementAt(2,i));
     }
 
     Point4<T> GetRow4(const int& i)const{
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return Point4<T>(ElementAt(i,0),ElementAt(i,1),ElementAt(i,2),ElementAt(i,3));
         // return *((Point4<T>*)(&_a[i<<2])); alternativa forse + efficiente
     }
 
     Point3<T> GetRow3(const int& i)const{
-        assert(i>=0 && i<4);
+        vcg_assert(i>=0 && i<4);
         return Point3<T>(ElementAt(i,0),ElementAt(i,1),ElementAt(i,2));
         // return *((Point4<T>*)(&_a[i<<2])); alternativa forse + efficiente
     }
@@ -252,33 +252,33 @@ template <class T> Matrix44<T>::Matrix44(const T v[]) {
 }
 
 template <class T> T &Matrix44<T>::ElementAt(const int row, const int col) {
-    assert(row >= 0 && row < 4);
-    assert(col >= 0 && col < 4);
+    vcg_assert(row >= 0 && row < 4);
+    vcg_assert(col >= 0 && col < 4);
     return _a[(row<<2) + col];
 }
 
 template <class T> T Matrix44<T>::ElementAt(const int row, const int col) const {
-    assert(row >= 0 && row < 4);
-    assert(col >= 0 && col < 4);
+    vcg_assert(row >= 0 && row < 4);
+    vcg_assert(col >= 0 && col < 4);
     return _a[(row<<2) + col];
 }
 
 //template <class T> T &Matrix44<T>::operator[](const int i) {
-//	assert(i >= 0 && i < 16);
+//	vcg_assert(i >= 0 && i < 16);
 //	return ((T *)_a)[i];
 //}
 //
 //template <class T> const T &Matrix44<T>::operator[](const int i) const {
-//	assert(i >= 0 && i < 16);
+//	vcg_assert(i >= 0 && i < 16);
 //	return ((T *)_a)[i];
 //}
 template <class T> T *Matrix44<T>::operator[](const int i) {
-    assert(i >= 0 && i < 4);
+    vcg_assert(i >= 0 && i < 4);
     return _a+i*4;
 }
 
 template <class T> const T *Matrix44<T>::operator[](const int i) const {
-    assert(i >= 0 && i < 4);
+    vcg_assert(i >= 0 && i < 4);
     return _a+i*4;
 }
 template <class T>  T *Matrix44<T>::V()  { return _a;}
@@ -452,7 +452,7 @@ template <class T> Matrix44<T> &Matrix44<T>::SetTranslate(const T tx, const T ty
 }
 
 template <class T> Matrix44<T> &Matrix44<T>::SetColumn(const unsigned int ii,const Point3<T> &t) {
-    assert( ii < 4 );
+    vcg_assert( ii < 4 );
     ElementAt(0, ii) = t.X();
     ElementAt(1, ii) = t.Y();
     ElementAt(2, ii) = t.Z();
@@ -460,7 +460,7 @@ template <class T> Matrix44<T> &Matrix44<T>::SetColumn(const unsigned int ii,con
 }
 
 template <class T> Matrix44<T> &Matrix44<T>::SetColumn(const unsigned int ii,const Point4<T> &t) {
-    assert( ii < 4 );
+    vcg_assert( ii < 4 );
     ElementAt(0, ii) = t[0];
     ElementAt(1, ii) = t[1];
     ElementAt(2, ii) = t[2];
@@ -567,24 +567,24 @@ bool Decompose(Matrix44<T> &M, Point3<T> &ScaleV, Point3<T> &ShearV, Point3<T> &
 
     ShearV[0]=R[0]*M.GetColumn3(1); // xy shearing
     R[1]= M.GetColumn3(1)-R[0]*ShearV[0];
-    assert(math::Abs(R[1]*R[0])<1e-10);
+    vcg_assert(math::Abs(R[1]*R[0])<1e-10);
     ScaleV[1]=Norm(R[1]);   // y scaling
     R[1]=R[1]/ScaleV[1];
     ShearV[0]=ShearV[0]/ScaleV[1];
 
     ShearV[1]=R[0]*M.GetColumn3(2); // xz shearing
     R[2]= M.GetColumn3(2)-R[0]*ShearV[1];
-    assert(math::Abs(R[2]*R[0])<1e-10);
+    vcg_assert(math::Abs(R[2]*R[0])<1e-10);
 
     R[2] = R[2]-R[1]*(R[2]*R[1]);
-    assert(math::Abs(R[2]*R[1])<1e-10);
-    assert(math::Abs(R[2]*R[0])<1e-10);
+    vcg_assert(math::Abs(R[2]*R[1])<1e-10);
+    vcg_assert(math::Abs(R[2]*R[0])<1e-10);
 
     ScaleV[2]=Norm(R[2]);
     ShearV[1]=ShearV[1]/ScaleV[2];
     R[2]=R[2]/ScaleV[2];
-    assert(math::Abs(R[2]*R[1])<1e-10);
-    assert(math::Abs(R[2]*R[0])<1e-10);
+    vcg_assert(math::Abs(R[2]*R[1])<1e-10);
+    vcg_assert(math::Abs(R[2]*R[0])<1e-10);
 
     ShearV[2]=R[1]*M.GetColumn3(2); // yz shearing
     ShearV[2]=ShearV[2]/ScaleV[2];
@@ -597,7 +597,7 @@ bool Decompose(Matrix44<T> &M, Point3<T> &ScaleV, Point3<T> &ShearV, Point3<T> &
     //now the matrix should be a pure rotation matrix so its determinant is +-1
     double det=M.Determinant();
     if(math::Abs(det)<1e-10) return false; // matrix should be at least invertible...
-    assert(math::Abs(math::Abs(det)-1.0)<1e-10); // it should be +-1...
+    vcg_assert(math::Abs(math::Abs(det)-1.0)<1e-10); // it should be +-1...
     if(det<0) {
         ScaleV  *= -1;
         M *= -1;

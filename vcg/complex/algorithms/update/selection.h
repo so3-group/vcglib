@@ -457,7 +457,7 @@ static size_t FaceConnectedFF(MeshType &m)
   {
     FacePointer fp = visitStack.front();
     visitStack.pop_front();
-    assert(!fp->IsV());
+    vcg_assert(!fp->IsV());
     fp->SetV();
     for(int i=0;i<fp->VN();++i) {
       FacePointer ff = fp->FFp(i);
@@ -466,7 +466,7 @@ static size_t FaceConnectedFF(MeshType &m)
         ff->SetS();
         ++selCnt;
         visitStack.push_back(ff);
-        assert(!ff->IsV());
+        vcg_assert(!ff->IsV());
       }
     }
   }
@@ -526,7 +526,7 @@ static int VertexInBox( MeshType & m, const Box3Type &bb, bool preserveSelection
 
 void VertexNonManifoldEdges(MeshType &m, bool preserveSelection=false)
 {
-  assert(HasFFTopology(m));
+  vcg_assert(HasFFTopology(m));
 
   if(!preserveSelection) VertexClear(m);
   for (FaceIterator fi = m.face.begin(); fi != m.face.end(); ++fi)	if (!fi->IsD())

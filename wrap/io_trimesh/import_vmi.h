@@ -129,7 +129,7 @@ namespace io {
                             pa._padding = padd;
                             std::pair<HWIte,bool > new_pa = m.vert_attr.insert(pa);
                             (void)new_pa;
-                            assert(new_pa.second);
+                            vcg_assert(new_pa.second);
                         }
                         else
                             T::template AddAttrib<0>(m,name,s,data);
@@ -157,7 +157,7 @@ namespace io {
                                 pa._padding = padd;
                                 std::pair<HWIte,bool > new_pa = m.face_attr.insert(pa);
                                 (void)new_pa;
-                                assert(new_pa.second);
+                                vcg_assert(new_pa.second);
                             }
                         else
                             T::template AddAttrib<1>(m,name,s,data);
@@ -183,12 +183,12 @@ namespace io {
                                 pa._padding = padd;
                                 std::pair<HWIte,bool > new_pa = m.mesh_attr.insert(pa);
                                 (void)new_pa;
-                                assert(new_pa.second);
+                                vcg_assert(new_pa.second);
                             }
                         else
                             T::template AddAttrib<2>(m,name,s,data);
                         break;
-                    default: assert(0);break;
+                    default: vcg_assert(0);break;
             }
         }
     };
@@ -200,7 +200,7 @@ namespace io {
         template <int VoF>
         static void AddAttrib(MeshType &/*m*/, const char * /*name*/, unsigned int /*s*/, void * /*data*/){
             // if yohu got this your attribute is larger than	1048576. Honestly...
-            assert(0);
+            vcg_assert(0);
         }
     };
 
@@ -610,7 +610,7 @@ namespace io {
             for(unsigned int i =0; i < 2; ++i){ReadFloat( float_value); bbox.max[i]=float_value;}
 
             ReadString( name);
-            assert(strstr( name.c_str(),"end_header")!=NULL);
+            vcg_assert(strstr( name.c_str(),"end_header")!=NULL);
             return true;
         }
 
@@ -637,7 +637,7 @@ namespace io {
             case 0: return Read_mem(dst, size,count );  break;
             case 1: return fread(dst, size,count, F() ); break;
              }
-            assert(0);
+            vcg_assert(0);
             return 0;
         }
 

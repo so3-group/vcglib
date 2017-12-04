@@ -38,12 +38,12 @@ All the Components that can be added to a vertex should be defined in the namesp
 //public:
 // // typedef typename T::VertexType VertexType;
 // // typedef typename T::CoordType CoordType;
-//  inline typename T::VertexType *       & V( const int j ) 	    {	assert(0);		static typename T::VertexType *vp=0; return vp; }
-//  inline typename T::VertexType * const & V( const int j ) const {	assert(0);		static typename T::VertexType *vp=0; return vp; }
-//        inline typename T::VertexType *  cV( const int j ) const {	assert(0);		static typename T::VertexType *vp=0; return vp;	}
-//	inline       typename T::CoordType & P( const int j ) 	    {	assert(0);		static typename T::CoordType coord(0, 0, 0); return coord;	}
-//	inline const typename T::CoordType & P( const int j ) const {	assert(0);		static typename T::CoordType coord(0, 0, 0); return coord;	}
-//	inline const typename T::CoordType &cP( const int j ) const	{	assert(0);		static typename T::CoordType coord(0, 0, 0); return coord;	}
+//  inline typename T::VertexType *       & V( const int j ) 	    {	vcg_assert(0);		static typename T::VertexType *vp=0; return vp; }
+//  inline typename T::VertexType * const & V( const int j ) const {	vcg_assert(0);		static typename T::VertexType *vp=0; return vp; }
+//        inline typename T::VertexType *  cV( const int j ) const {	vcg_assert(0);		static typename T::VertexType *vp=0; return vp;	}
+//	inline       typename T::CoordType & P( const int j ) 	    {	vcg_assert(0);		static typename T::CoordType coord(0, 0, 0); return coord;	}
+//	inline const typename T::CoordType & P( const int j ) const {	vcg_assert(0);		static typename T::CoordType coord(0, 0, 0); return coord;	}
+//	inline const typename T::CoordType &cP( const int j ) const	{	vcg_assert(0);		static typename T::CoordType coord(0, 0, 0); return coord;	}
 //	template <class LeftF>
 //	void ImportData(const LeftF & leftF) {T::ImportData(leftF);}
 //  static bool HasVertexRef()   { return false; }
@@ -57,13 +57,13 @@ All the Components that can be added to a vertex should be defined in the namesp
 //		v[1]=0;
 //	}
 //
-//  inline typename T::VertexType *       & V( const int j ) 	     { assert(j>=0 && j<2); return v[j]; }
-//  inline typename T::VertexType * const & V( const int j ) const { assert(j>=0 && j<2); return v[j]; }
-//        inline typename T::VertexType *  cV( const int j ) const { assert(j>=0 && j<2);	return v[j]; }
+//  inline typename T::VertexType *       & V( const int j ) 	     { vcg_assert(j>=0 && j<2); return v[j]; }
+//  inline typename T::VertexType * const & V( const int j ) const { vcg_assert(j>=0 && j<2); return v[j]; }
+//        inline typename T::VertexType *  cV( const int j ) const { vcg_assert(j>=0 && j<2);	return v[j]; }
 //
 //	// Shortcut per accedere ai punti delle facce
-//	inline       typename T::CoordType & P( const int j ) 	    {	assert(j>=0 && j<2);		return v[j]->P();	}
-//	inline const typename T::CoordType &cP( const int j ) const	{	assert(j>=0 && j<2);		return v[j]->cP(); }
+//	inline       typename T::CoordType & P( const int j ) 	    {	vcg_assert(j>=0 && j<2);		return v[j]->P();	}
+//	inline const typename T::CoordType &cP( const int j ) const	{	vcg_assert(j>=0 && j<2);		return v[j]->cP(); }
 //
 //	/** Return the pointer to the ((j+1)%3)-th vertex of the face.
 //		@param j Index of the face vertex.
@@ -103,7 +103,7 @@ public:
   static bool HasMark()   { return false; }
   static bool HasMarkOcc()   { return false; }
   inline void InitIMark()    {  }
-  inline int & IMark()       { assert(0); static int tmp=-1; return tmp;}
+  inline int & IMark()       { vcg_assert(0); static int tmp=-1; return tmp;}
   inline int IMark() const {return 0;}
 	template < class LeftV>
 	void ImportData(const LeftV  & left ) { T::ImportData( left); }
@@ -130,7 +130,7 @@ template <class T> class EmptyBitFlags: public T {
 public:
 	typedef int FlagType;
   /// Return the vector of Flags(), senza effettuare controlli sui bit
-  int &Flags() { static int dummyflags(0);  assert(0); return dummyflags; }
+  int &Flags() { static int dummyflags(0);  vcg_assert(0); return dummyflags; }
   int Flags() const { return 0; }
 	template < class LeftV>
 	void ImportData(const LeftV  & left ) { T::ImportData( left); }
@@ -157,8 +157,8 @@ private:
 /*----------------------------- HVADJ ------------------------------*/
 template <class T> class EmptyHVAdj: public T {
 public:
-	typename T::VertexPointer &HVp() { static typename T::VertexPointer ep=0;  assert(0); return ep; }
-	const typename T::VertexPointer cHVp() const { static typename T::VertexPointer ep=0;  assert(0); return ep; }
+	typename T::VertexPointer &HVp() { static typename T::VertexPointer ep=0;  vcg_assert(0); return ep; }
+	const typename T::VertexPointer cHVp() const { static typename T::VertexPointer ep=0;  vcg_assert(0); return ep; }
         int &HVi(){static int z=0; return z;}
 	template < class LeftV>
 		void ImportData(const LeftV  & left ) { T::ImportData( left); }
@@ -185,8 +185,8 @@ private:
 /*----------------------------- HEADJ ------------------------------*/
 template <class T> class EmptyHEAdj: public T {
 public:
-        typename T::EdgePointer &HEp() { static typename T::EdgePointer ep=0;  assert(0); return ep; }
-				const typename T::EdgePointer cHEp() const { static typename T::EdgePointer ep=0;  assert(0); return ep; }
+        typename T::EdgePointer &HEp() { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
+				const typename T::EdgePointer cHEp() const { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
         template < class LeftV>
 								void ImportData(const LeftV  & left ) { T::ImportData( left); }
         static bool HasHEAdjacency()   {   return false; }
@@ -213,8 +213,8 @@ private:
 /*----------------------------- HHADJ ------------------------------*/
 template <class T> class EmptyHHAdj: public T {
 public:
-	typename T::HEdgePointer &HHp(const int &  ) { static typename T::EdgePointer ep=0;  assert(0); return ep; }
-	typename T::HEdgePointer cHHp(const int & ) { static typename T::EdgePointer ep=0;  assert(0); return ep; }
+	typename T::HEdgePointer &HHp(const int &  ) { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
+	typename T::HEdgePointer cHHp(const int & ) { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
         int &HHi(){static int z=0; return z;}
 	template < class LeftV>
 		void ImportData(const LeftV  & left ) { T::ImportData( left); }
@@ -246,8 +246,8 @@ private:
 /*----------------------------- HENextADJ ------------------------------*/ 
 template <class T> class EmptyHNextAdj: public T {
 public:
-	typename T::HEdgePointer &HNp( ) { static typename T::HEdgePointer ep=0;  assert(0); return ep; }
-	typename T::HEdgePointer const cHNp( ) const  { static typename T::HEdgePointer ep=0;  assert(0); return ep; }
+	typename T::HEdgePointer &HNp( ) { static typename T::HEdgePointer ep=0;  vcg_assert(0); return ep; }
+	typename T::HEdgePointer const cHNp( ) const  { static typename T::HEdgePointer ep=0;  vcg_assert(0); return ep; }
 	template < class LeftV>
 		void ImportData(const LeftV  & left ) { T::ImportData( left); }
 	static bool HasHNextAdjacency()   {   return false; }
@@ -272,8 +272,8 @@ private:
 /*----------------------------- HEOppADJ ------------------------------*/ 
 template <class T> class EmptyHOppAdj: public T {
 public:
-	typename T::HEdgePointer &HOp() { static typename T::HEdgePointer ep=0;  assert(0); return ep; }
-	typename T::HEdgePointer const cHOp() const { static typename T::HEdgePointer ep=0;  assert(0); return ep; }
+	typename T::HEdgePointer &HOp() { static typename T::HEdgePointer ep=0;  vcg_assert(0); return ep; }
+	typename T::HEdgePointer const cHOp() const { static typename T::HEdgePointer ep=0;  vcg_assert(0); return ep; }
   int &EEi(){static int z=0; return z;}
 	template < class LeftV>
 		void ImportData(const LeftV  & left ) { T::ImportData( left); }
@@ -299,8 +299,8 @@ private:
 /*----------------------------- HPrevADJ ------------------------------*/
 template <class T> class EmptyHPrevAdj: public T {
 public:
-	typename T::HEdgePointer &HPp() { static typename T::HEdgePointer ep=0;  assert(0); return ep; }
-	typename T::HEdgePointer const cHPp() const { static typename T::HEdgePointer ep=0;  assert(0); return ep; }
+	typename T::HEdgePointer &HPp() { static typename T::HEdgePointer ep=0;  vcg_assert(0); return ep; }
+	typename T::HEdgePointer const cHPp() const { static typename T::HEdgePointer ep=0;  vcg_assert(0); return ep; }
   int &EEi(){static int z=0; return z;}
 	template < class LeftV>
 		void ImportData(const LeftV  & left ) { T::ImportData( left); }
@@ -327,8 +327,8 @@ private:
 
 template <class T> class EmptyHFAdj: public T {
 public:
-	typename T::FacePointer &HFp() { static typename T::FacePointer fp=0;  assert(0); return fp; }
-	typename T::FacePointer const cHFp() const  { static typename T::FacePointer fp=0;  assert(0); return fp; }
+	typename T::FacePointer &HFp() { static typename T::FacePointer fp=0;  vcg_assert(0); return fp; }
+	typename T::FacePointer const cHFp() const  { static typename T::FacePointer fp=0;  vcg_assert(0); return fp; }
   int &EFi(){static int z=0; return z;}
 	template < class LeftV>
 	void ImportData(const LeftV  & left ) { T::ImportData( left); }

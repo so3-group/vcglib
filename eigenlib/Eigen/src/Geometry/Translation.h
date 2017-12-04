@@ -55,14 +55,14 @@ public:
   /**  */
   inline Translation(const Scalar& sx, const Scalar& sy)
   {
-    eigen_assert(Dim==2);
+    eigen_vcg_assert(Dim==2);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
   }
   /**  */
   inline Translation(const Scalar& sx, const Scalar& sy, const Scalar& sz)
   {
-    eigen_assert(Dim==3);
+    eigen_vcg_assert(Dim==3);
     m_coeffs.x() = sx;
     m_coeffs.y() = sy;
     m_coeffs.z() = sz;

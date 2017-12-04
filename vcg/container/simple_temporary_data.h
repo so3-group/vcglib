@@ -148,9 +148,9 @@ public:
     size_t SizeOf()const {return sizeof(ATTR_TYPE);}
     void * DataBegin(){return attribute;}
 
-    void Resize(size_t  ) {assert(0);}
-    void Reorder(std::vector<size_t> &  ){assert(0);}
-    void * At(size_t ) {assert(0);return (void*)0;}
+    void Resize(size_t  ) {vcg_assert(0);}
+    void Reorder(std::vector<size_t> &  ){vcg_assert(0);}
+    void * At(size_t ) {vcg_assert(0);return (void*)0;}
 };
 
 } // end namespace vcg

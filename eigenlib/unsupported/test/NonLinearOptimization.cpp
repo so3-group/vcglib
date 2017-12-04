@@ -19,8 +19,8 @@ int fcn_chkder(const VectorXd &x, VectorXd &fvec, MatrixXd &fjac, int iflag)
     /*      subroutine fcn for chkder example. */
 
     int i;
-    assert(15 ==  fvec.size());
-    assert(3 ==  x.size());
+    vcg_assert(15 ==  fvec.size());
+    vcg_assert(3 ==  x.size());
     double tmp1, tmp2, tmp3, tmp4;
     static const double y[15]={1.4e-1, 1.8e-1, 2.2e-1, 2.5e-1, 2.9e-1, 3.2e-1, 3.5e-1,
         3.9e-1, 3.7e-1, 5.8e-1, 7.3e-1, 9.6e-1, 1.34, 2.1, 4.39};
@@ -247,7 +247,7 @@ struct hybrj_functor : Functor<double>
     {
         double temp, temp1, temp2;
         const int n = x.size();
-        assert(fvec.size()==n);
+        vcg_assert(fvec.size()==n);
         for (int k = 0; k < n; k++)
         {
             temp = (3. - 2.*x[k])*x[k];
@@ -262,8 +262,8 @@ struct hybrj_functor : Functor<double>
     int df(const VectorXd &x, MatrixXd &fjac)
     {
         const int n = x.size();
-        assert(fjac.rows()==n);
-        assert(fjac.cols()==n);
+        vcg_assert(fjac.rows()==n);
+        vcg_assert(fjac.cols()==n);
         for (int k = 0; k < n; k++)
         {
             for (int j = 0; j < n; j++)
@@ -353,7 +353,7 @@ struct hybrd_functor : Functor<double>
         double temp, temp1, temp2;
         const int n = x.size();
 
-        assert(fvec.size()==n);
+        vcg_assert(fvec.size()==n);
         for (int k=0; k < n; k++)
         {
             temp = (3. - 2.*x[k])*x[k];
@@ -437,8 +437,8 @@ struct lmstr_functor : Functor<double>
         static const double y[15]={1.4e-1, 1.8e-1, 2.2e-1, 2.5e-1, 2.9e-1, 3.2e-1, 3.5e-1,
             3.9e-1, 3.7e-1, 5.8e-1, 7.3e-1, 9.6e-1, 1.34, 2.1, 4.39};
 
-        assert(15==fvec.size());
-        assert(3==x.size());
+        vcg_assert(15==fvec.size());
+        vcg_assert(3==x.size());
 
         for (int i=0; i<15; i++)
         {
@@ -451,8 +451,8 @@ struct lmstr_functor : Functor<double>
     }
     int df(const VectorXd &x, VectorXd &jac_row, VectorXd::Index rownb)
     {
-        assert(x.size()==3);
-        assert(jac_row.size()==x.size());
+        vcg_assert(x.size()==3);
+        vcg_assert(jac_row.size()==x.size());
         double tmp1, tmp2, tmp3, tmp4;
 
         int i = rownb-2;
@@ -537,8 +537,8 @@ struct lmdif_functor : Functor<double>
         static const double y[15]={1.4e-1,1.8e-1,2.2e-1,2.5e-1,2.9e-1,3.2e-1,3.5e-1,3.9e-1,
             3.7e-1,5.8e-1,7.3e-1,9.6e-1,1.34e0,2.1e0,4.39e0};
 
-        assert(x.size()==3);
-        assert(fvec.size()==15);
+        vcg_assert(x.size()==3);
+        vcg_assert(fvec.size()==15);
         for (i=0; i<15; i++)
         {
             tmp1 = i+1;
@@ -639,8 +639,8 @@ struct chwirut2_functor : Functor<double>
     {
         int i;
 
-        assert(b.size()==3);
-        assert(fvec.size()==54);
+        vcg_assert(b.size()==3);
+        vcg_assert(fvec.size()==54);
         for(i=0; i<54; i++) {
             double x = m_x[i];
             fvec[i] = exp(-b[0]*x)/(b[1]+b[2]*x) - m_y[i];
@@ -649,9 +649,9 @@ struct chwirut2_functor : Functor<double>
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==3);
-        assert(fjac.rows()==54);
-        assert(fjac.cols()==3);
+        vcg_assert(b.size()==3);
+        vcg_assert(fjac.rows()==54);
+        vcg_assert(fjac.cols()==3);
         for(int i=0; i<54; i++) {
             double x = m_x[i];
             double factor = 1./(b[1]+b[2]*x);
@@ -724,8 +724,8 @@ struct misra1a_functor : Functor<double>
     static const double m_y[14];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==2);
-        assert(fvec.size()==14);
+        vcg_assert(b.size()==2);
+        vcg_assert(fvec.size()==14);
         for(int i=0; i<14; i++) {
             fvec[i] = b[0]*(1.-exp(-b[1]*m_x[i])) - m_y[i] ;
         }
@@ -733,9 +733,9 @@ struct misra1a_functor : Functor<double>
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==2);
-        assert(fjac.rows()==14);
-        assert(fjac.cols()==2);
+        vcg_assert(b.size()==2);
+        vcg_assert(fjac.rows()==14);
+        vcg_assert(fjac.cols()==2);
         for(int i=0; i<14; i++) {
             fjac(i,0) = (1.-exp(-b[1]*m_x[i]));
             fjac(i,1) = (b[0]*m_x[i]*exp(-b[1]*m_x[i]));
@@ -803,8 +803,8 @@ struct hahn1_functor : Functor<double>
 
         //        int called=0; printf("call hahn1_functor with  iflag=%d, called=%d\n", iflag, called); if (iflag==1) called++;
 
-        assert(b.size()==7);
-        assert(fvec.size()==236);
+        vcg_assert(b.size()==7);
+        vcg_assert(fvec.size()==236);
         for(int i=0; i<236; i++) {
             double x=m_x[i], xx=x*x, xxx=xx*x;
             fvec[i] = (b[0]+b[1]*x+b[2]*xx+b[3]*xxx) / (1.+b[4]*x+b[5]*xx+b[6]*xxx) - m_y[i];
@@ -814,9 +814,9 @@ struct hahn1_functor : Functor<double>
 
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==7);
-        assert(fjac.rows()==236);
-        assert(fjac.cols()==7);
+        vcg_assert(b.size()==7);
+        vcg_assert(fjac.rows()==236);
+        vcg_assert(fjac.cols()==7);
         for(int i=0; i<236; i++) {
             double x=m_x[i], xx=x*x, xxx=xx*x;
             double fact = 1./(1.+b[4]*x+b[5]*xx+b[6]*xxx);
@@ -899,8 +899,8 @@ struct misra1d_functor : Functor<double>
     static const double y[14];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==2);
-        assert(fvec.size()==14);
+        vcg_assert(b.size()==2);
+        vcg_assert(fvec.size()==14);
         for(int i=0; i<14; i++) {
             fvec[i] = b[0]*b[1]*x[i]/(1.+b[1]*x[i]) - y[i];
         }
@@ -908,9 +908,9 @@ struct misra1d_functor : Functor<double>
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==2);
-        assert(fjac.rows()==14);
-        assert(fjac.cols()==2);
+        vcg_assert(b.size()==2);
+        vcg_assert(fjac.rows()==14);
+        vcg_assert(fjac.cols()==2);
         for(int i=0; i<14; i++) {
             double den = 1.+b[1]*x[i];
             fjac(i,0) = b[1]*x[i] / den;
@@ -975,17 +975,17 @@ struct lanczos1_functor : Functor<double>
     static const double y[24];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==6);
-        assert(fvec.size()==24);
+        vcg_assert(b.size()==6);
+        vcg_assert(fvec.size()==24);
         for(int i=0; i<24; i++)
             fvec[i] = b[0]*exp(-b[1]*x[i]) + b[2]*exp(-b[3]*x[i]) + b[4]*exp(-b[5]*x[i])  - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==6);
-        assert(fjac.rows()==24);
-        assert(fjac.cols()==6);
+        vcg_assert(b.size()==6);
+        vcg_assert(fjac.rows()==24);
+        vcg_assert(fjac.cols()==6);
         for(int i=0; i<24; i++) {
             fjac(i,0) = exp(-b[1]*x[i]);
             fjac(i,1) = -b[0]*x[i]*exp(-b[1]*x[i]);
@@ -1061,8 +1061,8 @@ struct rat42_functor : Functor<double>
     static const double y[9];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==3);
-        assert(fvec.size()==9);
+        vcg_assert(b.size()==3);
+        vcg_assert(fvec.size()==9);
         for(int i=0; i<9; i++) {
             fvec[i] = b[0] / (1.+exp(b[1]-b[2]*x[i])) - y[i];
         }
@@ -1071,9 +1071,9 @@ struct rat42_functor : Functor<double>
 
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==3);
-        assert(fjac.rows()==9);
-        assert(fjac.cols()==3);
+        vcg_assert(b.size()==3);
+        vcg_assert(fjac.rows()==9);
+        vcg_assert(fjac.cols()==3);
         for(int i=0; i<9; i++) {
             double e = exp(b[1]-b[2]*x[i]);
             fjac(i,0) = 1./(1.+e);
@@ -1140,17 +1140,17 @@ struct MGH10_functor : Functor<double>
     static const double y[16];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==3);
-        assert(fvec.size()==16);
+        vcg_assert(b.size()==3);
+        vcg_assert(fvec.size()==16);
         for(int i=0; i<16; i++)
             fvec[i] =  b[0] * exp(b[1]/(x[i]+b[2])) - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==3);
-        assert(fjac.rows()==16);
-        assert(fjac.cols()==3);
+        vcg_assert(b.size()==3);
+        vcg_assert(fjac.rows()==16);
+        vcg_assert(fjac.cols()==3);
         for(int i=0; i<16; i++) {
             double factor = 1./(x[i]+b[2]);
             double e = exp(b[1]*factor);
@@ -1219,17 +1219,17 @@ struct BoxBOD_functor : Functor<double>
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
         static const double y[6] = { 109., 149., 149., 191., 213., 224. };
-        assert(b.size()==2);
-        assert(fvec.size()==6);
+        vcg_assert(b.size()==2);
+        vcg_assert(fvec.size()==6);
         for(int i=0; i<6; i++)
             fvec[i] =  b[0]*(1.-exp(-b[1]*x[i])) - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==2);
-        assert(fjac.rows()==6);
-        assert(fjac.cols()==2);
+        vcg_assert(b.size()==2);
+        vcg_assert(fjac.rows()==6);
+        vcg_assert(fjac.cols()==2);
         for(int i=0; i<6; i++) {
             double e = exp(-b[1]*x[i]);
             fjac(i,0) = 1.-e;
@@ -1298,17 +1298,17 @@ struct MGH17_functor : Functor<double>
     static const double y[33];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==5);
-        assert(fvec.size()==33);
+        vcg_assert(b.size()==5);
+        vcg_assert(fvec.size()==33);
         for(int i=0; i<33; i++)
             fvec[i] =  b[0] + b[1]*exp(-b[3]*x[i]) +  b[2]*exp(-b[4]*x[i]) - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==5);
-        assert(fjac.rows()==33);
-        assert(fjac.cols()==5);
+        vcg_assert(b.size()==5);
+        vcg_assert(fjac.rows()==33);
+        vcg_assert(fjac.cols()==5);
         for(int i=0; i<33; i++) {
             fjac(i,0) = 1.;
             fjac(i,1) = exp(-b[3]*x[i]);
@@ -1384,8 +1384,8 @@ struct MGH09_functor : Functor<double>
     static const double y[11];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==4);
-        assert(fvec.size()==11);
+        vcg_assert(b.size()==4);
+        vcg_assert(fvec.size()==11);
         for(int i=0; i<11; i++) {
             double x = _x[i], xx=x*x;
             fvec[i] = b[0]*(xx+x*b[1])/(xx+x*b[2]+b[3]) - y[i];
@@ -1394,9 +1394,9 @@ struct MGH09_functor : Functor<double>
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==4);
-        assert(fjac.rows()==11);
-        assert(fjac.cols()==4);
+        vcg_assert(b.size()==4);
+        vcg_assert(fjac.rows()==11);
+        vcg_assert(fjac.cols()==4);
         for(int i=0; i<11; i++) {
             double x = _x[i], xx=x*x;
             double factor = 1./(xx+x*b[2]+b[3]);
@@ -1471,17 +1471,17 @@ struct Bennett5_functor : Functor<double>
     static const double y[154];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==3);
-        assert(fvec.size()==154);
+        vcg_assert(b.size()==3);
+        vcg_assert(fvec.size()==154);
         for(int i=0; i<154; i++)
             fvec[i] = b[0]* pow(b[1]+x[i],-1./b[2]) - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==3);
-        assert(fjac.rows()==154);
-        assert(fjac.cols()==3);
+        vcg_assert(b.size()==3);
+        vcg_assert(fjac.rows()==154);
+        vcg_assert(fjac.cols()==3);
         for(int i=0; i<154; i++) {
             double e = pow(b[1]+x[i],-1./b[2]);
             fjac(i,0) = e;
@@ -1553,8 +1553,8 @@ struct thurber_functor : Functor<double>
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
         //        int called=0; printf("call hahn1_functor with  iflag=%d, called=%d\n", iflag, called); if (iflag==1) called++;
-        assert(b.size()==7);
-        assert(fvec.size()==37);
+        vcg_assert(b.size()==7);
+        vcg_assert(fvec.size()==37);
         for(int i=0; i<37; i++) {
             double x=_x[i], xx=x*x, xxx=xx*x;
             fvec[i] = (b[0]+b[1]*x+b[2]*xx+b[3]*xxx) / (1.+b[4]*x+b[5]*xx+b[6]*xxx) - _y[i];
@@ -1563,9 +1563,9 @@ struct thurber_functor : Functor<double>
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==7);
-        assert(fjac.rows()==37);
-        assert(fjac.cols()==7);
+        vcg_assert(b.size()==7);
+        vcg_assert(fjac.rows()==37);
+        vcg_assert(fjac.cols()==7);
         for(int i=0; i<37; i++) {
             double x=_x[i], xx=x*x, xxx=xx*x;
             double fact = 1./(1.+b[4]*x+b[5]*xx+b[6]*xxx);
@@ -1651,17 +1651,17 @@ struct rat43_functor : Functor<double>
     static const double y[15];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==4);
-        assert(fvec.size()==15);
+        vcg_assert(b.size()==4);
+        vcg_assert(fvec.size()==15);
         for(int i=0; i<15; i++)
             fvec[i] = b[0] * pow(1.+exp(b[1]-b[2]*x[i]),-1./b[3]) - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==4);
-        assert(fjac.rows()==15);
-        assert(fjac.cols()==4);
+        vcg_assert(b.size()==4);
+        vcg_assert(fjac.rows()==15);
+        vcg_assert(fjac.cols()==4);
         for(int i=0; i<15; i++) {
             double e = exp(b[1]-b[2]*x[i]);
             double power = -1./b[3];
@@ -1739,17 +1739,17 @@ struct eckerle4_functor : Functor<double>
     static const double y[35];
     int operator()(const VectorXd &b, VectorXd &fvec)
     {
-        assert(b.size()==3);
-        assert(fvec.size()==35);
+        vcg_assert(b.size()==3);
+        vcg_assert(fvec.size()==35);
         for(int i=0; i<35; i++)
             fvec[i] = b[0]/b[1] * exp(-0.5*(x[i]-b[2])*(x[i]-b[2])/(b[1]*b[1])) - y[i];
         return 0;
     }
     int df(const VectorXd &b, MatrixXd &fjac)
     {
-        assert(b.size()==3);
-        assert(fjac.rows()==35);
-        assert(fjac.cols()==3);
+        vcg_assert(b.size()==3);
+        vcg_assert(fjac.rows()==35);
+        vcg_assert(fjac.cols()==3);
         for(int i=0; i<35; i++) {
             double b12 = b[1]*b[1];
             double e = exp(-0.5*(x[i]-b[2])*(x[i]-b[2])/b12);

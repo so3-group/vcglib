@@ -150,7 +150,7 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveInit(FVectorType  &x)
     fjac.resize(n, n);
     if (!useExternalScaling)
         diag.resize(n);
-    eigen_assert( (!useExternalScaling || diag.size()==n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
+    eigen_vcg_assert( (!useExternalScaling || diag.size()==n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
 
     /* Function Body */
     nfev = 0;
@@ -187,7 +187,7 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveOneStep(FVectorType  &x)
 {
     using std::abs;
     
-    eigen_assert(x.size()==n); // check the caller is not cheating us
+    eigen_vcg_assert(x.size()==n); // check the caller is not cheating us
 
     Index j;
     std::vector<JacobiRotation<Scalar> > v_givens(n), w_givens(n);
@@ -390,7 +390,7 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffInit(FVectorType  &
     fvec.resize(n);
     if (!useExternalScaling)
         diag.resize(n);
-    eigen_assert( (!useExternalScaling || diag.size()==n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
+    eigen_vcg_assert( (!useExternalScaling || diag.size()==n) || "When useExternalScaling is set, the caller must provide a valid 'diag'");
 
     /* Function Body */
     nfev = 0;
@@ -428,7 +428,7 @@ HybridNonLinearSolver<FunctorType,Scalar>::solveNumericalDiffOneStep(FVectorType
     using std::sqrt;
     using std::abs;
     
-    assert(x.size()==n); // check the caller is not cheating us
+    vcg_assert(x.size()==n); // check the caller is not cheating us
 
     Index j;
     std::vector<JacobiRotation<Scalar> > v_givens(n), w_givens(n);

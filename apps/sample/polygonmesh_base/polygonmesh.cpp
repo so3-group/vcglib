@@ -146,8 +146,8 @@ if(true){
     vcg::tri::UpdateTopology<TMesh>::FaceFace(tm0);
     vcg::tri::Clean<TMesh>::RemoveNonManifoldFace(tm0);
     vcg::tri::UpdateTopology<TMesh>::FaceFace(tm0);
-    assert(vcg::tri::Clean<TMesh>::CountNonManifoldEdgeFF(tm0)==0);
-    assert(vcg::tri::Clean<TMesh>::CountNonManifoldVertexFF(tm0)==0);
+    vcg_assert(vcg::tri::Clean<TMesh>::CountNonManifoldEdgeFF(tm0)==0);
+    vcg_assert(vcg::tri::Clean<TMesh>::CountNonManifoldVertexFF(tm0)==0);
 
     // create a polygon meshe from a trimesh with tagged faces
     vcg::tri::PolygonSupport<TMesh,PMesh>::ImportFromTriMesh(pm,tm0);
@@ -161,7 +161,7 @@ else
     vcg::tri::UpdateTopology<PMesh>::FaceFace(pm);
     vcg::tri::Clean<PMesh>::RemoveNonManifoldFace(pm);
     vcg::tri::UpdateTopology<PMesh>::FaceFace(pm);
-    assert(vcg::tri::Clean<PMesh>::CountNonManifoldEdgeFF(pm));
+    vcg_assert(vcg::tri::Clean<PMesh>::CountNonManifoldEdgeFF(pm));
 }
 
 
@@ -171,7 +171,7 @@ else
     // .... my half edge based code ......
 
     // check for consistency
-    assert(vcg::tri::UpdateHalfEdges<PMesh>::CheckConsistency(pm));
+    vcg_assert(vcg::tri::UpdateHalfEdges<PMesh>::CheckConsistency(pm));
 
     int size =  pm.face.size();
 
@@ -185,7 +185,7 @@ else
             ef1 = ef1->HNp();
             vcg::tri::UpdateHalfEdges<PMesh>::AddHEdge(pm, ef, ef1 );
         }
-    assert(vcg::tri::UpdateHalfEdges<PMesh>::CheckConsistency(pm));
+    vcg_assert(vcg::tri::UpdateHalfEdges<PMesh>::CheckConsistency(pm));
     size =  pm.face.size();
 
     // remove an edge for each face
@@ -200,7 +200,7 @@ else
         }
 
     // check for consistency
-    assert(vcg::tri::UpdateHalfEdges<PMesh>::CheckConsistency(pm));
+    vcg_assert(vcg::tri::UpdateHalfEdges<PMesh>::CheckConsistency(pm));
 
     // recompute indexed data structure from the half edge data structure
 //    vcg::tri::UpdateIndexed<PMesh>::FromHalfEdges(pm );

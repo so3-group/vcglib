@@ -163,12 +163,12 @@ protected:
   {
     if(PlainObjectType::RowsAtCompileTime==1)
     {
-      eigen_assert(expr.rows()==1 || expr.cols()==1);
+      eigen_vcg_assert(expr.rows()==1 || expr.cols()==1);
       ::new (static_cast<Base*>(this)) Base(expr.data(), 1, expr.size());
     }
     else if(PlainObjectType::ColsAtCompileTime==1)
     {
-      eigen_assert(expr.rows()==1 || expr.cols()==1);
+      eigen_vcg_assert(expr.rows()==1 || expr.cols()==1);
       ::new (static_cast<Base*>(this)) Base(expr.data(), expr.size(), 1);
     }
     else

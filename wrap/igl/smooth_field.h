@@ -129,7 +129,7 @@ class FieldSmoother
             {
                 FaceType *f0=&mesh.face[i];
                 FaceType *f1=f0->FFp(j);
-                assert(f1!=NULL);
+                vcg_assert(f1!=NULL);
                 if (f0!=f1)continue;
                 SetEdgeDirection(f0,j);
                 f0->SetS();
@@ -229,7 +229,7 @@ class FieldSmoother
                           int Ndir)
     {
 
-        assert((Ndir==2)||(Ndir==4));
+        vcg_assert((Ndir==2)||(Ndir==4));
         Eigen::MatrixXi F;
         Eigen::MatrixXd V;
 
@@ -265,7 +265,7 @@ class FieldSmoother
                             Eigen::MatrixXd &HardD,   //hard directions
                             int Ndir)
     {
-        assert((Ndir==2)||(Ndir==4));
+        vcg_assert((Ndir==2)||(Ndir==4));
 
         Eigen::MatrixXi F;
         Eigen::MatrixXd V;
@@ -477,7 +477,7 @@ public:
          SmoothMIQ(mesh,HardI,HardD,SoftI,SoftD,SoftW,alphaSoft,Ndir);
         else
         {
-            assert(SMethod==SMNPoly);
+            vcg_assert(SMethod==SMNPoly);
             SmoothNPoly(mesh,HardI,HardD,Ndir);
         }
     }

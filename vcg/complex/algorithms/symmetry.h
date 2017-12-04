@@ -91,14 +91,14 @@ class ExtrinsicPlaneSymmetry
         Direction.Normalize();
         ///get the offset interval
         int OffsetI=floor((Offset/RadiusInterval)+0.5);
-        assert(OffsetI<radiusSph);
+        vcg_assert(OffsetI<radiusSph);
         ///then get the closest face
         ScalarType MaxD=sphere->bbox.Diag();
         ScalarType MinD;
         CoordType ClosePt;
         FaceType *choosen=NULL;
         choosen=vcg::tri::GetClosestFaceBase(*sphere,GridSph,Direction,MaxD,MinD,ClosePt);
-        assert(choosen!=NULL);
+        vcg_assert(choosen!=NULL);
         int IndexF=choosen-&(sphere->face[0]);
         ///compose the final index
         int OffsetRadius=OffsetI * (sphere->face.size());
@@ -121,8 +121,8 @@ class ExtrinsicPlaneSymmetry
             Pl.Set(-Dir,-Off);
         }
         int index=Bucket(Pl);
-        assert(index>=0);
-        assert(index<(int)Votes.size());
+        vcg_assert(index>=0);
+        vcg_assert(index<(int)Votes.size());
         ScalarType VoteValue=1;
         Votes[index]+=VoteValue;
         Weight[index].push_back(VoteValue);
@@ -183,7 +183,7 @@ class ExtrinsicPlaneSymmetry
 
     void InitSymmetricPlanes(const int SubN=4)
     {
-        assert(SortedPlanes.size()>0);
+        vcg_assert(SortedPlanes.size()>0);
         SymmetricPlanes.clear();
         int BestN=pow((ScalarType)2,(ScalarType)SubN);
         if (BestN>=(int)SortedPlanes.size())BestN=SortedPlanes.size()-1;

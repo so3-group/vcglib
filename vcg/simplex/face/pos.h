@@ -29,7 +29,7 @@
 #ifndef __VCG_FACE_POS
 #define __VCG_FACE_POS
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 namespace vcg {
 namespace face {
@@ -77,7 +77,7 @@ public:
     Pos(FaceType * const fp, int const zp, VertexType * const vp)
     {
         f=fp; z=zp; v=vp;
-        assert((vp==fp->V0(zp))||(vp==fp->V1(zp)));
+        vcg_assert((vp==fp->V0(zp))||(vp==fp->V1(zp)));
     }
     Pos(FaceType * const fp, int const zp){f=fp; z=zp; v=f->V(zp);}
     Pos(FaceType * const fp, VertexType * const vp)
@@ -103,7 +103,7 @@ public:
     int VInd() const
     {
         for(int i = 0; i < f->VN(); ++i) if(v==f->V(i)) return i;
-        assert(0);
+        vcg_assert(0);
         return -1;
     }
 
@@ -171,19 +171,19 @@ public:
     /// It moves on the adjacent face incident to v, via a different edge that j
     void NextE()
     {
-        assert( f->V(z)==v || f->V(f->Next(z))==v ); // L'edge j deve contenere v
+        vcg_assert( f->V(z)==v || f->V(f->Next(z))==v ); // L'edge j deve contenere v
         FlipE();
         FlipF();
-        assert( f->V(z)==v || f->V(f->Next(z))==v );
+        vcg_assert( f->V(z)==v || f->V(f->Next(z))==v );
     }
     // Cambia edge mantenendo la stessa faccia e lo stesso vertice
     /// Changes edge maintaining the same face and the same vertex
     void FlipE()
     {
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z+0)%f->VN())==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z+0)%f->VN())==v));
         if(f->V(f->Next(z))==v) z=f->Next(z);
         else z= f->Prev(z);
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z))==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z))==v));
     }
 
     // Cambia Faccia mantenendo lo stesso vertice e lo stesso edge
@@ -195,34 +195,34 @@ public:
     /// Changes face maintaining the same vertex and the same edge
     void FlipF()
     {
-        assert( f->FFp(z)->FFp(f->FFi(z))==f );  // two manifoldness check
+        vcg_assert( f->FFp(z)->FFp(f->FFi(z))==f );  // two manifoldness check
         // Check that pos vertex is one of the current z-th edge and it is different from the vert opposite to the edge.
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z))==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V((z))==v));
         FaceType *nf=f->FFp(z);
         int nz=f->FFi(z);
-        assert(nf->V(nf->Prev(nz))!=v && (nf->V(nf->Next(nz))==v || nf->V((nz))==v));
+        vcg_assert(nf->V(nf->Prev(nz))!=v && (nf->V(nf->Next(nz))==v || nf->V((nz))==v));
         f=nf;
         z=nz;
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
     }
 
     /// Changes vertex maintaining the same face and the same edge
     void FlipV()
     {
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
 
         if(f->V(f->Next(z))==v)
             v=f->V(z);
         else
             v=f->V(f->Next(z));
 
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
     }
 
     /// return the vertex that it should have if we make FlipV;
     VertexType *VFlip() const
     {
-        assert(f->cV(f->Prev(z))!=v && (f->cV(f->Next(z))==v || f->cV(z)==v));
+        vcg_assert(f->cV(f->Prev(z))!=v && (f->cV(f->Next(z))==v || f->cV(z)==v));
         if(f->cV(f->Next(z))==v)	return f->cV(z);
         else			return f->cV(f->Next(z));
     }
@@ -230,9 +230,9 @@ public:
     /// return the face that it should have if we make FlipF;
     FaceType *FFlip() const
     {
-        //        assert( f->FFp(z)->FFp(f->FFi(z))==f );
-        //        assert(f->V(f->Prev(z))!=v);
-        //        assert(f->V(f->Next(z))==v || f->V((z+0)%f->VN())==v);
+        //        vcg_assert( f->FFp(z)->FFp(f->FFi(z))==f );
+        //        vcg_assert(f->V(f->Prev(z))!=v);
+        //        vcg_assert(f->V(f->Next(z))==v || f->V((z+0)%f->VN())==v);
         FaceType *nf=f->FFp(z);
         return nf;
     }
@@ -253,8 +253,8 @@ public:
     /// Finds the next half-edge border
     void NextB( )
     {
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
-        assert(f->FFp(z)==f); // f is border along j
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->FFp(z)==f); // f is border along j
         // Si deve cambiare faccia intorno allo stesso vertice v
         //finche' non si trova una faccia di bordo.
         do
@@ -262,18 +262,18 @@ public:
         while(!IsBorder());
 
         // L'edge j e' di bordo e deve contenere v
-        assert(IsBorder() &&( f->V(z)==v || f->V(f->Next(z))==v ));
+        vcg_assert(IsBorder() &&( f->V(z)==v || f->V(f->Next(z))==v ));
 
         FlipV();
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
-        assert(f->FFp(z)==f); // f is border along j
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->FFp(z)==f); // f is border along j
     }
 
     /// Finds the next half-edge border
     void NextNotFaux( )
     {
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
-        //assert(f->FFp(z)==f); // f is border along j
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        //vcg_assert(f->FFp(z)==f); // f is border along j
         // Si deve cambiare faccia intorno allo stesso vertice v
         //finche' non si trova una faccia di bordo.
         do
@@ -284,19 +284,19 @@ public:
         while(IsFaux());
 
         // L'edge j e' di bordo e deve contenere v
-        assert((!IsFaux()) &&( f->V(z)==v || f->V(f->Next(z))==v ));
+        vcg_assert((!IsFaux()) &&( f->V(z)==v || f->V(f->Next(z))==v ));
 
         FlipV();
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
-        //assert(f->FFp(z)==f); // f is border along j
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        //vcg_assert(f->FFp(z)==f); // f is border along j
     }
 
     /// Finds the next Crease half-edge border
     /// TODO change crease flag with something more generic (per edge)
     void NextCrease( )
     {
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
-        assert(IsCrease()); // f is border along j
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(IsCrease()); // f is border along j
         // Si deve cambiare faccia intorno allo stesso vertice v
         //finche' non si trova una faccia di bordo.
         do
@@ -307,10 +307,10 @@ public:
         while(!IsCrease());
 
         // L'edge j e' di bordo e deve contenere v
-        assert(IsCrease() &&( f->V(z)==v || f->V(f->Next(z))==v ));
+        vcg_assert(IsCrease() &&( f->V(z)==v || f->V(f->Next(z))==v ));
 
         FlipV();
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
     }
 
     /// Checks if the half-edge is of border
@@ -385,7 +385,7 @@ public:
     void Set(FaceType  * const fp, int const zp,  VertexType  * const vp)
     {
         f=fp;z=zp;v=vp;
-        assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
+        vcg_assert(f->V(f->Prev(z))!=v && (f->V(f->Next(z))==v || f->V(z)==v));
     }
 
     void Set(FaceType  * const pFace, VertexType  * const pVertex)
@@ -401,15 +401,15 @@ public:
         FaceType ht=*this;
         ht.FlipF();
         ht.FlipF();
-        assert(ht==*this);
+        vcg_assert(ht==*this);
 
         ht.FlipE();
         ht.FlipE();
-        assert(ht==*this);
+        vcg_assert(ht==*this);
 
         ht.FlipV();
         ht.FlipV();
-        assert(ht==*this);
+        vcg_assert(ht==*this);
     }
 #else
     {}
@@ -477,10 +477,10 @@ public:
     /// Default constructor
     VFIterator() : f(0), z(-1) {}
     /// Constructor which associates the half-edge elementet with a face and its vertex
-    VFIterator(FaceType * _f,  const int &  _z){f = _f; z = _z;  assert(z>=0 && "VFAdj must be initialized");}
+    VFIterator(FaceType * _f,  const int &  _z){f = _f; z = _z;  vcg_assert(z>=0 && "VFAdj must be initialized");}
 
     /// Constructor which takes a pointer to vertex
-    VFIterator(VertexType * _v){f = _v->VFp(); z = _v->VFi(); assert(z>=0 && "VFAdj must be initialized");}
+    VFIterator(VertexType * _v){f = _v->VFp(); z = _v->VFi(); vcg_assert(z>=0 && "VFAdj must be initialized");}
 
     VFIFaceType *&	F() { return f;}
     int	&					  I() { return z;}

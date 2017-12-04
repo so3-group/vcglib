@@ -571,7 +571,7 @@ public:
   */
   CylinderMode (Line3fN & ln,float s=0.0f)
     : axis (ln), snap(s){
-    assert(snap>=0.0);
+    vcg_assert(snap>=0.0);
   }
   /*!
     @brief The origin-direction constructor.
@@ -586,7 +586,7 @@ public:
   */
   CylinderMode (const Point3f & origin, const Point3f & direction,float s=0.0f)
     : axis (Line3fN(origin,direction)), snap(s){
-    assert(snap>=0.0);
+    vcg_assert(snap>=0.0);
   }
   /*!
     @brief Return this manipulator's name.
@@ -664,7 +664,7 @@ public:
     : points(), wrap(w), current_state(0), initial_state(0), old_hitpoint()
   {
     Init(pts);
-    assert(min_seg_length > 0.0f);
+    vcg_assert(min_seg_length > 0.0f);
   }
 /*!
   @brief The segment constructor.
@@ -681,7 +681,7 @@ public:
     points.push_back(end); 
     path_length=Distance(start,end);
     min_seg_length=path_length;
-    assert(min_seg_length > 0.0f);
+    vcg_assert(min_seg_length > 0.0f);
   }
   /*!
     @brief Return this manipulator's name.
@@ -876,7 +876,7 @@ public:
   AreaMode (const std::vector < Point3f > &pts)
   {
     Init(pts);
-    assert(min_side_length > 0.0f);
+    vcg_assert(min_side_length > 0.0f);
   }
   /*!
     @brief Return this manipulator's name.

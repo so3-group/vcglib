@@ -121,7 +121,7 @@ public:
  {
    // Face to Edge  Adj
    if(HasFEAdjacency(ml) && HasFEAdjacency(mr)){
-     assert(fl.VN() == fr.VN());
+     vcg_assert(fl.VN() == fr.VN());
      for( int vi = 0; vi < fl.VN(); ++vi ){
        size_t idx = remap.edge[Index(mr,fr.cFEp(vi))];
        if(idx!=Remap::InvalidIndex())
@@ -131,7 +131,7 @@ public:
 
    // Face to Face  Adj
    if(HasFFAdjacency(ml) && HasFFAdjacency(mr)){
-     assert(fl.VN() == fr.VN());
+     vcg_assert(fl.VN() == fr.VN());
      for( int vi = 0; vi < fl.VN(); ++vi ){
        size_t idx = remap.face[Index(mr,fr.cFFp(vi))];
        if(idx!=Remap::InvalidIndex()){
@@ -209,7 +209,7 @@ static void Mesh(MeshLeft& ml, ConstMeshRight& mr, const bool selected = false, 
   // note the use of the parameter for preserving existing vertex selection.
   if(selected)
   {
-    assert(adjFlag == false || ml.IsEmpty()); // It is rather meaningless to partially copy adj relations.
+    vcg_assert(adjFlag == false || ml.IsEmpty()); // It is rather meaningless to partially copy adj relations.
     tri::UpdateSelection<ConstMeshRight>::VertexFromEdgeLoose(mr,true);
     tri::UpdateSelection<ConstMeshRight>::VertexFromFaceLoose(mr,true);
   }
@@ -270,7 +270,7 @@ static void Mesh(MeshLeft& ml, ConstMeshRight& mr, const bool selected = false, 
   for(HEdgeIteratorRight hi=mr.hedge.begin(); hi!=mr.hedge.end(); ++hi)
     if(!(*hi).IsD() && (!selected || (*hi).IsS())){
       size_t ind=Index(mr,*hi);
-      assert(remap.hedge[ind]==Remap::InvalidIndex());
+      vcg_assert(remap.hedge[ind]==Remap::InvalidIndex());
       HEdgeIteratorLeft hp = Allocator<MeshLeft>::AddHEdges(ml,1);
       (*hp).ImportData(*(hi));
       remap.hedge[ind]=Index(ml,*hp);

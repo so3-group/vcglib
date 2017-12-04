@@ -99,7 +99,7 @@ template<typename _MatrixType> class PartialPivLU
       */
     inline const MatrixType& matrixLU() const
     {
-      eigen_assert(m_isInitialized && "PartialPivLU is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "PartialPivLU is not initialized.");
       return m_lu;
     }
 
@@ -107,7 +107,7 @@ template<typename _MatrixType> class PartialPivLU
       */
     inline const PermutationType& permutationP() const
     {
-      eigen_assert(m_isInitialized && "PartialPivLU is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "PartialPivLU is not initialized.");
       return m_p;
     }
 
@@ -132,7 +132,7 @@ template<typename _MatrixType> class PartialPivLU
     inline const internal::solve_retval<PartialPivLU, Rhs>
     solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "PartialPivLU is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "PartialPivLU is not initialized.");
       return internal::solve_retval<PartialPivLU, Rhs>(*this, b.derived());
     }
 
@@ -145,7 +145,7 @@ template<typename _MatrixType> class PartialPivLU
       */
     inline const internal::solve_retval<PartialPivLU,typename MatrixType::IdentityReturnType> inverse() const
     {
-      eigen_assert(m_isInitialized && "PartialPivLU is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "PartialPivLU is not initialized.");
       return internal::solve_retval<PartialPivLU,typename MatrixType::IdentityReturnType>
                (*this, MatrixType::Identity(m_lu.rows(), m_lu.cols()));
     }
@@ -379,8 +379,8 @@ struct partial_lu_impl
 template<typename MatrixType, typename TranspositionType>
 void partial_lu_inplace(MatrixType& lu, TranspositionType& row_transpositions, typename TranspositionType::Index& nb_transpositions)
 {
-  eigen_assert(lu.cols() == row_transpositions.size());
-  eigen_assert((&row_transpositions.coeffRef(1)-&row_transpositions.coeffRef(0)) == 1);
+  eigen_vcg_assert(lu.cols() == row_transpositions.size());
+  eigen_vcg_assert((&row_transpositions.coeffRef(1)-&row_transpositions.coeffRef(0)) == 1);
 
   partial_lu_impl
     <typename MatrixType::Scalar, MatrixType::Flags&RowMajorBit?RowMajor:ColMajor, typename TranspositionType::Index>
@@ -395,11 +395,11 @@ PartialPivLU<MatrixType>& PartialPivLU<MatrixType>::compute(const MatrixType& ma
   check_template_parameters();
   
   // the row permutation is stored as int indices, so just to be sure:
-  eigen_assert(matrix.rows()<NumTraits<int>::highest());
+  eigen_vcg_assert(matrix.rows()<NumTraits<int>::highest());
   
   m_lu = matrix;
 
-  eigen_assert(matrix.rows() == matrix.cols() && "PartialPivLU is only for square (and moreover invertible) matrices");
+  eigen_vcg_assert(matrix.rows() == matrix.cols() && "PartialPivLU is only for square (and moreover invertible) matrices");
   const Index size = matrix.rows();
 
   m_rowsTranspositions.resize(size);
@@ -417,7 +417,7 @@ PartialPivLU<MatrixType>& PartialPivLU<MatrixType>::compute(const MatrixType& ma
 template<typename MatrixType>
 typename internal::traits<MatrixType>::Scalar PartialPivLU<MatrixType>::determinant() const
 {
-  eigen_assert(m_isInitialized && "PartialPivLU is not initialized.");
+  eigen_vcg_assert(m_isInitialized && "PartialPivLU is not initialized.");
   return Scalar(m_det_p) * m_lu.diagonal().prod();
 }
 
@@ -427,7 +427,7 @@ typename internal::traits<MatrixType>::Scalar PartialPivLU<MatrixType>::determin
 template<typename MatrixType>
 MatrixType PartialPivLU<MatrixType>::reconstructedMatrix() const
 {
-  eigen_assert(m_isInitialized && "LU is not initialized.");
+  eigen_vcg_assert(m_isInitialized && "LU is not initialized.");
   // LU
   MatrixType res = m_lu.template triangularView<UnitLower>().toDenseMatrix()
                  * m_lu.template triangularView<Upper>();
@@ -457,7 +457,7 @@ struct solve_retval<PartialPivLU<_MatrixType>, Rhs>
     * Step 3: replace c by the solution x to Ux = c.
     */
 
-    eigen_assert(rhs().rows() == dec().matrixLU().rows());
+    eigen_vcg_assert(rhs().rows() == dec().matrixLU().rows());
 
     // Step 1
     dst = dec().permutationP() * rhs();

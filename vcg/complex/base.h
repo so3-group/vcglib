@@ -408,7 +408,7 @@ public:
 
 private:
     // TriMesh cannot be copied. Use Append (see vcg/complex/append.h)
-  TriMesh operator =(const TriMesh &  /*m*/){assert(0);return TriMesh();}
+  TriMesh operator =(const TriMesh &  /*m*/){vcg_assert(0);return TriMesh();}
   TriMesh(const TriMesh & ){}
 
 };	// end class Mesh
@@ -605,7 +605,7 @@ bool HasHOppAdjacency (const TriMesh < CType0, CType1, CType2, CType3> & /*m*/) 
 //		// a1 and a2 are still evaluated but not referenced, this causes a warning
 //		(void)a1;
 //		(void)a2;
-//		assert(a1==a2);
+//		vcg_assert(a1==a2);
 //
 //		return   vcg::tri::HasPerVertexVFAdjacency<   CType0,   CType1 ,   CType2,   CType3>(m) &&
 //						 vcg::tri::HasPerFaceVFAdjacency<   CType0,   CType1 ,   CType2,   CType3>(m) ;

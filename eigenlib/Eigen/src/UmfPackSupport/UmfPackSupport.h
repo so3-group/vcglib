@@ -170,7 +170,7 @@ class UmfPackLU : internal::noncopyable
       */
     ComputationInfo info() const
     {
-      eigen_assert(m_isInitialized && "Decomposition is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "Decomposition is not initialized.");
       return m_info;
     }
 
@@ -219,8 +219,8 @@ class UmfPackLU : internal::noncopyable
     template<typename Rhs>
     inline const internal::solve_retval<UmfPackLU, Rhs> solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "UmfPackLU is not initialized.");
-      eigen_assert(rows()==b.rows()
+      eigen_vcg_assert(m_isInitialized && "UmfPackLU is not initialized.");
+      eigen_vcg_assert(rows()==b.rows()
                 && "UmfPackLU::solve(): invalid number of rows of the right hand side matrix b");
       return internal::solve_retval<UmfPackLU, Rhs>(*this, b.derived());
     }
@@ -232,8 +232,8 @@ class UmfPackLU : internal::noncopyable
     template<typename Rhs>
     inline const internal::sparse_solve_retval<UmfPackLU, Rhs> solve(const SparseMatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "UmfPackLU is not initialized.");
-      eigen_assert(rows()==b.rows()
+      eigen_vcg_assert(m_isInitialized && "UmfPackLU is not initialized.");
+      eigen_vcg_assert(rows()==b.rows()
                 && "UmfPackLU::solve(): invalid number of rows of the right hand side matrix b");
       return internal::sparse_solve_retval<UmfPackLU, Rhs>(*this, b.derived());
     }
@@ -264,7 +264,7 @@ class UmfPackLU : internal::noncopyable
     template<typename InputMatrixType>
     void factorize(const InputMatrixType& matrix)
     {
-      eigen_assert(m_analysisIsOk && "UmfPackLU: you must first call analyzePattern()");
+      eigen_vcg_assert(m_analysisIsOk && "UmfPackLU: you must first call analyzePattern()");
       if(m_numeric)
         umfpack_free_numeric(&m_numeric,Scalar());
 
@@ -421,9 +421,9 @@ template<typename BDerived,typename XDerived>
 bool UmfPackLU<MatrixType>::_solve(const MatrixBase<BDerived> &b, MatrixBase<XDerived> &x) const
 {
   const int rhsCols = b.cols();
-  eigen_assert((BDerived::Flags&RowMajorBit)==0 && "UmfPackLU backend does not support non col-major rhs yet");
-  eigen_assert((XDerived::Flags&RowMajorBit)==0 && "UmfPackLU backend does not support non col-major result yet");
-  eigen_assert(b.derived().data() != x.derived().data() && " Umfpack does not support inplace solve");
+  eigen_vcg_assert((BDerived::Flags&RowMajorBit)==0 && "UmfPackLU backend does not support non col-major rhs yet");
+  eigen_vcg_assert((XDerived::Flags&RowMajorBit)==0 && "UmfPackLU backend does not support non col-major result yet");
+  eigen_vcg_assert(b.derived().data() != x.derived().data() && " Umfpack does not support inplace solve");
   
   int errorCode;
   for (int j=0; j<rhsCols; ++j)

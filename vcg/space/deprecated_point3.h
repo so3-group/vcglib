@@ -94,7 +94,7 @@ Edited doxygen comments
 #ifndef __VCGLIB_POINT3
 #define __VCGLIB_POINT3
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <algorithm>
 #include <vcg/math/base.h>
 
@@ -217,12 +217,12 @@ public:
 
     inline P3ScalarType & operator [] ( const int i )
     {
-        assert(i>=0 && i<3);
+        vcg_assert(i>=0 && i<3);
         return _v[i];
     }
     inline const P3ScalarType & operator [] ( const int i ) const
     {
-        assert(i>=0 && i<3);
+        vcg_assert(i>=0 && i<3);
         return _v[i];
     }
   inline const P3ScalarType &X() const { return _v[0]; }
@@ -241,12 +241,12 @@ public:
     }
     inline P3ScalarType & V( const int i )
     {
-        assert(i>=0 && i<3);
+        vcg_assert(i>=0 && i<3);
         return _v[i];
     }
     inline const P3ScalarType & V( const int i ) const
     {
-        assert(i>=0 && i<3);
+        vcg_assert(i>=0 && i<3);
         return _v[i];
     }
 //@}

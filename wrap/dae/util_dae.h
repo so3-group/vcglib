@@ -116,7 +116,7 @@ namespace io {
 			url_st = n.toElement().attribute(attr);
 			int sz = url_st.size() - 1;
 			url_st = url_st.right(sz);
-			assert(url_st.size() != 0);
+			vcg_assert(url_st.size() != 0);
 		}
 
 		inline static QDomNode findNodeBySpecificAttributeValue(const QDomNodeList& ndl,const QString& attrname,const QString& attrvalue)
@@ -178,7 +178,7 @@ namespace io {
 		inline static void valueStringList(QStringList& res,const QDomNode srcnode,const QString& tag) 
 		{
 			QDomNodeList list = srcnode.toElement().elementsByTagName(tag);
-			//assert(list.size() == 1);
+			//vcg_assert(list.size() == 1);
 			QString nd = list.at(0).firstChild().nodeValue();
 			res = nd.simplified().split(" ",QString::SkipEmptyParts);
             if(res.empty())
@@ -246,7 +246,7 @@ namespace io {
 				QString rt = t[ii].firstChild().nodeValue();
 				QStringList rtl = rt.split(" ");
 				if (rtl.last() == "") rtl.removeLast();
-				assert(rtl.size() == 4);
+				vcg_assert(rtl.size() == 4);
 				tmp.SetRotateDeg(rtl.at(3).toFloat(),vcg::Point3f(rtl.at(0).toFloat(),rtl.at(1).toFloat(),rtl.at(2).toFloat()));
 				rotTmp = rotTmp*tmp;	
 			}
@@ -255,13 +255,13 @@ namespace io {
 
 		static void ParseTranslation(vcg::Matrix44f& m,const QDomNode t)
 		{
-			assert(t.toElement().tagName() == "translate");
+			vcg_assert(t.toElement().tagName() == "translate");
 			QDomNode tr = t.firstChild();
 			QString coord = tr.nodeValue();
 			QStringList coordlist = coord.split(" ");
 			if (coordlist.last() == "") 
 				coordlist.removeLast();
-			assert(coordlist.size() == 3);
+			vcg_assert(coordlist.size() == 3);
 			m[0][0] = 1.0f;
 			m[1][1] = 1.0f;
 			m[2][2] = 1.0f;
@@ -273,14 +273,14 @@ namespace io {
 		
 		static void ParseMatrixNode(vcg::Matrix44f& m,const QDomNode t)
 		{
-			assert(t.toElement().tagName() == "matrix");
+			vcg_assert(t.toElement().tagName() == "matrix");
 			QDomNode tr = t.firstChild();
 			QString coord = tr.nodeValue().simplified();
 			qDebug("Parsing matrix node; text value is '%s'",qPrintable(coord));
 			QStringList coordlist = coord.split(" ");
 			if (coordlist.last() == "") 
 				coordlist.removeLast();
-			assert(coordlist.size() == 16);
+			vcg_assert(coordlist.size() == 16);
 			for(int i=0;i<4;++i)
 			{
 				m[i][0] = coordlist.at(i*4+0).toFloat();

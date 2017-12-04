@@ -147,7 +147,7 @@ class QuadricTexHelper
     static Quadric5<double> &Qd(VertexType *v,const vcg::TexCoord2f &coord)
     {
        std::vector<std::pair<vcg::TexCoord2f ,Quadric5<double> > > &qv = Vd(v);
-       //assert(coord.N()>=0);
+       //vcg_assert(coord.N()>=0);
        for(size_t i = 0; i < qv.size(); i++)
        {
          vcg::TexCoord2f &f = qv[i].first;
@@ -155,7 +155,7 @@ class QuadricTexHelper
            return qv[i].second;
        }
 
-       assert(0);
+       vcg_assert(0);
     }
       static math::Quadric<double> &Qd3(VertexType *v) {return TD3()[*v];}
     static math::Quadric<double> &Qd3(VertexType &v) {return TD3()[v];}
@@ -232,7 +232,7 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
     if(f->V(1)==v) return 1;
     if(f->V(2)==v) return 2;
 
-    assert(0); return -1;
+    vcg_assert(0); return -1;
   }
 
   inline int GetTexCoords(vcg::TexCoord2f &tcoord0_1, vcg::TexCoord2f &tcoord1_1,vcg::TexCoord2f &tcoord0_2,vcg::TexCoord2f &tcoord1_2)
@@ -308,11 +308,11 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
       v[0] = this->pos.V(0);
       v[1] = this->pos.V(1);
 
-      assert(!math::IsNAN(vv[0]));
-      assert(!math::IsNAN(vv[1]));
-      assert(!math::IsNAN(vv[2]));
-      assert(!math::IsNAN(vv[3]));
-      assert(!math::IsNAN(vv[4]));
+      vcg_assert(!math::IsNAN(vv[0]));
+      vcg_assert(!math::IsNAN(vv[1]));
+      vcg_assert(!math::IsNAN(vv[2]));
+      vcg_assert(!math::IsNAN(vv[3]));
+      vcg_assert(!math::IsNAN(vv[4]));
 
       //// Move the two vertexe  into new position (storing the old ones)
       CoordType OldPos0=v[0]->P();
@@ -343,7 +343,7 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
               CoordType nn=TriangleNormal(*x.F()).Normalize();
               ndiff=nn.dot(x.F()->N()) / x.F()->N().Norm();
               if(ndiff<MinCos) MinCos=ndiff;
-              assert(!math::IsNAN(ndiff));
+              vcg_assert(!math::IsNAN(ndiff));
               }
         }
       for(x.F() = v[1]->VFp(), x.I() = v[1]->VFi(),i=0; x.F()!=0; ++x )		// for all faces in v1
@@ -355,7 +355,7 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
               CoordType nn=TriangleNormal(*x.F()).Normalize();
               ndiff=nn.dot(x.F()->N() / x.F()->N().Norm());
               if(ndiff<MinCos) MinCos=ndiff;
-              assert(!math::IsNAN(ndiff));
+              vcg_assert(!math::IsNAN(ndiff));
           }
 
         }
@@ -397,14 +397,14 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
       ScalarType priority1;
       ScalarType priority2;
 
-      assert(!math::IsNAN(tcoord0_1.u()));
-      assert(!math::IsNAN(tcoord0_1.v()));
-      assert(!math::IsNAN(tcoord1_1.u()));
-      assert(!math::IsNAN(tcoord1_1.v()));
-      assert(!math::IsNAN(tcoord0_2.u()));
-      assert(!math::IsNAN(tcoord0_2.v()));
-      assert(!math::IsNAN(tcoord1_2.u()));
-      assert(!math::IsNAN(tcoord1_2.v()));
+      vcg_assert(!math::IsNAN(tcoord0_1.u()));
+      vcg_assert(!math::IsNAN(tcoord0_1.v()));
+      vcg_assert(!math::IsNAN(tcoord1_1.u()));
+      vcg_assert(!math::IsNAN(tcoord1_1.v()));
+      vcg_assert(!math::IsNAN(tcoord0_2.u()));
+      vcg_assert(!math::IsNAN(tcoord0_2.v()));
+      vcg_assert(!math::IsNAN(tcoord1_2.u()));
+      vcg_assert(!math::IsNAN(tcoord1_2.v()));
 
 
       tmp1[0] = this->pos.V(0)->P().X();
@@ -419,8 +419,8 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
       tmp2[3] = tcoord1_1.u();
       tmp2[4] = tcoord1_1.v();
 
-      assert(QH::Qd(this->pos.V(0),tcoord0_1).IsValid());
-      assert(QH::Qd(this->pos.V(1),tcoord1_1).IsValid());
+      vcg_assert(QH::Qd(this->pos.V(0),tcoord0_1).IsValid());
+      vcg_assert(QH::Qd(this->pos.V(1),tcoord1_1).IsValid());
 
       qsum_1 = QH::Qd(this->pos.V(0),tcoord0_1);
       qsum_1 += QH::Qd(this->pos.V(1),tcoord1_1);
@@ -438,8 +438,8 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
       tmp2[3] = tcoord1_2.u();
       tmp2[4] = tcoord1_2.v();
 
-      assert(QH::Qd(this->pos.V(0),tcoord0_2).IsValid());
-      assert(QH::Qd(this->pos.V(1),tcoord1_2).IsValid());
+      vcg_assert(QH::Qd(this->pos.V(0),tcoord0_2).IsValid());
+      vcg_assert(QH::Qd(this->pos.V(1),tcoord1_2).IsValid());
 
       qsum_2 = QH::Qd(this->pos.V(0),tcoord0_2);
       qsum_2 += QH::Qd(this->pos.V(1),tcoord1_2);
@@ -507,11 +507,11 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
           }
         }
 
-        assert(!math::IsNAN(vv[0]));
-        assert(!math::IsNAN(vv[1]));
-        assert(!math::IsNAN(vv[2]));
-        assert(!math::IsNAN(vv[3]));
-        assert(!math::IsNAN(vv[4]));
+        vcg_assert(!math::IsNAN(vv[0]));
+        vcg_assert(!math::IsNAN(vv[1]));
+        vcg_assert(!math::IsNAN(vv[2]));
+        vcg_assert(!math::IsNAN(vv[3]));
+        vcg_assert(!math::IsNAN(vv[4]));
     }
 
     inline void ComputeMinimalWithGeoContraints(double vv[5],const double v0[5],const double v1[5], const Quadric5<double> qsum, const double geo[5],BaseParameterClass *_pp)
@@ -579,8 +579,8 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
                   {
                   HelperType::Alloc((*pf).V(j),(*pf).WT(j));
                   }
-                  assert(!math::IsNAN((*pf).WT(j).u()));
-                  assert(!math::IsNAN((*pf).WT(j).v()));
+                  vcg_assert(!math::IsNAN((*pf).WT(j).u()));
+                  vcg_assert(!math::IsNAN((*pf).WT(j).v()));
                   HelperType::SumAll((*pf).V(j),(*pf).WT(j),q);
                 }
 
@@ -623,7 +623,7 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
                   }
                   for( x.F() = (*vi).VFp(), x.I() = (*vi).VFi(); x.F()!=0; ++x )
           {
-                    assert(x.F()->V(x.I())==&(*vi));
+                    vcg_assert(x.F()->V(x.I())==&(*vi));
                     if((x.V0()<x.V1()) && x.V1()->IsRW() && !x.V1()->IsV()){
                           x.V1()->SetV();
                           h_ret.push_back(HeapElem(new MYTYPE(VertexPair(x.V0(),x.V1()),TriEdgeCollapse< TriMeshType,VertexPair,MYTYPE>::GlobalMark(),pp )));
@@ -659,7 +659,7 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
     vfi = face::VFIterator<FaceType>(v[1]);
     while (!vfi.End())
     {
-    assert(!vfi.F()->IsD());
+    vcg_assert(!vfi.F()->IsD());
         for (int j=0;j<3;j++)
         {
 
@@ -723,8 +723,8 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
 
   newtcoord.u() = (float)min1[3];
   newtcoord.v() = (float)min1[4];
-  assert(!math::IsNAN(newtcoord.u()));
-  assert(!math::IsNAN(newtcoord.v()));
+  vcg_assert(!math::IsNAN(newtcoord.u()));
+  vcg_assert(!math::IsNAN(newtcoord.v()));
   newtcoord1 = newtcoord;
   newq = qsum1;
 
@@ -780,7 +780,7 @@ class TriEdgeCollapseQuadricTex: public vcg::tri::TriEdgeCollapse< TriMeshType, 
         newq.Sum3(QH::Qd3(v[0]),tcoords.u(),tcoords.v());
       }
       else
-        assert(0);
+        vcg_assert(0);
 
       qv.push_back(std::pair<vcg::TexCoord2f ,Quadric5<double> >(newtcoord,newq));
     }

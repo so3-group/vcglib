@@ -18,7 +18,7 @@
  *
  *  - define EIGEN_NO_STATIC_ASSERT to disable them (and save compilation time)
  *    in that case, the static assertion is converted to the following runtime assert:
- *      eigen_assert(CONDITION && "MSG")
+ *      eigen_vcg_assert(CONDITION && "MSG")
  *
  *  - currently EIGEN_STATIC_ASSERT can only be used in function scope
  *
@@ -29,7 +29,7 @@
   #if defined(__GXX_EXPERIMENTAL_CXX0X__) || (defined(_MSC_VER) && (_MSC_VER >= 1600))
 
     // if native static_assert is enabled, let's use it
-    #define EIGEN_STATIC_ASSERT(X,MSG) static_assert(X,#MSG);
+    #define EIGEN_STATIC_ASSERT(X,MSG) static_vcg_assert(X,#MSG);
 
   #else // not CXX0X
 
@@ -119,7 +119,7 @@
 
 #else // EIGEN_NO_STATIC_ASSERT
 
-  #define EIGEN_STATIC_ASSERT(CONDITION,MSG) eigen_assert((CONDITION) && #MSG);
+  #define EIGEN_STATIC_ASSERT(CONDITION,MSG) eigen_vcg_assert((CONDITION) && #MSG);
 
 #endif // EIGEN_NO_STATIC_ASSERT
 
@@ -172,7 +172,7 @@
 
 #ifdef EIGEN2_SUPPORT
   #define EIGEN_STATIC_ASSERT_NON_INTEGER(TYPE) \
-    eigen_assert(!NumTraits<Scalar>::IsInteger);
+    eigen_vcg_assert(!NumTraits<Scalar>::IsInteger);
 #else
   #define EIGEN_STATIC_ASSERT_NON_INTEGER(TYPE) \
     EIGEN_STATIC_ASSERT(!NumTraits<TYPE>::IsInteger, THIS_FUNCTION_IS_NOT_FOR_INTEGER_NUMERIC_TYPES)

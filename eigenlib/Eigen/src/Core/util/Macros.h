@@ -171,9 +171,9 @@
 # endif
 #endif
 
-// eigen_plain_assert is where we implement the workaround for the assert() bug in GCC <= 4.3, see bug 89
+// eigen_plain_assert is where we implement the workaround for the vcg_assert() bug in GCC <= 4.3, see bug 89
 #ifdef EIGEN_NO_DEBUG
-  #define eigen_plain_assert(x)
+  #define eigen_plain_vcg_assert(x)
 #else
   #if EIGEN_SAFE_TO_USE_STANDARD_ASSERT_MACRO
     namespace Eigen {
@@ -181,7 +181,7 @@
     inline bool copy_bool(bool b) { return b; }
     }
     }
-    #define eigen_plain_assert(x) assert(x)
+    #define eigen_plain_vcg_assert(x) vcg_assert(x)
   #else
     // work around bug 89
     #include <cstdlib>   // for abort
@@ -201,7 +201,7 @@
     }
     }
     }
-    #define eigen_plain_assert(x) \
+    #define eigen_plain_vcg_assert(x) \
       do { \
         if(!Eigen::internal::copy_bool(x)) \
           Eigen::internal::assert_fail(EIGEN_MAKESTRING(x), __PRETTY_FUNCTION__, __FILE__, __LINE__); \
@@ -211,13 +211,13 @@
 
 // eigen_assert can be overridden
 #ifndef eigen_assert
-#define eigen_assert(x) eigen_plain_assert(x)
+#define eigen_vcg_assert(x) eigen_plain_vcg_assert(x)
 #endif
 
 #ifdef EIGEN_INTERNAL_DEBUGGING
-#define eigen_internal_assert(x) eigen_assert(x)
+#define eigen_internal_vcg_assert(x) eigen_vcg_assert(x)
 #else
-#define eigen_internal_assert(x)
+#define eigen_internal_vcg_assert(x)
 #endif
 
 #ifdef EIGEN_NO_DEBUG

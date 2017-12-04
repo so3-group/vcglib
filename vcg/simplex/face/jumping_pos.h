@@ -28,7 +28,7 @@
 #ifndef __VCG_JUMPING_FACE_POS
 #define __VCG_JUMPING_FACE_POS
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/simplex/face/pos.h>
 
 namespace vcg 

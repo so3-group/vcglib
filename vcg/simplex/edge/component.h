@@ -43,54 +43,54 @@ All the Components that can be added to a vertex should be defined in the namesp
 template <class T> class EmptyCore: public T
   {
 public:
-    inline       typename T::VertexType *       &  V( const int j )       { (void)j; assert(0);  static typename T::VertexType *vp=0;         return vp;    }
-    inline       typename T::VertexType * const &  V( const int j ) const { (void)j; assert(0);  static typename T::VertexType *vp=0;         return vp;    }
-    inline       typename T::VertexType *         cV( const int j ) const { (void)j; assert(0);  static typename T::VertexType *vp=0;         return vp;    }
-    inline       typename T::CoordType &           P( const int j )       { (void)j; assert(0);  static typename T::CoordType coord(0, 0, 0); return coord; }
-    inline const typename T::CoordType &           P( const int j ) const { (void)j; assert(0);  static typename T::CoordType coord(0, 0, 0); return coord; }
-    inline const typename T::CoordType &          cP( const int j ) const { (void)j; assert(0);  static typename T::CoordType coord(0, 0, 0); return coord; }
+    inline       typename T::VertexType *       &  V( const int j )       { (void)j; vcg_assert(0);  static typename T::VertexType *vp=0;         return vp;    }
+    inline       typename T::VertexType * const &  V( const int j ) const { (void)j; vcg_assert(0);  static typename T::VertexType *vp=0;         return vp;    }
+    inline       typename T::VertexType *         cV( const int j ) const { (void)j; vcg_assert(0);  static typename T::VertexType *vp=0;         return vp;    }
+    inline       typename T::CoordType &           P( const int j )       { (void)j; vcg_assert(0);  static typename T::CoordType coord(0, 0, 0); return coord; }
+    inline const typename T::CoordType &           P( const int j ) const { (void)j; vcg_assert(0);  static typename T::CoordType coord(0, 0, 0); return coord; }
+    inline const typename T::CoordType &          cP( const int j ) const { (void)j; vcg_assert(0);  static typename T::CoordType coord(0, 0, 0); return coord; }
     static bool HasEVAdjacency()   { return false; }
     static bool HasVertexRef()     { return false; }
 
     typedef vcg::Color4b ColorType;
-    ColorType &C() { static ColorType dumcolor(vcg::Color4b::White); assert(0); return dumcolor; }
-    ColorType cC() const { static ColorType dumcolor(vcg::Color4b::White);  assert(0); return dumcolor; }
+    ColorType &C() { static ColorType dumcolor(vcg::Color4b::White); vcg_assert(0); return dumcolor; }
+    ColorType cC() const { static ColorType dumcolor(vcg::Color4b::White);  vcg_assert(0); return dumcolor; }
     static bool HasColor()   { return false; }
 
     typedef float QualityType;
-    QualityType &Q() { static QualityType dummyQuality(0);  assert(0); return dummyQuality; }
-    QualityType cQ() const { static QualityType dummyQuality(0);  assert(0); return dummyQuality; }
+    QualityType &Q() { static QualityType dummyQuality(0);  vcg_assert(0); return dummyQuality; }
+    QualityType cQ() const { static QualityType dummyQuality(0);  vcg_assert(0); return dummyQuality; }
     static bool HasQuality()   { return false; }
 
     typedef int  MarkType;
     inline void InitIMark()    {  }
-    inline int cIMark() const { assert(0); static int tmp=-1; return tmp;}
-    inline int &IMark()       { assert(0); static int tmp=-1; return tmp;}
+    inline int cIMark() const { vcg_assert(0); static int tmp=-1; return tmp;}
+    inline int &IMark()       { vcg_assert(0); static int tmp=-1; return tmp;}
     static bool HasMark()   { return false; }
 
     typedef int FlagType;
-    int &Flags() { static int dummyflags(0);  assert(0); return dummyflags; }
+    int &Flags() { static int dummyflags(0);  vcg_assert(0); return dummyflags; }
     int Flags() const { return 0; }
     static bool HasFlags()   { return false; }
 
-    typename T::EdgePointer &VEp(const int &  ) { static typename T::EdgePointer ep=0;  assert(0); return ep; }
-    typename T::EdgePointer cVEp(const int & ) const { static typename T::EdgePointer ep=0;  assert(0); return ep; }
-    int &VEi(const int &){static int z=0; assert(0); return z;}
-    int cVEi(const int &) const {static int z=0; assert(0); return z;}
+    typename T::EdgePointer &VEp(const int &  ) { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
+    typename T::EdgePointer cVEp(const int & ) const { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
+    int &VEi(const int &){static int z=0; vcg_assert(0); return z;}
+    int cVEi(const int &) const {static int z=0; vcg_assert(0); return z;}
     static bool HasVEAdjacency()   {   return false; }
 
-    typename T::EdgePointer &EEp(const int &  ) { static typename T::EdgePointer ep=0;  assert(0); return ep; }
-    typename T::EdgePointer cEEp(const int & ) const { static typename T::EdgePointer ep=0;  assert(0); return ep; }
-    int &EEi(const int &){static int z=0; assert(0); return z;}
-    int cEEi(const int &) const {static int z=0; assert(0); return z;}
+    typename T::EdgePointer &EEp(const int &  ) { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
+    typename T::EdgePointer cEEp(const int & ) const { static typename T::EdgePointer ep=0;  vcg_assert(0); return ep; }
+    int &EEi(const int &){static int z=0; vcg_assert(0); return z;}
+    int cEEi(const int &) const {static int z=0; vcg_assert(0); return z;}
     static bool HasEEAdjacency()   {   return false; }
 
-    typename T::HEdgePointer &EHp(  ) { static typename T::HEdgePointer hp=0;  assert(0); return hp; }
-    typename T::HEdgePointer cEHp(  ) const { static typename T::HEdgePointer hp=0;  assert(0); return hp; }
+    typename T::HEdgePointer &EHp(  ) { static typename T::HEdgePointer hp=0;  vcg_assert(0); return hp; }
+    typename T::HEdgePointer cEHp(  ) const { static typename T::HEdgePointer hp=0;  vcg_assert(0); return hp; }
     static bool HasEHAdjacency()   {   return false; }
 
-    typename T::FacePointer &EFp() { static typename T::FacePointer fp=0;  assert(0); return fp; }
-    typename T::FacePointer cEFp() const  { static typename T::FacePointer fp=0;  assert(0); return fp; }
+    typename T::FacePointer &EFp() { static typename T::FacePointer fp=0;  vcg_assert(0); return fp; }
+    typename T::FacePointer cEFp() const  { static typename T::FacePointer fp=0;  vcg_assert(0); return fp; }
     int &EFi()   {static int z=0; return z;}
     int &cEFi() const {static int z=0; return z;}
     static bool HasEFAdjacency()   {   return false; }
@@ -116,13 +116,13 @@ public:
     typedef typename T::VertexType::CoordType CoordType;
     typedef typename T::VertexType::ScalarType ScalarType;
 
-    inline typename T::VertexType *       & V( const int j ) 	     { assert(j>=0 && j<2); return v[j]; }
-    inline typename T::VertexType * const & V( const int j ) const { assert(j>=0 && j<2); return v[j]; }
-    inline typename T::VertexType *  cV( const int j ) const { assert(j>=0 && j<2);	return v[j]; }
+    inline typename T::VertexType *       & V( const int j ) 	     { vcg_assert(j>=0 && j<2); return v[j]; }
+    inline typename T::VertexType * const & V( const int j ) const { vcg_assert(j>=0 && j<2); return v[j]; }
+    inline typename T::VertexType *  cV( const int j ) const { vcg_assert(j>=0 && j<2);	return v[j]; }
 
     // Shortcut per accedere ai punti delle facce
-    inline       CoordType & P( const int j ) 	    {	assert(j>=0 && j<2);		return v[j]->P();	}
-    inline const CoordType &cP( const int j ) const	{	assert(j>=0 && j<2);		return v[j]->P(); }
+    inline       CoordType & P( const int j ) 	    {	vcg_assert(j>=0 && j<2);		return v[j]->P();	}
+    inline const CoordType &cP( const int j ) const	{	vcg_assert(j>=0 && j<2);		return v[j]->P(); }
 
     /** Return the pointer to the ((j+1)%3)-th vertex of the face.
         @param j Index of the face vertex.

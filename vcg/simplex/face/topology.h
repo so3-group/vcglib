@@ -39,7 +39,7 @@ namespace face {
 template <class FaceType>
 inline bool IsManifold( FaceType const & f, const int j )
 {
-  assert(f.cFFp(j) != 0); // never try to use this on uncomputed topology
+  vcg_assert(f.cFFp(j) != 0); // never try to use this on uncomputed topology
   if(FaceType::HasFFAdjacency())
       return ( f.cFFp(j) == &f || &f == f.cFFp(j)->cFFp(f.cFFi(j)) );
   else
@@ -57,7 +57,7 @@ inline bool IsBorder(FaceType const & f,  const int j )
       return f.cFFp(j)==&f;
     //return f.IsBorder(j);
 
-  assert(0);
+  vcg_assert(0);
   return true;
 }
 
@@ -143,15 +143,15 @@ inline int ComplexSize(FaceType & f, const int e)
     do
     {
           fpos.NextF();
-      assert(!fpos.IsBorder());
-      assert(!fpos.IsManifold());
+      vcg_assert(!fpos.IsBorder());
+      vcg_assert(!fpos.IsManifold());
           ++cnt;
       }
       while(fpos.f!=&f);
     assert (cnt>2);
       return cnt;
   }
-  assert(0);
+  vcg_assert(0);
     return 2;
 }
 
@@ -190,7 +190,7 @@ bool FFCorrectness(FaceType & f, const int e)
         if(curFace.IsBorder()) return false;
         curFace.NextF();
         cnt++;
-    assert(cnt<100);
+    vcg_assert(cnt<100);
     }
   while ( curFace.f != &f);
   return true;
@@ -207,8 +207,8 @@ bool FFCorrectness(FaceType & f, const int e)
 template <class FaceType>
 void FFDetachManifold(FaceType & f, const int e)
 {
-    assert(FFCorrectness<FaceType>(f,e));
-    assert(!IsBorder<FaceType>(f,e));  // Never try to detach a border edge!
+    vcg_assert(FFCorrectness<FaceType>(f,e));
+    vcg_assert(!IsBorder<FaceType>(f,e));  // Never try to detach a border edge!
     FaceType *ffp = f.FFp(e);
     //int ffi=f.FFp(e);
     int ffi=f.FFi(e);
@@ -223,8 +223,8 @@ void FFDetachManifold(FaceType & f, const int e)
     ffp->SetB(ffi);
     ffp->ClearF(ffi);
 
-    assert(FFCorrectness<FaceType>(f,e));
-    assert(FFCorrectness<FaceType>(*ffp,ffi));
+    vcg_assert(FFCorrectness<FaceType>(f,e));
+    vcg_assert(FFCorrectness<FaceType>(*ffp,ffi));
 }
 
 /** This function detach the face from the adjacent face via the edge e.
@@ -237,11 +237,11 @@ void FFDetachManifold(FaceType & f, const int e)
 template <class FaceType>
 void FFDetach(FaceType & f, const int e)
 {
-    assert(FFCorrectness<FaceType>(f,e));
-    assert(!IsBorder<FaceType>(f,e));  // Never try to detach a border edge!
+    vcg_assert(FFCorrectness<FaceType>(f,e));
+    vcg_assert(!IsBorder<FaceType>(f,e));  // Never try to detach a border edge!
     int complexity=ComplexSize(f,e);
     (void) complexity;
-    assert(complexity>0);
+    vcg_assert(complexity>0);
 
     Pos< FaceType > FirstFace(&f,e);  // Build the half edge
     Pos< FaceType > LastFace(&f,e);  // Build the half edge
@@ -255,29 +255,29 @@ void FFDetach(FaceType & f, const int e)
 
     while ( LastFace.f->FFp(LastFace.z) != &f)
     {
-        assert(ComplexSize(*LastFace.f,LastFace.z)==complexity);
-        assert(!LastFace.IsManifold());   // We enter in this loop only if we are on a non manifold edge
-        assert(!LastFace.IsBorder());
+        vcg_assert(ComplexSize(*LastFace.f,LastFace.z)==complexity);
+        vcg_assert(!LastFace.IsManifold());   // We enter in this loop only if we are on a non manifold edge
+        vcg_assert(!LastFace.IsBorder());
         LastFace.NextF();
         cnt++;
-        assert(cnt<100);
+        vcg_assert(cnt<100);
     }
 
-    assert(LastFace.f->FFp(LastFace.z)==&f);
-    assert(f.FFp(e)== FirstFace.f);
+    vcg_assert(LastFace.f->FFp(LastFace.z)==&f);
+    vcg_assert(f.FFp(e)== FirstFace.f);
 
     // Now we link the last one to the first one, skipping the face to be detached;
     LastFace.f->FFp(LastFace.z) = FirstFace.f;
     LastFace.f->FFi(LastFace.z) = FirstFace.z;
-    assert(ComplexSize(*LastFace.f,LastFace.z)==complexity-1);
+    vcg_assert(ComplexSize(*LastFace.f,LastFace.z)==complexity-1);
 
     // At the end selfconnect the chosen edge to make a border.
     f.FFp(e) = &f;
     f.FFi(e) = e;
-    assert(ComplexSize(f,e)==1);
+    vcg_assert(ComplexSize(f,e)==1);
 
-    assert(FFCorrectness<FaceType>(*LastFace.f,LastFace.z));
-    assert(FFCorrectness<FaceType>(f,e));
+    vcg_assert(FFCorrectness<FaceType>(*LastFace.f,LastFace.z));
+    vcg_assert(FFCorrectness<FaceType>(f,e));
 }
 
 
@@ -321,10 +321,10 @@ void FFAttach(FaceType * &f, int z1, FaceType *&f2, int z2)
 template <class FaceType>
 void FFAttachManifold(FaceType * &f1, int z1, FaceType *&f2, int z2)
 {
-  assert(IsBorder<FaceType>(*f1,z1) || f1->FFp(z1)==0);
-  assert(IsBorder<FaceType>(*f2,z2) || f2->FFp(z2)==0);
-  assert(f1->V0(z1) == f2->V0(z2) || f1->V0(z1) == f2->V1(z2));
-  assert(f1->V1(z1) == f2->V0(z2) || f1->V1(z1) == f2->V1(z2));
+  vcg_assert(IsBorder<FaceType>(*f1,z1) || f1->FFp(z1)==0);
+  vcg_assert(IsBorder<FaceType>(*f2,z2) || f2->FFp(z2)==0);
+  vcg_assert(f1->V0(z1) == f2->V0(z2) || f1->V0(z1) == f2->V1(z2));
+  vcg_assert(f1->V1(z1) == f2->V0(z2) || f1->V1(z1) == f2->V1(z2));
   f1->FFp(z1) = f2;
   f1->FFi(z1) = z2;
   f2->FFp(z2) = f1;
@@ -335,7 +335,7 @@ void FFAttachManifold(FaceType * &f1, int z1, FaceType *&f2, int z2)
 template <class FaceType>
 void FFSetBorder(FaceType * &f1, int z1)
 {
-  assert(f1->FFp(z1)==0 || IsBorder(*f1,z1));
+  vcg_assert(f1->FFp(z1)==0 || IsBorder(*f1,z1));
 
   f1->FFp(z1)=f1;
   f1->FFi(z1)=z1;
@@ -345,13 +345,13 @@ template <class FaceType>
 void AssertAdj(FaceType & f)
 {
   (void)f;
-  assert(f.FFp(0)->FFp(f.FFi(0))==&f);
-  assert(f.FFp(1)->FFp(f.FFi(1))==&f);
-  assert(f.FFp(2)->FFp(f.FFi(2))==&f);
+  vcg_assert(f.FFp(0)->FFp(f.FFi(0))==&f);
+  vcg_assert(f.FFp(1)->FFp(f.FFi(1))==&f);
+  vcg_assert(f.FFp(2)->FFp(f.FFi(2))==&f);
 
-  assert(f.FFp(0)->FFi(f.FFi(0))==0);
-  assert(f.FFp(1)->FFi(f.FFi(1))==1);
-  assert(f.FFp(2)->FFi(f.FFi(2))==2);
+  vcg_assert(f.FFp(0)->FFi(f.FFi(0))==0);
+  vcg_assert(f.FFp(1)->FFi(f.FFi(1))==1);
+  vcg_assert(f.FFp(2)->FFi(f.FFi(2))==2);
 }
 
 /**
@@ -454,7 +454,7 @@ bool FFLinkCondition(FaceType &f, const int z)
   VVOrderedStarFF(p1,v1Vec);
   std::set<VertexType *> v0set;
   v0set.insert(v0Vec.begin(),v0Vec.end());
-  assert(v0set.size() == v0Vec.size());
+  vcg_assert(v0set.size() == v0Vec.size());
   int cnt =0;
   for(size_t i=0;i<v1Vec.size();++i)
     if(v0set.find(v1Vec[i]) != v0set.end())
@@ -462,7 +462,7 @@ bool FFLinkCondition(FaceType &f, const int z)
 
   if(face::IsBorder(f,z) && (cnt==1)) return true;
   if(!face::IsBorder(f,z) && (cnt==2)) return true;
-  //assert(0);
+  //vcg_assert(0);
   return false;
 }
 
@@ -515,7 +515,7 @@ void FFEdgeCollapse(MeshType &m, typename MeshType::FaceType &f, const int z)
 
   // Final Pass to update the vertex ptrs in all the involved faces
   for(size_t i=0;i<faceToBeChanged.size();++i) {
-    assert(faceToBeChanged[i].V() == delV);
+    vcg_assert(faceToBeChanged[i].V() == delV);
     faceToBeChanged[i].F()->V(faceToBeChanged[i].VInd()) =surV;
   }
 
@@ -564,7 +564,7 @@ bool CheckFlipEdgeNormal(FaceType &f, const int z, const float angleRad)
   VertexType *NewDiag0 = f.V2(z);
   VertexType *NewDiag1 = f.FFp(z)->V2(f.FFi(z));
 
-  assert((NewDiag1 != NewDiag0) && (NewDiag1 != OldDiag0) && (NewDiag1 != OldDiag1));
+  vcg_assert((NewDiag1 != NewDiag0) && (NewDiag1 != OldDiag0) && (NewDiag1 != OldDiag1));
 
   CoordType oldN0 = Normal( NewDiag0->cP(),OldDiag0->cP(),OldDiag1->cP()).Normalize();
   CoordType oldN1 = Normal( NewDiag1->cP(),OldDiag1->cP(),OldDiag0->cP()).Normalize();
@@ -654,19 +654,19 @@ bool CheckFlipEdge(FaceType &f, int z)
 template <class FaceType>
 void FlipEdge(FaceType &f, const int z)
 {
-    assert(z>=0);
-    assert(z<3);
-    assert( !IsBorder(f,z) );
-    assert( face::IsManifold<FaceType>(f, z));
+    vcg_assert(z>=0);
+    vcg_assert(z<3);
+    vcg_assert( !IsBorder(f,z) );
+    vcg_assert( face::IsManifold<FaceType>(f, z));
 
     FaceType *g = f.FFp(z); // The other face 
     int	      w = f.FFi(z); // and other side
 
-    assert( g->V0(w) == f.V1(z) );
-    assert( g->V1(w) == f.V0(z) );
-    assert( g->V2(w) != f.V0(z) );
-    assert( g->V2(w) != f.V1(z) );
-    assert( g->V2(w) != f.V2(z) );
+    vcg_assert( g->V0(w) == f.V1(z) );
+    vcg_assert( g->V1(w) == f.V0(z) );
+    vcg_assert( g->V2(w) != f.V0(z) );
+    vcg_assert( g->V2(w) != f.V1(z) );
+    vcg_assert( g->V2(w) != f.V2(z) );
 
     f.V1(z) = g->V2(w);
     g->V1(w) = f.V2(z);
@@ -732,7 +732,7 @@ void VFDetach(FaceType & f, int z)
         {
             y = x;
             ++x;
-            assert(x.f!=0);
+            vcg_assert(x.f!=0);
             if(x.f==&f) // found!
             {
                 y.f->VFp(y.z) = f.VFp(z);
@@ -859,7 +859,7 @@ void EFStarFF( FaceType* fp, int ei,
                std::vector<FaceType *> &faceVec,
                std::vector<int> &indVed)
 {
-  assert(fp->FFp(ei)!=0);
+  vcg_assert(fp->FFp(ei)!=0);
   faceVec.clear();
   indVed.clear();
   FaceType* fpit=fp;
@@ -987,7 +987,7 @@ void VFOrderedStarFF(const Pos<FaceType> &startPos,
   Pos<FaceType> curPos=startPos;
   do
   {
-    assert(curPos.IsManifold());
+    vcg_assert(curPos.IsManifold());
     if(curPos.IsBorder() && !foundBorder) {
       foundBorder=true;
       firstBorderInd = posVec.size();
@@ -1001,10 +1001,10 @@ void VFOrderedStarFF(const Pos<FaceType> &startPos,
   if(foundBorder)
   {
     size_t halfSize=posVec.size()/2;
-    assert((posVec.size()%2)==0);
+    vcg_assert((posVec.size()%2)==0);
     posVec.erase(posVec.begin()+firstBorderInd+1+halfSize, posVec.end());
     posVec.erase(posVec.begin(),posVec.begin()+firstBorderInd+1);
-    assert(posVec.size()==halfSize);
+    vcg_assert(posVec.size()==halfSize);
   }
 }
 
@@ -1042,7 +1042,7 @@ void VFOrderedStarFF(const Pos<FaceType> &startPos,
 template <class FaceType>
 bool ShareEdgeFF(FaceType *f0,FaceType *f1, int *i0=0, int *i1=0)
 {
-  assert((!f0->IsD())&&(!f1->IsD()));
+  vcg_assert((!f0->IsD())&&(!f1->IsD()));
   for (int i=0;i<3;i++)
       if (f0->FFp(i)==f1)
       {
@@ -1133,7 +1133,7 @@ bool FindSharedFaces(typename FaceType::VertexType *v0,
     std::vector<FaceType*> Intersection;
     std::set_intersection(faces0.begin(),faces0.end(),faces1.begin(),faces1.end(),std::back_inserter(Intersection));
     if (Intersection.size()<2)return false; ///no pair of faces share the 2 vertices
-    assert(Intersection.size()==2);//otherwhise non manifoldess
+    vcg_assert(Intersection.size()==2);//otherwhise non manifoldess
     f0=Intersection[0];
     f1=Intersection[1];
     FindSharedEdge(f0,f1,e0,e1);

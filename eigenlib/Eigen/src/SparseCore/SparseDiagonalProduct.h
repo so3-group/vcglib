@@ -87,7 +87,7 @@ class SparseDiagonalProduct
     EIGEN_STRONG_INLINE SparseDiagonalProduct(const Lhs& lhs, const Rhs& rhs)
       : m_lhs(lhs), m_rhs(rhs)
     {
-      eigen_assert(lhs.cols() == rhs.rows() && "invalid sparse matrix * diagonal matrix product");
+      eigen_vcg_assert(lhs.cols() == rhs.rows() && "invalid sparse matrix * diagonal matrix product");
     }
 
     EIGEN_STRONG_INLINE Index rows() const { return m_lhs.rows(); }

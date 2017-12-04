@@ -63,7 +63,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,ColMajor,Co
   ResScalar* res, Index resIncr, RhsScalar alpha)
 {
   EIGEN_UNUSED_VARIABLE(resIncr)
-  eigen_internal_assert(resIncr==1);
+  eigen_internal_vcg_assert(resIncr==1);
   #ifdef _EIGEN_ACCUMULATE_PACKETS
   #error _EIGEN_ACCUMULATE_PACKETS has already been defined
   #endif
@@ -113,7 +113,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,ColMajor,Co
   }
   else if (LhsPacketSize>1)
   {
-    eigen_internal_assert(size_t(lhs+lhsAlignmentOffset)%sizeof(LhsPacket)==0 || size<LhsPacketSize);
+    eigen_internal_vcg_assert(size_t(lhs+lhsAlignmentOffset)%sizeof(LhsPacket)==0 || size<LhsPacketSize);
 
     while (skipColumns<LhsPacketSize &&
           alignedStart != ((lhsAlignmentOffset + alignmentStep*skipColumns)%LhsPacketSize))
@@ -130,7 +130,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,ColMajor,Co
       // note that the skiped columns are processed later.
     }
 
-    eigen_internal_assert(  (alignmentPattern==NoneAligned)
+    eigen_internal_vcg_assert(  (alignmentPattern==NoneAligned)
                       || (skipColumns + columnsAtOnce >= cols)
                       || LhsPacketSize > size
                       || (size_t(lhs+alignedStart+lhsStride*skipColumns)%sizeof(LhsPacket))==0);
@@ -328,7 +328,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,RowMajor,Co
   ResScalar alpha)
 {
   EIGEN_UNUSED_VARIABLE(rhsIncr);
-  eigen_internal_assert(rhsIncr==1);
+  eigen_internal_vcg_assert(rhsIncr==1);
   #ifdef _EIGEN_ACCUMULATE_PACKETS
   #error _EIGEN_ACCUMULATE_PACKETS has already been defined
   #endif
@@ -376,7 +376,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,RowMajor,Co
   }
   else if (LhsPacketSize>1)
   {
-    eigen_internal_assert(size_t(lhs+lhsAlignmentOffset)%sizeof(LhsPacket)==0  || depth<LhsPacketSize);
+    eigen_internal_vcg_assert(size_t(lhs+lhsAlignmentOffset)%sizeof(LhsPacket)==0  || depth<LhsPacketSize);
 
     while (skipRows<LhsPacketSize &&
            alignedStart != ((lhsAlignmentOffset + alignmentStep*skipRows)%LhsPacketSize))
@@ -392,7 +392,7 @@ EIGEN_DONT_INLINE void general_matrix_vector_product<Index,LhsScalar,RowMajor,Co
       skipRows = (std::min)(skipRows,Index(rows));
       // note that the skiped columns are processed later.
     }
-    eigen_internal_assert(  alignmentPattern==NoneAligned
+    eigen_internal_vcg_assert(  alignmentPattern==NoneAligned
                       || LhsPacketSize==1
                       || (skipRows + rowsAtOnce >= rows)
                       || LhsPacketSize > depth

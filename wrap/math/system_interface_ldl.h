@@ -39,7 +39,7 @@ double &A(int row,int col)
 		std::swap<int>(I.first,I.second);
 		ci=_M.find(I);
 	}
-	assert(ci!=_M.end());
+	vcg_assert(ci!=_M.end());
 	int index=(*ci).second;
 
 	return(_Ax[index]);
@@ -79,7 +79,7 @@ void Solve()
     }
 	 else///dl_numeric failed
     {
-		assert(0);
+		vcg_assert(0);
     }
 }
 
@@ -106,8 +106,8 @@ void CreateSparse(std::vector<IndexType> Entries)
 	std::vector<IndexType>::iterator Vi;
 	for (Vi=Entries.begin();Vi<Entries.end();Vi++)
 	{
-		assert((*Vi).first>=0);
-		assert((*Vi).second>=0);
+		vcg_assert((*Vi).first>=0);
+		vcg_assert((*Vi).second>=0);
 		if ((*Vi).first>(*Vi).second)
 			std::swap<int>((*Vi).first,(*Vi).second);
 	}

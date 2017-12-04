@@ -279,10 +279,10 @@ public:
   class CylMidPoint : public   std::unary_function<PosType, CoordType>
   {
   private:
-    CylMidPoint() {assert(0);}
+    CylMidPoint() {vcg_assert(0);}
   public:
     CylMidPoint(CylPred &ep) : newPtMap(&(ep.newPtMap)) {
-      assert(newPtMap);
+      vcg_assert(newPtMap);
     }
     std::map< std::pair<CoordType,CoordType>, CoordType > *newPtMap;
     void operator()(VertexType &nv, PosType ep)
@@ -290,13 +290,13 @@ public:
       typename std::map< std::pair<CoordType,CoordType>,CoordType >::iterator mi;
       VertexType *v0 = ep.V();
       VertexType *v1 = ep.VFlip();
-      assert(newPtMap);
+      vcg_assert(newPtMap);
       if(v0>v1) std::swap(v0,v1);
 
       CoordType p0=v0->P();
       CoordType p1=v1->P();
       mi=newPtMap->find(std::make_pair(v0->P(),v1->P()));
-      assert(mi!=newPtMap->end());
+      vcg_assert(mi!=newPtMap->end());
       nv.P()=(*mi).second;
     }
 
@@ -309,7 +309,7 @@ public:
     TexCoord2<ScalarType,1> WedgeInterp(TexCoord2<ScalarType,1> &t0, TexCoord2<ScalarType,1> &t1)
     {
         TexCoord2<ScalarType,1> tmp;
-        assert(t0.n()== t1.n());
+        vcg_assert(t0.n()== t1.n());
         tmp.n()=t0.n();
         tmp.t()=(t0.t()+t1.t())/2.0;
         return tmp;

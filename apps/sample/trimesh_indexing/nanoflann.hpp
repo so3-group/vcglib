@@ -672,7 +672,7 @@ namespace nanoflann
         // assign one value to all elements
         inline void assign (const T& value) { for (size_t i=0;i<N;i++) elems[i]=value; }
         // assign (compatible with std::vector's one) (by JLBC for MRPT)
-        void assign (const size_t n, const T& value) { assert(N==n); for (size_t i=0;i<N;i++) elems[i]=value; }
+        void assign (const size_t n, const T& value) { vcg_assert(N==n); for (size_t i=0;i<N;i++) elems[i]=value; }
       private:
         // check range (may be private because it is static)
         static void rangecheck (size_type i) { if (i >= size()) { throw std::out_of_range("CArray<>: index out of range"); } }
@@ -932,7 +932,7 @@ namespace nanoflann
 		template <typename RESULTSET>
 		void findNeighbors(RESULTSET& result, const ElementType* vec, const SearchParams& searchParams) const
 		{
-			assert(vec);
+			vcg_assert(vec);
 			if (!root_node) throw std::runtime_error("[nanoflann] findNeighbors() called before building the index or no data points.");
 			float epsError = 1+searchParams.eps;
 
@@ -1243,7 +1243,7 @@ namespace nanoflann
 
 		DistanceType computeInitialDistances(const ElementType* vec, distance_vector_t& dists) const
 		{
-			assert(vec);
+			vcg_assert(vec);
 			DistanceType distsq = 0.0;
 
 			for (int i = 0; i < (DIM>0 ? DIM : dim); ++i) {

@@ -135,9 +135,9 @@ void fitHyperplane(int numPoints,
   typedef typename VectorType::Scalar Scalar;
   typedef Matrix<Scalar,VectorType::SizeAtCompileTime,VectorType::SizeAtCompileTime> CovMatrixType;
   EIGEN_STATIC_ASSERT_VECTOR_ONLY(VectorType)
-  ei_assert(numPoints >= 1);
+  ei_vcg_assert(numPoints >= 1);
   int size = points[0]->size();
-  ei_assert(size+1 == result->coeffs().size());
+  ei_vcg_assert(size+1 == result->coeffs().size());
 
   // compute the mean of the data
   VectorType mean = VectorType::Zero(size);

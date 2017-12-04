@@ -204,7 +204,7 @@ template <class S,class RotationType> Matrix44<S> Similarity<S,RotationType>::In
 template <class S,class RotationType> void Similarity<S,RotationType>::FromMatrix(const Matrix44<S> &m) {
  //Computes a t*s*r decomposition
   S det = m.Determinant();
-  assert(det > 0);
+  vcg_assert(det > 0);
   sca = (S)pow((S)det, (S)(1/3.0));  
   Matrix44<S> t = m*Matrix44<S>().SetScale(1/sca, 1/sca, 1/sca);
   tra[0] = t.ElementAt(0, 3);t[0][3] = 0.0;

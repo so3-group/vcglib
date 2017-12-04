@@ -53,7 +53,7 @@ class MeshToMatrix
                                     Eigen::MatrixXi& EF)
     {
         (void)V;
-        //assert(igl::is_manifold(V,F));
+        //vcg_assert(igl::is_manifold(V,F));
         std::vector<std::vector<int> > ETT;
         for(int f=0;f<F.rows();++f)
             for (int i=0;i<3;++i)

@@ -73,9 +73,9 @@ namespace vcg
                         to just "update" the topology of half edges.
                         **/
             static void FromIndexed(MeshType & m){
-                assert(HasFVAdjacency(m));
-                assert(HasHOppAdjacency(m));
-                assert(HasHNextAdjacency(m));
+                vcg_assert(HasFVAdjacency(m));
+                vcg_assert(HasHOppAdjacency(m));
+                vcg_assert(HasHNextAdjacency(m));
 
                 typename MeshType::template PerFaceAttributeHandle<BitVector> flagVisited =
                         vcg::tri::Allocator<MeshType>::template AddPerFaceAttribute<BitVector>(m,"");
@@ -103,7 +103,7 @@ namespace vcg
                 std::vector<VertexPairEdgePtr> all;
                 int firstEdge = 0;
                 for(fi = m.face.begin(); fi != m.face.end(); ++fi)if(!(*fi).IsD()){
-                    assert((*fi).VN()>2);
+                    vcg_assert((*fi).VN()>2);
                     if(flagVisited[*fi].empty()) {flagVisited[*fi].resize((*fi).VN());}
 
                     for(int i  = 0; i < (*fi).VN(); ++i,++ei)
@@ -166,7 +166,7 @@ namespace vcg
                 vcg::tri::Allocator<MeshType>:: template DeletePerFaceAttribute<BitVector>(m,flagVisited );
 
                 std::sort(all.begin(),all.end());
-                assert(all.size() == n_edges);
+                vcg_assert(all.size() == n_edges);
 
                 for(unsigned int i = 0 ; i < all.size(); )
                     if(all[i]  == all[i+1])
@@ -183,7 +183,7 @@ namespace vcg
 
                 if(HasEHAdjacency(m) && HasHEAdjacency(m))
                 {
-                    assert(m.edge.size() == 0 || m.edge.size() == n_edges/2);
+                    vcg_assert(m.edge.size() == 0 || m.edge.size() == n_edges/2);
 
                     if ( m.edge.size() == 0 )
                     {
@@ -221,8 +221,8 @@ namespace vcg
                                     if((*hi)->HOp()->HVp() == (*ei1).V(1))
                                     {
 
-                                        assert((*hi)->HEp() == NULL);
-                                        assert((*hi)->HOp()->HEp() == NULL);
+                                        vcg_assert((*hi)->HEp() == NULL);
+                                        vcg_assert((*hi)->HOp()->HEp() == NULL);
 
                                         // EH
                                         (*ei1).EHp() = *hi;
@@ -246,7 +246,7 @@ namespace vcg
         Checks pointers FHEp() are valid
         **/
             static bool CheckConsistency_FHp(MeshType &  m){
-                assert(MeshType::FaceType::HasFHAdjacency());
+                vcg_assert(MeshType::FaceType::HasFHAdjacency());
                 FaceIterator fi;
                 for(fi = m.face.begin(); fi != m.face.end(); ++fi)
                     if(!(*fi).IsD()){
@@ -260,10 +260,10 @@ namespace vcg
         Checks that half edges and face relation are consistent
         **/
             static bool CheckConsistency(MeshType & m){
-                assert(MeshType::HEdgeType::HasHNextAdjacency());
-                assert(MeshType::HEdgeType::HasHOppAdjacency());
-                assert(MeshType::HEdgeType::HasHVAdjacency());
-                assert(MeshType::FaceType::HasFHAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHNextAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                vcg_assert(MeshType::FaceType::HasFHAdjacency());
 
                 //bool hasHEF = ( MeshType::HEdgeType::HasHFAdjacency());
                 bool hasHP = ( MeshType::HEdgeType::HasHPrevAdjacency());
@@ -433,11 +433,11 @@ namespace vcg
         */
         private:
             static void SetRelationsLoopFace(HEdgeType * e0, FaceType * f){
-                assert(HEdgeType::HasHNextAdjacency());
-                assert(FaceType::HasFHAdjacency());
+                vcg_assert(HEdgeType::HasHNextAdjacency());
+                vcg_assert(FaceType::HasFHAdjacency());
 
                 HEdgeType *e = e0;
-                assert(e!=NULL);
+                vcg_assert(e!=NULL);
                 do{ e->HFp() = f; e = e->HNp(); } while(e != e0);
                 f->FHp() = e0;
             }
@@ -456,7 +456,7 @@ namespace vcg
                     if(ep->HNp() == e0) return ep;
                     ep = ep->HNp();
                 }while(ep!=e0);
-                assert(0); // degenerate loop
+                vcg_assert(0); // degenerate loop
                 return 0;
             }
 
@@ -472,11 +472,11 @@ namespace vcg
          ----e0_HEPp-> X ----- e0 ------>
         */
             static void AddHEdge(MeshType &m, HEdgeType * e0, HEdgeType * e1){
-                assert(e1!=e0->HNp());
-                assert(e0!=e1->HNp());
+                vcg_assert(e1!=e0->HNp());
+                vcg_assert(e0!=e1->HNp());
                 bool hasP =  MeshType::HEdgeType::HasHPrevAdjacency();
-                assert(e0->HOp() != e1); // the hedge already exists
-                assert(e0!=e1->HNp());
+                vcg_assert(e0->HOp() != e1); // the hedge already exists
+                vcg_assert(e0!=e1->HNp());
 
                 std::vector<typename MeshType::HEdgePointer* > toUpdate;
                 toUpdate.push_back(&e0);
@@ -532,9 +532,9 @@ namespace vcg
 
         */
             static void RemoveHEdge(MeshType &m, HEdgeType * e){
-                assert(MeshType::HEdgeType::HasHNextAdjacency());
-                assert(MeshType::HEdgeType::HasHOppAdjacency());
-                assert(MeshType::FaceType::HasFHAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHNextAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                vcg_assert(MeshType::FaceType::HasFHAdjacency());
 
                 bool hasP =  MeshType::HEdgeType::HasHPrevAdjacency();
                 HEdgePointer e_HEPp,eO_HEPp;
@@ -547,8 +547,8 @@ namespace vcg
                     eO_HEPp = PreviousEdge(e->HOp());
                 }
 
-                assert(e_HEPp->HNp() == e);
-                assert(eO_HEPp->HNp() == e->HOp());
+                vcg_assert(e_HEPp->HNp() == e);
+                vcg_assert(eO_HEPp->HNp() == e->HOp());
                 e_HEPp->HNp() = e->HOp()->HNp();
                 eO_HEPp->HNp() = e-> HNp();
 
@@ -600,11 +600,11 @@ namespace vcg
                         face will be preserved.
                         **/
             static void FromHalfEdges(  MeshType & m ){
-                assert(HasFVAdjacency(m));
-                assert(MeshType::HEdgeType::HasHNextAdjacency());
-                assert(MeshType::HEdgeType::HasHVAdjacency());
-                assert(MeshType::HEdgeType::HasHOppAdjacency());
-                assert(MeshType::FaceType::HasFHAdjacency());
+                vcg_assert(HasFVAdjacency(m));
+                vcg_assert(MeshType::HEdgeType::HasHNextAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHVAdjacency());
+                vcg_assert(MeshType::HEdgeType::HasHOppAdjacency());
+                vcg_assert(MeshType::FaceType::HasFHAdjacency());
                 bool hasHEF;
                 //bool createFace,hasHEF,hasFHE;
 
@@ -619,7 +619,7 @@ namespace vcg
                 vcg::SimpleTempData<typename MeshType::HEdgeContainer,bool> hV(m.hedge);
 
                 hasHEF = (MeshType::HEdgeType::HasHFAdjacency());
-                assert( !hasHEF || (hasHEF && m.fn>0));
+                vcg_assert( !hasHEF || (hasHEF && m.fn>0));
 
                 // if the edgetype has the pointer to face
                 // it is assumed the the edget2face pointer (HEFp) are correct

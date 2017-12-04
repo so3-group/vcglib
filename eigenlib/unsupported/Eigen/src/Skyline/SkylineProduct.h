@@ -75,7 +75,7 @@ public:
     template<typename Lhs, typename Rhs>
     EIGEN_STRONG_INLINE SkylineProduct(const Lhs& lhs, const Rhs& rhs)
     : m_lhs(lhs), m_rhs(rhs) {
-        eigen_assert(lhs.cols() == rhs.rows());
+        eigen_vcg_assert(lhs.cols() == rhs.rows());
 
         enum {
             ProductIsValid = _LhsNested::ColsAtCompileTime == Dynamic

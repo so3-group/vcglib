@@ -277,7 +277,7 @@ public:
 				}
 				for(h=0; h < 2; ++h)
 				{
-//					assert(!glGetError());
+//					vcg_assert(!glGetError());
 					//glBegin(GL_TRIANGLE_FAN);
 					p0 = Point3f(0,0,0);
 					if(h==0) p0[0]+=1.f;
@@ -302,7 +302,7 @@ public:
 						glNormal3f(N[1][0],N[1][1],N[1][2]);
 						glVertex3f(P[1][0],P[1][1],P[1][2]);
 						glEnd();
-//						assert(!glGetError());
+//						vcg_assert(!glGetError());
 						N[0] = N[1];
 						P[0] = P[1];
 					}
@@ -334,7 +334,7 @@ public:
 		{
 			if (tail!=head)
 			{
-				//assert(!glGetError());
+				//vcg_assert(!glGetError());
 				Matrix44f tr;
 				XAxis(tail,head,tr);
 				glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -353,9 +353,9 @@ public:
 				glTranslate(vcg::Point3f(l_body,0,0));
 				Cone(head_slice,head_lenght,head_width,useDisplList);
 				glPopMatrix();
-				//assert(!glGetError());
+				//vcg_assert(!glGetError());
 				glPopAttrib();
-				//assert(!glGetError());
+				//vcg_assert(!glGetError());
 			}
 		}
 

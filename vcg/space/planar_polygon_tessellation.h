@@ -24,7 +24,7 @@
 #ifndef __VCGLIB_PLANAR_POLYGON_TESSELLATOR
 #define __VCGLIB_PLANAR_POLYGON_TESSELLATOR
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/space/segment2.h>
 #include <vcg/math/random_generator.h>
 

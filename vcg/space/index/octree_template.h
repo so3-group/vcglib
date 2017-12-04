@@ -114,7 +114,7 @@ protected:
 
 		inline NodePointer &Son(int sonIndex)
 		{
-			assert(0<=sonIndex && sonIndex<=8);
+			vcg_assert(0<=sonIndex && sonIndex<=8);
 			return sons[sonIndex];
 		}
 
@@ -136,7 +136,7 @@ protected:
 
 		inline NodePointer &Son(int /*sonIndex*/)
 		{
-			assert(false);
+			vcg_assert(false);
 			static NodePointer p = NULL;
 			return p;
 		}
@@ -191,7 +191,7 @@ public:
 	int WhatSon(NodePointer n) const
 	{
 		if(n==Root())
-			assert(false);
+			vcg_assert(false);
 
 		NodePointer parent = Parent(n);
 		for(int i=0;i<8;++i)
@@ -210,7 +210,7 @@ public:
 	*/
 	inline void CenterInWorldCoordinates(const NodePointer n, CoordinateType &wc_Center) const
 	{
-		assert(0<=n && n<NodeCount());
+		vcg_assert(0<=n && n<NodeCount());
 
 		int shift = maximumDepth - Level(n) + 1;
 		CoordinateType ocCenter = CenterInOctreeCoordinates(n);
@@ -277,7 +277,7 @@ public:
 		center+=Point3f(.5f,.5f,.5f);
 
 		//TODO verify the assert
-		assert(center==nodes[n]->center);
+		vcg_assert(center==nodes[n]->center);
 
 		return center;
 	}
@@ -372,8 +372,8 @@ public:
 	*/
 	NodePointer NewNode(NodePointer parent, int i)
 	{
-		assert(0<=i && i<8);
-		assert(Son(parent, i)==NULL);
+		vcg_assert(0<=i && i<8);
+		vcg_assert(Son(parent, i)==NULL);
 
 		//int index  = NodeCount();
 		char level = Level(parent)+1;
@@ -397,9 +397,9 @@ public:
 	NodePointer AddNode(CenterType path)
 	{
 		//the input coordinates must be in the range 0..2^maxdepth
-		assert(path[0]>=0 && path[0]<size);
-		assert(path[1]>=0 && path[1]<size);
-		assert(path[2]>=0 && path[2]<size);
+		vcg_assert(path[0]>=0 && path[0]<size);
+		vcg_assert(path[1]>=0 && path[1]<size);
+		vcg_assert(path[2]>=0 && path[2]<size);
 
 		NodePointer curNode	= Root();
 		int rootLevel				= 0;
@@ -417,7 +417,7 @@ public:
 			else
 			{
 				NodePointer newNode = NewNode(curNode, nextSon);
-				assert(Son(curNode, nextSon)==newNode); // TODO delete an assignment
+				vcg_assert(Son(curNode, nextSon)==newNode); // TODO delete an assignment
 				curNode=newNode;
 			}
 			--shiftLevel;
@@ -435,9 +435,9 @@ public:
 	{
 		CenterType pi;
 
-		assert(pf.X()>=boundingBox.min.X() &&  pf.X()<=boundingBox.max.X());
-		assert(pf.Y()>=boundingBox.min.Y() &&  pf.Y()<=boundingBox.max.Y());
-		assert(pf.Z()>=boundingBox.min.Z() &&  pf.Z()<=boundingBox.max.Z());
+		vcg_assert(pf.X()>=boundingBox.min.X() &&  pf.X()<=boundingBox.max.X());
+		vcg_assert(pf.Y()>=boundingBox.min.Y() &&  pf.Y()<=boundingBox.max.Y());
+		vcg_assert(pf.Z()>=boundingBox.min.Z() &&  pf.Z()<=boundingBox.max.Z());
 
 		pi.X() = int((pf.X() - boundingBox.min.X()) * size / (boundingBox.max.X() - boundingBox.min.X()));
 		pi.Y() = int((pf.Y() - boundingBox.min.Y()) * size / (boundingBox.max.Y() - boundingBox.min.Y()));
@@ -452,9 +452,9 @@ public:
 	{
 		CoordinateType pf;
 
-		assert(pi.X()>=0 && pi.X()<size);
-		assert(pi.Y()>=0 && pi.Y()<size);
-		assert(pi.Z()>=0 && pi.Z()<size);
+		vcg_assert(pi.X()>=0 && pi.X()<size);
+		vcg_assert(pi.Y()>=0 && pi.Y()<size);
+		vcg_assert(pi.Z()>=0 && pi.Z()<size);
 
 		pf.X() = pi.X() * (boundingBox.max.X() - boundingBox.min.X()) / size + boundingBox.min.X();
 		pf.Y() = pi.Y() * (boundingBox.max.Y() - boundingBox.min.Y()) / size + boundingBox.min.Y();
@@ -492,9 +492,9 @@ public:
 	// che contiene il punto espresso in range 0..2^maxk
 	NodePointer DeepestNode(CenterType path, int MaxLev)
 	{
-		assert(path[0]>=0 && path[0]<size);
-		assert(path[1]>=0 && path[1]<size);
-		assert(path[2]>=0 && path[2]<size);
+		vcg_assert(path[0]>=0 && path[0]<size);
+		vcg_assert(path[1]>=0 && path[1]<size);
+		vcg_assert(path[2]>=0 && path[2]<size);
 
 		NodePointer curNode	= Root();
 		int shift						= maximumDepth-1;
@@ -551,9 +551,9 @@ public:
 	// Restituisce lo z-order del punto p
 	ZOrderType BuildRoute(const CoordinateType &p, NodePointer *&route)
 	{
-		assert( boundingBox.min.X()<=p.X() && p.X()<=boundingBox.max.X() );
-		assert( boundingBox.min.Y()<=p.Y() && p.Y()<=boundingBox.max.Y() );
-		assert( boundingBox.min.Z()<=p.Z() && p.Z()<=boundingBox.max.Z() );
+		vcg_assert( boundingBox.min.X()<=p.X() && p.X()<=boundingBox.max.X() );
+		vcg_assert( boundingBox.min.Y()<=p.Y() && p.Y()<=boundingBox.max.Y() );
+		vcg_assert( boundingBox.min.Z()<=p.Z() && p.Z()<=boundingBox.max.Z() );
 
 		route[0]						= Root();
 		NodePointer curNode = Root();
@@ -592,9 +592,9 @@ public:
 	// dell'otree, false altrimenti
 	bool GetRoute(const CoordinateType &p, NodePointer *&route)
 	{
-		assert( boundingBox.min.X()<=p.X() && p.X()<=boundingBox.max.X() );
-		assert( boundingBox.min.Y()<=p.Y() && p.Y()<=boundingBox.max.Y() );
-		assert( boundingBox.min.Z()<=p.Z() && p.Z()<=boundingBox.max.Z() );
+		vcg_assert( boundingBox.min.X()<=p.X() && p.X()<=boundingBox.max.X() );
+		vcg_assert( boundingBox.min.Y()<=p.Y() && p.Y()<=boundingBox.max.Y() );
+		vcg_assert( boundingBox.min.Z()<=p.Z() && p.Z()<=boundingBox.max.Z() );
 
 		memset(route, NULL, maximumDepth*sizeof(NodePointer));
 

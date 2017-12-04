@@ -109,7 +109,7 @@ private:
                            const int n,
                            Eigen::SparseMatrix<ScalarType>& X)
     {
-        assert(Index.size()==Values.size());
+        vcg_assert(Index.size()==Values.size());
 
         std::vector<Eigen::Triplet<ScalarType> > IJV;
         IJV.reserve(Index.size());
@@ -120,8 +120,8 @@ private:
             int col=Index[i].second;
             ScalarType val=Values[i];
 
-            assert(row<m);
-            assert(col<n);
+            vcg_assert(row<m);
+            vcg_assert(col<n);
 
             IJV.push_back(Eigen::Triplet<ScalarType>(row,col,val));
         }
@@ -191,11 +191,11 @@ private:
 
             //add one hard constraint
             int FaceN=SParam.ConstrainedF[i].numF;
-            assert(FaceN>=0);
-            assert(FaceN<(int)mesh.face.size());
-            assert(mesh.face[FaceN].VN()==(int)SParam.ConstrainedF[i].BarycentricW.size());
+            vcg_assert(FaceN>=0);
+            vcg_assert(FaceN<(int)mesh.face.size());
+            vcg_assert(mesh.face[FaceN].VN()==(int)SParam.ConstrainedF[i].BarycentricW.size());
             penalty=ScalarType(1) - SParam.lapWeight;
-            assert(penalty>ScalarType(0) && penalty<ScalarType(1));
+            vcg_assert(penalty>ScalarType(0) && penalty<ScalarType(1));
 
             //then add all the weights to impose the constraint
             for (int j=0;j<mesh.face[FaceN].VN();j++)
@@ -328,7 +328,7 @@ public:
 
         //SimplicialLDLT
         Eigen::SimplicialCholesky<Eigen::SparseMatrix<ScalarType > > solver(S);
-        assert(solver.info() == Eigen::Success);
+        vcg_assert(solver.info() == Eigen::Success);
 
         MatrixXm V;
         if (!SParam.SmoothQ)

@@ -86,7 +86,7 @@ class GridStaticObj : public BasicGrid<FLT>
 	 {
 #ifndef NDEBUG
 		 if ( pi[0]<0 || pi[0]>=this->siz[0] || pi[1]<0 || pi[1]>=this->siz[1] || pi[2]<0 || pi[2]>=this->siz[2] )
-		 {	assert(0);
+		 {	vcg_assert(0);
 		 return 0;
 		 } 
 #endif

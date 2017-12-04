@@ -201,7 +201,7 @@ public:
   void Execute(TETRA_MESH_TYPE &tm)
   {
    // _EC.FindSets(pos);
-	assert(!vrem->IsD());
+	vcg_assert(!vrem->IsD());
     int del=_EC.DoCollapse(pos,_NewPoint);
 	tm.tn-=del;
 	tm.vn-=1;
@@ -209,7 +209,7 @@ public:
   
   void UpdateHeap(typename LocalOptimization<TETRA_MESH_TYPE>::HeapType & h_ret)
   {
-    assert(!vrem->IsD());
+    vcg_assert(!vrem->IsD());
 		_Imark()++;
     VTIterator<TetraType> VTi(vrem->VTb(),vrem->VTi());
     while (!VTi.End())
@@ -218,8 +218,8 @@ public:
       for (int j=0;j<6;j++)
       {
 		vcg::tetra::Pos<TetraType> p=Pos<TetraType>(VTi.Vt(),Tetra::FofE(j,0),j,Tetra::VofE(j,0));
-		assert(!p.T()->V(p.V())->IsD());
-		assert(!p.T()->IsD());
+		vcg_assert(!p.T()->V(p.V())->IsD());
+		vcg_assert(!p.T()->IsD());
         h_ret.push_back(HeapElem(new TetraEdgeCollapse<TETRA_MESH_TYPE>(p,_Imark())));
 		std::push_heap(h_ret.begin(),h_ret.end());
 		// update the mark of the vertices
@@ -245,8 +245,8 @@ public:
 				{
         VertexType *v0=pos.T()->V(Tetra::VofE(pos.E(),0));
 		VertexType *v1=pos.T()->V(Tetra::VofE(pos.E(),1));
-		assert(!v0->IsD());
-		assert(!v1->IsD());
+		vcg_assert(!v0->IsD());
+		vcg_assert(!v1->IsD());
 			if(! (( (!v0->IsD()) && (!v1->IsD())) &&
 							 _Imark()>=v0->IMark() &&
 							 _Imark()>=v1->IMark()))
@@ -275,8 +275,8 @@ public:
 	   for (int j=0;j<6;j++)
 		{
 			PosType p=PosType(&*ti,Tetra::FofE(j,0),j,Tetra::VofE(j,0));
-			assert(!p.T()->V(p.V())->IsD());
-			assert(!p.T()->IsD());
+			vcg_assert(!p.T()->V(p.V())->IsD());
+			vcg_assert(!p.T()->IsD());
 			h_ret.push_back(HeapElem(new TetraEdgeCollapse<TETRA_MESH_TYPE>(p,m.IMark)));
 		}
 		}

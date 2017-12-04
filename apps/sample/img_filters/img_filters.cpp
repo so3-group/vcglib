@@ -218,7 +218,7 @@ int main(int argc,char ** argv)
        << "*.tiff" << "*.xbm" << "*.xpm";
 
   QStringList image_list = QDir(input_dir).entryList(readable_image_extensions,QDir::Files|QDir::Readable,QDir::Name);
-  assert(clean_dir(QDir(output_dir)));
+  vcg_assert(clean_dir(QDir(output_dir)));
 
   try {
     foreach(QString image, image_list)

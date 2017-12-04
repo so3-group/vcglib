@@ -119,8 +119,8 @@ template <class MESH_TYPE, int MAXVIS=2048> class VisShader
 	 
 	 virtual int GLAccumPixel(	std::vector<int> &PixSeen)=0;
 	 
-	 virtual bool ReadVisibility(const char * /*filename*/){assert( 0); return false;}
-	 virtual bool WriteVisibility(const char * /*filename*/){assert( 0); return false;}
+	 virtual bool ReadVisibility(const char * /*filename*/){vcg_assert( 0); return false;}
+	 virtual bool WriteVisibility(const char * /*filename*/){vcg_assert( 0); return false;}
 
 /********************************************************/
 // Generic functions with same code for every subclass
@@ -159,7 +159,7 @@ template <class MESH_TYPE, int MAXVIS=2048> class VisShader
 */
 	void AddPixelCount(std::vector<float> &_VV, const std::vector<int> &PixSeen)
 		{
-		assert(_VV.size()==PixSeen.size());
+		vcg_assert(_VV.size()==PixSeen.size());
 			for(unsigned int i=0;i<PixSeen.size();++i)
 				if(PixSeen[i]>0) _VV[i]+= 1;
 		}
@@ -167,7 +167,7 @@ template <class MESH_TYPE, int MAXVIS=2048> class VisShader
 
  //void SetVisibilityMask(std::vector< std::bitset<MAXVIS> > &_VM, const std::vector<int> &PixSeen, const int dir)
 	//	{
-	//	assert(_VM.size()==PixSeen.size());
+	//	vcg_assert(_VM.size()==PixSeen.size());
 	//		for(int i=0;i<PixSeen.size();++i)
 	//			if(PixSeen[i]>0) _VM[i][dir]=true;
 	//	}
@@ -211,8 +211,8 @@ void ComputeHalf(int nn, Point3x &dir, CallBack *cb)
 	
 	VN.clear();
 	std::vector<Point3x> nvt;
-	assert(0 && "This is only my guess (to compile). (Ponchio)");
-	assert(0 && "Was: GenNormal(nn*2, nvt);");
+	vcg_assert(0 && "This is only my guess (to compile). (Ponchio)");
+	vcg_assert(0 && "Was: GenNormal(nn*2, nvt);");
 	GenNormal<ScalarType>::Uniform(nn*2,nvt);
 	for(int i=0;i<nvt.size();++i)
 		if(dir*nvt[i]>0) VN.push_back(nvt[i]);
@@ -379,7 +379,7 @@ template <class MESH_TYPE> class VertexVisShader : public VisShader<MESH_TYPE>
 	VertexVisShader(MESH_TYPE &me):VisShader<MESH_TYPE>(me)
 	{
      // la mesh DEVE avere colore per vertice
-			if(! HasPerVertexColor(m)) assert(0);
+			if(! HasPerVertexColor(m)) vcg_assert(0);
 	}
 
 	void Init()  {		VV.resize(m.vert.size()); }
@@ -551,7 +551,7 @@ void MapVisibility(float Gamma=1, float LowPass=0, float HighPass=1, float Scale
 
 //void ApplyLightingEnvironment(std::vector<float> &W, float Gamma=1)
 //	{
-//		assert(W.size()==VN.size());
+//		vcg_assert(W.size()==VN.size());
 //		MESH_TYPE::VertexIterator vi;
 //	
 //		for(vi=m.vert.begin();vi!=m.vert.end();++vi)

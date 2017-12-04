@@ -152,7 +152,7 @@ template<> EIGEN_STRONG_INLINE Packet4f pdiv<Packet4f>(const Packet4f& a, const 
   return div;
 }
 template<> EIGEN_STRONG_INLINE Packet4i pdiv<Packet4i>(const Packet4i& /*a*/, const Packet4i& /*b*/)
-{ eigen_assert(false && "packet integer division are not supported by NEON");
+{ eigen_vcg_assert(false && "packet integer division are not supported by NEON");
   return pset1<Packet4i>(0);
 }
 

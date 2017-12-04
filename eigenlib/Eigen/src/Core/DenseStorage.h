@@ -64,13 +64,13 @@ struct plain_array
   template<typename PtrType>
   EIGEN_ALWAYS_INLINE PtrType eigen_unaligned_array_assert_workaround_gcc47(PtrType array) { return array; }
   #define EIGEN_MAKE_UNALIGNED_ARRAY_ASSERT(sizemask) \
-    eigen_assert((reinterpret_cast<size_t>(eigen_unaligned_array_assert_workaround_gcc47(array)) & sizemask) == 0 \
+    eigen_vcg_assert((reinterpret_cast<size_t>(eigen_unaligned_array_assert_workaround_gcc47(array)) & sizemask) == 0 \
               && "this assertion is explained here: " \
               "http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html" \
               " **** READ THIS WEB PAGE !!! ****");
 #else
   #define EIGEN_MAKE_UNALIGNED_ARRAY_ASSERT(sizemask) \
-    eigen_assert((reinterpret_cast<size_t>(array) & sizemask) == 0 \
+    eigen_vcg_assert((reinterpret_cast<size_t>(array) & sizemask) == 0 \
               && "this assertion is explained here: " \
               "http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html" \
               " **** READ THIS WEB PAGE !!! ****");
@@ -124,7 +124,7 @@ template<typename T, int Size, int _Rows, int _Cols, int _Options> class DenseSt
   public:
     inline DenseStorage() {}
     inline DenseStorage(internal::constructor_without_unaligned_array_assert)
-      : m_data(internal::constructor_without_unaligned_array_assert()) {}
+      : m_data(internal::constructor_without_unaligned_array_vcg_assert()) {}
     inline DenseStorage(DenseIndex,DenseIndex,DenseIndex) {}
     inline void swap(DenseStorage& other) { std::swap(m_data,other.m_data); }
     static inline DenseIndex rows(void) {return _Rows;}
@@ -170,7 +170,7 @@ template<typename T, int Size, int _Options> class DenseStorage<T, Size, Dynamic
   public:
     inline DenseStorage() : m_rows(0), m_cols(0) {}
     inline DenseStorage(internal::constructor_without_unaligned_array_assert)
-      : m_data(internal::constructor_without_unaligned_array_assert()), m_rows(0), m_cols(0) {}
+      : m_data(internal::constructor_without_unaligned_array_vcg_assert()), m_rows(0), m_cols(0) {}
     inline DenseStorage(DenseIndex, DenseIndex nbRows, DenseIndex nbCols) : m_rows(nbRows), m_cols(nbCols) {}
     inline void swap(DenseStorage& other)
     { std::swap(m_data,other.m_data); std::swap(m_rows,other.m_rows); std::swap(m_cols,other.m_cols); }
@@ -190,7 +190,7 @@ template<typename T, int Size, int _Cols, int _Options> class DenseStorage<T, Si
   public:
     inline DenseStorage() : m_rows(0) {}
     inline DenseStorage(internal::constructor_without_unaligned_array_assert)
-      : m_data(internal::constructor_without_unaligned_array_assert()), m_rows(0) {}
+      : m_data(internal::constructor_without_unaligned_array_vcg_assert()), m_rows(0) {}
     inline DenseStorage(DenseIndex, DenseIndex nbRows, DenseIndex) : m_rows(nbRows) {}
     inline void swap(DenseStorage& other) { std::swap(m_data,other.m_data); std::swap(m_rows,other.m_rows); }
     inline DenseIndex rows(void) const {return m_rows;}
@@ -209,7 +209,7 @@ template<typename T, int Size, int _Rows, int _Options> class DenseStorage<T, Si
   public:
     inline DenseStorage() : m_cols(0) {}
     inline DenseStorage(internal::constructor_without_unaligned_array_assert)
-      : m_data(internal::constructor_without_unaligned_array_assert()), m_cols(0) {}
+      : m_data(internal::constructor_without_unaligned_array_vcg_assert()), m_cols(0) {}
     inline DenseStorage(DenseIndex, DenseIndex, DenseIndex nbCols) : m_cols(nbCols) {}
     inline void swap(DenseStorage& other) { std::swap(m_data,other.m_data); std::swap(m_cols,other.m_cols); }
     inline DenseIndex rows(void) const {return _Rows;}

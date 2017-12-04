@@ -149,7 +149,7 @@ namespace vcg {
 		{
 			PToIP(b.min, ib.min);
 			PToIP(b.max, ib.max);
-			//assert(ib.max[0]>=0 && ib.max[1]>=0 && ib.max[2]>=0);	
+			//vcg_assert(ib.max[0]>=0 && ib.max[1]>=0 && ib.max[2]>=0);	
 		}
 
 		/* Given a cell in integer coordinates, compute the corresponding cell in <ScalarType> coordinates
@@ -183,9 +183,9 @@ namespace vcg {
 		double diag = size.Norm();	// Diagonale del box
 		double eps  = diag*1e-4;		// Fattore di tolleranza
 
-		assert(elems>0);
-		assert(size[0]>=0.0);
-		assert(size[1]>=0.0);
+		vcg_assert(elems>0);
+		vcg_assert(size[0]>=0.0);
+		vcg_assert(size[1]>=0.0);
 
 
 		__int64 ncell = (__int64)(elems*GFactor);	// Calcolo numero di voxel

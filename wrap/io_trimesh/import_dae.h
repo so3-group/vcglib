@@ -30,7 +30,7 @@
 #include <wrap/dae/poly_triangulator.h>
 
 // uncomment one of the following line to enable the Verbose debugging for the parsing
-//#define QDEBUG if(1) ; else {assert(0);}
+//#define QDEBUG if(1) ; else {vcg_assert(0);}
 #define QDEBUG qDebug
 
 namespace vcg {
@@ -79,7 +79,7 @@ namespace io {
             if (!wnsrc.isNull())
             {
                 indnm = face.at(faceind).toInt();
-                assert(indnm * 3 < wn.size());
+                vcg_assert(indnm * 3 < wn.size());
                 m.face[meshfaceind].WN(component) = vcg::Point3f(wn.at(indnm * 3).toFloat(),wn.at(indnm * 3 + 1).toFloat(),wn.at(indnm * 3 + 2).toFloat());
             }
             return indnm;
@@ -92,7 +92,7 @@ namespace io {
             {
                 indtx = face.at(faceind).toInt();
                 //int num = wt.size();
-                assert(indtx * stride < wt.size());
+                vcg_assert(indtx * stride < wt.size());
                 m.face[meshfaceind].WT(component) = vcg::TexCoord2<float>();
                 m.face[meshfaceind].WT(component).U() = wt.at(indtx * stride).toFloat();
                 m.face[meshfaceind].WT(component).V() = wt.at(indtx * stride + 1).toFloat();
@@ -111,7 +111,7 @@ namespace io {
             {
                 indtx = faceIndexList.at(faceind).toInt();
                 //int num = wt.size();
-                assert(indtx * stride < wt.size());
+                vcg_assert(indtx * stride < wt.size());
                 WT = vcg::TexCoord2<float>();
                 WT.U() = wt.at(indtx * stride).toFloat();
                 WT.V() = wt.at(indtx * stride + 1).toFloat();
@@ -126,8 +126,8 @@ namespace io {
             if (!wcsrc.isNull())
             {
                 indcl = face.at(faceind).toInt();
-                assert((colorcomponent == 4) || (colorcomponent == 3));
-                assert(indcl * colorcomponent < wc.size());
+                vcg_assert((colorcomponent == 4) || (colorcomponent == 3));
+                vcg_assert(indcl * colorcomponent < wc.size());
                 vcg::Color4b c;
                 if (colorcomponent == 3)
                     c[3] = 255;
@@ -246,7 +246,7 @@ namespace io {
                         {
                             int indvt = faceIndexList.at(faceIndexCnt).toInt();
                             if(faceSizeList.size()<100) QDEBUG("*******                 Reading face[%3i].V(%i) = %4i  (%i-th of the index list) (face has %i vertices)",ff,tt,indvt,faceIndexCnt,curFaceVertNum);
-                            assert(indvt + offset < m.vert.size());
+                            vcg_assert(indvt + offset < m.vert.size());
                             polyTemp._pv[tt] = &(m.vert[indvt + offset]);
                             faceIndexCnt +=faceAttributeNum;
 
@@ -283,7 +283,7 @@ namespace io {
             // Very simple fan triangulation of the polygon.
             for(int i=0;i<triNum;++i)
             {
-                assert(fp!=m.face.end());
+                vcg_assert(fp!=m.face.end());
                 (*fp).V(0)=polyTemp._pv[0];
                 (*fp).WT(0)=polyTemp._txc[0];
 
@@ -295,7 +295,7 @@ namespace io {
 
                 ++fp;
             }
-            assert(fp==m.face.end());
+            vcg_assert(fp==m.face.end());
             return E_NOERROR;
         }
 
@@ -415,7 +415,7 @@ namespace io {
                         for(unsigned int tt = 0;tt < 3;++tt)
                         {
                             int indvt = face.at(jj).toInt();
-                            assert(indvt + offset < m.vert.size());
+                            vcg_assert(indvt + offset < m.vert.size());
                             m.face[ff].V(tt) = &(m.vert[indvt + offset]);
 
                             if(tri::HasPerWedgeNormal(m))
@@ -448,7 +448,7 @@ namespace io {
         {
             (void)cb;
 
-            assert(geo.tagName() == "controller");
+            vcg_assert(geo.tagName() == "controller");
             QDomNodeList skinList = geo.toElement().elementsByTagName("skin");
             if(skinList.size()!=1) return E_CANTOPEN;
             QDomElement skinNode = skinList.at(0).toElement();
@@ -493,7 +493,7 @@ namespace io {
 
         static int LoadGeometry(ColladaMesh& m, InfoDAE& info, const QDomElement& geo, QMap<QString,QString> &materialBinding, CallBackPos *cb=0)
         {
-            assert(geo.tagName() == "geometry");
+            vcg_assert(geo.tagName() == "geometry");
             if (!isThereTag(geo,"mesh")) return E_NOMESH;
 
             if ((cb !=NULL) && (((info.numvert + info.numface)%100)==0) && !(*cb)((100*(info.numvert + info.numface))/(info.numvert + info.numface), "Vertex Loading"))
@@ -566,7 +566,7 @@ namespace io {
                         if (!srcnodetext.isNull())
                         {
 
-                            assert((ii * 2 < geosrcverttext.size()) && (ii * 2 + 1 < geosrcverttext.size()));
+                            vcg_assert((ii * 2 < geosrcverttext.size()) && (ii * 2 + 1 < geosrcverttext.size()));
                             m.vert[vv].T() = vcg::TexCoord2<float>();
                             m.vert[vv].T().u() = geosrcverttext[ii * 2].toFloat();
                             m.vert[vv].T().v() = geosrcverttext[ii * 2 + 1].toFloat();
@@ -638,7 +638,7 @@ namespace io {
                     if(instGeomNode.parentNode()==node) // process only direct child
                     {
                         QDEBUG("** instance_geometry with url %s (intial mesh size %i %i T = %i)",qPrintable(instGeomNode.attribute("url")),m.vn,m.fn,m.textures.size());
-                        //assert(m.textures.size()>0 == HasPerWedgeTexCoord(m));
+                        //vcg_assert(m.textures.size()>0 == HasPerWedgeTexCoord(m));
                         QString geomNode_url;
                         referenceToANodeAttribute(instGeomNode,"url",geomNode_url);
                         QDomNode refNode = findNodeBySpecificAttributeValue(*(info.doc),"geometry","id",geomNode_url);
@@ -716,7 +716,7 @@ namespace io {
 static Matrix44f getTransfMatrixFromNode(const QDomElement parentNode)
 {
     QDEBUG("getTrans form node with tag %s",qPrintable(parentNode.tagName()));
-    assert(parentNode.tagName() == "node");
+    vcg_assert(parentNode.tagName() == "node");
 
     std::vector<QDomNode> rotationList;
     QDomNode matrixNode;
@@ -912,7 +912,7 @@ static Matrix44f getTransfMatrixFromNode(const QDomElement parentNode)
 
                             geoinst_found |= true;
                             QDomNodeList geolib = info.doc->elementsByTagName("library_geometries");
-                            //assert(geolib.size() == 1);
+                            //vcg_assert(geolib.size() == 1);
                             if (geolib.size() != 1)
                                 return false;
                             //!!!!!!!!!!!!!!!!!here will be the code for geometry transformations!!!!!!!!!!!!!!!!!!!!!!
@@ -937,7 +937,7 @@ static Matrix44f getTransfMatrixFromNode(const QDomElement parentNode)
                                     referenceToANodeAttribute(no,"source",srcurl);
                                     no = findNodeBySpecificAttributeValue(geo,"source","id",srcurl);
                                     QDomNodeList fa = no.toElement().elementsByTagName("float_array");
-                                    assert(fa.size() == 1);
+                                    vcg_assert(fa.size() == 1);
                                     info.numvert += (fa.at(0).toElement().attribute("count").toInt() / 3);
                                     no = findNodeBySpecificAttributeValue(vertlist.at(vert),"input","semantic","COLOR");
                                     if (!no.isNull())
@@ -979,7 +979,7 @@ static Matrix44f getTransfMatrixFromNode(const QDomElement parentNode)
             if (!geoinst_found)
             {
                 QDomNodeList geolib = info.doc->elementsByTagName("library_geometries");
-                //assert(geolib.size() == 1);
+                //vcg_assert(geolib.size() == 1);
                 if (geolib.size() != 1)
                     return false;
                 QDomNodeList geochild = geolib.at(0).toElement().elementsByTagName("geometry");
@@ -998,7 +998,7 @@ static Matrix44f getTransfMatrixFromNode(const QDomElement parentNode)
                         referenceToANodeAttribute(no,"source",srcurl);
                         no = findNodeBySpecificAttributeValue(geochild.at(geoinst_ind),"source","id",srcurl);
                         QDomNodeList fa = no.toElement().elementsByTagName("float_array");
-                        assert(fa.size() == 1);
+                        vcg_assert(fa.size() == 1);
                         info.numvert += (fa.at(0).toElement().attribute("count").toInt() / 3);
                         no = findNodeBySpecificAttributeValue(vertlist.at(vert),"input","semantic","COLOR");
                         if (!no.isNull())

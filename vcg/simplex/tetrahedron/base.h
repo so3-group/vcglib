@@ -247,7 +247,7 @@ public:
 		FirstUnusedBitFlag() = FirstUnusedBitFlag()>>1;
 		return true;
 	  }
-	  assert(0);
+	  vcg_assert(0);
 	  return false;
 	}
 

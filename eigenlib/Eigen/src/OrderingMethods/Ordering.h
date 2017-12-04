@@ -124,7 +124,7 @@ class COLAMDOrdering
     template <typename MatrixType>
     void operator() (const MatrixType& mat, PermutationType& perm)
     {
-      eigen_assert(mat.isCompressed() && "COLAMDOrdering requires a sparse matrix in compressed mode. Call .makeCompressed() before passing it to COLAMDOrdering");
+      eigen_vcg_assert(mat.isCompressed() && "COLAMDOrdering requires a sparse matrix in compressed mode. Call .makeCompressed() before passing it to COLAMDOrdering");
       
       Index m = mat.rows();
       Index n = mat.cols();
@@ -142,7 +142,7 @@ class COLAMDOrdering
       // Call Colamd routine to compute the ordering 
       Index info = internal::colamd(m, n, Alen, A.data(), p.data(), knobs, stats); 
       EIGEN_UNUSED_VARIABLE(info);
-      eigen_assert( info && "COLAMD failed " );
+      eigen_vcg_assert( info && "COLAMD failed " );
       
       perm.resize(n);
       for (Index i = 0; i < n; i++) perm.indices()(p(i)) = i;

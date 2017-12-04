@@ -384,10 +384,10 @@ public:
    }
 
    tri::Allocator<InputMesh>::AddVertex(flipM,CoordType(0,0,0));
-   assert(m.vn+1 == flipM.vn);
+   vcg_assert(m.vn+1 == flipM.vn);
 
    ComputeConvexHull(flipM,visible);
-   assert(flipM.vert[m.vn].P()==Point3f(0,0,0));
+   vcg_assert(flipM.vert[m.vn].P()==Point3f(0,0,0));
    int vpInd=-1; // Index of the viewpoint in the ConvexHull mesh
    int selCnt=0;
    typename CHMesh:: template PerVertexAttributeHandle<size_t> indexInputVertex = Allocator<InputMesh>::template GetPerVertexAttribute<size_t>(visible, std::string("indexInput"));
@@ -405,7 +405,7 @@ public:
    }
    printf("Selected %i visible points\n",selCnt);
 
-   assert(vpInd != -1);
+   vcg_assert(vpInd != -1);
    // Final pass delete all the faces of the convex hull incident in the viewpoint
    for(int i=0;i<visible.fn;++i)
    {

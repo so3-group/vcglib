@@ -210,13 +210,13 @@ public:
 
     void Set( const FacePointer pf, const int nz )
     {
-      assert(pf!=0);
-      assert(nz>=0);
-      assert(nz<3);
+      vcg_assert(pf!=0);
+      vcg_assert(nz>=0);
+      vcg_assert(nz<3);
 
       v[0] = pf->V(nz);
       v[1] = pf->V((nz+1)%3);
-      assert(v[0] != v[1]);
+      vcg_assert(v[0] != v[1]);
 
       if( v[0] > v[1] ) std::swap(v[0],v[1]);
       f    = pf;
@@ -263,7 +263,7 @@ public:
           (*pf).ClearB(j);
           ++p;
         }
-    assert(p==e.end());
+    vcg_assert(p==e.end());
     sort(e.begin(), e.end());							// Lo ordino per vertici
 
     typename std::vector<EdgeSorter>::iterator pe,ps;
@@ -316,7 +316,7 @@ public:
           (*pf).ClearB(j);
           ++p;
         }
-    assert(p==e.end());
+    vcg_assert(p==e.end());
     sort(e.begin(), e.end());							// Lo ordino per vertici
 
     typename std::vector<EdgeSorter>::iterator pe,ps;

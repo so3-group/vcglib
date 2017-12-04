@@ -311,7 +311,7 @@ wrapping function.
     tri::RequireVFAdjacency(m);
     tri::RequirePerVertexQuality(m);
 
-    assert(!seedVec.empty());
+    vcg_assert(!seedVec.empty());
 
     TempDataType TD(m.vert, std::numeric_limits<ScalarType>::max());
 
@@ -341,10 +341,10 @@ wrapping function.
       d_heap = (frontierHeap.back()).d;
       frontierHeap.pop_back();
 
-      assert(TD[curr].d <= d_heap);
+      vcg_assert(TD[curr].d <= d_heap);
       if(TD[curr].d < d_heap ) // a vertex whose distance has been improved after it was inserted in the queue
         continue;
-      assert(TD[curr].d == d_heap);
+      vcg_assert(TD[curr].d == d_heap);
 
       d_curr =  TD[curr].d;
 
@@ -403,7 +403,7 @@ wrapping function.
     }
     else
     {
-      assert(InInterval->size()>0);
+      vcg_assert(InInterval->size()>0);
       for(size_t i=0;i<InInterval->size();i++)
         (*InInterval)[i]->Q() =  TD[(*InInterval)[i]].d;
     }
@@ -603,7 +603,7 @@ It is just a simple wrapper of the basic Compute()
 
     for(size_t i=0;i<seedVec.size();++i)
     {
-      assert(!tri::IsMarked(m,seedVec[i]));
+      vcg_assert(!tri::IsMarked(m,seedVec[i]));
       tri::Mark(m,seedVec[i]);
       seedVec[i]->Q()=0;
       if (sourceHandle!=NULL)

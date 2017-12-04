@@ -192,7 +192,7 @@ public:
       }
       numvert++;
     }
-    assert(numvert == m.vn);
+    vcg_assert(numvert == m.vn);
 
     fprintf(fp,"# %d vertices, %d vertices normals\n\n",m.vn,int(NormalVertex.size()));
 

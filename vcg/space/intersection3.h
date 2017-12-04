@@ -289,7 +289,7 @@ namespace vcg {
         {
           if(IntersectionPlaneSegment(pl,Segment3<T>(tr.cP(1),tr.cP(2)),sg.P1()))
             return true;
-          else assert(0);
+          else vcg_assert(0);
               return true;
         }
       }
@@ -298,7 +298,7 @@ namespace vcg {
         if(IntersectionPlaneSegment(pl,Segment3<T>(tr.cP(1),tr.cP(2)),sg.P0()))
         {
           if(IntersectionPlaneSegment(pl,Segment3<T>(tr.cP(0),tr.cP(2)),sg.P1()))return true;
-          assert(0);
+          vcg_assert(0);
           return true;
         }
       }

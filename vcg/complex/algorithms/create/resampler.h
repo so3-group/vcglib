@@ -163,20 +163,20 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
       OldFaceType *f = _g.GetClosest(PDistFunct,markerFunctor,testPt,max_dist,dist,closestPt);
       if (f==NULL) return field_value(false,0);
       if(AbsDistFlag) return field_value(true,dist);
-      assert(!f->IsD());
+      vcg_assert(!f->IsD());
       bool retIP;
 
       // To compute the interpolated normal we use the more robust function that require to know what is the most orhogonal direction of the face.
       OldCoordType pip(-1,-1,-1);
       retIP=InterpolationParameters(*f,(*f).cN(),closestPt, pip);
-      assert(retIP); // this should happen only if the starting mesh has degenerate faces.
+      vcg_assert(retIP); // this should happen only if the starting mesh has degenerate faces.
 
       const NewScalarType InterpolationEpsilon = 0.00001f;
       int zeroCnt=0;
       if(pip[0]<InterpolationEpsilon) ++zeroCnt;
       if(pip[1]<InterpolationEpsilon) ++zeroCnt;
       if(pip[2]<InterpolationEpsilon) ++zeroCnt;
-      assert(zeroCnt<3);
+      vcg_assert(zeroCnt<3);
 
       OldCoordType dir=(testPt-closestPt).Normalize();
 
@@ -411,7 +411,7 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
           {
             v_ind = _x_cs[index];
             v = &_newM->vert[v_ind];
-            assert(!v->IsD());
+            vcg_assert(!v->IsD());
             return true;
           }
 
@@ -422,7 +422,7 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
           {
             v_ind = _x_ns[index];
             v = &_newM->vert[v_ind];
-            assert(!v->IsD());
+            vcg_assert(!v->IsD());
             return true;
           }
         }
@@ -435,7 +435,7 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
         {
           v_ind =_y_cs[index];
           v = &_newM->vert[v_ind];
-          assert(!v->IsD());
+          vcg_assert(!v->IsD());
           return true;
         }
         else
@@ -454,7 +454,7 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
           {
             v_ind = _z_cs[index];
             v = &_newM->vert[v_ind];
-            assert(!v->IsD());
+            vcg_assert(!v->IsD());
             return true;
           }
 
@@ -465,7 +465,7 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
           {
             v_ind = _z_ns[index];
             v = &_newM->vert[v_ind];
-            assert(!v->IsD());
+            vcg_assert(!v->IsD());
             return true;
           }
         }
@@ -490,9 +490,9 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
     ///if there is a vertex in z axis of a cell return the vertex or create it
     void GetXIntercept(const vcg::Point3i &p1, const vcg::Point3i &p2, NewVertexPointer &v)
     {
-      assert(p1.X()+1 == p2.X());
-      assert(p1.Y()   == p2.Y());
-      assert(p1.Z()   == p2.Z());
+      vcg_assert(p1.X()+1 == p2.X());
+      vcg_assert(p1.Y()   == p2.Y());
+      vcg_assert(p1.Z()   == p2.Z());
 
       int i = p1.X();// (p1.X() - _bbox.min.X())/_cell_size.X();
       int z = p1.Z();//(p1.Z() - _bbox.min.Z())/_cell_size.Z();
@@ -522,16 +522,16 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
           return;
         }
       }
-      assert(pos>=0);
+      vcg_assert(pos>=0);
       v = &_newM->vert[pos];
     }
 
     ///if there is a vertex in y axis of a cell return the vertex or create it
     void GetYIntercept(const vcg::Point3i &p1, const vcg::Point3i &p2, NewVertexPointer &v)
     {
-      assert(p1.X()   == p2.X());
-      assert(p1.Y()+1 == p2.Y());
-      assert(p1.Z()   == p2.Z());
+      vcg_assert(p1.X()   == p2.X());
+      vcg_assert(p1.Y()+1 == p2.Y());
+      vcg_assert(p1.Z()   == p2.Z());
 
       int i = p1.X(); // (p1.X() - _bbox.min.X())/_cell_size.X();
       int z = p1.Z(); // (p1.Z() - _bbox.min.Z())/_cell_size.Z();
@@ -545,16 +545,16 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
         v = &_newM->vert[ pos ];
         v->P()=Interpolate(p1,p2,1);
       }
-      assert(pos>=0);
+      vcg_assert(pos>=0);
       v = &_newM->vert[pos];
     }
 
     ///if there is a vertex in z axis of a cell return the vertex or create it
     void GetZIntercept(const vcg::Point3i &p1, const vcg::Point3i &p2, NewVertexPointer &v)
     {
-      assert(p1.X()   == p2.X());
-      assert(p1.Y()   == p2.Y());
-      assert(p1.Z()+1 == p2.Z());
+      vcg_assert(p1.X()   == p2.X());
+      vcg_assert(p1.Y()   == p2.Y());
+      vcg_assert(p1.Z()+1 == p2.Z());
 
       int i = p1.X(); //(p1.X() - _bbox.min.X())/_cell_size.X();
       int z = p1.Z(); //(p1.Z() - _bbox.min.Z())/_cell_size.Z();
@@ -585,7 +585,7 @@ class Resampler : public BasicGrid<typename NewMeshType::ScalarType>
           return;
         }
       }
-      assert(pos>=0);
+      vcg_assert(pos>=0);
       v = &_newM->vert[pos];
     }
 

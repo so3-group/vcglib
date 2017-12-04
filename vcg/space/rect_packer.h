@@ -24,7 +24,7 @@
 #define __VCG_RectPacker__
 
 #include <stdio.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <algorithm>
 #include <vector>
 #include <ctime>
@@ -78,7 +78,7 @@ public:
     stat().pack_attempt_time = float(clock()-t0)/float(CLOCKS_PER_SEC);
     if(ret)
     {
-      assert(currOccupancy>bestOccupancy);
+      vcg_assert(currOccupancy>bestOccupancy);
       bestOccupancy = currOccupancy;
       trVec=currTrVec;
       coveredContainer=currCovered;
@@ -169,7 +169,7 @@ static  bool PackMulti(const std::vector<Box2x > & rectVec,  /// the set of rect
     if(ret)
     {
       printf("CurrOccupancy %f\n",currOccupancy);
-      assert(currOccupancy>bestOccupancy);
+      vcg_assert(currOccupancy>bestOccupancy);
       bestOccupancy = currOccupancy;
       trVec=currTrVec;
       indVec=currIndVec;
@@ -256,7 +256,7 @@ static bool PackInt(const std::vector<vcg::Point2i> & sizes, // the sizes of the
 	vcg::Point2i & global_size)              // the size of smallest rect covering all the packed rect
 {
 	int n = (int)(sizes.size());
-	assert(n>0 && max_size[0]>0 && max_size[1]>0);
+	vcg_assert(n>0 && max_size[0]>0 && max_size[1]>0);
 
 	int gridSize = max_size[0] * max_size[1];		// Size dell griglia
 	int i, j, x, y;
@@ -284,8 +284,8 @@ static bool PackInt(const std::vector<vcg::Point2i> & sizes, // the sizes of the
 	for (y = 0; y<global_size[1]; y++)
 		for (x = 0; x<global_size[0]; x++)
 		{
-			assert(x >= 0 && x<max_size[0]);
-			assert(y >= 0 && y<max_size[1]);
+			vcg_assert(x >= 0 && x<max_size[0]);
+			vcg_assert(y >= 0 && y<max_size[1]);
 			grid[x + y*max_size[0]] = j + 1;
 		}
 
@@ -293,8 +293,8 @@ static bool PackInt(const std::vector<vcg::Point2i> & sizes, // the sizes of the
 	for (i = 1; i<n; ++i)
 	{
 		j = perm[i];
-		assert(j >= 0 && j<n);
-		assert(posiz[j][0] == -1);
+		vcg_assert(j >= 0 && j<n);
+		vcg_assert(posiz[j][0] == -1);
 
 		int bestx, besty, bestsx, bestsy, bestArea;
 
@@ -302,13 +302,13 @@ static bool PackInt(const std::vector<vcg::Point2i> & sizes, // the sizes of the
 
 		int sx = sizes[j][0];	// Pe comodita' mi copio la dimensione
 		int sy = sizes[j][1];
-		assert(sx>0 && sy>0);
+		vcg_assert(sx>0 && sy>0);
 
 		// Calcolo la posizione limite
 		int lx = std::min(global_size[0], max_size[0] - sx);
 		int ly = std::min(global_size[1], max_size[1] - sy);
 
-		assert(lx>0 && ly>0);
+		vcg_assert(lx>0 && ly>0);
 
 		int finterior = 0;
 
@@ -332,8 +332,8 @@ static bool PackInt(const std::vector<vcg::Point2i> & sizes, // the sizes of the
 				if (c)	// Salto il rettangolo
 				{
 					--c;  // we store id+1...
-					assert(c >= 0 && c<n);
-					assert(posiz[c][0] != -1);
+					vcg_assert(c >= 0 && c<n);
+					vcg_assert(posiz[c][0] != -1);
 					x = posiz[c][0] + sizes[c][0];
 				}
 				else // x,y are an admissible position where we can put the rectangle
@@ -371,8 +371,8 @@ static bool PackInt(const std::vector<vcg::Point2i> & sizes, // the sizes of the
 		for (y = posiz[j][1]; y<posiz[j][1] + sy; y++)
 			for (x = posiz[j][0]; x<posiz[j][0] + sx; x++)
 			{
-				assert(x >= 0 && x<max_size[0]);
-				assert(y >= 0 && y<max_size[1]);
+				vcg_assert(x >= 0 && x<max_size[0]);
+				vcg_assert(y >= 0 && y<max_size[1]);
 				grid[x + y*max_size[0]] = j + 1;
 			}
 	}
@@ -411,9 +411,9 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
                           std::vector<Point2i> & globalsize  )
 {
   int n = sizes.size();
-  assert(n>0);
-  assert(max_size[0]>0);
-  assert(max_size[1]>0);
+  vcg_assert(n>0);
+  vcg_assert(max_size[0]>0);
+  vcg_assert(max_size[1]>0);
 
 
   int gdim = max_size[0]*max_size[1];		// Size dell griglia
@@ -465,10 +465,10 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
     for(y=0;y<globalsize[k].Y();y++)
       for(x=0;x<globalsize[k].X();x++)
       {
-        assert(x>=0);
-        assert(x<max_size[0]);
-        assert(y>=0);
-        assert(y<max_size[1]);
+        vcg_assert(x>=0);
+        vcg_assert(x<max_size[0]);
+        vcg_assert(y>=0);
+        vcg_assert(y<max_size[1]);
         Grid(k,x,y) = j+1;
       }
   }
@@ -477,15 +477,15 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
   for(i=ntexture;i<n;++i)
   {
     j = perm[i];
-    assert(j>=0);
-    assert(j<n);
-    assert(posiz[j].X()==-1);
+    vcg_assert(j>=0);
+    vcg_assert(j<n);
+    vcg_assert(posiz[j].X()==-1);
 
 
     int sx = sizes[j].X();	// Pe comodita' mi copio la dimensione
     int sy = sizes[j].Y();
-    assert(sx>0);
-    assert(sy>0);
+    vcg_assert(sx>0);
+    vcg_assert(sy>0);
 
 
     int gbestx,gbesty,gbestsx,gbestsy,gbestk;
@@ -504,8 +504,8 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
 
       starta = globalsize[k].X()*globalsize[k].Y();
 
-      assert(lx>0);
-      assert(ly>0);
+      vcg_assert(lx>0);
+      vcg_assert(ly>0);
 
       int finterior = 0;
 
@@ -530,9 +530,9 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
           if(c)	// Salto il rettangolo
           {
             --c;
-            assert(c>=0);
-            assert(c<n);
-            assert(posiz[c].X()!=-1);
+            vcg_assert(c>=0);
+            vcg_assert(c<n);
+            vcg_assert(posiz[c].X()!=-1);
             x = posiz[c].X() + sizes[c].X();
           }
           else
@@ -578,12 +578,12 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
       return false;
     }
 
-    assert(gbestx>=0);
-    assert(gbesty>=0);
-    assert(gbestk>=0);
-    assert(gbestx<=max_size[0]);
-    assert(gbesty<=max_size[1]);
-    assert(gbestk<ntexture);
+    vcg_assert(gbestx>=0);
+    vcg_assert(gbesty>=0);
+    vcg_assert(gbestk>=0);
+    vcg_assert(gbestx<=max_size[0]);
+    vcg_assert(gbesty<=max_size[1]);
+    vcg_assert(gbestk<ntexture);
 
     posiz[j].X() = gbestx;
     posiz[j].Y() = gbesty;
@@ -593,10 +593,10 @@ static bool PackIntMulti( const std::vector<Point2i> & sizes,
     for(y=posiz[j].Y();y<posiz[j].Y()+sy;y++)
       for(x=posiz[j].X();x<posiz[j].X()+sx;x++)
       {
-        assert(x>=0);
-        assert(x<max_size[0]);
-        assert(y>=0);
-        assert(y<max_size[1]);
+        vcg_assert(x>=0);
+        vcg_assert(x<max_size[0]);
+        vcg_assert(y>=0);
+        vcg_assert(y<max_size[1]);
         Grid(gbestk,x,y) = j+1;
       }
   }

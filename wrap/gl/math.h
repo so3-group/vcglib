@@ -75,12 +75,12 @@ Revision 1.1  2004/03/31 15:27:17  ponchio
 namespace vcg {
 
 template<typename T>
-inline void glLoadMatrix(const vcg::Matrix44<T> &m) { assert(0); }
+inline void glLoadMatrix(const vcg::Matrix44<T> &m) { vcg_assert(0); }
 template<> inline void glLoadMatrix(const vcg::Matrix44f &m) {glLoadMatrixf(m.V()); }
 template<> inline void glLoadMatrix(const vcg::Matrix44d &m) {glLoadMatrixd(m.V()); }
 
 template<typename T,int StorageOrder>
-inline void glLoadMatrix(const Eigen::Matrix<T,4,4,StorageOrder>& matrix) { assert(0); }
+inline void glLoadMatrix(const Eigen::Matrix<T,4,4,StorageOrder>& matrix) { vcg_assert(0); }
 
 template<> inline void glLoadMatrix(const Eigen::Matrix<float,4,4>& matrix) { glLoadMatrixf(matrix.data()); }
 template<> inline void glLoadMatrix(const Eigen::Matrix<float,4,4,Eigen::RowMajor>& matrix) {
@@ -97,7 +97,7 @@ inline void glLoadMatrix(const Eigen::Transform<Scalar,3>& t) { glLoadMatrix(t.m
 
 
 template<typename T,int StorageOrder>
-inline void glMultMatrix(const Eigen::Matrix<T,4,4,StorageOrder>& matrix) { assert(0); }
+inline void glMultMatrix(const Eigen::Matrix<T,4,4,StorageOrder>& matrix) { vcg_assert(0); }
 
 template<> inline void glMultMatrix(const Eigen::Matrix<float,4,4>& matrix) { glMultMatrixf(matrix.data()); }
 inline void glMultMatrix(const Eigen::Matrix<float,4,4,Eigen::RowMajor>& matrix) {

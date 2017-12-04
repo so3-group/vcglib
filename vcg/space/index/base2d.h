@@ -30,7 +30,7 @@ History
 #define __VCGLIB_SPATIALINDEX_2DH
 
 // standard headers
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 // vcg headers
 #include <vcg/space/point2.h>
@@ -85,7 +85,7 @@ public:
 	**************************************************************************/
 	template <class OBJITER>
 	void Set(const OBJITER & _oBegin, const OBJITER & _oEnd) {
-		assert(0);      // this is a base interface.
+		vcg_assert(0);      // this is a base interface.
 		(void)_oBegin;  // avoid "unreferenced parameter" compiler warning.
 		(void)_oEnd;
 	}
@@ -100,7 +100,7 @@ public:
   **************************************************************************/
 
   bool Empty() {
-    assert(0);      // this is a base interface.
+    vcg_assert(0);      // this is a base interface.
     return true;
   }
 
@@ -139,7 +139,7 @@ public:
 	ObjPtr GetClosest(
 		OBJPOINTDISTFUNCTOR & _getPointDistance, OBJMARKER & _marker, const CoordType & _p, const ScalarType & _maxDist,
 		ScalarType & _minDist, CoordType & _closestPt) {
-		assert(0);
+		vcg_assert(0);
 		(void)_getPointDistance;
 		(void)_marker;
 		(void)_p;
@@ -189,7 +189,7 @@ public:
 	//unsigned int GetKClosest(
 	//	OBJPOINTDISTFUNCTOR & _getPointDistance, OBJMARKER & _marker, const unsigned int _k, const CoordType & _p, const ScalarType & _maxDist,
 	//	OBJPTRCONTAINER & _objectPtrs, DISTCONTAINER & _distances, POINTCONTAINER & _points) {
-	//	assert(0);
+	//	vcg_assert(0);
 	//	(void)_getPointDistance;
 	//	(void)_marker;
 	//	(void)_k;
@@ -239,7 +239,7 @@ public:
 	//template <class OBJPOINTDISTFUNCTOR, class OBJMARKER, class OBJPTRCONTAINER, class DISTCONTAINER, class POINTCONTAINER>
 	//unsigned int GetInCircle(
 	//	OBJPOINTDISTFUNCTOR & _getPointDistance, OBJMARKER & _marker,const CoordType & _p, const ScalarType & _r,OBJPTRCONTAINER & _objectPtrs, DISTCONTAINER & _distances, POINTCONTAINER & _points) {
-	//	assert(0);
+	//	vcg_assert(0);
 	//	(void)_getPointDistance;
 	//	(void)_marker;
 	//	(void)_p;
@@ -273,7 +273,7 @@ public:
 	**************************************************************************/
 	template <class OBJMARKER, class OBJPTRCONTAINER>
 	unsigned int GetInBox(OBJMARKER & _marker, const BoxType _bbox,OBJPTRCONTAINER & _objectPtrs) {
-		assert(0);
+		vcg_assert(0);
 		(void)_marker;
 		(void)_bbox;
 		(void)_objectPtrs;
@@ -312,7 +312,7 @@ public:
 	**************************************************************************/
 	/*template <class OBJRAYISECTFUNCTOR, class OBJMARKER>
 	ObjPtr DoRay(OBJRAYISECTFUNCTOR & _rayIntersector, OBJMARKER & _marker, const Ray3<ScalarType> & _ray, const ScalarType & _maxDist, ScalarType & _t) {
-		assert(0);
+		vcg_assert(0);
 		(void)_rayIntersector;
 		(void)_marker;
 		(void)_ray;

@@ -121,7 +121,7 @@ template<typename _MatrixType> class HouseholderQR
     inline const internal::solve_retval<HouseholderQR, Rhs>
     solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "HouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "HouseholderQR is not initialized.");
       return internal::solve_retval<HouseholderQR, Rhs>(*this, b.derived());
     }
 
@@ -135,7 +135,7 @@ template<typename _MatrixType> class HouseholderQR
       */
     HouseholderSequenceType householderQ() const
     {
-      eigen_assert(m_isInitialized && "HouseholderQR is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "HouseholderQR is not initialized.");
       return HouseholderSequenceType(m_qr, m_hCoeffs.conjugate());
     }
 
@@ -144,7 +144,7 @@ template<typename _MatrixType> class HouseholderQR
       */
     const MatrixType& matrixQR() const
     {
-        eigen_assert(m_isInitialized && "HouseholderQR is not initialized.");
+        eigen_vcg_assert(m_isInitialized && "HouseholderQR is not initialized.");
         return m_qr;
     }
 
@@ -205,16 +205,16 @@ template<typename MatrixType>
 typename MatrixType::RealScalar HouseholderQR<MatrixType>::absDeterminant() const
 {
   using std::abs;
-  eigen_assert(m_isInitialized && "HouseholderQR is not initialized.");
-  eigen_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
+  eigen_vcg_assert(m_isInitialized && "HouseholderQR is not initialized.");
+  eigen_vcg_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
   return abs(m_qr.diagonal().prod());
 }
 
 template<typename MatrixType>
 typename MatrixType::RealScalar HouseholderQR<MatrixType>::logAbsDeterminant() const
 {
-  eigen_assert(m_isInitialized && "HouseholderQR is not initialized.");
-  eigen_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
+  eigen_vcg_assert(m_isInitialized && "HouseholderQR is not initialized.");
+  eigen_vcg_assert(m_qr.rows() == m_qr.cols() && "You can't take the determinant of a non-square matrix!");
   return m_qr.diagonal().cwiseAbs().array().log().sum();
 }
 
@@ -231,7 +231,7 @@ void householder_qr_inplace_unblocked(MatrixQR& mat, HCoeffs& hCoeffs, typename 
   Index cols = mat.cols();
   Index size = (std::min)(rows,cols);
 
-  eigen_assert(hCoeffs.size() == size);
+  eigen_vcg_assert(hCoeffs.size() == size);
 
   typedef Matrix<Scalar,MatrixQR::ColsAtCompileTime,1> TempType;
   TempType tempVector;
@@ -324,7 +324,7 @@ struct solve_retval<HouseholderQR<_MatrixType>, Rhs>
   {
     const Index rows = dec().rows(), cols = dec().cols();
     const Index rank = (std::min)(rows, cols);
-    eigen_assert(rhs().rows() == rows);
+    eigen_vcg_assert(rhs().rows() == rows);
 
     typename Rhs::PlainObject c(rhs());
 

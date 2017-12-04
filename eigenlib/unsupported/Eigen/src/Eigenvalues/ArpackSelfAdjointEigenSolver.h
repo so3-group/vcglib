@@ -222,8 +222,8 @@ public:
    */
   const Matrix<Scalar, Dynamic, Dynamic>& eigenvectors() const
   {
-    eigen_assert(m_isInitialized && "ArpackGeneralizedSelfAdjointEigenSolver is not initialized.");
-    eigen_assert(m_eigenvectorsOk && "The eigenvectors have not been computed together with the eigenvalues.");
+    eigen_vcg_assert(m_isInitialized && "ArpackGeneralizedSelfAdjointEigenSolver is not initialized.");
+    eigen_vcg_assert(m_eigenvectorsOk && "The eigenvectors have not been computed together with the eigenvalues.");
     return m_eivec;
   }
 
@@ -244,7 +244,7 @@ public:
    */
   const Matrix<Scalar, Dynamic, 1>& eigenvalues() const
   {
-    eigen_assert(m_isInitialized && "ArpackGeneralizedSelfAdjointEigenSolver is not initialized.");
+    eigen_vcg_assert(m_isInitialized && "ArpackGeneralizedSelfAdjointEigenSolver is not initialized.");
     return m_eivalues;
   }
 
@@ -268,8 +268,8 @@ public:
    */
   Matrix<Scalar, Dynamic, Dynamic> operatorSqrt() const
   {
-    eigen_assert(m_isInitialized && "SelfAdjointEigenSolver is not initialized.");
-    eigen_assert(m_eigenvectorsOk && "The eigenvectors have not been computed together with the eigenvalues.");
+    eigen_vcg_assert(m_isInitialized && "SelfAdjointEigenSolver is not initialized.");
+    eigen_vcg_assert(m_eigenvectorsOk && "The eigenvectors have not been computed together with the eigenvalues.");
     return m_eivec * m_eivalues.cwiseSqrt().asDiagonal() * m_eivec.adjoint();
   }
 
@@ -293,8 +293,8 @@ public:
    */
   Matrix<Scalar, Dynamic, Dynamic> operatorInverseSqrt() const
   {
-    eigen_assert(m_isInitialized && "SelfAdjointEigenSolver is not initialized.");
-    eigen_assert(m_eigenvectorsOk && "The eigenvectors have not been computed together with the eigenvalues.");
+    eigen_vcg_assert(m_isInitialized && "SelfAdjointEigenSolver is not initialized.");
+    eigen_vcg_assert(m_eigenvectorsOk && "The eigenvectors have not been computed together with the eigenvalues.");
     return m_eivec * m_eivalues.cwiseInverse().cwiseSqrt().asDiagonal() * m_eivec.adjoint();
   }
 
@@ -304,7 +304,7 @@ public:
    */
   ComputationInfo info() const
   {
-    eigen_assert(m_isInitialized && "ArpackGeneralizedSelfAdjointEigenSolver is not initialized.");
+    eigen_vcg_assert(m_isInitialized && "ArpackGeneralizedSelfAdjointEigenSolver is not initialized.");
     return m_info;
   }
 
@@ -348,10 +348,10 @@ ArpackGeneralizedSelfAdjointEigenSolver<MatrixType, MatrixSolver, BisSPD>&
 ::compute(const MatrixType& A, const MatrixType& B, Index nbrEigenvalues,
           std::string eigs_sigma, int options, RealScalar tol)
 {
-  eigen_assert(A.cols() == A.rows());
-  eigen_assert(B.cols() == B.rows());
-  eigen_assert(B.rows() == 0 || A.cols() == B.rows());
-  eigen_assert((options &~ (EigVecMask | GenEigMask)) == 0
+  eigen_vcg_assert(A.cols() == A.rows());
+  eigen_vcg_assert(B.cols() == B.rows());
+  eigen_vcg_assert(B.rows() == 0 || A.cols() == B.rows());
+  eigen_vcg_assert((options &~ (EigVecMask | GenEigMask)) == 0
             && (options & EigVecMask) != EigVecMask
             && "invalid option parameter");
 
@@ -390,7 +390,7 @@ ArpackGeneralizedSelfAdjointEigenSolver<MatrixType, MatrixSolver, BisSPD>&
   }
   else
   {
-      eigen_assert(false && "Specifying clustered eigenvalues is not yet supported!");
+      eigen_vcg_assert(false && "Specifying clustered eigenvalues is not yet supported!");
 
       // If it's not scalar values, then the user may be explicitly
       // specifying the sigma value to cluster the evs around
@@ -580,7 +580,7 @@ ArpackGeneralizedSelfAdjointEigenSolver<MatrixType, MatrixSolver, BisSPD>&
   else if (info < 0)
     m_info = InvalidInput;
   else if (info != 0)
-    eigen_assert(false && "Unknown ARPACK return value!");
+    eigen_vcg_assert(false && "Unknown ARPACK return value!");
   else
   {
     // Do we compute eigenvectors or not?
@@ -787,12 +787,12 @@ struct OP<MatrixSolver, MatrixType, Scalar, false>
 {
   static inline void applyOP(MatrixSolver &OP, const MatrixType &A, int n, Scalar *in, Scalar *out)
 {
-    eigen_assert(false && "Should never be in here...");
+    eigen_vcg_assert(false && "Should never be in here...");
 }
 
   static inline void project(MatrixSolver &OP, int n, int k, Scalar *vecs)
 {
-    eigen_assert(false && "Should never be in here...");
+    eigen_vcg_assert(false && "Should never be in here...");
 }
 
 };

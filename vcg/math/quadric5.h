@@ -209,7 +209,7 @@ public:
 
         q3.c += c;
 
-        assert(q3.IsValid());
+        vcg_assert(q3.IsValid());
     }
 
 
@@ -275,7 +275,7 @@ public:
   template<class FaceType>
   void byFace(FaceType &fi, bool onlygeo)
     {
-      //assert(onlygeo==false);
+      //vcg_assert(onlygeo==false);
         ScalarType p[5];
         ScalarType q[5];
         ScalarType r[5];
@@ -355,13 +355,13 @@ public:
                         swapv(p,r);
                         break;
                     default:
-                        assert(0);
+                        vcg_assert(0);
                     }
                 }
                 minerror_index = -1;
                 break;
             default:
-                assert(0);
+                vcg_assert(0);
             }
 
       ComputeE1E2(p,q,r,e1,e2);
@@ -379,7 +379,7 @@ public:
         }
         // failed to find a valid vertex switch
 
-        // assert(-c <= 1e-8); // small error
+        // vcg_assert(-c <= 1e-8); // small error
 
         c = 0; // rounds up to zero
     }
@@ -508,7 +508,7 @@ void ComputeQuadricFromE1E2(ScalarType e1[5], ScalarType e2[5], ScalarType p[5] 
                 t += C[i][j] * x[j];
             x[i] = (C[i][5] - t) / C[i][i];
       if(math::IsNAN(x[i])) return false;
-      assert(!math::IsNAN(x[i]));
+      vcg_assert(!math::IsNAN(x[i]));
         }
 
         return true;
@@ -545,7 +545,7 @@ void ComputeQuadricFromE1E2(ScalarType e1[5], ScalarType e2[5], ScalarType p[5] 
         }
     for(int i=0;i<5;++i)
       if( math::IsNAN(x[i])) return false;
-      //assert(!math::IsNAN(x[i]));
+      //vcg_assert(!math::IsNAN(x[i]));
 
         return true;
     }
@@ -592,8 +592,8 @@ void ComputeQuadricFromE1E2(ScalarType e1[5], ScalarType e2[5], ScalarType p[5] 
 
     void operator = ( const Quadric5<double> & q )			// Assegna una quadrica
     {
-        //assert( IsValid() );
-        assert( q.IsValid() );
+        //vcg_assert( IsValid() );
+        vcg_assert( q.IsValid() );
 
         a[0] = q.a[0];
         a[1] = q.a[1];
@@ -623,8 +623,8 @@ void ComputeQuadricFromE1E2(ScalarType e1[5], ScalarType e2[5], ScalarType p[5] 
     // sums the geometrical and the real quadrics
     void operator += ( const Quadric5<double> & q )
     {
-        //assert( IsValid() );
-        assert( q.IsValid() );
+        //vcg_assert( IsValid() );
+        vcg_assert( q.IsValid() );
 
         a[0] += q.a[0];
         a[1] += q.a[1];
@@ -664,7 +664,7 @@ computes bad the priority......this should be adjusted with the extra weight use
 */
     void inline Sum3 (const math::Quadric<double> & q3, float u, float v)
   {
-        assert( q3.IsValid() );
+        vcg_assert( q3.IsValid() );
 
         a[0] += q3.a[0];
         a[1] += q3.a[1];
@@ -702,7 +702,7 @@ computes bad the priority......this should be adjusted with the extra weight use
     ScalarType Apply(const ScalarType v[5]) const
     {
 
-        assert( IsValid() );
+        vcg_assert( IsValid() );
 
         ScalarType tmpmat[5][5];
         ScalarType tmpvec[5];

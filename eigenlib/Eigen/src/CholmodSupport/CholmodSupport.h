@@ -39,7 +39,7 @@ void cholmod_configure_matrix(CholmodType& mat)
   }
   else
   {
-    eigen_assert(false && "Scalar type not supported by CHOLMOD");
+    eigen_vcg_assert(false && "Scalar type not supported by CHOLMOD");
   }
 }
 
@@ -84,7 +84,7 @@ cholmod_sparse viewAsCholmod(SparseMatrix<_Scalar,_Options,_Index>& mat)
   }
   else
   {
-    eigen_assert(false && "Index type not supported yet");
+    eigen_vcg_assert(false && "Index type not supported yet");
   }
 
   // setup res.xtype
@@ -204,7 +204,7 @@ class CholmodBase : internal::noncopyable
       */
     ComputationInfo info() const
     {
-      eigen_assert(m_isInitialized && "Decomposition is not initialized.");
+      eigen_vcg_assert(m_isInitialized && "Decomposition is not initialized.");
       return m_info;
     }
 
@@ -224,8 +224,8 @@ class CholmodBase : internal::noncopyable
     inline const internal::solve_retval<CholmodBase, Rhs>
     solve(const MatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
-      eigen_assert(rows()==b.rows()
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(rows()==b.rows()
                 && "CholmodDecomposition::solve(): invalid number of rows of the right hand side matrix b");
       return internal::solve_retval<CholmodBase, Rhs>(*this, b.derived());
     }
@@ -238,8 +238,8 @@ class CholmodBase : internal::noncopyable
     inline const internal::sparse_solve_retval<CholmodBase, Rhs>
     solve(const SparseMatrixBase<Rhs>& b) const
     {
-      eigen_assert(m_isInitialized && "LLT is not initialized.");
-      eigen_assert(rows()==b.rows()
+      eigen_vcg_assert(m_isInitialized && "LLT is not initialized.");
+      eigen_vcg_assert(rows()==b.rows()
                 && "CholmodDecomposition::solve(): invalid number of rows of the right hand side matrix b");
       return internal::sparse_solve_retval<CholmodBase, Rhs>(*this, b.derived());
     }
@@ -274,7 +274,7 @@ class CholmodBase : internal::noncopyable
       */
     void factorize(const MatrixType& matrix)
     {
-      eigen_assert(m_analysisIsOk && "You must first call analyzePattern()");
+      eigen_vcg_assert(m_analysisIsOk && "You must first call analyzePattern()");
       cholmod_sparse A = viewAsCholmod(matrix.template selfadjointView<UpLo>());
       cholmod_factorize_p(&A, m_shiftOffset, 0, 0, m_cholmodFactor, &m_cholmod);
       
@@ -292,10 +292,10 @@ class CholmodBase : internal::noncopyable
     template<typename Rhs,typename Dest>
     void _solve(const MatrixBase<Rhs> &b, MatrixBase<Dest> &dest) const
     {
-      eigen_assert(m_factorizationIsOk && "The decomposition is not in a valid state for solving, you must first call either compute() or symbolic()/numeric()");
+      eigen_vcg_assert(m_factorizationIsOk && "The decomposition is not in a valid state for solving, you must first call either compute() or symbolic()/numeric()");
       const Index size = m_cholmodFactor->n;
       EIGEN_UNUSED_VARIABLE(size);
-      eigen_assert(size==b.rows());
+      eigen_vcg_assert(size==b.rows());
 
       // note: cd stands for Cholmod Dense
       Rhs& b_ref(b.const_cast_derived());
@@ -314,10 +314,10 @@ class CholmodBase : internal::noncopyable
     template<typename RhsScalar, int RhsOptions, typename RhsIndex, typename DestScalar, int DestOptions, typename DestIndex>
     void _solve(const SparseMatrix<RhsScalar,RhsOptions,RhsIndex> &b, SparseMatrix<DestScalar,DestOptions,DestIndex> &dest) const
     {
-      eigen_assert(m_factorizationIsOk && "The decomposition is not in a valid state for solving, you must first call either compute() or symbolic()/numeric()");
+      eigen_vcg_assert(m_factorizationIsOk && "The decomposition is not in a valid state for solving, you must first call either compute() or symbolic()/numeric()");
       const Index size = m_cholmodFactor->n;
       EIGEN_UNUSED_VARIABLE(size);
-      eigen_assert(size==b.rows());
+      eigen_vcg_assert(size==b.rows());
 
       // note: cs stands for Cholmod Sparse
       cholmod_sparse b_cs = viewAsCholmod(b);

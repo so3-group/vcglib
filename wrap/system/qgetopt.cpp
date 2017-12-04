@@ -22,7 +22,7 @@
 ****************************************************************************/
 
 #include <stdlib.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <QtCore/QVariant>
 #include "qgetopt.h"
 
@@ -44,8 +44,8 @@ GetOpt::GetOpt(const QStringList &a): args(a) {
  //add an option without a value
 void GetOpt::addSwitch(char s, const QString &name, const QString &description, bool *b ) {
   Option option;
-  assert(!findOption(s, option));
-  assert(!findArg(name, option));
+  vcg_assert(!findOption(s, option));
+  vcg_assert(!findArg(name, option));
   option.type = Option::SWITCH;
   option.o = s;
   option.name = name;
@@ -59,8 +59,8 @@ void GetOpt::addOption(char s, const QString &name, const QString &description, 
   Option option(Option::OPTION, s, name, description);
   option.value = v;
 
-  assert(!findOption(s, option)); //TODO make this check systematic
-  assert(!findArg(name, option));
+  vcg_assert(!findOption(s, option)); //TODO make this check systematic
+  vcg_assert(!findArg(name, option));
 
   options.push_back(option);
 
@@ -104,7 +104,7 @@ void GetOpt::addArgument(const QString &name, const QString &description, bool *
 }
 
 void GetOpt::addArgument(const QString &name, const QString &description, Option option) {
-    assert(!findArg(name, option));
+    vcg_assert(!findArg(name, option));
     option.type = Option::ARGUMENT;
     option.name = name;
     option.description = description;
@@ -140,7 +140,7 @@ void GetOpt::addOption(char s, const QString &longname, const QString &descripti
   //add an optional agrument
 void GetOpt::addOptionalArgument(const QString &name, const QString &description, QVariant *v) {
   Option option;
-  assert(!findArg(name, option));
+  vcg_assert(!findArg(name, option));
   option.type = Option::OPTIONAL;
   option.name = name;
   option.description = description;

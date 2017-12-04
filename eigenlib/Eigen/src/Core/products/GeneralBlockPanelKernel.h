@@ -38,19 +38,19 @@ inline void manage_caching_sizes(Action action, std::ptrdiff_t* l1=0, std::ptrdi
   if(action==SetAction)
   {
     // set the cpu cache size and cache all block sizes from a global cache size in byte
-    eigen_internal_assert(l1!=0 && l2!=0);
+    eigen_internal_vcg_assert(l1!=0 && l2!=0);
     m_l1CacheSize = *l1;
     m_l2CacheSize = *l2;
   }
   else if(action==GetAction)
   {
-    eigen_internal_assert(l1!=0 && l2!=0);
+    eigen_internal_vcg_assert(l1!=0 && l2!=0);
     *l1 = m_l1CacheSize;
     *l2 = m_l2CacheSize;
   }
   else
   {
-    eigen_internal_assert(false);
+    eigen_internal_vcg_assert(false);
   }
 }
 
@@ -1130,8 +1130,8 @@ EIGEN_DONT_INLINE void gemm_pack_lhs<Scalar, Index, Pack1, Pack2, StorageOrder, 
   EIGEN_ASM_COMMENT("EIGEN PRODUCT PACK LHS");
   EIGEN_UNUSED_VARIABLE(stride)
   EIGEN_UNUSED_VARIABLE(offset)
-  eigen_assert(((!PanelMode) && stride==0 && offset==0) || (PanelMode && stride>=depth && offset<=stride));
-  eigen_assert( (StorageOrder==RowMajor) || ((Pack1%PacketSize)==0 && Pack1<=4*PacketSize) );
+  eigen_vcg_assert(((!PanelMode) && stride==0 && offset==0) || (PanelMode && stride>=depth && offset<=stride));
+  eigen_vcg_assert( (StorageOrder==RowMajor) || ((Pack1%PacketSize)==0 && Pack1<=4*PacketSize) );
   conj_if<NumTraits<Scalar>::IsComplex && Conjugate> cj;
   const_blas_data_mapper<Scalar, Index, StorageOrder> lhs(_lhs,lhsStride);
   Index count = 0;
@@ -1219,7 +1219,7 @@ EIGEN_DONT_INLINE void gemm_pack_rhs<Scalar, Index, nr, ColMajor, Conjugate, Pan
   EIGEN_ASM_COMMENT("EIGEN PRODUCT PACK RHS COLMAJOR");
   EIGEN_UNUSED_VARIABLE(stride)
   EIGEN_UNUSED_VARIABLE(offset)
-  eigen_assert(((!PanelMode) && stride==0 && offset==0) || (PanelMode && stride>=depth && offset<=stride));
+  eigen_vcg_assert(((!PanelMode) && stride==0 && offset==0) || (PanelMode && stride>=depth && offset<=stride));
   conj_if<NumTraits<Scalar>::IsComplex && Conjugate> cj;
   Index packet_cols = (cols/nr) * nr;
   Index count = 0;
@@ -1272,7 +1272,7 @@ EIGEN_DONT_INLINE void gemm_pack_rhs<Scalar, Index, nr, RowMajor, Conjugate, Pan
   EIGEN_ASM_COMMENT("EIGEN PRODUCT PACK RHS ROWMAJOR");
   EIGEN_UNUSED_VARIABLE(stride)
   EIGEN_UNUSED_VARIABLE(offset)
-  eigen_assert(((!PanelMode) && stride==0 && offset==0) || (PanelMode && stride>=depth && offset<=stride));
+  eigen_vcg_assert(((!PanelMode) && stride==0 && offset==0) || (PanelMode && stride>=depth && offset<=stride));
   conj_if<NumTraits<Scalar>::IsComplex && Conjugate> cj;
   Index packet_cols = (cols/nr) * nr;
   Index count = 0;

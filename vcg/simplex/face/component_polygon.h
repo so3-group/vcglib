@@ -32,7 +32,7 @@ namespace face {
 template <class T> class PolyInfo: public T {
 protected:
   inline void __SetVN(const int & n) {
-    assert((_ns==-1) || (_ns==n) || (n==-1));
+    vcg_assert((_ns==-1) || (_ns==n) || (n==-1));
     _ns = n;
   }
 public:
@@ -67,9 +67,9 @@ public:
    */
 //  ~PFVAdj(){ __Dealloc(); }
 
-  inline typename T::VertexType *       & V( const int j )       { assert(j>=0 && j<this->VN()); return _vpoly[j]; }
-  inline typename T::VertexType * const & V( const int j ) const { assert(j>=0 && j<this->VN()); return _vpoly[j]; }
-  inline typename T::VertexType *        cV( const int j ) const { assert(j>=0 && j<this->VN()); return _vpoly[j]; }
+  inline typename T::VertexType *       & V( const int j )       { vcg_assert(j>=0 && j<this->VN()); return _vpoly[j]; }
+  inline typename T::VertexType * const & V( const int j ) const { vcg_assert(j>=0 && j<this->VN()); return _vpoly[j]; }
+  inline typename T::VertexType *        cV( const int j ) const { vcg_assert(j>=0 && j<this->VN()); return _vpoly[j]; }
 
 
   /** Return the pointer to the ((j+1)%3)-th vertex of the face.
@@ -85,8 +85,8 @@ public:
   inline const  VertexType * const & cV1( const int j ) const { return cV((j+1)%this->VN());}
   inline const  VertexType * const & cV2( const int j ) const { return cV((j+2)%this->VN());}
 
-  inline        CoordType &P( const int j )       {	assert(j>=0 && j<this->VN());		return _vpoly[j]->P();	}
-  inline        CoordType cP( const int j ) const {	assert(j>=0 && j<this->VN());		return _vpoly[j]->cP(); }
+  inline        CoordType &P( const int j )       {	vcg_assert(j>=0 && j<this->VN());		return _vpoly[j]->P();	}
+  inline        CoordType cP( const int j ) const {	vcg_assert(j>=0 && j<this->VN());		return _vpoly[j]->cP(); }
 
   inline        CoordType & P0( const int j )       { return V(j)->P();}
   inline        CoordType & P1( const int j )       { return V((j+1)%this->VN())->P();}
@@ -131,9 +131,9 @@ public:
 //  ~PVFAdj(){ __Dealloc(); }
   typedef typename T::VertexType VertexType;
   typedef typename T::FaceType FaceType;
-  typename T::FacePointer       &VFp(const int j)        { assert(j>=0 && j<this->VN());  return _vfpP[j]; }
-  typename T::FacePointer const  VFp(const int j) const  { assert(j>=0 && j<this->VN());  return _vfpP[j]; }
-  typename T::FacePointer const cVFp(const int j) const  { assert(j>=0 && j<this->VN());  return _vfpP[j]; }
+  typename T::FacePointer       &VFp(const int j)        { vcg_assert(j>=0 && j<this->VN());  return _vfpP[j]; }
+  typename T::FacePointer const  VFp(const int j) const  { vcg_assert(j>=0 && j<this->VN());  return _vfpP[j]; }
+  typename T::FacePointer const cVFp(const int j) const  { vcg_assert(j>=0 && j<this->VN());  return _vfpP[j]; }
   char &VFi(const int j) {return _vfiP[j]; }
   template <class LeftF>
   void ImportData(const LeftF & leftF){T::ImportData(leftF);}
@@ -173,9 +173,9 @@ public:
    * This destructor is only done for those who istance a face alone (outside a mesh)
    */
 //  ~PFFAdj(){ __Dealloc(); }
-  typename T::FacePointer  &FFp(const int j)        { assert(j>=0 && j<this->VN());  return _ffpP[j]; }
-  typename T::FacePointer   FFp(const int j) const  { assert(j>=0 && j<this->VN());  return _ffpP[j]; }
-  typename T::FacePointer  cFFp(const int j) const  { assert(j>=0 && j<this->VN());  return _ffpP[j]; }
+  typename T::FacePointer  &FFp(const int j)        { vcg_assert(j>=0 && j<this->VN());  return _ffpP[j]; }
+  typename T::FacePointer   FFp(const int j) const  { vcg_assert(j>=0 && j<this->VN());  return _ffpP[j]; }
+  typename T::FacePointer  cFFp(const int j) const  { vcg_assert(j>=0 && j<this->VN());  return _ffpP[j]; }
   char  &FFi(const int j)       { return _ffiP[j]; }
   char  cFFi(const int j) const { return _ffiP[j]; }
 
@@ -216,9 +216,9 @@ public:
    * This destructor is only done for those who istance a face alone (outside a mesh)
    */
 //  ~PFEAdj(){ __Dealloc(); }
-  typename T::EdgePointer       &FEp(const int j)        { assert(j>=0 && j<this->VN());  return _fepP[j]; }
-  typename T::EdgePointer const  FEp(const int j) const  { assert(j>=0 && j<this->VN());  return _fepP[j]; }
-  typename T::EdgePointer const cFEp(const int j) const  { assert(j>=0 && j<this->VN());  return _fepP[j]; }
+  typename T::EdgePointer       &FEp(const int j)        { vcg_assert(j>=0 && j<this->VN());  return _fepP[j]; }
+  typename T::EdgePointer const  FEp(const int j) const  { vcg_assert(j>=0 && j<this->VN());  return _fepP[j]; }
+  typename T::EdgePointer const cFEp(const int j) const  { vcg_assert(j>=0 && j<this->VN());  return _fepP[j]; }
 
   template <class LeftF>
   void ImportData(const LeftF & leftF){T::ImportData(leftF);}

@@ -89,7 +89,7 @@ namespace vcg
 
         void AddRange(const Voxel *voxel)
         {
-            assert(voxel->end>end);
+            vcg_assert(voxel->end>end);
 
             count += voxel->count;
             end		 = voxel->end;
@@ -714,7 +714,7 @@ OBJECT_RETRIEVER:
         */
         void IndexInnerNodes(NodePointer n)
         {
-            assert(n!=NULL);
+            vcg_assert(n!=NULL);
 
             VoxelPointer current_voxel = TemplatedOctree::Voxel(n);
             VoxelPointer son_voxel;

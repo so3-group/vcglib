@@ -74,7 +74,7 @@ int main( int argc, char **argv )
 
   MyMesh::PerVertexAttributeHandle<double> handle = tri::Allocator<MyMesh>::GetPerVertexAttribute<double>(m, "harmonic");
   bool ok = tri::Harmonic<MyMesh, double>::ComputeScalarField(m, constraints, handle);
-  assert(ok);
+  vcg_assert(ok);
 
   tri::UpdateQuality<MyMesh>::VertexFromAttributeHandle(m,handle);
   tri::UpdateColor<MyMesh>::PerVertexQualityRamp(m,1,2);

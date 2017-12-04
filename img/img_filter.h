@@ -13,8 +13,8 @@ namespace img {
 template<int Channels, typename ScalarType, bool Safe>
 inline void normalize(Image<Channels,ScalarType,Safe> &image)
 {      
-  assert(image.isValid());
-  assert(image.attributes.hasRange(0,255));
+  vcg_assert(image.isValid());
+  vcg_assert(image.attributes.hasRange(0,255));
   if(Safe){
     if(!image.isValid())  throw ImageException("Invalid image");
     if(!image.attributes.hasRange(0,255)) throw ImageException("Invalid range attribute");
@@ -42,10 +42,10 @@ inline Image<Channels,ScalarType,Safe> getNormalized(const Image<Channels,Scalar
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void convolution(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,const DestScalarType *matrix,int matrix_width,int matrix_height)
 { 
-  assert(source.isValid());
-  assert(matrix != NULL);
-  assert((matrix_width > 0) && ((matrix_width)%2 == 1));
-  assert((matrix_height > 0) && ((matrix_height)%2 == 1));
+  vcg_assert(source.isValid());
+  vcg_assert(matrix != NULL);
+  vcg_assert((matrix_width > 0) && ((matrix_width)%2 == 1));
+  vcg_assert((matrix_height > 0) && ((matrix_height)%2 == 1));
   if(SrcSafe || DestSafe){
     if(!source.isValid()) throw ImageException("Invalid image");
     if( matrix == NULL) throw ImageException("NULL convolution matrix");
@@ -91,7 +91,7 @@ inline Image<Channels,ScalarType,Safe> getConvolved(const Image<Channels,ScalarT
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void boxFilter(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,int radius)
 { 
-  assert(radius > 0);
+  vcg_assert(radius > 0);
   if(SrcSafe || DestSafe){
     if(radius <= 0) throw ImageException("Nonpositive radius");
   }
@@ -139,7 +139,7 @@ inline void _gaussian(const int &radius,const ScalarType &sigma,ScalarType * &ma
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void GaussianSmooth(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,const int radius)
 {
-  assert(radius > 0.0f);
+  vcg_assert(radius > 0.0f);
   if(SrcSafe || DestSafe){
     if(radius <= 0.0f) throw ImageException("Nonpositive radius");
   }
@@ -210,7 +210,7 @@ inline void _laplacian_of_gaussian(const int &radius,const ScalarType &sigma,Sca
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void LoGFilter(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,int radius)
 {
-  assert(radius > 0.0f);
+  vcg_assert(radius > 0.0f);
   if(SrcSafe || DestSafe){
     if(radius <= 0.0f) throw ImageException("Nonpositive radius");
   }
@@ -234,9 +234,9 @@ inline Image<Channels,ScalarType,Safe> getLoGFiltered(const Image<Channels,Scala
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void DoGFilter(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,int radius1,int radius2)
 {
-  assert(radius1 > 0.0f);
-  assert(radius2 > 0.0f);
-  assert(radius2 > radius1);
+  vcg_assert(radius1 > 0.0f);
+  vcg_assert(radius2 > 0.0f);
+  vcg_assert(radius2 > radius1);
   if(SrcSafe || DestSafe){
     if(radius1 <= 0.0f) throw ImageException("Nonpositive radius1");
     if(radius2 <= 0.0f) throw ImageException("Nonpositive radius2");
@@ -284,8 +284,8 @@ inline Image<Channels,ScalarType,Safe> getDoGFiltered(const Image<Channels,Scala
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void UnsharpMask(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,int radius,float factor)
 {
-  assert(radius > 0);
-  assert(factor > 0.0f); 
+  vcg_assert(radius > 0);
+  vcg_assert(factor > 0.0f); 
   if(SrcSafe || DestSafe){
     if(radius <= 0.0f) throw ImageException("Nonpositive radius");
     if(factor <= 0.0f) throw ImageException("Nonpositive factor");
@@ -314,8 +314,8 @@ inline Image<Channels,ScalarType,Safe> getUnsharpMasked(const Image<Channels,Sca
 template<int Channels, typename SrcScalarType, bool SrcSafe,typename DestScalarType, bool DestSafe> 
 inline void medianFilter(const Image<Channels,SrcScalarType,SrcSafe> &source,Image<Channels,DestScalarType,DestSafe> &destination,int radius)
 { 
-  assert(source.isValid());
-  assert(radius > 0);
+  vcg_assert(source.isValid());
+  vcg_assert(radius > 0);
   if(SrcSafe || DestSafe){
     if(!source.isValid()) throw ImageException("Invalid image");
     if(radius <= 0) throw ImageException("Nonpositive radius");
@@ -341,7 +341,7 @@ inline void medianFilter(const Image<Channels,SrcScalarType,SrcSafe> &source,Ima
          
       // ottengo la mediana 
       int s=v.size();
-      assert(s>0);
+      vcg_assert(s>0);
       nth_element (v.begin(), v.begin()+(s/2), v.end());
       DestScalarType median = *(v.begin()+(s/2));
       if((s%2)==0) { // even s: mean of the 2 middle elements
@@ -367,7 +367,7 @@ inline Image<Channels,ScalarType,Safe> getMedianFiltered(const Image<Channels,Sc
 template<int Channels, typename ScalarType1, bool Safe1,typename ScalarType2, bool Safe2> 
 inline void channels_mean(const img::Image<Channels,ScalarType1,Safe1> &channels_image, img::Image<1,ScalarType2,Safe2> &mean_image)
 {
-  assert(channels_image.isValid());
+  vcg_assert(channels_image.isValid());
   if(Safe1 || Safe2){
     if(!channels_image.isValid())  throw img::ImageException("channels_image rgb image");
   }

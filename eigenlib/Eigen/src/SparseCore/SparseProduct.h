@@ -130,7 +130,7 @@ class SparseSparseProduct : internal::no_assignment_operator,
   protected:
     void init()
     {
-      eigen_assert(m_lhs.cols() == m_rhs.rows());
+      eigen_vcg_assert(m_lhs.cols() == m_rhs.rows());
 
       enum {
         ProductIsValid = _LhsNested::ColsAtCompileTime==Dynamic

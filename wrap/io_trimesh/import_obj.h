@@ -630,7 +630,7 @@ namespace vcg {
                             // we simply ignore other situations
                         } // end for each line...
                     } // end while stream not eof
-                    assert((numTriangles +numVertices) == numVerticesPlusFaces+extraTriangles);
+                    vcg_assert((numTriangles +numVertices) == numVerticesPlusFaces+extraTriangles);
                     vcg::tri::Allocator<OpenMeshType>::AddFaces(m,numTriangles);
 
                     // Add found edges
@@ -638,12 +638,12 @@ namespace vcg {
                     {
                         vcg::tri::Allocator<OpenMeshType>::AddEdges(m,numEdges);
 
-                        assert(m.edge.size() == size_t(m.en));
+                        vcg_assert(m.edge.size() == size_t(m.en));
 
                         for(int i=0; i<numEdges; ++i)
                         {
                             ObjEdge &  e    = ev[i];
-                            assert(e.v0 >= 0 && size_t(e.v0) < m.vert.size() &&
+                            vcg_assert(e.v0 >= 0 && size_t(e.v0) < m.vert.size() &&
                                    e.v1 >= 0 && size_t(e.v1) < m.vert.size());
                             // TODO add proper handling of bad indices
                             m.edge[i].V(0) = &(m.vert[e.v0]);
@@ -656,13 +656,13 @@ namespace vcg {
                     // First Pass to convert indexes into pointers for face to vert/norm/tex references
                     for(int i=0; i<numTriangles; ++i)
                     {
-                        assert(m.face.size() == size_t(m.fn));
+                        vcg_assert(m.face.size() == size_t(m.fn));
                         m.face[i].Alloc(indexedFaces[i].v.size()); // it does not do anything if it is a trimesh
 
                         for(unsigned int j=0;j<indexedFaces[i].v.size();++j)
                         {   
                            int vertInd = indexedFaces[i].v[j];
-                           assert(vertInd >=0 && vertInd < m.vn);
+                           vcg_assert(vertInd >=0 && vertInd < m.vn);
                             m.face[i].V(j) = &(m.vert[indexedFaces[i].v[j]]);
 
                             if (((oi.mask & vcg::tri::io::Mask::IOM_WEDGTEXCOORD) != 0) && (HasPerWedgeTexCoord(m)))

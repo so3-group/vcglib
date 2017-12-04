@@ -381,24 +381,24 @@ bool Decompose(Matrix44<T> &M, Point3<T> &ScaleV, Point3<T> &ShearV, Point3<T> &
 
 	ShearV[0]=R[0].dot(M.GetColumn3(1)); // xy shearing
 	R[1]= M.GetColumn3(1)-R[0]*ShearV[0];
-	assert(math::Abs(R[1].dot(R[0]))<1e-10);
+	vcg_assert(math::Abs(R[1].dot(R[0]))<1e-10);
 	ScaleV[1]=Norm(R[1]);   // y scaling
 	R[1]=R[1]/ScaleV[1];
 	ShearV[0]=ShearV[0]/ScaleV[1];
 
 	ShearV[1]=R[0].dot(M.GetColumn3(2)); // xz shearing
 	R[2]= M.GetColumn3(2)-R[0]*ShearV[1];
-	assert(math::Abs(R[2].dot(R[0]))<1e-10);
+	vcg_assert(math::Abs(R[2].dot(R[0]))<1e-10);
 
 	R[2] = R[2]-R[1]*(R[2].dot(R[1]));
-	assert(math::Abs(R[2].dot(R[1]))<1e-10);
-	assert(math::Abs(R[2].dot(R[0]))<1e-10);
+	vcg_assert(math::Abs(R[2].dot(R[1]))<1e-10);
+	vcg_assert(math::Abs(R[2].dot(R[0]))<1e-10);
 
 	ScaleV[2]=Norm(R[2]);
 	ShearV[1]=ShearV[1]/ScaleV[2];
 	R[2]=R[2]/ScaleV[2];
-	assert(math::Abs(R[2].dot(R[1]))<1e-10);
-	assert(math::Abs(R[2].dot(R[0]))<1e-10);
+	vcg_assert(math::Abs(R[2].dot(R[1]))<1e-10);
+	vcg_assert(math::Abs(R[2].dot(R[0]))<1e-10);
 
 	ShearV[2]=R[1].dot(M.GetColumn3(2)); // yz shearing
 	ShearV[2]=ShearV[2]/ScaleV[2];
@@ -411,7 +411,7 @@ bool Decompose(Matrix44<T> &M, Point3<T> &ScaleV, Point3<T> &ShearV, Point3<T> &
 	//now the matrix should be a pure rotation matrix so its determinant is +-1
 	double det=M.Determinant();
 	if(math::Abs(det)<1e-10) return false; // matrix should be at least invertible...
-	assert(math::Abs(math::Abs(det)-1.0)<1e-10); // it should be +-1...
+	vcg_assert(math::Abs(math::Abs(det)-1.0)<1e-10); // it should be +-1...
 	if(det<0) {
 		ScaleV  *= -1;
 		M *= -1;

@@ -90,7 +90,7 @@ public:
                 Token *token = &(this->heap[i]);
                 //tokens.push_back(token);
                 s_curr -= drop(token);
-                //assert(!(token->count.load() >= Token::LOCKED));
+                //vcg_assert(!(token->count.load() >= Token::LOCKED));
                 if(final)
                     token->count.testAndSetOrdered(Token::READY, Token::CACHE);
                 input->heap.push(token);
@@ -115,7 +115,7 @@ public:
                 if(functor(token)) { //drop it
                     tokens.push_back(token);
                     s_curr -= drop(token);
-                    //assert(token->count.load() < Token::LOCKED);
+                    //vcg_assert(token->count.load() < Token::LOCKED);
                     if(final)
                         token->count.testAndSetOrdered(Token::READY, Token::CACHE);
                 } else
@@ -154,7 +154,7 @@ protected:
 
     ///[should be protected]
     void run() {
-        assert(input);
+        vcg_assert(input);
         /* basic operation of the cache:
           1) make room until eliminating an element would leave empty space.
           2) transfer first element of input_cache if
@@ -224,7 +224,7 @@ protected:
             {
                 mt::mutexlocker input_locker(&(input->heap_lock));
                 int size = drop(remove);
-                assert(size >= 0);
+                vcg_assert(size >= 0);
                 s_curr -= size;
                 input->heap.push(remove);
             }

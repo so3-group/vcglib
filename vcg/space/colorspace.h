@@ -1374,7 +1374,7 @@ public:
         }
         else
         {
-            assert(false);
+            vcg_assert(false);
             return 0.0;
         }
     }
@@ -1448,7 +1448,7 @@ public:
         }
         else
         {
-            assert(false);
+            vcg_assert(false);
             return VCG_ILLUMINANT_INVALID;
         }
     }

@@ -185,19 +185,19 @@ public:
   typedef typename T::FaceType FaceType;
   typedef typename T::CoordType CoordType;
 
-  inline typename T::VertexType *       & V( const int j ) 	     { assert(j>=0 && j<3); 
+  inline typename T::VertexType *       & V( const int j ) 	     { vcg_assert(j>=0 && j<3); 
 		return (CAT< vector_occ<FaceType>,VertexRef<T> >::Instance()->Get((FaceType*)this)).V(j); }
 
-  inline typename T::VertexType * const & V( const int j ) const { assert(j>=0 && j<3); 
+  inline typename T::VertexType * const & V( const int j ) const { vcg_assert(j>=0 && j<3); 
 		return (CAT< vector_occ<FaceType>,VertexRef<T> >::Instance()->Get((FaceType*)this)).V(j); }
 
-	inline typename T::VertexType * const  cV( const int j ) const { assert(j>=0 && j<3);	
+	inline typename T::VertexType * const  cV( const int j ) const { vcg_assert(j>=0 && j<3);	
 		return (CAT< vector_occ<FaceType>,VertexRef<T> >::Instance()->Get((FaceType*)this)).V(j); }
 
 	// Shortcut per accedere ai punti delle facce
-	inline       typename T::CoordType & P( const int j ) 	    {	assert(j>=0 && j<3);	return	V(j)->P();	}
-	inline const typename T::CoordType & P( const int j ) const	{	assert(j>=0 && j<3);	return  V(j)->cP(); }
-	inline const typename T::CoordType &cP( const int j ) const	{	assert(j>=0 && j<3);	return  V(j)->cP(); }
+	inline       typename T::CoordType & P( const int j ) 	    {	vcg_assert(j>=0 && j<3);	return	V(j)->P();	}
+	inline const typename T::CoordType & P( const int j ) const	{	vcg_assert(j>=0 && j<3);	return  V(j)->cP(); }
+	inline const typename T::CoordType &cP( const int j ) const	{	vcg_assert(j>=0 && j<3);	return  V(j)->cP(); }
 
 	/** Return the pointer to the ((j+1)%3)-th vertex of the face.
 		@param j Index of the face vertex.

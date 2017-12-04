@@ -171,7 +171,7 @@ int Outline2Dumper::getMaxMaskRadius(int x,int y,QImage &img)
 	int Max_radius=std::min(Max_radiusX,Max_radiusY);
 	int val=qGray(img.pixel(x,y));
 	///if is outside
-	assert(val!=255);
+	vcg_assert(val!=255);
 
 	int curr_radius=1;
 	while (curr_radius<Max_radius)
@@ -255,7 +255,7 @@ vcg::Point2f Outline2Dumper::GetIncenter(const vector< vector<Point2f> > &polyVe
 		incenterf*=tra1.sca;
 
 		///SECOND TRANSFORMATION
-		assert(Maxradius>0);
+		vcg_assert(Maxradius>0);
 		radius=Maxradius;
 		return incenterf;
 }
@@ -271,7 +271,7 @@ void  Outline2Dumper::dumpOutline2VecPNG(const char * imageName,
 										Param &pp)
 {
   ///SET THE FONT
-  assert(polyVecVec.size() == trVec.size());
+  vcg_assert(polyVecVec.size() == trVec.size());
   int fontSize=ceil(std::max(pp.width,pp.height)/100.0);
   QFont qf("courier",fontSize);
 
@@ -345,7 +345,7 @@ void Outline2Dumper::dumpOutline2VecSVG(const char * imageName,
 									   vector<vector<float> >&labelRadVecVec,
 									   Outline2Dumper::Param &pp)
 {
-	assert(outline2VecVec.size() == trVec.size());
+	vcg_assert(outline2VecVec.size() == trVec.size());
 
 
 	///SET THE FONT

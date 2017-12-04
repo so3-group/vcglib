@@ -428,7 +428,7 @@ int main(int argc, char *argv[]) {
     vcg::tri::UpdateHalfEdges<MyPolyMesh>::FromIndexed(pm);
 
     // After loading check mesh consistency
-    assert(vcg::tri::UpdateHalfEdges<MyPolyMesh>::CheckConsistency(pm));
+    vcg_assert(vcg::tri::UpdateHalfEdges<MyPolyMesh>::CheckConsistency(pm));
 
     HalfedgeQuadClean<MyPolyMesh>::remove_singlets(pm);
     HalfedgeQuadClean<MyPolyMesh>::remove_doublets(pm);
@@ -443,7 +443,7 @@ int main(int argc, char *argv[]) {
     loc.DoOptimization();
 
 
-    assert(vcg::tri::UpdateHalfEdges<MyPolyMesh>::CheckConsistency(pm));
+    vcg_assert(vcg::tri::UpdateHalfEdges<MyPolyMesh>::CheckConsistency(pm));
     vcg::tri::UpdateIndexed<MyPolyMesh>::FromHalfEdges(pm );
 
 

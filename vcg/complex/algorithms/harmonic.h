@@ -79,7 +79,7 @@ public:
         for (size_t i = 0; i < m.face.size(); ++i)
         {
             FaceType & f = m.face[i];
-            assert(!f.IsV());
+            vcg_assert(!f.IsV());
 
             f.SetV();
 
@@ -90,7 +90,7 @@ public:
                 WeightInfo res = CotangentWeightIfNotVisited(f, edge, weight);
 
                 if (res == EdgeAlreadyVisited) continue;
-                assert(res == Success);
+                vcg_assert(res == Success);
 
                 // Add the weight to the coefficients vector for both the vertices of the considered edge
                 size_t v0_idx = vcg::tri::Index(m, f.V0(edge));
@@ -213,7 +213,7 @@ public:
     template <typename ScalarT>
     static ScalarT CotangentWeight(const FaceType &f, int edge)
     {
-        assert(edge >= 0 && edge < 3);
+        vcg_assert(edge >= 0 && edge < 3);
 
         // get the adjacent face
         const FaceType * fp = f.cFFp(edge);
@@ -265,7 +265,7 @@ public:
         //     \
         //      \
         //       c
-        assert(a != NULL && b != NULL && c != NULL);
+        vcg_assert(a != NULL && b != NULL && c != NULL);
         Point3<ScalarT> A,B,C;
         A.Import(a->P());
         B.Import(b->P());

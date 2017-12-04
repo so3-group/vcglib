@@ -81,7 +81,7 @@ vcg::Point3<ScalarType> GenerateBarycentricUniform(GeneratorType &rnd)
         interp[2] = 1.0 - interp[2];
         }
 
-    assert(interp[1] + interp[2] <= 1.0);
+    vcg_assert(interp[1] + interp[2] <= 1.0);
     interp[0]=1.0-(interp[1] + interp[2]);
     return interp;
 }

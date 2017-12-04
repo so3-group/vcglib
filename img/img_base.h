@@ -33,7 +33,7 @@ template<> struct NON_FLOAT_OR_DOUBLE_TYPE_CompileTimeError<double> {};
  #endif
 #endif
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <math.h>
 #include <exception>
 #include <typeinfo>

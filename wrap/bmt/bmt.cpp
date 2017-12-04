@@ -77,7 +77,7 @@ bool Bmt::Load(const std::string &filename) {
 char *Bmt::GetData(unsigned int &size, unsigned int offset) {
   fseek(fp, offset, SEEK_SET);
   fread(&size, sizeof(unsigned int), 1, fp);
-  assert(size < 64000);
+  vcg_assert(size < 64000);
   char *data = new char[size];
   fread(data, 1, size, fp);
   return data;
@@ -121,7 +121,7 @@ void BmtBuilder::AddUpdate(std::vector<unsigned int> &created, std::vector<unsig
 }
 
 bool BmtBuilder::Save(const std::string &filename) {  
-  assert(ftmp);
+  vcg_assert(ftmp);
   
   //TODO: reorganize data to be spatially coherent (both index and related data.
 

@@ -94,7 +94,7 @@ namespace vcg {
               ScalarType bt;
               if(b==b0) 	    bt = PSDist(q,f.cV(1)->cP(),f.cV(2)->cP(),p);
               else if(b==b1) 	bt = PSDist(q,f.cV(2)->cP(),f.cV(0)->cP(),p);
-              else {          assert(b==b2);
+              else {          vcg_assert(b==b2);
                 bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);
               }
               if(dist>bt) { dist = bt; return true; }
@@ -129,7 +129,7 @@ namespace vcg {
               ScalarType bt;
               if(b==b0) 	    bt = PSDist(q,f.cV(1)->cP(),f.cV(2)->cP(),p);
               else if(b==b1) 	bt = PSDist(q,f.cV(2)->cP(),f.cV(0)->cP(),p);
-              else { assert(b==b2);
+              else { vcg_assert(b==b2);
                 bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);
               }
               if(dist>bt) { dist = bt; return true; }
@@ -164,7 +164,7 @@ namespace vcg {
               ScalarType bt;
               if(b==b0) 	    bt = PSDist(q,f.cV(1)->cP(),f.cV(2)->cP(),p);
               else if(b==b1) 	bt = PSDist(q,f.cV(2)->cP(),f.cV(0)->cP(),p);
-              else { assert(b==b2);
+              else { vcg_assert(b==b2);
                 bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);
               }
 
@@ -265,7 +265,7 @@ namespace vcg {
                   if( d>dist) return false;
                   dist=d;
                   p=closest;
-                  assert(!math::IsNAN(dist));
+                  vcg_assert(!math::IsNAN(dist));
                   return true;
                 }
 
@@ -350,7 +350,7 @@ namespace vcg {
                                 ScalarType bt;
                                 if(b==b0) 	    bt = PSDist(q,f.cV(1)->cP(),f.cV(2)->cP(),p);
                                 else if(b==b1) 	bt = PSDist(q,f.cV(2)->cP(),f.cV(0)->cP(),p);
-                                else {assert(b==b2); bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);}
+                                else {vcg_assert(b==b2); bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);}
                                 //printf("Warning area:%g %g %g %g thr:%g bt:%g\n",Area(), b0,b1,b2,EPSILON*Area(),bt);
                                 if(dist>bt) { dist = bt; return true; }
                                 else return false;
@@ -387,7 +387,7 @@ namespace vcg {
                                 ScalarType bt;
                                 if(b==b0) 	    bt = PSDist(q,f.cV(1)->cP(),f.cV(2)->cP(),p);
                                 else if(b==b1) 	bt = PSDist(q,f.cV(2)->cP(),f.cV(0)->cP(),p);
-                                else{ assert(b==b2); bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);}
+                                else{ vcg_assert(b==b2); bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p);}
                                 //printf("Warning area:%g %g %g %g thr:%g bt:%g\n",Area(), b0,b1,b2,EPSILON*Area(),bt);
                                 if(dist>bt) { dist = bt; return true; }
                                 else return false;
@@ -424,14 +424,14 @@ namespace vcg {
                                 ScalarType bt;
                                 if(b==b0) 	    bt = PSDist(q,f.cV(1)->cP(),f.cV(2)->cP(),p);
                                 else if(b==b1) 	bt = PSDist(q,f.cV(2)->cP(),f.cV(0)->cP(),p);
-                                else { assert(b==b2); bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p); }
+                                else { vcg_assert(b==b2); bt = PSDist(q,f.cV(0)->cP(),f.cV(1)->cP(),p); }
                                 //printf("Warning area:%g %g %g %g thr:%g bt:%g\n",Area(), b0,b1,b2,EPSILON*Area(),bt);
 
                                 if(dist>bt) { dist = bt; return true; }
                                 else return false;
                             }
                             break;
-                        default: assert(0); // if you get this assert it means that you forgot to set the required UpdateFlags<MeshType>::FaceProjection(m);
+                        default: vcg_assert(0); // if you get this assert it means that you forgot to set the required UpdateFlags<MeshType>::FaceProjection(m);
 
                 }
 

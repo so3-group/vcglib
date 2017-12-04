@@ -228,7 +228,7 @@ private:
         else if (p0.Z()!=p1.Z()) // punti allineati lungo l'asse Z
             vidx = (p0.Y()==_current_slice)? _z_cs[pos] : _z_ns[pos];
         else
-            assert(false);
+            vcg_assert(false);
 
         v = (vidx!=-1)? &_mesh->vert[vidx] : NULL;
         return v!=NULL;
@@ -264,7 +264,7 @@ private:
                 return;
             }
         }
-    assert(pos >=0 && size_t(pos)< _mesh->vert.size());
+    vcg_assert(pos >=0 && size_t(pos)< _mesh->vert.size());
         v = &_mesh->vert[pos];
     }
     void GetYIntercept(const vcg::Point3i &p1, const vcg::Point3i &p2, VertexPointer &v)

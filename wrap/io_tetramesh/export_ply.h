@@ -64,7 +64,7 @@ static void PlyConv(int mem_type, void *src, StoType &dest)
 				case ply::T_SHORT	:		dest = (StoType) (*  ((short  *) src)); break;
 				case ply::T_CHAR	:		dest = (StoType) (*  ((char   *) src)); break;
 				case ply::T_UCHAR	:		dest = (StoType) (*  ((unsigned char *)src)); break;
-			 	default : assert(0);
+			 	default : vcg_assert(0);
 		}
 }
 
@@ -351,7 +351,7 @@ static bool Save(SaveMeshType &m,  const char * filename, bool binary, PlyInfo &
 					case ply::T_SHORT	 :		PlyConv(pi.VertexData[i].memtype1,  ((char *)vp)+pi.VertexData[i].offset1, ts );	fwrite(&ts, sizeof(short),1,fpout); break;
 					case ply::T_CHAR	 :		PlyConv(pi.VertexData[i].memtype1,  ((char *)vp)+pi.VertexData[i].offset1, tc );	fwrite(&tc, sizeof(char),1,fpout); break;
 					case ply::T_UCHAR	 :		PlyConv(pi.VertexData[i].memtype1,  ((char *)vp)+pi.VertexData[i].offset1, tuc);	fwrite(&tuc,sizeof(unsigned char),1,fpout); break;
-					default : assert(0);
+					default : vcg_assert(0);
 					}
 				}
 			}
@@ -380,7 +380,7 @@ static bool Save(SaveMeshType &m,  const char * filename, bool binary, PlyInfo &
 					case ply::T_SHORT	 :		ti=*( (short  *)        (((char *)vp)+pi.VertexData[i].offset1)); fprintf(fpout,"%i ",ti); break;
 					case ply::T_CHAR	 :		ti=*( (char   *)        (((char *)vp)+pi.VertexData[i].offset1));	fprintf(fpout,"%i ",ti); break;
 					case ply::T_UCHAR	 :		ti=*( (unsigned char *) (((char *)vp)+pi.VertexData[i].offset1));	fprintf(fpout,"%i ",ti); break;
-					default : assert(0);
+					default : vcg_assert(0);
 					}
 				}
 
@@ -391,7 +391,7 @@ static bool Save(SaveMeshType &m,  const char * filename, bool binary, PlyInfo &
 			j++;
 		}
 	}
-	assert(j==m.vn);
+	vcg_assert(j==m.vn);
 
 	char c = 4;
 	unsigned char b9 = 9;
@@ -477,7 +477,7 @@ static bool Save(SaveMeshType &m,  const char * filename, bool binary, PlyInfo &
 								case ply::T_SHORT	 :		PlyConv(pi.TetraData[i].memtype1,  ((char *)fp)+pi.TetraData[i].offset1, ts );	fwrite(&ts, sizeof(short),1,fpout); break;
 								case ply::T_CHAR	 :		PlyConv(pi.TetraData[i].memtype1,  ((char *)fp)+pi.TetraData[i].offset1, tc );	fwrite(&tc, sizeof(char),1,fpout); break;
 								case ply::T_UCHAR	 :		PlyConv(pi.TetraData[i].memtype1,  ((char *)fp)+pi.TetraData[i].offset1, tuc);	fwrite(&tuc,sizeof(unsigned char),1,fpout); break;
-								default : assert(0);
+								default : vcg_assert(0);
 						}
 					}
 				}
@@ -550,7 +550,7 @@ static bool Save(SaveMeshType &m,  const char * filename, bool binary, PlyInfo &
 						case  ply::T_SHORT	:		ti=*( (short  *)        (((char *)fp)+pi.TetraData[i].offset1));	fprintf(fpout,"%i ",ti); break;
 						case  ply::T_CHAR		:		ti=*( (char   *)        (((char *)fp)+pi.TetraData[i].offset1));	fprintf(fpout,"%i ",ti); break;
 						case  ply::T_UCHAR	:		ti=*( (unsigned char *) (((char *)fp)+pi.TetraData[i].offset1));	fprintf(fpout,"%i ",ti); break;
-						default : assert(0);
+						default : vcg_assert(0);
 						}
 					}
 
@@ -558,7 +558,7 @@ static bool Save(SaveMeshType &m,  const char * filename, bool binary, PlyInfo &
 				}			  
 			}
 		}
-	assert(fcnt==m.tn);
+	vcg_assert(fcnt==m.tn);
 	fclose(fpout); 
 	
 	// Recupera i flag originali

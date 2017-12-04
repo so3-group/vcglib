@@ -34,7 +34,7 @@ class Controller {
       cache->setInputCache(&provider);
     else
       cache->setInputCache(caches.back());
-    assert(cache->input);
+    vcg_assert(cache->input);
     caches.push_back(cache);
   }
 
@@ -81,9 +81,9 @@ class Controller {
 
   ///start the various cache threads.
   void start() {
-    assert(stopped);
-    assert(!paused);
-    assert(caches.size() > 1);
+    vcg_assert(stopped);
+    vcg_assert(!paused);
+    vcg_assert(caches.size() > 1);
     caches.back()->final = true;
     for(unsigned int i = 0; i < caches.size(); i++) //cache 0 is a provider, and his thread is not running.
       caches[i]->start();
@@ -93,7 +93,7 @@ class Controller {
   ///stops the cache threads
   void stop() {
     if(stopped) return;
-    assert(!paused);
+    vcg_assert(!paused);
 
     //signal al caches to quit
     for(unsigned int i = 0; i < caches.size(); i++)
@@ -119,8 +119,8 @@ class Controller {
   }
 
   void pause() {
-    assert(!stopped);
-    assert(!paused);
+    vcg_assert(!stopped);
+    vcg_assert(!paused);
 
     //lock all doors.
     for(unsigned int i = 0; i < caches.size(); i++)
@@ -138,8 +138,8 @@ class Controller {
   }
 
   void resume() {
-    assert(!stopped);
-    assert(paused);
+    vcg_assert(!stopped);
+    vcg_assert(paused);
     cout << "Resume" << endl;
 
     //unlock and open all doors

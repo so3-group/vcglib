@@ -719,7 +719,7 @@ namespace nanoply
     case NNP_FACE_WEDGE_NORMAL:    return "NNP_FACE_WEDGE_NORMAL";
     case NNP_FACE_WEDGE_TEX:    return "NNP_FACE_WEDGE_TEX   ";
 
-    default: assert(0);
+    default: vcg_assert(0);
       break;
     }
     return 0;
@@ -748,7 +748,7 @@ namespace nanoply
     const std::vector<std::string>& vect = PlyPropertyName(this->elem);
     if (vect.size() > 0)
       return vect[0].c_str();
-    assert(0);
+    vcg_assert(0);
     return 0;
   }
 
@@ -782,7 +782,7 @@ namespace nanoply
     case NNP_LIST_INT8_UINT16:    return "NNP_LIST_INT8_UINT16   ";
     case NNP_LIST_UINT8_INT16:    return "NNP_LIST_UINT8_INT16   ";
     case NNP_LIST_INT8_INT16:    return "NNP_LIST_INT8_INT16    ";
-    default: assert(0);
+    default: vcg_assert(0);
       break;
     }
     return 0;
@@ -828,7 +828,7 @@ namespace nanoply
     case NNP_LIST_UINT8_FLOAT64:
     case NNP_LIST_INT8_FLOAT64:
       return sizeof(double);
-    default: assert(0);
+    default: vcg_assert(0);
       break;
     }
     return 0;

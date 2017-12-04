@@ -284,7 +284,7 @@ static void FaceSaturate(MeshType &m, ScalarType gradientThr=1.0)
      CoordType bary0=(fc->P(0)+fc->P(1)+fc->P(2))/3;
      for(ffi=star.begin();ffi!=star.end();++ffi )
      {
-       assert(fc!=(*ffi));
+       vcg_assert(fc!=(*ffi));
        ScalarType &qi = (*ffi)->Q();
        CoordType bary1=((*ffi)->P(0)+(*ffi)->P(1)+(*ffi)->P(2))/3;
        ScalarType distGeom = Distance(bary0,bary1) / gradientThr;
@@ -297,19 +297,19 @@ static void FaceSaturate(MeshType &m, ScalarType gradientThr=1.0)
          {
            //printf("Reinserting center %i \n",vc - &*m.vert.begin());
            fc->Q() = qi+distGeom-(ScalarType)0.00001;
-           assert( distGeom > fabs(qi - fc->Q()));
+           vcg_assert( distGeom > fabs(qi - fc->Q()));
            st.push(fc);
            break;
          }
          else
          {
            // second case: you have to lower qi, the vertex under examination.
-           assert( distGeom < fabs(qi - fc->Q()));
-           assert(fc->Q() < qi);
+           vcg_assert( distGeom < fabs(qi - fc->Q()));
+           vcg_assert(fc->Q() < qi);
            float newQi = fc->Q() + distGeom -(ScalarType)0.00001;
-           assert(newQi <= qi);
-           assert(fc->Q() < newQi);
-           assert( distGeom > fabs(newQi - fc->Q()) );
+           vcg_assert(newQi <= qi);
+           vcg_assert(fc->Q() < newQi);
+           vcg_assert( distGeom > fabs(newQi - fc->Q()) );
 //             printf("distGeom %f, qi %f, vc->Q() %f, fabs(qi - vc->Q()) %f\n",distGeom,qi,vc->Q(),fabs(qi - vc->Q()));
            qi = newQi;
            (*ffi)->ClearV();
@@ -361,19 +361,19 @@ static void VertexSaturate(MeshType &m, ScalarType gradientThr=1.0)
          {
            //printf("Reinserting center %i \n",vc - &*m.vert.begin());
            vc->Q() = qi+distGeom-(ScalarType)0.00001;
-           assert( distGeom > fabs(qi - vc->Q()));
+           vcg_assert( distGeom > fabs(qi - vc->Q()));
            st.push(vc);
            break;
          }
          else
          {
            // second case: you have to lower qi, the vertex under examination.
-           assert( distGeom < fabs(qi - vc->Q()));
-           assert(vc->Q() < qi);
+           vcg_assert( distGeom < fabs(qi - vc->Q()));
+           vcg_assert(vc->Q() < qi);
            float newQi = vc->Q() + distGeom -(ScalarType)0.00001;
-           assert(newQi <= qi);
-           assert(vc->Q() < newQi);
-           assert( distGeom > fabs(newQi - vc->Q()) );
+           vcg_assert(newQi <= qi);
+           vcg_assert(vc->Q() < newQi);
+           vcg_assert( distGeom > fabs(newQi - vc->Q()) );
 //             printf("distGeom %f, qi %f, vc->Q() %f, fabs(qi - vc->Q()) %f\n",distGeom,qi,vc->Q(),fabs(qi - vc->Q()));
            qi = newQi;
            (*vvi)->ClearV();

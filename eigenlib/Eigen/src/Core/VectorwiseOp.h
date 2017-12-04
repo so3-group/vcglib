@@ -436,7 +436,7 @@ template<typename ExpressionType, int Direction> class VectorwiseOp
     {
       EIGEN_STATIC_ASSERT_VECTOR_ONLY(OtherDerived)
       EIGEN_STATIC_ASSERT_SAME_XPR_KIND(ExpressionType, OtherDerived)
-      //eigen_assert((m_matrix.isNull()) == (other.isNull())); FIXME
+      //eigen_vcg_assert((m_matrix.isNull()) == (other.isNull())); FIXME
       return const_cast<ExpressionType&>(m_matrix = extendedTo(other.derived()));
     }
 

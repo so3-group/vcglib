@@ -502,7 +502,7 @@ EIGEN_STRONG_INLINE Derived& DenseBase<Derived>
 #ifdef EIGEN_DEBUG_ASSIGN
   internal::assign_traits<Derived, OtherDerived>::debug();
 #endif
-  eigen_assert(rows() == other.rows() && cols() == other.cols());
+  eigen_vcg_assert(rows() == other.rows() && cols() == other.cols());
   internal::assign_impl<Derived, OtherDerived, int(SameType) ? int(internal::assign_traits<Derived, OtherDerived>::Traversal)
                                                        : int(InvalidTraversal)>::run(derived(),other.derived());
 #ifndef EIGEN_NO_DEBUG

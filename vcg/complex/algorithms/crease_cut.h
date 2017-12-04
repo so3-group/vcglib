@@ -112,9 +112,9 @@ void CutMeshAlongNonFauxEdges(MESH_TYPE &m)
       size_t faceInd = Index(m, *fi);
       size_t vertInd = Index(m, (*fi).V(j));
       int curVertexInd = indVec[faceInd*3+ j];
-      assert(curVertexInd != -1);
-      assert(curVertexInd < m.vn);
-      if(curVertexInd < startVn) assert(size_t(curVertexInd) == vertInd);
+      vcg_assert(curVertexInd != -1);
+      vcg_assert(curVertexInd < m.vn);
+      if(curVertexInd < startVn) vcg_assert(size_t(curVertexInd) == vertInd);
       if(curVertexInd >= startVn)
       {
         m.vert[curVertexInd].ImportData(*((*fi).V(j)));

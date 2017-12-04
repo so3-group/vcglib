@@ -62,7 +62,7 @@ void jacobisvd(const MatrixType& a = MatrixType(), bool pickrandom = true)
 
 
 template<typename MatrixType> 
-void jacobisvd_verify_assert(const MatrixType& m)
+void jacobisvd_verify_vcg_assert(const MatrixType& m)
 {
   
   svd_verify_assert<MatrixType, JacobiSVD< MatrixType > >(m);
@@ -140,10 +140,10 @@ void test_jacobisvd()
   CALL_SUBTEST_11(( jacobisvd<Matrix<double,Dynamic,Dynamic> >
 		    (Matrix<double,Dynamic,Dynamic>(16, 6)) ));
 
-  CALL_SUBTEST_3(( jacobisvd_verify_assert(Matrix3f()) ));
-  CALL_SUBTEST_4(( jacobisvd_verify_assert(Matrix4d()) ));
-  CALL_SUBTEST_7(( jacobisvd_verify_assert(MatrixXf(10,12)) ));
-  CALL_SUBTEST_8(( jacobisvd_verify_assert(MatrixXcd(7,5)) ));
+  CALL_SUBTEST_3(( jacobisvd_verify_vcg_assert(Matrix3f()) ));
+  CALL_SUBTEST_4(( jacobisvd_verify_vcg_assert(Matrix4d()) ));
+  CALL_SUBTEST_7(( jacobisvd_verify_vcg_assert(MatrixXf(10,12)) ));
+  CALL_SUBTEST_8(( jacobisvd_verify_vcg_assert(MatrixXcd(7,5)) ));
 
   for(int i = 0; i < g_repeat; i++) {
     Matrix2cd m;

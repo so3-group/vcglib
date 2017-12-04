@@ -50,7 +50,7 @@ class FrontEdge {
   FrontEdge() {}
   FrontEdge(int _v0, int _v1, int _v2):
              v0(_v0), v1(_v1), v2(_v2), active(true) {
-               assert(v0 != v1 && v1 != v2 && v0 != v2);
+               vcg_assert(v0 != v1 && v1 != v2 && v0 != v2);
   }
 
     bool operator==(const FrontEdge& f) const
@@ -170,8 +170,8 @@ protected:
       }
     }
     for(std::list<FrontEdge>::iterator s = front.begin(); s != front.end(); s++) {
-      assert((*s).next != front.end());
-      assert((*s).previous != front.end());
+      vcg_assert((*s).next != front.end());
+      vcg_assert((*s).previous != front.end());
     }
   }
 
@@ -222,7 +222,7 @@ public:
     FrontEdge &next = *current.next;
 
     int v0 = current.v0, v1 = current.v1;
-    assert(nb[v0] < 10 && nb[v1] < 10);
+    vcg_assert(nb[v0] < 10 && nb[v1] < 10);
 
     ResultIterator touch;
     touch.first = FRONT;
@@ -234,7 +234,7 @@ public:
       return false;
     }
 
-    assert(v2 != v0 && v2 != v1);
+    vcg_assert(v2 != v0 && v2 != v1);
 
     if ( ( (touch.first == FRONT) && (touch.second != front.end()) ) ||
          ( (touch.first == DEADS) && (touch.second != deads.end()) )    )
@@ -344,8 +344,8 @@ public:
     else if (((touch.first == FRONT) && (touch.second == front.end())) ||
              ((touch.first == DEADS) && (touch.second == deads.end()))    )
     {
-//        assert(CheckEdge(v0, v2));
-//        assert(CheckEdge(v2, v1));
+//        vcg_assert(CheckEdge(v0, v2));
+//        vcg_assert(CheckEdge(v2, v1));
         /*  adding a new vertex
 
                            v2
@@ -355,7 +355,7 @@ public:
                        /       \
                       /         V
                  ----v0 - - - > v1--------- */
-        assert(!mesh.vert[v2].IsB()); //fatal error! a new point is already a border?
+        vcg_assert(!mesh.vert[v2].IsB()); //fatal error! a new point is already a border?
         nb[v2]++;
         mesh.vert[v2].SetB();
 
@@ -502,7 +502,7 @@ protected:
   }
 
   void Detach(int v) {
-    assert(nb[v] > 0);
+    vcg_assert(nb[v] > 0);
     if(--nb[v] == 0) {
       mesh.vert[v].ClearB();
     }
@@ -554,7 +554,7 @@ template <class MESH> class AdvancingTest: public AdvancingFront<MESH> {
        {
          vn = i;
          //find the border
-         assert(this->mesh.vert[i].IsB());
+         vcg_assert(this->mesh.vert[i].IsB());
          for(std::list<FrontEdge>::iterator k = this->front.begin(); k != this->front.end(); k++)
            if((*k).v0 == i)
            {

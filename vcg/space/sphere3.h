@@ -57,7 +57,7 @@ First version.
 #ifndef VCG_SPHERE_H
 #define VCG_SPHERE_H
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <vcg/space/point3.h>
 #include <vector>
 
@@ -249,7 +249,7 @@ template <class T> void Sphere3<T>::Intersect(const Sphere3<T> &s) {
    
    //Test we did it correctly.
    for(int i = 0; i < n; i++) 
-     assert(IsIn(points[i]));
+     vcg_assert(IsIn(points[i]));
    
    return count;
  }

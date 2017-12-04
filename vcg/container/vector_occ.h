@@ -28,7 +28,7 @@
 #include <vcg/container/container_allocation_table.h>
 #include <vcg/container/entries_allocation_table.h>
 
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 namespace vcg {
 	/*@{*/

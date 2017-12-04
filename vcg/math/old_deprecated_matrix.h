@@ -47,7 +47,7 @@ added diagonal matrix, outer produce and namespace
 #include <stdio.h>
 #include <math.h>
 #include <memory.h>
-#include <assert.h>
+#include <vcg/math/assert.h>
 #include <algorithm>
 #include <vcg/space/point.h>
 
@@ -212,8 +212,8 @@ namespace vcg{
 			*/
 			inline TYPE ElementAt(unsigned int i, unsigned int j)
 			{
-				assert(i>=0 && i<_rows);
-				assert(j>=0 && j<_columns);
+				vcg_assert(i>=0 && i<_rows);
+				vcg_assert(j>=0 && j<_columns);
 				return _data[i*_columns+j];
 			};
 
@@ -223,7 +223,7 @@ namespace vcg{
 			*/
 			TYPE Determinant() const
 			{
-				assert(_rows == _columns);
+				vcg_assert(_rows == _columns);
 				switch (_rows)
 				{
 				case 2:
@@ -257,8 +257,8 @@ namespace vcg{
 			*/
 			TYPE Cofactor(unsigned int i, unsigned int j) const
 			{
-				assert(_rows == _columns);
-				assert(_rows>2);
+				vcg_assert(_rows == _columns);
+				vcg_assert(_rows>2);
 				TYPE *values = new TYPE[(_rows-1)*(_columns-1)];
 				unsigned int u, v, p, q, s, t;
 				for (u=0, p=0, s=0, t=0; u<_rows; u++, t+=_rows)
@@ -287,7 +287,7 @@ namespace vcg{
 			*/
 			inline TYPE* operator[](const unsigned int i)
 			{
-        assert(i<_rows);
+        vcg_assert(i<_rows);
 				return _data + i*_columns;
 			};
 
@@ -298,7 +298,7 @@ namespace vcg{
 			*/
 			inline const TYPE* operator[](const unsigned int i) const 
 			{
-        assert(i<_rows);
+        vcg_assert(i<_rows);
 				return _data + i*_columns;
 			};
 
@@ -309,7 +309,7 @@ namespace vcg{
 			*/
 			TYPE* GetColumn(const unsigned int j)
 			{
-				assert(j>=0 && j<_columns);
+				vcg_assert(j>=0 && j<_columns);
 				ScalarType *v = new ScalarType[_columns];
 				unsigned int i, p;
 				for (i=0, p=j; i<_rows; i++, p+=_columns)
@@ -324,7 +324,7 @@ namespace vcg{
 			*/
 			TYPE* GetRow(const unsigned int i)
 			{
-				assert(i>=0 && i<_rows);
+				vcg_assert(i>=0 && i<_rows);
 				ScalarType *v = new ScalarType[_rows];
 				unsigned int j, p;
 				for (j=0, p=i*_columns; j<_columns; j++, p++)
@@ -339,8 +339,8 @@ namespace vcg{
 			*/
 			void SwapColumns(const unsigned int i, const unsigned int j)
 			{
-				assert(0<=i && i<_columns);
-				assert(0<=j && j<_columns);
+				vcg_assert(0<=i && i<_columns);
+				vcg_assert(0<=j && j<_columns);
 				if (i==j)
 					return;
 
@@ -356,8 +356,8 @@ namespace vcg{
 			*/
 			void SwapRows(const unsigned int i, const unsigned int j)
 			{
-				assert(0<=i && i<_rows);
-				assert(0<=j && j<_rows);
+				vcg_assert(0<=i && i<_rows);
+				vcg_assert(0<=j && j<_rows);
 				if (i==j)
 					return;
 
@@ -374,8 +374,8 @@ namespace vcg{
 			{
 				if (this != &m)
 				{
-					assert(_rows == m._rows);
-					assert(_columns == m._columns);
+					vcg_assert(_rows == m._rows);
+					vcg_assert(_columns == m._columns);
 					for (unsigned int i=0; i<_rows*_columns; i++)
 						_data[i] = m._data[i];
 				}
@@ -389,8 +389,8 @@ namespace vcg{
 			*/
 			Matrix<TYPE>& operator+=(const Matrix<TYPE> &m)
 			{
-				assert(_rows == m._rows);
-				assert(_columns == m._columns);
+				vcg_assert(_rows == m._rows);
+				vcg_assert(_columns == m._columns);
 				for (unsigned int i=0; i<_rows*_columns; i++)
 					_data[i] += m._data[i];
 				return *this;
@@ -403,8 +403,8 @@ namespace vcg{
 			*/
 			Matrix<TYPE>& operator-=(const Matrix<TYPE> &m)
 			{
-				assert(_rows == m._rows);
-				assert(_columns == m._columns);
+				vcg_assert(_rows == m._rows);
+				vcg_assert(_columns == m._columns);
 				for (unsigned int i=0; i<_rows*_columns; i++)
 					_data[i] -= m._data[i];
 				return *this;
@@ -453,7 +453,7 @@ namespace vcg{
 			*/
 			Matrix<TYPE>& operator/=(const TYPE k)
 			{
-				assert(k!=0);
+				vcg_assert(k!=0);
 				for (unsigned int i=0; i<_rows*_columns; i++)
 					_data[i] /= k;
 				return *this;
@@ -466,7 +466,7 @@ namespace vcg{
 			*/
 			Matrix<TYPE> operator*(const Matrix<TYPE> &m) const
 			{
-				assert(_columns == m._rows);
+				vcg_assert(_columns == m._rows);
 				Matrix<TYPE> result(_rows, m._columns);
 				unsigned int i, j, k, p, q, r;
 				for (i=0, p=0, r=0; i<result._rows; i++, p+=_columns, r+=result._columns)
@@ -519,8 +519,8 @@ namespace vcg{
 			*/
 			Matrix<TYPE> operator*(const MatrixDiagBase &m) const
 			{
-				assert(_columns == _rows);
-				assert(_columns == m.Dimension());
+				vcg_assert(_columns == _rows);
+				vcg_assert(_columns == m.Dimension());
 				int i,j;
 				Matrix<TYPE> result(_rows, _columns);
 
@@ -536,8 +536,8 @@ namespace vcg{
 			template <int N, int M>
 			void OuterProduct(const Point<N,TYPE> a, const Point< M,TYPE> b)
 			{
-				assert(N == _rows);
-				assert(M == _columns);
+				vcg_assert(N == _rows);
+				vcg_assert(M == _columns);
 				Matrix<TYPE> result(_rows,_columns);
 				unsigned int i, j;
 
@@ -555,7 +555,7 @@ namespace vcg{
 
 			Point3<TYPE> operator*(Point3<TYPE> &p) const
 			{
-				assert(_columns==3 && _rows==3);
+				vcg_assert(_columns==3 && _rows==3);
 				vcg::Point3<TYPE> result;
 				result[0] = _data[0]*p[0]+_data[1]*p[1]+_data[2]*p[2];
 				result[1] = _data[3]*p[0]+_data[4]*p[1]+_data[5]*p[2];
@@ -643,7 +643,7 @@ namespace vcg{
 			*/
 			void SetIdentity()
 			{
-				assert(_rows==_columns);
+				vcg_assert(_rows==_columns);
 				for (unsigned int i=0; i<_rows; i++)
 					for (unsigned int j=0; j<_columns; j++)
 						_data[i] = (i==j) ? ScalarType(1.0) : ScalarType(0.0f);
@@ -656,7 +656,7 @@ namespace vcg{
 			*/
 			void SetColumn(const unsigned int j, TYPE* v)
 			{
-				assert(j>=0 && j<_columns);
+				vcg_assert(j>=0 && j<_columns);
 				unsigned int i, p;
 				for (i=0, p=j; i<_rows; i++, p+=_columns)
 					_data[p] = v[i];
@@ -669,7 +669,7 @@ namespace vcg{
 			*/
 			void SetRow(const unsigned int i, TYPE* v)
 			{
-				assert(i>=0 && i<_rows);
+				vcg_assert(i>=0 && i<_rows);
 				unsigned int j, p;
 				for (j=0, p=i*_rows; j<_columns; j++, p++)
 					_data[p] = v[j];
@@ -681,7 +681,7 @@ namespace vcg{
 			*/
 			void SetDiagonal(TYPE *v)
 			{
-				assert(_rows == _columns);
+				vcg_assert(_rows == _columns);
 				for (unsigned int i=0, p=0; i<_rows; i++, p+=_rows)
 					_data[p+i] = v[i];
 			};
@@ -693,8 +693,8 @@ namespace vcg{
 			*/
 			void Resize(const unsigned int m, const unsigned int n)
 			{
-				assert(m>=2);
-				assert(n>=2);
+				vcg_assert(m>=2);
+				vcg_assert(n>=2);
 				_rows = m;
 				_columns = n;
 				delete []_data;

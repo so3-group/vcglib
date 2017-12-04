@@ -57,11 +57,11 @@ namespace vcg
 	static void Jacobi(MATRIX_TYPE &w, POINT_TYPE &d, MATRIX_TYPE &v, int &nrot)
 	{
        typedef typename MATRIX_TYPE::ScalarType ScalarType;
-		assert(w.RowsNumber()==w.ColumnsNumber());
+		vcg_assert(w.RowsNumber()==w.ColumnsNumber());
 		int dimension = w.RowsNumber();
 
 		int j,iq,ip,i;
-		//assert(w.IsSymmetric());
+		//vcg_assert(w.IsSymmetric());
 		typename MATRIX_TYPE::ScalarType tresh, theta, tau, t, sm, s, h, g, c;
 		POINT_TYPE b, z;
 
@@ -153,7 +153,7 @@ namespace vcg
 	template < typename MATRIX_TYPE, typename POINT_TYPE >
 	void SortEigenvaluesAndEigenvectors(POINT_TYPE &eigenvalues, MATRIX_TYPE &eigenvectors, bool absComparison = false)
 	{
-		assert(eigenvectors.ColumnsNumber()==eigenvectors.RowsNumber());
+		vcg_assert(eigenvectors.ColumnsNumber()==eigenvectors.RowsNumber());
 		int dimension = eigenvectors.ColumnsNumber();
 		int i, j, k;
 		float p,q;
@@ -499,7 +499,7 @@ namespace vcg
 	{
 		typedef typename MATRIX_TYPE::ScalarType ScalarType;
 
-		assert(U.ColumnsNumber()==V.ColumnsNumber());
+		vcg_assert(U.ColumnsNumber()==V.ColumnsNumber());
 
 		int mu = U.RowsNumber();
 		int mv = V.RowsNumber();

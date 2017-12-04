@@ -55,7 +55,7 @@ Initial commit
 #include <memory.h>
 #include <vector>
 #include <string>
-#include <assert.h>
+#include <vcg/math/assert.h>
 
 namespace vcg {
 namespace ply {
@@ -155,11 +155,11 @@ public:
 
 	inline PlyProperty( const char * na, int ti, int isl, int t2 )
 	{
-		assert(na);
-		assert(ti>0);
-		assert(ti<T_MAXTYPE);
-		assert( t2>0 || (t2==0 && isl==0) );
-		assert(t2<T_MAXTYPE);
+		vcg_assert(na);
+		vcg_assert(ti>0);
+		vcg_assert(ti<T_MAXTYPE);
+		vcg_assert( t2>0 || (t2==0 && isl==0) );
+		vcg_assert(t2<T_MAXTYPE);
 
 		name		= std::string(na);
 		tipo		= ti;
@@ -191,8 +191,8 @@ public:
 
 	inline PlyElement( const char * na, int nu )
 	{
-		assert(na);
-		assert(nu>=0);
+		vcg_assert(na);
+		vcg_assert(nu>=0);
 
 		name    = std::string(na);
 		number	= nu;
@@ -206,7 +206,7 @@ public:
 
 	inline void SetNumbert( int nu )
 	{
-		assert(nu>0);
+		vcg_assert(nu>0);
 		number = nu;
 	}
 
