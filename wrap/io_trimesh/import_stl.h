@@ -100,7 +100,7 @@ static bool IsSTLColored(const char * filename, bool &magicsMode)
   if(IsSTLBinary(filename)==false)
     return false;
    FILE *fp = fopen(filename, "rb");
-   char buf[STL_LABEL_SIZE+1];
+   char buf[STL_LABEL_SIZE+1] = {0};
    fread(buf,sizeof(char),STL_LABEL_SIZE,fp);
    std::string strInput(buf);
    size_t cInd = strInput.rfind("COLOR=");
