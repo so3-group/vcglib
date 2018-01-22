@@ -99,8 +99,6 @@ class SimpleTempData:public SimpleTempDataBase{
         Init(val);
     };
 
-    ~SimpleTempData(){data.clear();}
-
     void Init(const ATTR_TYPE &val)
     {
         std::fill(data.begin(),data.end(),val);
