@@ -10,7 +10,10 @@ struct assertion_failed : std::runtime_error {
 };
 
 #ifndef VCG_ASSERT_DOES_NOTHING
-#define vcg_assert(x) do { if (!(x)) throw assertion_failed("assertion failed: " #x); } while(0)
+#define VCG_STR_(x) #x
+#define VCG_STR(x) VCG_STR_(x)
+#define VCG_STR_LINE VCG_STR(__LINE__)
+#define vcg_assert(x) do { if (!(x)) throw assertion_failed("assertion failed: " #x " (file " __FILE__ " line " VCG_STR_LINE ")"); } while(0)
 #else
 #define vcg_assert(x) do {} while (0)
 #endif
